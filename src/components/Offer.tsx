@@ -1,0 +1,144 @@
+'use client';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from '@/components/ui/carousel';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import {
+  Settings,
+  Wifi,
+  Box,
+  Plug,
+  Lightbulb,
+  Antenna,
+  Zap,
+  Circle,
+} from 'lucide-react';
+
+const firstCarouselItems = [
+  { icon: <Settings />, label: 'Aparatura modułowa i sterowanie', description: 'Sterowniki, moduły i automatyka' },
+  { icon: <Wifi />, label: 'Narzędzia i mierniki', description: 'Multimetry, testery i akcesoria' },
+  { icon: <Zap />, label: 'Sieci niskoprądowe i okablowanie strukturalne', description: 'Instalacje i przewody' },
+  { icon: <Box />, label: 'Rozdzielnice i obudowy', description: 'Bezpieczne obudowy dla instalacji' },
+  { icon: <Plug />, label: 'Osprzęt elektroinstalacyjny i siłowy', description: 'Gniazda, wyłączniki i złącza' },
+];
+
+const secondCarouselItems = [
+  { icon: <Lightbulb />, label: 'Technika świetlna', description: 'Lampy, oprawy i oświetlenie LED' },
+  { icon: <Antenna />, label: 'System tras i mocowania', description: 'Kanały, koryta i uchwyty' },
+  { icon: <Plug />, label: 'Kable i przewody', description: 'Przewody energetyczne i sygnałowe' },
+  { icon: <Zap />, label: 'Ochrona odgromowa', description: 'Systemy ochrony przed wyładowaniami' },
+  { icon: <Circle />, label: 'Pozostałe', description: 'Dodatkowe akcesoria i komponenty' },
+];
+
+const Offer = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated) {
+          setVisible(true);
+          setHasAnimated(true); // animacja tylko raz
+        }
+      },
+      { threshold: 0.5 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  const renderCarousel = (
+    items: { icon: React.ReactNode; label: string; description?: string }[],
+    startIndex: number
+  ) => (
+    <div
+      className={`
+        relative w-full max-w-[100%] mx-auto mt-6
+        transform transition-all duration-700 ease-out
+        ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+      `}
+    >
+      <Carousel
+        opts={{
+          loop: true,
+          align: 'start',
+          skipSnaps: false,
+          containScroll: 'keepSnaps',
+        }}
+        className="w-full "
+      >
+        <div className="absolute right-20 top-[20px] flex items-center gap-2 z-10">
+          <span className="text-sm font-medium">Przesuń</span>
+          <CarouselPrevious className="p-2 bg-white rounded-full">
+            <ArrowLeft />
+          </CarouselPrevious>
+          <CarouselNext className="p-2 bg-white rounded-full">
+            <ArrowRight />
+          </CarouselNext>
+        </div>
+
+        <CarouselContent className="flex gap-6 px-6">
+          {items.map((item, index) => (
+            <CarouselItem
+              key={index}
+              className="flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative flex-none
+                         w-[300px] sm:w-1/2 md:w-1/3"
+            >
+              {/* Ikona */}
+              <div className="absolute top-6 left-6 text-orange-600">{item.icon}</div>
+
+              {/* Środek */}
+              <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                <div className="text-base md:text-lg lg:text-xl font-medium mt-12">
+                  {item.label}
+                </div>
+                {item.description && (
+                  <div className="text-sm md:text-base lg:text-lg text-gray-500 mt-1">
+                    {item.description}
+                  </div>
+                )}
+              </div>
+
+              {/* Numer itemu */}
+              <div className="absolute bottom-4 left-4 text-xs md:text-sm font-bold text-gray-400">
+                {startIndex + index}
+              </div>
+
+              {/* Przycisk */}
+              <button className="absolute bottom-4 right-4 text-sm md:text-base font-semibold text-orange-600 hover:underline cursor-none">
+                Dowiedz się więcej →
+              </button>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    </div>
+  );
+
+  return (
+    <section
+      ref={sectionRef}
+      id="oferta"
+      className="py-12 bg-stone-100 max-w-[96%] mx-auto overflow-hidden"
+    >
+      <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold">
+        NASZA OFERTA <br />NACIŚNI I DOWIEDZ SIĘ WIĘCEJ
+      </h2>
+
+      {/* Pierwsza karuzela 1–5 */}
+      {renderCarousel(firstCarouselItems, 1)}
+
+      {/* Druga karuzela 6–10 */}
+      {renderCarousel(secondCarouselItems, 6)}
+    </section>
+  );
+};
+
+export default Offer;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import {
   CursorProvider,
   Cursor,
@@ -8,21 +8,11 @@ import {
 } from '@/components/ui/shadcn-io/animated-cursor';
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
-    checkScreen();
-    window.addEventListener('resize', checkScreen);
-    return () => window.removeEventListener('resize', checkScreen);
-  }, []);
-
   return (
-    <div className={`bg-stone-100 min-h-screen ${isDesktop ? 'cursor-none' : 'cursor-auto'}`}>
-      {isDesktop ? (
+    <html lang="pl">
+      <body className="bg-stone-100">
         <CursorProvider>
-          {/* Kursor (pomarańczowy znacznik SVG) */}
-          <Cursor className="-translate-x-1/2 -translate-y-1/2">
+          <Cursor>
             <svg
               className="size-6 text-orange-500 drop-shadow-md"
               xmlns="http://www.w3.org/2000/svg"
@@ -35,8 +25,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
             </svg>
           </Cursor>
 
-          {/* Tooltip BRADOS */}
-          <CursorFollow className="-translate-x-1/2 -translate-y-1/2">
+          <CursorFollow>
             <div className="px-3 py-1 bg-black text-white text-xs md:text-sm rounded-lg shadow-md font-robert-medium">
               BRADOS
             </div>
@@ -44,10 +33,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
           {children}
         </CursorProvider>
-      ) : (
-        children
-      )}
-    </div>
+      </body>
+    </html>
   );
 };
 

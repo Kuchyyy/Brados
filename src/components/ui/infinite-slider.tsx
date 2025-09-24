@@ -17,18 +17,17 @@ type InfiniteSliderProps = {
 export function InfiniteSlider({
   children,
   gap = 50,
-  duration,
+  duration = 20,              
   durationOnHover,
   direction = 'horizontal',
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const [currentDuration, setCurrentDuration] = useState(duration);
+  const [currentDuration, setCurrentDuration] = useState<number>(duration); // 👈 jawnie number
   const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [key, setKey] = useState(0);
-  
 
   useEffect(() => {
     let controls;
@@ -41,7 +40,8 @@ export function InfiniteSlider({
       controls = animate(translation, [translation.get(), to], {
         ease: 'linear',
         duration:
-          currentDuration * Math.abs((translation.get() - to) / contentSize),
+          currentDuration *
+          Math.abs((translation.get() - to) / contentSize),
         onComplete: () => {
           setIsTransitioning(false);
           setKey((prevKey) => prevKey + 1);
@@ -89,7 +89,7 @@ export function InfiniteSlider({
   return (
     <div className={cn('overflow-hidden', className)}>
       <motion.div
-        className='flex w-max'
+        className="flex w-max"
         style={{
           ...(direction === 'horizontal'
             ? { x: translation }

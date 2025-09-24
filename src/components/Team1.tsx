@@ -1,65 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { User, Phone, Mail } from "lucide-react";
 
+// Typy danych dla członków zespołu
+type Person = {
+  name: string;
+  phone: string;
+  email: string;
+  role?: string;
+};
+
+type Teams = {
+  handlowcy: Person[];
+  magazyn: Person[];
+  finanse: Person[];
+};
+
 const Team1 = () => {
-  const [activeTab, setActiveTab] = useState("handlowcy");
+  const [activeTab, setActiveTab] = useState<keyof Teams>("handlowcy");
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
 
-  const teams = {
+  const teams: Teams = {
     handlowcy: [
-      {
-        name: "Paweł Pawlak",
-        phone: "691489111",
-        email: "p.pawlak@brados.pl",
-      },
-      {
-        name: "Krzysztof Kuchciński",
-        phone: "691032975",
-        email: "k.kuchcinski@brados.pl",
-      },
-      {
-        name: "Łukasz Zboch",
-        phone: "697466111",
-        email: "l.zboch@brados.pl",
-      },
-      {
-        name: "Michał Wlaszczyk",
-        phone: "691745111",
-        email: "m.wlaszczyk@brados.pl",
-      },
-      {
-        name: "Michał Kleczkowski",
-        phone: "697277588",
-        email: "m.kleczkowski@brados.pl",
-      },
+      { name: "Paweł Pawlak", phone: "691489111", email: "p.pawlak@brados.pl" },
+      { name: "Krzysztof Kuchciński", phone: "691032975", email: "k.kuchcinski@brados.pl" },
+      { name: "Łukasz Zboch", phone: "697466111", email: "l.zboch@brados.pl" },
+      { name: "Michał Wlaszczyk", phone: "691745111", email: "m.wlaszczyk@brados.pl" },
+      { name: "Michał Kleczkowski", phone: "697277588", email: "m.kleczkowski@brados.pl" },
     ],
     magazyn: [
-        {
-          name: "Paweł Zawartko",
-          phone: "691 725 111",
-          email: "magazyn@brados.pl",
-        },
-        {
-          name: "Artur Kozłowski",
-          role: "Kierowca",
-          phone: "669456111",
-          email: "magazyn@brados.pl",
-        },
-      ],
-      finanse: [
-        {
-          name: "Tomasz Grzesiak",
-          phone: "691479111",
-          email: "t.grzesiak@brados.pl",
-        },
-      ],
+      { name: "Paweł Zawartko", phone: "691725111", email: "magazyn@brados.pl" },
+      { name: "Artur Kozłowski", role: "Kierowca", phone: "669456111", email: "magazyn@brados.pl" },
+    ],
+    finanse: [
+      { name: "Tomasz Grzesiak", phone: "691479111", email: "t.grzesiak@brados.pl" },
+    ],
   };
 
   const handleCopyEmail = (email: string) => {
     navigator.clipboard.writeText(email).then(() => {
       setCopiedEmail(email);
-      setTimeout(() => setCopiedEmail(null), 2000); // powiadomienie znika po 2s
+      setTimeout(() => setCopiedEmail(null), 2000);
     });
   };
 
@@ -77,91 +58,77 @@ const Team1 = () => {
         </h2>
 
         {/* Przełącznik */}
-        <div className="flex gap-4 mt-8 flex-wrap justify-center cursor-none">
-          <button
-            onClick={() => setActiveTab("handlowcy")}
-            className={`px-4 py-2 rounded-lg  cursor-none ${
-              activeTab === "handlowcy"
-                ? "bg-black text-white"
-                : "bg-white border"
-            }`}
-          >
-            Handlowcy
-          </button>
-          <button
-            onClick={() => setActiveTab("magazyn")}
-            className={`px-4 py-2 rounded-lg cursor-none ${
-              activeTab === "magazyn"
-                ? "bg-black text-white"
-                : "bg-white border"
-            }`}
-          >
-            Magazyn
-          </button>
-          <button
-            onClick={() => setActiveTab("finanse")}
-            className={`px-4 py-2 rounded-lg cursor-none ${
-              activeTab === "finanse"
-                ? "bg-black text-white"
-                : "bg-white border"
-            }`}
-          >
-            Rachunki i finanse
-          </button>
+        <div className="flex gap-4 mt-8 flex-wrap justify-center">
+          {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-lg transition ${
+                activeTab === tab ? "bg-black text-white" : "bg-white border"
+              }`}
+            >
+              {tab === "handlowcy"
+                ? "Handlowcy"
+                : tab === "magazyn"
+                ? "Magazyn"
+                : "Rachunki i finanse"}
+            </button>
+          ))}
         </div>
 
         {/* Karty */}
         <div
-        className={`grid gap-6 mt-10 px-6 w-full
+          className={`grid gap-6 mt-10 px-6 w-full
             ${activeTab === "handlowcy" ? "md:grid-cols-3 max-w-8xl" : "md:grid-cols-1 max-w-4xl justify-center"}
             grid-cols-1`}
         >
-        {teams[activeTab].map((person, index) => (
+          {teams[activeTab].map((person: Person, index: number) => (
             <div
-            key={index}
-            className="relative bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center"
+              key={index}
+              className="relative bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center"
             >
-            {/* Ikonki w prawym górnym rogu */}
-            {"phone" in person && "email" in person && (
-                <div className="absolute top-4 right-4 flex gap-2">
-                <a
+              {/* Ikonki */}
+              <div className="absolute top-4 right-4 flex gap-2">
+                {person.phone && (
+                  <a
                     href={`tel:${person.phone}`}
-                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600 cursor-none"
-                >
-                    <Phone className="w-4 h-4 " />
-                </a>
-                <button
+                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600"
+                  >
+                    <Phone className="w-4 h-4" />
+                  </a>
+                )}
+                {person.email && (
+                  <button
                     onClick={() => handleCopyEmail(person.email)}
-                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600 cursor-none"
-                >
+                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600"
+                  >
                     <Mail className="w-4 h-4" />
-                </button>
-                </div>
-            )}
+                  </button>
+                )}
+              </div>
 
-            {/* Avatar */}
-            <div className="w-20 h-20 bg-stone-200 rounded-full flex items-center justify-center mb-4">
+              {/* Avatar */}
+              <div className="w-20 h-20 bg-stone-200 rounded-full flex items-center justify-center mb-4">
                 <User className="w-10 h-10 text-gray-600" />
-            </div>
+              </div>
 
-            <h3 className="font-semibold text-lg">{person.name}</h3>
+              <h3 className="font-semibold text-lg">{person.name}</h3>
 
-            {/* Dane handlowców / magazyn / finanse */}
-            {"phone" in person && (
-                <>
+              {/* Dane */}
+              {person.phone && (
                 <p className="text-gray-700 text-sm mt-2">
-                    {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
+                  {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
                 </p>
+              )}
+              {person.email && (
                 <p className="text-orange-600 text-sm">{person.email}</p>
-                </>
-            )}
-            {"role" in person && (
+              )}
+              {person.role && (
                 <p className="text-gray-500 text-sm mt-2">{person.role}</p>
-            )}
+              )}
             </div>
-        ))}
+          ))}
         </div>
-
 
         {/* Tekst opisowy */}
         <div className="about-subtext max-w-2xl text-center mt-10 px-4 font-robert-medium">

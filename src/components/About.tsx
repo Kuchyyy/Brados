@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { Users, Package, ArrowUpRight, Clock } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { Users, Package, ArrowUpRight, Clock } from "lucide-react";
 
 // 🔹 Hook do animacji liczb
 const useCountUp = (end: number, inView: boolean, duration = 2000) => {
@@ -9,7 +9,6 @@ const useCountUp = (end: number, inView: boolean, duration = 2000) => {
 
   useEffect(() => {
     if (!inView) return;
-    let start = 0;
     const startTime = performance.now();
 
     const step = (currentTime: number) => {
@@ -30,10 +29,12 @@ const StatCard = ({
   icon: Icon,
   value,
   label,
+  suffix = "+",
 }: {
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   value: number;
   label: string;
+  suffix?: string;
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -62,7 +63,7 @@ const StatCard = ({
       <Icon className="absolute top-3 right-3 text-orange-500 w-6 h-6" />
       <h4 className="text-2xl md:text-3xl text-black">
         {count}
-        {label.includes('%') ? '' : '+'}
+        {inView && suffix}
       </h4>
       <p className="text-sm md:text-base text-gray-600">{label}</p>
     </div>
@@ -98,7 +99,6 @@ const About = () => {
               elektrycznych. Stawiamy na innowacje, jakość i rozwój.
             </p>
           </div>
-          {/* Logo watermark */}
           <img
             src="/photos/elsigma.png"
             alt="Logo El-Sigma"
@@ -111,7 +111,7 @@ const About = () => {
           <StatCard icon={Users} value={25} label="Lat doświadczenia" />
           <StatCard icon={Package} value={5000} label="Produktów" />
           <StatCard icon={ArrowUpRight} value={1000} label="Zadowolonych klientów" />
-          <StatCard icon={Clock} value={99} label="Terminowości" />
+          <StatCard icon={Clock} value={99} label="Terminowości" suffix="%" />
         </div>
 
         {/* DOLNY KWADRAT – Misja */}

@@ -13,11 +13,11 @@ const Hero = () => {
         />
 
         {/* Teksty na obrazie */}
-        <div className="absolute special-font hero-heading top-5 left-10 text-white drop-shadow-lg">
+        <div className="absolute special-font font-zentry hero-heading top-5 left-10 text-white drop-shadow-lg">
           HURTOWNIA
         </div>
 
-        <div className="absolute special-font hero-heading bottom-5 right-10 text-white drop-shadow-lg"> 
+        <div className="absolute special-font font-zentry hero-heading bottom-5 right-10 text-white drop-shadow-lg"> 
           BRADOS
         </div>
       </div>

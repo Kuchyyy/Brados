@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Users, Package, ArrowUpRight, Clock } from "lucide-react";
+import { Users, Package, ArrowUpRight, Star } from "lucide-react";
+import { Ripple } from "./ui/shadcn-io/ripple";
+import { AnimatedBeam } from "@/components/ui/shadcn-io/animated-beam";
 
 // 🔹 Hook do animacji liczb
 const useCountUp = (end: number, inView: boolean, duration = 2000) => {
@@ -51,6 +53,7 @@ const StatCard = ({
     );
     if (ref.current) observer.observe(ref.current);
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
@@ -71,6 +74,10 @@ const StatCard = ({
 };
 
 const About = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const startRef = useRef<HTMLDivElement | null>(null);
+  const endRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <section
       id="about"
@@ -88,35 +95,55 @@ const About = () => {
 
       {/* Grid główny */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto">
-        {/* GÓRNY PROSTOKĄT */}
-        <div className="col-span-1 md:col-span-2 relative overflow-hidden rounded-2xl bg-white border border-stone-200 p-8 shadow-lg flex items-end hover:scale-[1.01] transition-transform">
-          <div className="z-10 relative">
-            <h3 className="text-2xl md:text-3xl font-bold mb-3 text-black">
-              El-Sigma
-            </h3>
-            <p className="text-gray-600 text-sm md:text-base max-w-md leading-relaxed">
-              Od lat wspieramy klientów w tworzeniu niezawodnych instalacji
-              elektrycznych. Stawiamy na innowacje, jakość i rozwój.
-            </p>
-          </div>
+      {/* GÓRNY PROSTOKĄT */}
+      <div className="col-span-1 md:col-span-2 relative overflow-hidden 
+                      rounded-2xl bg-white border border-stone-200 p-4 md:p-8 
+                      shadow-lg hover:scale-[1.01] transition-transform 
+                      flex flex-col justify-between h-full min-h-[250px]">
+
+        {/* Logo – góra prawa */}
+        <div className="flex justify-end">
           <img
             src="/photos/elsigma.png"
             alt="Logo El-Sigma"
-            className="absolute top-20 right-5 w-2/3 md:w-3/4 object-contain pointer-events-none"
+            className=" object-contain pointer-events-none w-[100%] md:w-[80%] select-none pt-2"
           />
         </div>
 
-        {/* GÓRNY KWADRAT – Statystyki */}
-        <div className="rounded-2xl bg-white border border-stone-200 p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-lg">
-          <StatCard icon={Users} value={25} label="Lat doświadczenia" />
-          <StatCard icon={Package} value={5000} label="Produktów" />
-          <StatCard icon={ArrowUpRight} value={1000} label="Zadowolonych klientów" />
-          <StatCard icon={Clock} value={99} label="Terminowości" suffix="%" />
+        {/* Tekst – dół lewa */}
+        <div className="mt-3 md:mt-0">
+          <h3 className="text-2xl md:text-3xl font-bold mb-3 text-black">
+            El-Sigma
+          </h3>
+          <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
+            Od lat wspieramy klientów w tworzeniu niezawodnych instalacji
+            elektrycznych. Stawiamy na innowacje, jakość i rozwój.
+          </p>
         </div>
+      </div>
+
+
+
+{/* GÓRNY KWADRAT – Statystyki */}
+<div
+  className="rounded-2xl bg-white border border-stone-200 
+             p-4 sm:p-6 
+             grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-lg hover:scale-[1.02] transition-transform"
+>
+  <StatCard icon={Users} value={25} label="Lat doświadczenia" />
+  <StatCard icon={Package} value={5000} label="Produktów" />
+  <StatCard icon={ArrowUpRight} value={1000} label="Zadowolonych klientów" />
+  <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
+</div>
+
 
         {/* DOLNY KWADRAT – Misja */}
-        <div className="rounded-2xl bg-white border border-stone-200 p-6 shadow-lg hover:scale-[1.02] transition-transform flex items-end">
-          <div>
+        <div className="relative overflow-hidden rounded-2xl bg-white border border-stone-100 p-6 shadow-lg hover:scale-[1.02] transition-transform flex items-end">
+          {/* Ripple efekt w tle */}
+          <Ripple className="z-0" />
+
+          {/* Treść na wierzchu */}
+          <div className="relative z-10">
             <h4 className="text-xl md:text-2xl font-bold mb-2 text-black">
               Nasza Misja
             </h4>
@@ -128,8 +155,50 @@ const About = () => {
         </div>
 
         {/* DOLNY PROSTOKĄT */}
-        <div className="col-span-1 md:col-span-2 relative overflow-hidden rounded-2xl bg-white border border-stone-200 p-8 shadow-lg flex items-end">
-          <div className="relative z-10 max-w-xl">
+        <div
+          ref={containerRef}
+          className="col-span-1 md:col-span-2 relative overflow-hidden 
+                    rounded-2xl bg-white border border-stone-200 p-8 shadow-lg
+                    flex flex-col justify-between hover:scale-[1.02] transition-transform"
+        >
+          {/* GÓRA – animacja */}
+          <div className="relative flex items-start justify-between">
+            {/* Punkt startowy – ludzik */}
+            <div
+              ref={startRef}
+              className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
+                        bg-white shadow-md border"
+            >
+              <Users className="w-6 h-6 md:w-7 md:h-7 text-black" />
+            </div>
+
+            {/* Punkt końcowy – logo Brados */}
+            <div
+              ref={endRef}
+              className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
+                        bg-white shadow-md border"
+            >
+              <img src="/brados.png" alt="Logo Brados" className="w-8 h-8 md:w-10 md:h-10" />
+            </div>
+          </div>
+
+          {/* BEAM – 90% szerokości */}
+          <AnimatedBeam
+            containerRef={containerRef}
+            fromRef={startRef}
+            toRef={endRef}
+            curvature={0}
+            startXOffset={0}   // przesunięcie początkowe
+            endXOffset={-0}    // przesunięcie końcowe
+            gradientStartColor="#ff7e5f"
+            gradientStopColor="#ffb347"
+            pathWidth={3}
+            pathOpacity={0.9}
+            className="z-10"
+          />
+
+          {/* DÓŁ – tekst */}
+          <div className="relative z-20 max-w-md mt-6">
             <h4 className="text-xl md:text-2xl font-bold mb-3 text-black">
               Komunikacja i Rozwój
             </h4>

@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <body className="bg-stone-100">
         <CursorProvider>
           {/* Ikona kursora – widoczna tylko na xl+ */}
-          <Cursor className="hidden xl:block pointer-events-none z-50">
+          <Cursor className="hidden xl:block pointer-events-none z-100">
             <svg
               className="size-6 text-orange-500 drop-shadow-md"
               xmlns="http://www.w3.org/2000/svg"

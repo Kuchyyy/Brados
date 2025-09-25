@@ -1,10 +1,79 @@
 import { useState, useRef, useEffect } from "react";
 import { useWindowScroll } from "react-use";
 import gsap from "gsap";
-import { ArrowUp, Menu, X } from "lucide-react";
+import {
+  ArrowUp,
+  Menu,
+  X,
+  ChevronDown,
+  Settings,
+  Wifi,
+  Zap,
+  Box,
+  Plug,
+  Lightbulb,
+  Antenna,
+  Circle,
+} from "lucide-react";
 import { RippleButton } from "./ui/shadcn-io/ripple-button";
 
 const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
+
+const ofertaItems = [
+  {
+    icon: <Settings size={16} />,
+    label: "Aparatura modułowa i sterowanie",
+    description: "Sterowniki, moduły i automatyka",
+  },
+  {
+    icon: <Wifi size={16} />,
+    label: "Narzędzia i mierniki",
+    description: "Multimetry, testery i akcesoria",
+  },
+  {
+    icon: <Zap size={16} />,
+    label: "Sieci niskoprądowe i okablowanie",
+    description: "Instalacje i przewody",
+  },
+  {
+    icon: <Box size={16} />,
+    label: "Rozdzielnice i obudowy",
+    description: "Bezpieczne obudowy dla instalacji",
+  },
+  {
+    icon: <Plug size={16} />,
+    label: "Osprzęt elektroinstalacyjny",
+    description: "Gniazda, wyłączniki i złącza",
+  },
+];
+
+const ofertaItems2 = [
+  {
+    icon: <Lightbulb size={16} />,
+    label: "Technika świetlna",
+    description: "Lampy, oprawy i oświetlenie LED",
+  },
+  {
+    icon: <Antenna size={16} />,
+    label: "System tras i mocowania",
+    description: "Kanały, koryta i uchwyty",
+  },
+  {
+    icon: <Plug size={16} />,
+    label: "Kable i przewody",
+    description: "Przewody energetyczne i sygnałowe",
+  },
+  {
+    icon: <Zap size={16} />,
+    label: "Ochrona odgromowa",
+    description: "Systemy ochrony przed wyładowaniami",
+  },
+  {
+    icon: <Circle size={16} />,
+    label: "Pozostałe",
+    description: "Dodatkowe akcesoria i komponenty",
+  },
+];
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -87,7 +156,7 @@ const Navbar = () => {
             mobileOpen
               ? "bg-white border border-black/10 shadow-lg"
               : currentScrollY > 0
-              ? "bg-black backdrop-blur-lg border border-white/10 shadow-lg"
+              ? "bg-stone-200 backdrop-blur-lg border border-white/10 shadow-lg"
               : "bg-transparent"
           }
         `}
@@ -102,26 +171,88 @@ const Navbar = () => {
             {/* Nawigacja i przyciski */}
             <div className="flex items-center h-full gap-2">
               {/* Linki desktop */}
-              <div className="hidden md:flex mr-3">
-                {navItems.map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    onClick={handleNavClick}
-                    className={`
-                      nav-hover-btn
-                      ${
-                        mobileOpen
-                          ? "text-black after:bg-black"
-                          : currentScrollY > 0
-                          ? "text-white after:bg-white"
-                          : "text-black after:bg-black"
-                      }
-                    `}
-                  >
-                    {item}
-                  </a>
-                ))}
+              <div className="hidden md:flex mr-3 items-center gap-6">
+                {navItems.map((item) =>
+                  item === "OFERTA" ? (
+                    <div key={item} className="relative group inline-block">
+                      {/* Klikalna oferta */}
+                      <a
+                        href="#oferta"
+                        className={`
+                          flex items-center gap-1 nav-hover-btn
+                          ${
+                            currentScrollY > 0
+                              ? "text-black after:bg-black"
+                              : "text-black after:bg-black"
+                          }
+                        `}
+                        onClick={handleNavClick}
+                      >
+                        {item}
+                        <ChevronDown
+                          size={16}
+                          className="transition-transform duration-300 group-hover:rotate-180"
+                        />
+                      </a>
+
+                      {/* Dropdown */}
+                      <div
+                        className="
+                          absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg
+                          opacity-0 invisible transition-all duration-200
+                          group-hover:opacity-100 group-hover:visible
+                        "
+                      >
+                        <div className="grid grid-cols-2 gap-4 p-4">
+                          {ofertaItems.map(({ icon, label, description }) => (
+                            <a
+                              key={label}
+                              href="#"
+                              onClick={handleNavClick}
+                              className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors"
+                            >
+                              {icon}
+                              <div>
+                                <p className="font-medium text-sm">{label}</p>
+                                <p className="text-xs text-gray-600">{description}</p>
+                              </div>
+                            </a>
+                          ))}
+                          {ofertaItems2.map(({ icon, label, description }) => (
+                            <a
+                              key={label}
+                              href="#"
+                              onClick={handleNavClick}
+                              className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors"
+                            >
+                              {icon}
+                              <div>
+                                <p className="font-medium text-sm">{label}</p>
+                                <p className="text-xs text-gray-600">{description}</p>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      key={item}
+                      href={`#${item.toLowerCase()}`}
+                      onClick={handleNavClick}
+                      className={`
+                        nav-hover-btn z-10
+                        ${
+                          currentScrollY > 0
+                            ? "text-black after:bg-black"
+                            : "text-black after:bg-black"
+                        }
+                      `}
+                    >
+                      {item}
+                    </a>
+                  )
+                )}
               </div>
 
               {/* Desktop przycisk zadzwon */}
@@ -171,7 +302,7 @@ const Navbar = () => {
               key={item}
               href={`#${item.toLowerCase()}`}
               onClick={handleNavClick}
-              className="text-lg font-semibold hover:text-orange-500 transition-colors"
+              className="text-lg font-robert-medium hover:text-orange-500 transition-colors"
             >
               {item}
             </a>

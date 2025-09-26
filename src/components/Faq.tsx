@@ -40,7 +40,7 @@ const Faq = () => {
       </div>
 
       {/* Główna siatka */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         {/* Lewa strona – FAQ */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -54,7 +54,7 @@ const Faq = () => {
               >
                 {faq.question}
                 <ChevronDown
-                  className={`transition-transform duration-300 ${
+                  className={`transition-transform duration-300 min-w-6 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 />

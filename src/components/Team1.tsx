@@ -78,7 +78,7 @@ const Team1 = () => {
 
         {/* Karty */}
         <div
-          className={`grid gap-6 mt-10 px-6 w-full
+          className={`grid gap-6 mt-10 px-3 md:px-6 w-full
             ${activeTab === "handlowcy" ? "md:grid-cols-3 max-w-8xl" : "md:grid-cols-1 max-w-4xl justify-center"}
             grid-cols-1`}
         >

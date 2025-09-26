@@ -150,7 +150,7 @@ const Navbar = () => {
       {/* NAVBAR */}
       <div
         ref={navContainerRef}
-        className={`pointer-events-auto h-16 inset-x-8 top-4 z-50 fixed rounded-xl 
+        className={`pointer-events-auto h-16 lg:inset-x-8 top-4 z-50 fixed rounded-xl inset-x-3
           transition-all duration-500 ease-in-out
           ${
             mobileOpen

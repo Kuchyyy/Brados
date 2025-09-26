@@ -1,0 +1,107 @@
+"use client";
+
+import React, { useState } from "react";
+import { ChevronDown } from "lucide-react";
+
+const Faq = () => {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  const faqs = [
+    {
+      question: "Jak złożyć zamówienie?",
+      answer:
+        "Przyjmujemy zamówienia w formie wiadomości e-mail, lub tradycyjnie drogą bezpośredniego kontaktu z naszym zespołem.",
+    },
+    {
+      question: "Jakie metody płatności akceptujecie i jakie są terminy spłat?",
+      answer:
+        "Jesteśmy elastyczni, dlatego oferujemy różnorodne metody płatności dostosowane do Twojej sytuacji. Rozumiemy, że każda działalność ma swoje specyficzne potrzeby finansowe. Dlatego terminy płatności są u nas dostosowane do indywidualnych potrzeb.",
+    },
+    {
+      question: "Jak odebrać zamówiony towar?",
+      answer:
+        "Zamówiony towar można odebrać osobiście w naszej firmie, skorzystać z dostawy za pośrednictwem firmy kurierskiej DPD lub, jeśli znajdujesz się we Wrocławiu, możemy dostarczyć zamówienie bezpośrednio na miejsce naszym transportem.",
+    },
+  ];
+
+  return (
+    <section
+      id="faq"
+      className="max-w-[96%] mx-auto font-robert-medium py-16 space-y-10"
+    >
+      {/* Nagłówek */}
+      <div className="text-center flex flex-col gap-4 mb-10">
+        <p className="font-general text-sm uppercase md:text-[16px] tracking-wider text-black">
+          Masz pytanie?
+        </p>
+        <h2 className="uppercase text-2xl font-bold leading-tight md:text-5xl text-black">
+          Razem możemy osiągnąć więcej
+        </h2>
+      </div>
+
+      {/* Główna siatka */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Lewa strona – FAQ */}
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="border border-stone-300 rounded-xl overflow-hidden shadow-sm"
+            >
+              <button
+                className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black"
+                onClick={() => setOpenIndex(index)}
+              >
+                {faq.question}
+                <ChevronDown
+                  className={`transition-transform duration-300 ${
+                    openIndex === index ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`px-6 pb-4 text-gray-600 transition-all duration-500 ease-in-out ${
+                  openIndex === index
+                    ? "max-h-[1000px] opacity-100"
+                    : "max-h-0 opacity-0 overflow-hidden"
+                }`}
+              >
+                {faq.answer}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Prawa strona – BRADOS */}
+        <div className="flex items-center justify-center border border-stone-300 rounded-xl p-6 shadow-sm text-center font-bold text-black text-2xl">
+          BRADOS
+        </div>
+      </div>
+
+      {/* Dolna część – Mapa */}
+      <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
+      <iframe
+  className="w-full h-full"
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2507.5896675485715!2d16.951754976705804!3d51.06066404324029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fc2e855555555%3A0x51d44f2bef0f3100!2sBrados!5e0!3m2!1spl!2spl!4v1758895852751!5m2!1spl!2spl&z=100"
+  loading="lazy"
+  allowFullScreen
+></iframe>
+
+        {/* Overlay z przyciskiem */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white p-4 rounded-xl shadow-md flex flex-col md:flex-row items-center gap-3">
+          <p className="font-medium text-black">Masz więcej pytań?</p>
+          <a
+            href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition"
+          >
+            Prowadź do firmy Brados
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Faq;

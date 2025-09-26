@@ -7,6 +7,7 @@ import Offer from './components/Offer'
 import Team1 from './components/Team1'
 import About from './components/About'
 import Layout from './components/Layout'
+import Faq from './components/Faq'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Offer />
       <Team1 />
       <About />
+      <Faq />
       <Page />
     </Layout>
   )

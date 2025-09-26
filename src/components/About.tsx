@@ -84,7 +84,7 @@ const About = () => {
       className="py-20 max-w-[96%] mx-auto bg-stone-100 font-robert-medium"
     >
       {/* Nagłówek */}
-      <div className="mb-16 text-center flex flex-col gap-4">
+      <div className="mb-8 text-center flex flex-col gap-4">
         <p className="font-general text-sm uppercase md:text-[16px] tracking-wider text-black">
           Poznaj naszą firmę
         </p>
@@ -124,17 +124,17 @@ const About = () => {
 
 
 
-{/* GÓRNY KWADRAT – Statystyki */}
-<div
-  className="rounded-2xl bg-white border border-stone-200 
-             p-4 sm:p-6 
-             grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-lg hover:scale-[1.02] transition-transform"
->
-  <StatCard icon={Users} value={25} label="Lat doświadczenia" />
-  <StatCard icon={Package} value={5000} label="Produktów" />
-  <StatCard icon={ArrowUpRight} value={1000} label="Zadowolonych klientów" />
-  <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
-</div>
+      {/* GÓRNY KWADRAT – Statystyki */}
+      <div
+        className="rounded-2xl bg-white border border-stone-200 
+                  p-4 sm:p-6 
+                  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-lg hover:scale-[1.02] transition-transform"
+      >
+        <StatCard icon={Users} value={25} label="Lat doświadczenia" />
+        <StatCard icon={Package} value={5000} label="Produktów" />
+        <StatCard icon={ArrowUpRight} value={1000} label="Zadowolonych klientów" />
+        <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
+      </div>
 
 
         {/* DOLNY KWADRAT – Misja */}

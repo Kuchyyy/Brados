@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import TextPressure from "@/components/ui/shadcn-io/text-pressure";
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(0);
@@ -26,7 +27,7 @@ const Faq = () => {
 
   return (
     <section
-      id="faq"
+      id="faq" // <-- KLUCZ: tutaj id to "faq"
       className="max-w-[96%] mx-auto font-robert-medium py-16 space-y-10"
     >
       {/* Nagłówek */}
@@ -41,12 +42,12 @@ const Faq = () => {
 
       {/* Główna siatka */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-        {/* Lewa strona – FAQ */}
+        {/* FAQ */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-stone-300 rounded-xl overflow-hidden shadow-sm"
+              className="border border-stone-300 rounded-xl overflow-hidden shadow-sm bg-white"
             >
               <button
                 className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black"
@@ -72,29 +73,55 @@ const Faq = () => {
           ))}
         </div>
 
-        {/* Prawa strona – BRADOS */}
-        <div className="flex items-center justify-center border border-stone-300 rounded-xl p-6 shadow-sm text-center font-bold text-black text-2xl">
-          BRADOS
+        {/* BRADOS */}
+        <div className="flex items-center justify-center border border-stone-300 rounded-xl p-6 shadow-sm font-bold text-black bg-white">
+          <div className="w-full h-full flex items-center justify-center">
+            <TextPressure
+              text="BRADOS"
+              flex={false}
+              width={false}
+              weight={true}
+              italic={false}
+              textColor="currentColor"
+              minFontSize={30}
+              className="text-foreground text-center leading-none"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Dolna część – Mapa */}
-      <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
-      <iframe
-        className="w-full h-full"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2507.5896675485715!2d16.951754976705804!3d51.06066404324029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fc2e855555555%3A0x51d44f2bef0f3100!2sBrados!5e0!3m2!1spl!2spl!4v1758895852751!5m2!1spl!2spl&z=100"
-        loading="lazy"
-        allowFullScreen
-        ></iframe>
+      {/* Mapa */}
+      <div className="w-full">
+        <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
+          <iframe
+            className="w-full h-full"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2507.5896675485715!2d16.951754976705804!3d51.06066404324029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fc2e855555555%3A0x51d44f2bef0f3100!2sBrados!5e0!3m2!1spl!2spl!4v1758895852751!5m2!1spl!2spl&z=100"
+            loading="lazy"
+            allowFullScreen
+          ></iframe>
 
-        {/* Overlay z przyciskiem */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white p-4 rounded-xl shadow-md flex flex-col md:flex-row items-center gap-3">
+          {/* Overlay tylko desktop */}
+          <div className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 bg-white p-4 rounded-xl shadow-md flex-row items-center gap-3">
+            <p className="font-medium text-black">Masz więcej pytań?</p>
+            <a
+              href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition"
+            >
+              Prowadź do firmy Brados
+            </a>
+          </div>
+        </div>
+
+        {/* Mobile */}
+        <div className="flex md:hidden flex-col items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-md">
           <p className="font-medium text-black">Masz więcej pytań?</p>
           <a
             href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition"
+            className="w-full px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition flex justify-center"
           >
             Prowadź do firmy Brados
           </a>

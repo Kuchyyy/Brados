@@ -53,7 +53,7 @@ body {
 
 @layer utilities {
   .floating-nav {
-    @apply bg-black rounded-lg border;
+    @apply bg-black rounded-lg;
   }
 
   .nav-hover-btn {

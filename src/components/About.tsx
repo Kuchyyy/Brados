@@ -89,7 +89,8 @@ const About = () => {
           Poznaj naszą firmę
         </p>
         <h2 className="uppercase text-2xl font-bold leading-tight md:text-5xl text-black">
-          Dlaczego warto wybrać właśnie nas
+          Dlaczego warto wybrać  <br />
+          właśnie nas
         </h2>
       </div>
 

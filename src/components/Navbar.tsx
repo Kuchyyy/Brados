@@ -206,9 +206,12 @@ const Navbar = () => {
       </div>
 
       {/* Przyciski desktop */}
-      <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold transition-colors hover:bg-orange-600 hidden md:block">
-        ZADZWOŃ
-      </RippleButton>
+      <a href="#zespół">
+        <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
+          ZADZWOŃ
+        </RippleButton>
+      </a>
+
       <RippleButton
         onClick={handleScrollTop}
         className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"

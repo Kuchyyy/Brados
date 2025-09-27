@@ -252,7 +252,14 @@ const Navbar = () => {
               <div key={item} className="w-full">
                 <div className="flex justify-between items-center w-full border-b border-stone-300">
                   <span className="flex-1 text-lg font-robert-medium py-3">
-                    {item}
+                  <a
+  href="#oferta"
+  onClick={handleNavClick}
+  className="flex-1 text-lg font-robert-medium py-3 hover:text-orange-500"
+>
+  {item}
+</a>
+
                   </span>
                   <button
                     onClick={() => setMobileOfertaOpen(!mobileOfertaOpen)}

@@ -27,7 +27,7 @@ const Faq = () => {
 
   return (
     <section
-      id="faq" // <-- KLUCZ: tutaj id to "faq"
+      id="lokalizacja" // <-- KLUCZ: tutaj id to "faq"
       className="max-w-[96%] mx-auto font-robert-medium py-16 space-y-10"
     >
       {/* Nagłówek */}

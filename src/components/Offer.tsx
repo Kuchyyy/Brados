@@ -39,13 +39,14 @@ const Offer = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [siteAlert, setSiteAlert] = useState<string | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimated) {
           setVisible(true);
-          setHasAnimated(true); // animacja tylko raz
+          setHasAnimated(true);
         }
       },
       { threshold: 0.5 }
@@ -53,6 +54,17 @@ const Offer = () => {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, [hasAnimated]);
+
+  // automatyczne zamykanie komunikatu po 4s
+  useEffect(() => {
+    if (!siteAlert) return;
+    const timer = setTimeout(() => setSiteAlert(null), 2000);
+    return () => clearTimeout(timer);
+  }, [siteAlert]);
+
+  const handleLearnMore = (label: string) => {
+    setSiteAlert(`Sekcja "${label}" pojawi się wkrótce  🚧`);
+  };
 
   const renderCarousel = (
     items: { icon: React.ReactNode; label: string; description?: string }[],
@@ -72,7 +84,7 @@ const Offer = () => {
           skipSnaps: false,
           containScroll: 'keepSnaps',
         }}
-        className="w-full "
+        className="w-full"
       >
         <div className="absolute right-20 top-[20px] flex items-center gap-2 z-10">
           <span className="text-sm font-medium">Przesuń</span>
@@ -112,7 +124,10 @@ const Offer = () => {
               </div>
 
               {/* Przycisk */}
-              <button className="absolute bottom-4 right-4 text-sm md:text-base font-semibold text-orange-600 hover:underline cursor-none">
+              <button
+                onClick={() => handleLearnMore(item.label)}
+                className="absolute bottom-4 right-4 text-sm md:text-base font-semibold text-orange-600 hover:underline"
+              >
                 Dowiedz się więcej →
               </button>
             </CarouselItem>
@@ -126,10 +141,25 @@ const Offer = () => {
     <section
       ref={sectionRef}
       id="oferta"
-      className="py-12 bg-stone-100 max-w-[96%] mx-auto overflow-hidden"
+      className="py-12 bg-stone-100 max-w-[96%] mx-auto overflow-hidden relative"
     >
+      {/* ALERT FIXED */}
+      {siteAlert && (
+        <div className="fixed top-4 inset-x-0 flex justify-center z-[9999] px-4">
+          <div className="bg-orange-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-4 animate-fade-in">
+            <span>{siteAlert}</span>
+            <button
+              onClick={() => setSiteAlert(null)}
+              className="ml-4 text-white hover:text-black transition"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold">
-        NASZA OFERTA <br />NACIŚNI I DOWIEDZ SIĘ WIĘCEJ
+        NASZA OFERTA <br />NACIŚNIJ I DOWIEDZ SIĘ WIĘCEJ
       </h2>
 
       {/* Pierwsza karuzela 1–5 */}

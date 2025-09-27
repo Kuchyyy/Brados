@@ -42,6 +42,7 @@ const Navbar = () => {
   const [lastScroll, setLastScroll] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileOfertaOpen, setMobileOfertaOpen] = useState(false);
+  const [siteAlert, setSiteAlert] = useState<string | null>(null);
 
   const { y: currentScrollY } = useWindowScroll();
   const navContainerRef = useRef<HTMLDivElement | null>(null);
@@ -49,10 +50,22 @@ const Navbar = () => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const handleScrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   const handleNavClick = () => {
     setMobileOpen(false);
     setMobileOfertaOpen(false);
   };
+
+  const handleOfertaClick = (label: string) => {
+    setSiteAlert(`Sekcja "${label}" pojawi się wkrótce  🚧`);
+  };
+
+  // 🔥 Automatyczne zamykanie alertu po 4s
+  useEffect(() => {
+    if (!siteAlert) return;
+    const timer = setTimeout(() => setSiteAlert(null), 2000);
+    return () => clearTimeout(timer);
+  }, [siteAlert]);
 
   // Obsługa widoczności navbara przy scrollu
   useEffect(() => {
@@ -72,7 +85,7 @@ const Navbar = () => {
     setLastScroll(currentScrollY);
   }, [currentScrollY, lastScroll, mobileOpen]);
 
-  // Animacja navbara (wysuwanie góra/dół)
+  // Animacja navbara
   useEffect(() => {
     if (!navContainerRef.current) return;
 
@@ -108,6 +121,21 @@ const Navbar = () => {
 
   return (
     <>
+      {/* ALERT BANNER */}
+      {siteAlert && (
+        <div className="fixed top-20 inset-x-0 flex justify-center z-[100] px-4">
+          <div className="bg-orange-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-4 animate-fade-in">
+            <span>{siteAlert}</span>
+            <button
+              onClick={() => setSiteAlert(null)}
+              className="ml-4 text-white hover:text-black transition"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* NAVBAR */}
       <div
         ref={navContainerRef}
@@ -122,116 +150,86 @@ const Navbar = () => {
           }
         `}
       >
-     <header className="absolute top-1/2 w-full -translate-y-1/2">
-  <nav className="flex items-center justify-between w-full px-4">
-    {/* Logo - zawsze po lewej */}
-    <div className="flex items-center gap-3">
-      <img src="brados.png" alt="Logo" className="w-10" />
-    </div>
-
-    {/* Reszta - zawsze po prawej */}
-    <div className="flex items-center gap-4">
-      {/* Linki desktop */}
-      <div className="hidden md:flex items-center gap-6 mr-3">
-        {navItems.map((item) =>
-          item === "OFERTA" ? (
-            <div key={item} className="relative group inline-block">
-              <a
-                href="#oferta"
-                className={`flex items-center gap-1 nav-hover-btn ${
-                  currentScrollY > 0
-                    ? "text-black after:bg-black"
-                    : "text-black after:bg-black"
-                }`}
-                onClick={handleNavClick}
-              >
-                {item}
-                <ChevronDown
-                  size={16}
-                  className="transition-transform duration-300 group-hover:rotate-180"
-                />
-              </a>
-              {/* Dropdown desktop */}
-              <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
-                <div className="grid grid-cols-2 gap-4 p-4">
-                  {[...ofertaItems, ...ofertaItems2].map(
-                    ({ icon, label, description }) => (
-                      <a
-                        key={label}
-                        href="#"
-                        onClick={handleNavClick}
-                        className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors"
-                      >
-                        {icon}
-                        <div>
-                          <p className="font-medium text-sm">{label}</p>
-                          <p className="text-xs text-gray-600">
-                            {description}
-                          </p>
-                        </div>
-                      </a>
-                    )
-                  )}
-                </div>
-              </div>
+        <header className="absolute top-1/2 w-full -translate-y-1/2">
+          <nav className="flex items-center justify-between w-full px-4">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <img src="brados.png" alt="Logo" className="w-10" />
             </div>
-          ) : item === "LOKALIZACJA" ? (
-            <a
-              key={item}
-              href="#faq"
-              onClick={handleNavClick}
-              className={`nav-hover-btn z-10 ${
-                currentScrollY > 0
-                  ? "text-black after:bg-black"
-                  : "text-black after:bg-black"
-              }`}
-            >
-              {item}
-            </a>
-          ) : (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              onClick={handleNavClick}
-              className={`nav-hover-btn z-10 ${
-                currentScrollY > 0
-                  ? "text-black after:bg-black"
-                  : "text-black after:bg-black"
-              }`}
-            >
-              {item}
-            </a>
-          )
-        )}
-      </div>
 
-      {/* Przyciski desktop */}
-      <a href="#zespół">
-        <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
-          ZADZWOŃ
-        </RippleButton>
-      </a>
+            {/* Desktop nav */}
+            <div className="flex items-center gap-4">
+              <div className="hidden md:flex items-center gap-6 mr-3">
+                {navItems.map((item) =>
+                  item === "OFERTA" ? (
+                    <div key={item} className="relative group inline-block">
+                      <a
+                        href="#oferta"
+                        className="flex items-center gap-1 nav-hover-btn text-black"
+                      >
+                        {item}
+                        <ChevronDown
+                          size={16}
+                          className="transition-transform duration-300 group-hover:rotate-180"
+                        />
+                      </a>
+                      <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
+                        <div className="grid grid-cols-2 gap-4 p-4">
+                          {[...ofertaItems, ...ofertaItems2].map(
+                            ({ icon, label, description }) => (
+                              <button
+                                key={label}
+                                onClick={() => handleOfertaClick(label)}
+                                className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors text-left w-full"
+                              >
+                                {icon}
+                                <div>
+                                  <p className="font-medium text-sm">{label}</p>
+                                  <p className="text-xs text-gray-600">{description}</p>
+                                </div>
+                              </button>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      key={item}
+                      href={`#${item.toLowerCase()}`}
+                      onClick={handleNavClick}
+                      className="nav-hover-btn text-black"
+                    >
+                      {item}
+                    </a>
+                  )
+                )}
+              </div>
 
-      <RippleButton
-        onClick={handleScrollTop}
-        className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
-      >
-        <ArrowUp size={18} />
-      </RippleButton>
+              {/* Buttons desktop */}
+              <a href="#zespół">
+                <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
+                  ZADZWOŃ
+                </RippleButton>
+              </a>
 
-      {/* Hamburger */}
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className={`md:hidden p-2 rounded-lg ${
-          mobileOpen ? "bg-black text-white" : "bg-orange-500 text-white"
-        }`}
-      >
-        {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
-    </div>
-  </nav>
-</header>
+              <RippleButton
+                onClick={handleScrollTop}
+                className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
+              >
+                <ArrowUp size={18} />
+              </RippleButton>
 
+              {/* Hamburger */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="md:hidden p-2 rounded-lg bg-orange-500 text-white"
+              >
+                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
+          </nav>
+        </header>
       </div>
 
       {/* Overlay */}
@@ -242,10 +240,10 @@ const Navbar = () => {
         onClick={() => setMobileOpen(false)}
       />
 
-      {/* PANEL MOBILE */}
+      {/* Mobile menu */}
       <div
         ref={mobileMenuRef}
-        className="pointer-events-auto fixed top-0 left-0 w-full bg-white text-black z-40 md:hidden"
+        className="pointer-events-auto fixed top-0 left-0 w-full h-full bg-white text-black z-40 md:hidden overflow-y-auto"
         style={{ display: "none", transform: "translateY(-100%)" }}
       >
         <div className="flex flex-col items-start px-6 pt-20 pb-8 gap-4 w-full">
@@ -253,13 +251,9 @@ const Navbar = () => {
             item === "OFERTA" ? (
               <div key={item} className="w-full">
                 <div className="flex justify-between items-center w-full border-b border-stone-300">
-                  <a
-                    href="#oferta"
-                    onClick={handleNavClick}
-                    className="flex-1 text-lg font-robert-medium py-3 hover:text-orange-500"
-                  >
+                  <span className="flex-1 text-lg font-robert-medium py-3">
                     {item}
-                  </a>
+                  </span>
                   <button
                     onClick={() => setMobileOfertaOpen(!mobileOfertaOpen)}
                     className="p-3"
@@ -282,34 +276,22 @@ const Navbar = () => {
                   <div className="pl-4 py-2 space-y-2">
                     {[...ofertaItems, ...ofertaItems2].map(
                       ({ icon, label, description }) => (
-                        <a
+                        <button
                           key={label}
-                          href="#"
-                          onClick={handleNavClick}
-                          className="flex items-start gap-2 py-2 border-b border-stone-200 text-left"
+                          onClick={() => handleOfertaClick(label)}
+                          className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
                         >
                           {icon}
                           <div>
                             <p className="text-sm font-medium">{label}</p>
-                            <p className="text-xs text-gray-600">
-                              {description}
-                            </p>
+                            <p className="text-xs text-gray-600">{description}</p>
                           </div>
-                        </a>
+                        </button>
                       )
                     )}
                   </div>
                 </div>
               </div>
-            ) : item === "LOKALIZACJA" ? (
-              <a
-                key={item}
-                href="#faq"
-                onClick={handleNavClick}
-                className="w-full text-lg font-robert-medium hover:text-orange-500 border-b border-stone-300 py-3"
-              >
-                {item}
-              </a>
             ) : (
               <a
                 key={item}
@@ -322,9 +304,11 @@ const Navbar = () => {
             )
           )}
 
-          <RippleButton className="mt-4 w-full px-6 py-3 bg-orange-500 text-white rounded-lg shadow-md font-bold transition-colors hover:bg-orange-600">
-            ZADZWOŃ
-          </RippleButton>
+          <a href="#zespół" onClick={handleNavClick} className="w-full">
+            <RippleButton className="mt-4 w-full px-6 py-3 bg-orange-500 text-white rounded-lg shadow-md font-bold transition-colors hover:bg-orange-600">
+              ZADZWOŃ
+            </RippleButton>
+          </a>
         </div>
       </div>
     </>

@@ -46,7 +46,7 @@ const Team1 = () => {
 
   return (
     <div id="zespół" className="min-h-screen w-screen bg-stone-100">
-      <div className="relative mb-8 mt-36 flex flex-col items-center gap-5">
+      <div className="relative mb-8 mt-36 flex flex-col items-center gap-5 w-[96%] mx-auto">
         {/* Napis wstępny */}
         <p className="font-general text-sm uppercase md:text-[16px]">
           Poznaj nasz zespół
@@ -78,7 +78,7 @@ const Team1 = () => {
 
         {/* Karty */}
         <div
-          className={`grid gap-6 mt-10 px-3 md:px-6 w-full
+          className={`grid gap-6 mt-10 w-full
             ${activeTab === "handlowcy" ? "md:grid-cols-3 max-w-8xl" : "md:grid-cols-1 max-w-4xl justify-center"}
             grid-cols-1`}
         >

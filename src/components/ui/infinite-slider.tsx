@@ -23,7 +23,7 @@ export function InfiniteSlider({
   reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const [currentDuration, setCurrentDuration] = useState<number>(duration); // 👈 jawnie number
+  const [currentDuration, setCurrentDuration] = useState<number>(duration); 
   const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
   const [isTransitioning, setIsTransitioning] = useState(false);

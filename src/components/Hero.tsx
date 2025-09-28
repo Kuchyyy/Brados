@@ -2,7 +2,7 @@
 
 const Hero = () => {
   return (
-    <section className="w-screen bg-stone-100 flex items-center justify-center mt-24">
+    <section className=" bg-stone-100 flex items-center justify-center mt-24">
       {/* Ten div musi być relative, żeby absolute działało tylko w jego obrębie */}
       <div className="relative w-[96%] h-[86vh] flex items-center justify-center z-20 rounded-2xl overflow-hidden shadow-lg">
         {/* Tło */}

@@ -4,7 +4,6 @@ import { type ReactNode } from 'react';
 import {
   CursorProvider,
   Cursor,
-  CursorFollow,
 } from '@/components/ui/shadcn-io/animated-cursor';
 
 const Layout = ({ children }: { children: ReactNode }) => {
@@ -13,7 +12,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <body className="bg-stone-100">
         <CursorProvider>
           {/* Ikona kursora – widoczna tylko na xl+ */}
-          <Cursor className="hidden xl:block pointer-events-none z-100">
+          <Cursor className="hidden sm:block pointer-events-none z-100">
             <svg
               className="size-6 text-orange-500 drop-shadow-md"
               xmlns="http://www.w3.org/2000/svg"
@@ -26,12 +25,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
             </svg>
           </Cursor>
 
-          {/* Etykieta podążająca – widoczna tylko na xl+ */}
-          <CursorFollow className="hidden xl:block pointer-events-none z-50">
-            <div className="px-3 py-1 bg-black text-white text-xs xl:text-sm rounded-lg shadow-md font-robert-medium">
-              BRADOS
-            </div>
-          </CursorFollow>
 
           {children}
         </CursorProvider>

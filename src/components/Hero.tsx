@@ -2,22 +2,39 @@
 
 const Hero = () => {
   return (
-    <section className=" bg-stone-100 flex items-center justify-center mt-24">
-      {/* Ten div musi być relative, żeby absolute działało tylko w jego obrębie */}
+    <section className="bg-stone-100 flex items-center justify-center mt-24">
       <div className="relative w-[96%] h-[86vh] flex items-center justify-center z-20 rounded-2xl overflow-hidden shadow-lg">
-        {/* Tło */}
+        
+        {/* Obraz dla większych ekranów */}
         <img 
           src="/firma.png" 
           alt="firma" 
-          className="w-full h-full object-cover"
+          className="hidden sm:block w-full h-full object-cover"
+        />
+
+        {/* Obraz dla mniejszych ekranów */}
+        <img 
+          src="/firmatel.png" 
+          alt="firma mobile"
+          className="block sm:hidden w-full h-full object-cover"
         />
 
         {/* Teksty na obrazie */}
-        <div className="absolute special-font font-zentry hero-heading top-5 left-10 text-white drop-shadow-lg">
+        <div className="
+          absolute special-font font-zentry hero-heading text-white drop-shadow-lg
+          top-5 sm:top-5
+          left-1/2 sm:left-10
+          -translate-x-1/2 sm:translate-x-0
+        ">
           HURTOWNIA
         </div>
 
-        <div className="absolute special-font font-zentry hero-heading bottom-5 right-10 text-white drop-shadow-lg"> 
+        <div className="
+          absolute special-font font-zentry hero-heading text-white drop-shadow-lg
+          bottom-5 sm:bottom-5
+          left-1/2 sm:right-10 sm:left-auto
+          -translate-x-1/2 sm:translate-x-0
+        ">
           BRADOS
         </div>
       </div>

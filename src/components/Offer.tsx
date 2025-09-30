@@ -96,19 +96,23 @@ const Offer = () => {
           </CarouselNext>
         </div>
 
-        <CarouselContent className="flex gap-6 px-6">
+        <CarouselContent className="flex gap-4 px-4 overflow-visible">
           {items.map((item, index) => (
-            <CarouselItem
-              key={index}
-              className="flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative flex-none
-                         w-[300px] sm:w-1/2 md:w-1/3"
-            >
+           <CarouselItem
+           key={index}
+           className="
+             flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative
+              sm:basis-1/2 md:basis-1/3 lg:basis-1/4 
+           "
+         >
+         
+          
               {/* Ikona */}
               <div className="absolute top-6 left-6 text-orange-600">{item.icon}</div>
 
               {/* Środek */}
               <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <div className="text-base md:text-lg lg:text-xl font-medium mt-12">
+                <div className="text-base md:text-lg lg:text-xl font-medium mt-8">
                   {item.label}
                 </div>
                 {item.description && (

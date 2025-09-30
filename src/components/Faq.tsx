@@ -74,7 +74,7 @@ const Faq = () => {
         </div>
 
         {/* BRADOS */}
-        <div className="flex items-center justify-center border border-stone-300 rounded-xl p-6 shadow-sm font-bold text-black bg-white">
+        <div className="flex items-center justify-center border border-stone-300 rounded-xl p-6 shadow-sm font-bold text-orange-500 bg-white">
           <div className="w-full h-full flex items-center justify-center">
             <TextPressure
               text="BRADOS"

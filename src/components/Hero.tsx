@@ -5,21 +5,20 @@ const Hero = () => {
     <section className="bg-stone-100 flex items-center justify-center mt-24">
       <div className="relative w-[96%] h-[86vh] flex items-center justify-center z-20 rounded-2xl overflow-hidden shadow-lg">
         
-        {/* Obraz dla większych ekranów */}
+
         <img 
           src="/firma.png" 
           alt="firma" 
           className="hidden sm:block w-full h-full object-cover"
         />
 
-        {/* Obraz dla mniejszych ekranów */}
+
         <img 
           src="/firmatel.png" 
           alt="firma mobile"
           className="block sm:hidden w-full h-full object-cover"
         />
 
-        {/* Teksty na obrazie */}
         <div className="
           absolute special-font font-zentry hero-heading text-white drop-shadow-lg
           top-5 sm:top-5

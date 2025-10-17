@@ -16,8 +16,11 @@ const Description: React.FC<DescriptionProps> = ({
   products,
   producers,
 }) => {
-  const loaderRef = useRef<HTMLDivElement | null>(null);
   const location = useLocation();
+
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const logoRef = useRef<HTMLImageElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
   const categories = [
     { id: "1", title: "Aparatura modułowa i sterowanie" },
@@ -33,33 +36,40 @@ const Description: React.FC<DescriptionProps> = ({
   ];
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
     document.body.style.overflow = "hidden";
 
-    const ctx = gsap.context(() => {
-      gsap.set(".loader-logo", { opacity: 0, scale: 0.8, y: 30 });
-      gsap.set(".loader-title", { opacity: 0, y: 50 });
+    const run = () => {
+      if (!loaderRef.current || !logoRef.current || !titleRef.current) return;
+
+      gsap.set(loaderRef.current, { opacity: 1, pointerEvents: "all" });
+      gsap.set(logoRef.current, { opacity: 0, scale: 0.8, y: 30 });
+      gsap.set(titleRef.current, { opacity: 0, y: 50 });
 
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
         onComplete: () => {
-          document.body.style.overflow = "auto";
           gsap.to(loaderRef.current, {
             opacity: 0,
             duration: 0.6,
             pointerEvents: "none",
+            onComplete: () => {
+              document.body.style.overflow = "auto";
+            },
           });
         },
       });
 
-      gsap.set(loaderRef.current, { opacity: 1, pointerEvents: "all" });
-      tl.to(".loader-logo", { opacity: 1, scale: 1, y: 0, duration: 0.8 })
-        .to(".loader-title", { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
-        .to({}, { duration: 0.8 });
-    }, loaderRef);
+      tl.to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.8 })
+        .to(titleRef.current, { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
+        .to({}, { duration: 0.6 });
+    };
+
+    const id = requestAnimationFrame(run);
 
     return () => {
-      ctx.revert();
+      cancelAnimationFrame(id);
+      gsap.killTweensOf([loaderRef.current, logoRef.current, titleRef.current]);
       document.body.style.overflow = "auto";
     };
   }, [location.pathname]);
@@ -67,11 +77,16 @@ const Description: React.FC<DescriptionProps> = ({
   return (
     <>
       <div
+        key={location.pathname}
         ref={loaderRef}
         className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-white"
+        style={{ opacity: 0, pointerEvents: "none" }}
       >
-        <img src="/brados.png" alt="Logo" className="loader-logo w-20 mb-6" />
-        <h1 className="loader-title text-2xl md:text-4xl font-bold font-robert-medium text-gray-800 text-center">
+        <img ref={logoRef} src="/brados.png" alt="Logo" className="w-20 mb-6" />
+        <h1
+          ref={titleRef}
+          className="text-2xl md:text-4xl font-bold font-robert-medium text-gray-800 text-center"
+        >
           {title}
         </h1>
       </div>
@@ -83,9 +98,7 @@ const Description: React.FC<DescriptionProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="md:col-span-2 space-y-6">
-            <p className="text-lg leading-relaxed text-gray-700">
-              {description}
-            </p>
+            <p className="text-lg leading-relaxed text-gray-700">{description}</p>
             <ul className="list-none space-y-2">
               {products.map((product, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-gray-800">
@@ -101,10 +114,7 @@ const Description: React.FC<DescriptionProps> = ({
             <ul className="space-y-2">
               {categories.map((sub) => (
                 <li key={sub.id}>
-                  <Link
-                    to={`/page/${sub.id}`}
-                    className="text-orange-600 hover:underline"
-                  >
+                  <Link to={`/page/${sub.id}`} className="text-orange-600 hover:underline">
                     {sub.title}
                   </Link>
                 </li>
@@ -117,12 +127,7 @@ const Description: React.FC<DescriptionProps> = ({
           <h2 className="text-xl font-semibold mb-8 text-center">Partnerzy</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
             {producers.map((logo, idx) => (
-              <img
-                key={idx}
-                src={logo}
-                alt={`logo producenta ${idx}`}
-                className="h-12 object-contain"
-              />
+              <img key={idx} src={logo} alt={`logo producenta ${idx}`} className="h-12 object-contain" />
             ))}
           </div>
         </div>

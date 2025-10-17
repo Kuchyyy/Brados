@@ -22,7 +22,6 @@ import { RippleButton } from "./ui/shadcn-io/ripple-button";
 
 const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
 
-// 🔹 Kategorie powiązane z page.ts (1–10)
 const ofertaItems = [
   { id: "1", icon: <Settings size={16} />, label: "Aparatura modułowa i sterowanie", description: "Sterowniki, moduły i automatyka" },
   { id: "2", icon: <Wifi size={16} />, label: "Narzędzia i mierniki", description: "Multimetry, testery i akcesoria" },
@@ -43,7 +42,7 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [, setMobileOfertaOpen] = useState(false);
+  const [mobileOfertaOpen, setMobileOfertaOpen] = useState(false);
 
   const { y: currentScrollY } = useWindowScroll();
   const navContainerRef = useRef<HTMLDivElement | null>(null);
@@ -54,7 +53,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const isSubpage = location.pathname.startsWith("/page/");
 
-  // 🔹 Funkcja: przejdź na home i przewiń do góry lub do sekcji
   const goHomeAndScroll = (hash?: string) => {
     navigate("/"); 
     setTimeout(() => {
@@ -65,6 +63,7 @@ const Navbar = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }, 100);
+    setMobileOpen(false);
   };
 
   const handleNavClick = () => {
@@ -72,7 +71,7 @@ const Navbar = () => {
     setMobileOfertaOpen(false);
   };
 
-  // Obsługa widoczności navbara przy scrollu
+  // scroll behavior
   useEffect(() => {
     if (!navContainerRef.current || mobileOpen) return;
 
@@ -90,22 +89,18 @@ const Navbar = () => {
     setLastScroll(currentScrollY);
   }, [currentScrollY, lastScroll, mobileOpen]);
 
-  // Animacja navbara
+  // animate navbar show/hide
   useEffect(() => {
     if (!navContainerRef.current) return;
 
-    if (mobileOpen) {
-      gsap.to(navContainerRef.current, { y: 0, duration: 0.2 });
-    } else {
-      gsap.to(navContainerRef.current, {
-        duration: 0.3,
-        y: isVisible ? 0 : -100,
-        ease: "power1.out",
-      });
-    }
+    gsap.to(navContainerRef.current, {
+      duration: 0.3,
+      y: mobileOpen || isVisible ? 0 : -100,
+      ease: "power1.out",
+    });
   }, [isVisible, mobileOpen]);
 
-  // Animacja panelu mobilnego + overlay
+  // animate mobile menu + overlay
   useEffect(() => {
     if (!mobileMenuRef.current || !overlayRef.current) return;
 
@@ -114,40 +109,48 @@ const Navbar = () => {
       y: mobileOpen ? 0 : "-100%",
       opacity: mobileOpen ? 1 : 0,
       ease: "power2.out",
-      display: mobileOpen ? "block" : "none",
+      pointerEvents: mobileOpen ? "auto" : "none",
+      onStart: () => {
+        if (mobileOpen) mobileMenuRef.current?.classList.remove("invisible");
+      },
+      onComplete: () => {
+        if (!mobileOpen) mobileMenuRef.current?.classList.add("invisible");
+      },
     });
 
     gsap.to(overlayRef.current, {
       duration: 0.3,
       opacity: mobileOpen ? 0.5 : 0,
-      display: mobileOpen ? "block" : "none",
+      ease: "power2.out",
+      pointerEvents: mobileOpen ? "auto" : "none",
+      onStart: () => {
+        if (mobileOpen) overlayRef.current?.classList.remove("invisible");
+      },
+      onComplete: () => {
+        if (!mobileOpen) overlayRef.current?.classList.add("invisible");
+      },
     });
   }, [mobileOpen]);
 
   return (
     <>
-      {/* NAVBAR */}
       <div
         ref={navContainerRef}
-        className={`pointer-events-auto h-16 lg:inset-x-16 top-4 z-50 fixed rounded-xl inset-x-2
-          transition-all duration-500 ease-in-out
+        className={`pointer-events-auto h-16 lg:inset-x-16 top-4 z-50 fixed rounded-xl inset-x-2 transition-all duration-500 ease-in-out
           ${
             mobileOpen
               ? "bg-white"
               : currentScrollY > 0
               ? "bg-stone-200 backdrop-blur-lg"
               : "bg-transparent"
-          }
-        `}
+          }`}
       >
         <header className="absolute top-1/2 w-full -translate-y-1/2">
           <nav className="flex items-center justify-between w-full px-4">
-            {/* Logo */}
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => goHomeAndScroll()}>
               <img src="/brados.png" alt="Logo" className="w-10" />
             </div>
 
-            {/* Desktop nav */}
             <div className="flex items-center gap-4">
               <div className="hidden md:flex items-center gap-6 mr-3">
                 {navItems.map((item) =>
@@ -193,7 +196,6 @@ const Navbar = () => {
                 )}
               </div>
 
-              {/* Buttons desktop */}
               <button onClick={() => goHomeAndScroll("#zespół")}>
                 <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
                   ZADZWOŃ
@@ -215,7 +217,6 @@ const Navbar = () => {
                 </RippleButton>
               )}
 
-              {/* Hamburger */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="md:hidden p-2 rounded-lg bg-orange-500 text-white"
@@ -225,6 +226,82 @@ const Navbar = () => {
             </div>
           </nav>
         </header>
+      </div>
+
+      {/* overlay */}
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 bg-black z-40 md:hidden opacity-0 invisible"
+        onClick={() => setMobileOpen(false)}
+      />
+
+      {/* mobile menu */}
+      <div
+        ref={mobileMenuRef}
+        className="fixed top-0 left-0 w-full h-full bg-white text-black z-50 md:hidden overflow-y-auto opacity-0 invisible -translate-y-full"
+      >
+        <div className="flex items-center justify-between px-6 py-6">
+          <img src="/brados.png" alt="Logo" className="w-10" />
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="p-2 rounded-lg bg-orange-500 text-white"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        <div className="flex flex-col items-start pt-4 pb-8 gap-2 w-full">
+          {navItems.map((item) =>
+            item === "OFERTA" ? (
+              <div key={item} className="w-full">
+                <button
+                  onClick={() => setMobileOfertaOpen((prev) => !prev)}
+                  className="flex justify-between items-center w-full text-lg font-robert-medium py-3 px-6 border-b border-stone-300"
+                >
+                  {item}
+                  <ChevronDown
+                    size={18}
+                    className={`transition-transform duration-300 ${
+                      mobileOfertaOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    mobileOfertaOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="pl-4 py-2 space-y-2">
+                    {[...ofertaItems, ...ofertaItems2].map(
+                      ({ id, icon, label, description }) => (
+                        <Link
+                          key={id}
+                          to={`/page/${id}`}
+                          onClick={handleNavClick}
+                          className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
+                        >
+                          {icon}
+                          <div>
+                            <p className="text-sm font-medium">{label}</p>
+                            <p className="text-xs text-gray-600">{description}</p>
+                          </div>
+                        </Link>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <button
+                key={item}
+                onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
+                className="w-full text-left px-6 text-lg font-robert-medium hover:text-orange-500 border-b border-stone-300 py-3"
+              >
+                {item}
+              </button>
+            )
+          )}
+        </div>
       </div>
     </>
   );

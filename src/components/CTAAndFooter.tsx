@@ -36,7 +36,7 @@ const CTAAndFooter = () => {
 
       {/* CTA sekcja */}
       <section className="relative max-w-[96%] mx-auto py-6 rounded-3xl overflow-hidden">
-        {/* Gradient tła – stone-300 -> stone-100 */}
+
         <div
           className="absolute inset-0"
           style={{
@@ -61,7 +61,7 @@ const CTAAndFooter = () => {
             <p className="font-general text-sm uppercase md:text-[16px] tracking-wider text-black">
               Gotowy na współpracę z nami?
             </p>
-            <h2 className="uppercase text-2xl font-bold leading-tight md:text-5xl text-black">
+            <h2 className="uppercase font-robert-medium text-xl font-bold leading-tight md:text-5xl text-black">
               Dołącz do grona naszych klientów
             </h2>
           </div>

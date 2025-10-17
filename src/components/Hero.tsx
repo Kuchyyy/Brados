@@ -16,7 +16,7 @@ const Hero = () => {
         <img 
           src="/firmatel.png" 
           alt="firma mobile"
-          className="block sm:hidden w-full h-full object-cover"
+          className=" sm:hidden w-full h-full object-cover"
         />
 
         <div className="

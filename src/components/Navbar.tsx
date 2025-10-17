@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useWindowScroll } from "react-use";
 import gsap from "gsap";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ArrowUp,
   Menu,
@@ -21,51 +22,55 @@ import { RippleButton } from "./ui/shadcn-io/ripple-button";
 
 const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
 
+// 🔹 Kategorie powiązane z page.ts (1–10)
 const ofertaItems = [
-  { icon: <Settings size={16} />, label: "Aparatura modułowa i sterowanie", description: "Sterowniki, moduły i automatyka" },
-  { icon: <Wifi size={16} />, label: "Narzędzia i mierniki", description: "Multimetry, testery i akcesoria" },
-  { icon: <Zap size={16} />, label: "Sieci niskoprądowe i okablowanie", description: "Instalacje i przewody" },
-  { icon: <Box size={16} />, label: "Rozdzielnice i obudowy", description: "Bezpieczne obudowy dla instalacji" },
-  { icon: <Plug size={16} />, label: "Osprzęt elektroinstalacyjny", description: "Gniazda, wyłączniki i złącza" },
+  { id: "1", icon: <Settings size={16} />, label: "Aparatura modułowa i sterowanie", description: "Sterowniki, moduły i automatyka" },
+  { id: "2", icon: <Wifi size={16} />, label: "Narzędzia i mierniki", description: "Multimetry, testery i akcesoria" },
+  { id: "3", icon: <Zap size={16} />, label: "Sieci niskoprądowe i okablowanie", description: "Instalacje i przewody" },
+  { id: "4", icon: <Box size={16} />, label: "Rozdzielnice i obudowy", description: "Bezpieczne obudowy dla instalacji" },
+  { id: "5", icon: <Plug size={16} />, label: "Osprzęt elektroinstalacyjny i siłowy", description: "Gniazda, wyłączniki i złącza" },
 ];
 
 const ofertaItems2 = [
-  { icon: <Lightbulb size={16} />, label: "Technika świetlna", description: "Lampy, oprawy i oświetlenie LED" },
-  { icon: <Antenna size={16} />, label: "System tras i mocowania", description: "Kanały, koryta i uchwyty" },
-  { icon: <Plug size={16} />, label: "Kable i przewody", description: "Przewody energetyczne i sygnałowe" },
-  { icon: <Zap size={16} />, label: "Ochrona odgromowa", description: "Systemy ochrony przed wyładowaniami" },
-  { icon: <Circle size={16} />, label: "Pozostałe", description: "Dodatkowe akcesoria i komponenty" },
+  { id: "6", icon: <Lightbulb size={16} />, label: "Technika świetlna", description: "Lampy, oprawy i oświetlenie LED" },
+  { id: "7", icon: <Antenna size={16} />, label: "System tras i mocowania", description: "Kanały, koryta i uchwyty" },
+  { id: "8", icon: <Plug size={16} />, label: "Kable i przewody", description: "Przewody energetyczne i sygnałowe" },
+  { id: "9", icon: <Zap size={16} />, label: "Ochrona odgromowa", description: "Systemy ochrony przed wyładowaniami" },
+  { id: "10", icon: <Circle size={16} />, label: "Pozostałe", description: "Dodatkowe akcesoria i komponenty" },
 ];
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScroll, setLastScroll] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileOfertaOpen, setMobileOfertaOpen] = useState(false);
-  const [siteAlert, setSiteAlert] = useState<string | null>(null);
+  const [, setMobileOfertaOpen] = useState(false);
 
   const { y: currentScrollY } = useWindowScroll();
   const navContainerRef = useRef<HTMLDivElement | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  const handleScrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isSubpage = location.pathname.startsWith("/page/");
+
+  // 🔹 Funkcja: przejdź na home i przewiń do góry lub do sekcji
+  const goHomeAndScroll = (hash?: string) => {
+    navigate("/"); 
+    setTimeout(() => {
+      if (hash) {
+        const el = document.querySelector(hash);
+        el?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }, 100);
+  };
 
   const handleNavClick = () => {
     setMobileOpen(false);
     setMobileOfertaOpen(false);
   };
-
-  const handleOfertaClick = (label: string) => {
-    setSiteAlert(`Sekcja "${label}" pojawi się wkrótce  🚧`);
-  };
-
-  // 🔥 Automatyczne zamykanie alertu po 4s
-  useEffect(() => {
-    if (!siteAlert) return;
-    const timer = setTimeout(() => setSiteAlert(null), 2000);
-    return () => clearTimeout(timer);
-  }, [siteAlert]);
 
   // Obsługa widoczności navbara przy scrollu
   useEffect(() => {
@@ -121,21 +126,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ALERT BANNER */}
-      {siteAlert && (
-        <div className="fixed top-20 inset-x-0 flex justify-center z-[100] px-4">
-          <div className="bg-orange-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-4 animate-fade-in">
-            <span>{siteAlert}</span>
-            <button
-              onClick={() => setSiteAlert(null)}
-              className="ml-4 text-white hover:text-black transition"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* NAVBAR */}
       <div
         ref={navContainerRef}
@@ -153,8 +143,8 @@ const Navbar = () => {
         <header className="absolute top-1/2 w-full -translate-y-1/2">
           <nav className="flex items-center justify-between w-full px-4">
             {/* Logo */}
-            <div className="flex items-center gap-3">
-              <img src="brados.png" alt="Logo" className="w-10" />
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => goHomeAndScroll()}>
+              <img src="/brados.png" alt="Logo" className="w-10" />
             </div>
 
             {/* Desktop nav */}
@@ -163,23 +153,21 @@ const Navbar = () => {
                 {navItems.map((item) =>
                   item === "OFERTA" ? (
                     <div key={item} className="relative group inline-block">
-                      <a
-                        href="#oferta"
-                        className="flex items-center gap-1 nav-hover-btn text-black"
-                      >
+                      <span className="flex items-center gap-1 nav-hover-btn text-black cursor-pointer">
                         {item}
                         <ChevronDown
                           size={16}
                           className="transition-transform duration-300 group-hover:rotate-180"
                         />
-                      </a>
+                      </span>
                       <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
                         <div className="grid grid-cols-2 gap-4 p-4">
                           {[...ofertaItems, ...ofertaItems2].map(
-                            ({ icon, label, description }) => (
-                              <button
-                                key={label}
-                                onClick={() => handleOfertaClick(label)}
+                            ({ id, icon, label, description }) => (
+                              <Link
+                                key={id}
+                                to={`/page/${id}`}
+                                onClick={handleNavClick}
                                 className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors text-left w-full"
                               >
                                 {icon}
@@ -187,38 +175,45 @@ const Navbar = () => {
                                   <p className="font-medium text-sm">{label}</p>
                                   <p className="text-xs text-gray-600">{description}</p>
                                 </div>
-                              </button>
+                              </Link>
                             )
                           )}
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <a
+                    <button
                       key={item}
-                      href={`#${item.toLowerCase()}`}
-                      onClick={handleNavClick}
+                      onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
                       className="nav-hover-btn text-black"
                     >
                       {item}
-                    </a>
+                    </button>
                   )
                 )}
               </div>
 
               {/* Buttons desktop */}
-              <a href="#zespół">
+              <button onClick={() => goHomeAndScroll("#zespół")}>
                 <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
                   ZADZWOŃ
                 </RippleButton>
-              </a>
+              </button>
 
-              <RippleButton
-                onClick={handleScrollTop}
-                className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
-              >
-                <ArrowUp size={18} />
-              </RippleButton>
+              {isSubpage ? (
+                <Link to="/" className="hidden md:flex">
+                  <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors">
+                    ← <span className="uppercase font-robert-medium font-bold">Powrót</span>
+                  </RippleButton>
+                </Link>
+              ) : (
+                <RippleButton
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
+                >
+                  <ArrowUp size={18} />
+                </RippleButton>
+              )}
 
               {/* Hamburger */}
               <button
@@ -230,93 +225,6 @@ const Navbar = () => {
             </div>
           </nav>
         </header>
-      </div>
-
-      {/* Overlay */}
-      <div
-        ref={overlayRef}
-        className="pointer-events-auto fixed inset-0 bg-black z-40 md:hidden"
-        style={{ opacity: 0, display: "none" }}
-        onClick={() => setMobileOpen(false)}
-      />
-
-      {/* Mobile menu */}
-      <div
-        ref={mobileMenuRef}
-        className="pointer-events-auto fixed top-0 left-0 w-full h-full bg-white text-black z-40 md:hidden overflow-y-auto"
-        style={{ display: "none", transform: "translateY(-100%)" }}
-      >
-        <div className="flex flex-col items-start px-6 pt-20 pb-8 gap-4 w-full">
-          {navItems.map((item) =>
-            item === "OFERTA" ? (
-              <div key={item} className="w-full">
-                <div className="flex justify-between items-center w-full border-b border-stone-300">
-                  <span className="flex-1 text-lg font-robert-medium py-3">
-                  <a
-  href="#oferta"
-  onClick={handleNavClick}
-  className="flex-1 text-lg font-robert-medium py-3 hover:text-orange-500"
->
-  {item}
-</a>
-
-                  </span>
-                  <button
-                    onClick={() => setMobileOfertaOpen(!mobileOfertaOpen)}
-                    className="p-3"
-                  >
-                    <ChevronDown
-                      size={18}
-                      className={`transition-transform duration-300 ${
-                        mobileOfertaOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                </div>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    mobileOfertaOpen
-                      ? "max-h-[1000px] opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="pl-4 py-2 space-y-2">
-                    {[...ofertaItems, ...ofertaItems2].map(
-                      ({ icon, label, description }) => (
-                        <button
-                          key={label}
-                          onClick={() => handleOfertaClick(label)}
-                          className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
-                        >
-                          {icon}
-                          <div>
-                            <p className="text-sm font-medium">{label}</p>
-                            <p className="text-xs text-gray-600">{description}</p>
-                          </div>
-                        </button>
-                      )
-                    )}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={handleNavClick}
-                className="w-full text-lg font-robert-medium hover:text-orange-500 border-b border-stone-300 py-3"
-              >
-                {item}
-              </a>
-            )
-          )}
-
-          <a href="#zespół" onClick={handleNavClick} className="w-full">
-            <RippleButton className="mt-4 w-full px-6 py-3 bg-orange-500 text-white rounded-lg shadow-md font-bold transition-colors hover:bg-orange-600">
-              ZADZWOŃ
-            </RippleButton>
-          </a>
-        </div>
       </div>
     </>
   );

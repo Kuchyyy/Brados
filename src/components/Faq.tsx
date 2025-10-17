@@ -27,15 +27,15 @@ const Faq = () => {
 
   return (
     <section
-      id="lokalizacja" // <-- KLUCZ: tutaj id to "faq"
-      className="max-w-[96%] mx-auto font-robert-medium py-16 space-y-10"
+
+      className="max-w-[96%] mx-auto py-16 space-y-10"
     >
       {/* Nagłówek */}
       <div className="text-center flex flex-col gap-4 mb-10">
-        <p className="font-general text-sm uppercase md:text-[16px] tracking-wider text-black">
+        <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
           Masz pytanie?
         </p>
-        <h2 className="uppercase text-2xl font-bold leading-tight md:text-5xl text-black">
+        <h2 className="uppercase text-2xl font-extrabold font-robert-medium leading-tight md:text-5xl text-black">
           Razem możemy osiągnąć więcej
         </h2>
       </div>
@@ -47,7 +47,7 @@ const Faq = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-stone-300 rounded-xl overflow-hidden shadow-sm bg-white"
+              className=" rounded-xl overflow-hidden shadow-2xl/20 bg-white font-robert-medium"
             >
               <button
                 className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black"
@@ -74,7 +74,7 @@ const Faq = () => {
         </div>
 
         {/* BRADOS */}
-        <div className="flex items-center justify-center border border-stone-300 rounded-xl p-6 shadow-sm font-bold text-orange-500 bg-white">
+        <div className="flex items-center justify-center rounded-xl p-6 font-bold text-zinc-900  mask-b-from-60% mask-b-to-90%">
           <div className="w-full h-full flex items-center justify-center">
             <TextPressure
               text="BRADOS"
@@ -91,7 +91,7 @@ const Faq = () => {
       </div>
 
       {/* Mapa */}
-      <div className="w-full">
+      <div id="lokalizacja"  className="w-full">
         <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
           <iframe
             className="w-full h-full"
@@ -99,32 +99,21 @@ const Faq = () => {
             loading="lazy"
             allowFullScreen
           ></iframe>
+        </div>
 
-          {/* Overlay tylko desktop */}
-          <div className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 bg-white p-4 rounded-xl shadow-md flex-row items-center gap-3">
+        {/* Mobile */}
+        <div className="flex flex-col w-full items-end">
+          <div className="flex flex-col w-full lg:max-w-sm items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-2xl/20">
             <p className="font-medium text-black">Masz więcej pytań?</p>
             <a
               href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition"
+              className="mx-auto px-4 py-2 bg-orange-500 text-white rounded-lg font-medium shadow-md hover:bg-orange-600 transition flex justify-center"
             >
               Prowadź do firmy Brados
             </a>
           </div>
-        </div>
-
-        {/* Mobile */}
-        <div className="flex md:hidden flex-col items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-md">
-          <p className="font-medium text-black">Masz więcej pytań?</p>
-          <a
-            href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition flex justify-center"
-          >
-            Prowadź do firmy Brados
-          </a>
         </div>
       </div>
     </section>

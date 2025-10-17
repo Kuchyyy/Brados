@@ -81,25 +81,25 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 max-w-[96%] mx-auto bg-stone-100 font-robert-medium"
+      className="py-20 max-w-[96%] mx-auto bg-stone-100"
     >
       {/* Nagłówek */}
       <div className="mb-8 text-center flex flex-col gap-4">
-        <p className="font-general text-sm uppercase md:text-[16px] tracking-wider text-black">
+        <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
           Poznaj naszą firmę
         </p>
-        <h2 className="uppercase text-2xl font-bold leading-tight md:text-5xl text-black">
+        <h2 className="uppercase text-2xl font-extrabold font-robert-medium leading-tight md:text-5xl text-black">
           Dlaczego warto wybrać  <br />
           właśnie nas
         </h2>
       </div>
 
       {/* Grid główny */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto font-robert-medium">
       {/* GÓRNY PROSTOKĄT */}
       <div className="col-span-1 md:col-span-2 relative overflow-hidden 
-                      rounded-2xl bg-white border border-stone-200 p-4 md:p-8 
-                      shadow-lg hover:scale-[1.01] transition-transform 
+                      rounded-2xl bg-white p-4 md:p-8 
+                      shadow-2xl/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
 
         {/* Logo – góra prawa */}
@@ -127,9 +127,9 @@ const About = () => {
 
       {/* GÓRNY KWADRAT – Statystyki */}
       <div
-        className="rounded-2xl bg-white border border-stone-200 
+        className="rounded-2xl bg-white 
                   p-4 sm:p-6 
-                  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-lg hover:scale-[1.02] transition-transform"
+                  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-2xl/20 hover:scale-[1.01] transition-transform"
       >
         <StatCard icon={Users} value={25} label="Lat doświadczenia" />
         <StatCard icon={Package} value={5000} label="Produktów" />
@@ -139,7 +139,7 @@ const About = () => {
 
 
         {/* DOLNY KWADRAT – Misja */}
-        <div className="relative overflow-hidden rounded-2xl bg-white border border-stone-100 p-6 shadow-lg hover:scale-[1.02] transition-transform flex items-end">
+        <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-2xl bg-white  p-6 shadow-2xl/20 hover:scale-[1.02] transition-transform flex items-end">
           {/* Ripple efekt w tle */}
           <Ripple className="z-0" />
 
@@ -158,9 +158,9 @@ const About = () => {
         {/* DOLNY PROSTOKĄT */}
         <div
           ref={containerRef}
-          className="col-span-1 md:col-span-2 relative overflow-hidden 
-                    rounded-2xl bg-white border border-stone-200 p-8 shadow-lg
-                    flex flex-col justify-between hover:scale-[1.02] transition-transform"
+          className="col-span-1 md:col-span-2 relative overflow-hidden pt-14 md:pt-20
+                    rounded-2xl bg-white  p-6 min-h-[300px] shadow-2xl/20
+                    flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >
           {/* GÓRA – animacja */}
           <div className="relative flex items-start justify-between">

@@ -41,7 +41,7 @@ export default function InfiniteSliderBasic() {
             {logos.map((logo, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center w-[160px] h-[160px] bg-white rounded-lg shadow-md"
+                className="flex items-center justify-center w-[160px] h-[160px] bg-white rounded-lg shadow-md/20 "
               >
                 <img
                   src={logo.src}

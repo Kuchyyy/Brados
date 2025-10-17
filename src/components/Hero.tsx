@@ -3,7 +3,7 @@
 const Hero = () => {
   return (
     <section className="bg-stone-100 flex items-center justify-center mt-24">
-      <div className="relative w-[96%] h-[86vh] flex items-center justify-center z-20 rounded-2xl overflow-hidden shadow-lg">
+      <div className="relative w-[96%] h-[86vh] flex items-center justify-center z-20 rounded-2xl overflow-hidden shadow-lg mask-b-from-80% mask-b-to-96%">
         
 
         <img 

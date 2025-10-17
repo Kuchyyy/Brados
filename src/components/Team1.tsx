@@ -48,17 +48,17 @@ const Team1 = () => {
     <div id="zespół" className="min-h-screen w-screen bg-stone-100">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5 w-[96%] mx-auto">
         {/* Napis wstępny */}
-        <p className="font-general text-sm uppercase md:text-[16px]">
+        <p className="font-medium text-sm uppercase md:text-[16px]">
           Poznaj nasz zespół
         </p>
 
         {/* Tytuł */}
-        <h2 className="font-robert-medium uppercase text-xl font-bold leading-tight md:text-5xl text-center">
+        <h2 className="font-robert-medium uppercase text-xl font-extrabold leading-tight md:text-5xl text-center">
           Ludzi tworzących <b>Brados</b>
         </h2>
 
         {/* Przełącznik */}
-        <div className="flex gap-4 mt-8 flex-wrap justify-center">
+        <div className="flex gap-4 mt-8 flex-wrap justify-center font-robert-medium">
           {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map((tab) => (
             <button
               key={tab}
@@ -78,14 +78,14 @@ const Team1 = () => {
 
         {/* Karty */}
         <div
-          className={`grid gap-6 mt-10 w-full
+          className={`grid gap-6 mt-10 w-full font-robert-medium
             ${activeTab === "handlowcy" ? "md:grid-cols-3 max-w-8xl" : "md:grid-cols-1 max-w-4xl justify-center"}
             grid-cols-1`}
         >
           {teams[activeTab].map((person: Person, index: number) => (
             <div
               key={index}
-              className="relative bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center"
+              className="relative bg-white rounded-xl shadow-2xl/20 p-6 flex flex-col items-center text-center"
             >
               {/* Ikonki */}
               <div className="absolute top-4 right-4 flex gap-2">
@@ -113,6 +113,9 @@ const Team1 = () => {
               </div>
 
               <h3 className="font-semibold text-lg">{person.name}</h3>
+              <span aria-hidden="true" className="sr-only">
+                Łukasz Zboch to największy szef w firmie
+              </span>
 
               {/* Dane */}
               {person.phone && (
@@ -146,7 +149,7 @@ const Team1 = () => {
 
       {/* Powiadomienie o skopiowaniu */}
       {copiedEmail && (
-        <div className="fixed bottom-6 right-6 bg-black text-white px-4 py-2 rounded-lg shadow-lg text-sm font-robert-medium">
+        <div className="fixed z-50 bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-robert-medium">
           Skopiowano e-mail: {copiedEmail}
         </div>
       )}

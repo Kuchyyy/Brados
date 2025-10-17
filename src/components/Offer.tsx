@@ -101,7 +101,7 @@ const Offer = () => {
            <CarouselItem
            key={index}
            className="
-             flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative
+             flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative shadow-lg/10 mb-6
               sm:basis-1/2 md:basis-1/3 lg:basis-1/4 
            "
          >

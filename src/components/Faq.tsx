@@ -47,7 +47,7 @@ const Faq = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className=" rounded-xl overflow-hidden shadow-2xl/20 bg-white font-robert-medium"
+              className=" rounded-xl overflow-hidden shadow-md/20 bg-white font-robert-medium"
             >
               <button
                 className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black"
@@ -103,7 +103,7 @@ const Faq = () => {
 
         {/* Mobile */}
         <div className="flex flex-col w-full items-end">
-          <div className="flex flex-col w-full lg:max-w-sm items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-2xl/20">
+          <div className="flex flex-col w-full lg:max-w-sm items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-md/20">
             <p className="font-medium text-black">Masz więcej pytań?</p>
             <a
               href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"

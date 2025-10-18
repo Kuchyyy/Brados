@@ -85,7 +85,7 @@ const Team1 = () => {
           {teams[activeTab].map((person: Person, index: number) => (
             <div
               key={index}
-              className="relative bg-white rounded-xl shadow-2xl/20 p-6 flex flex-col items-center text-center"
+              className="relative bg-white rounded-xl shadow-md/20 p-6 flex flex-col items-center text-center"
             >
               {/* Ikonki */}
               <div className="absolute top-4 right-4 flex gap-2">

@@ -35,7 +35,7 @@ function App() {
           } /> 
 
           {/* 🔹 Podstrony dynamiczne */}
-          <Route path="/page/:id" element={<Subpages />} />
+          <Route path="/:slug" element={<Subpages />} />
         </Routes>
       </Layout>
     </Router>

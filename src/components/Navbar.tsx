@@ -19,6 +19,8 @@ import {
   Circle,
 } from "lucide-react";
 import { RippleButton } from "./ui/shadcn-io/ripple-button";
+import { pages } from "../data/page";
+
 
 const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
 
@@ -167,18 +169,23 @@ const Navbar = () => {
                         <div className="grid grid-cols-2 gap-4 p-4">
                           {[...ofertaItems, ...ofertaItems2].map(
                             ({ id, icon, label, description }) => (
-                              <Link
-                                key={id}
-                                to={`/page/${id}`}
-                                onClick={handleNavClick}
-                                className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors text-left w-full"
-                              >
-                                {icon}
-                                <div>
-                                  <p className="font-medium text-sm">{label}</p>
-                                  <p className="text-xs text-gray-600">{description}</p>
-                                </div>
-                              </Link>
+                              (() => {
+                                const page = pages.find((p) => p.id === id.toString());
+                                return (
+                                  <Link
+                                    key={id}
+                                    to={`/${page?.slug || ""}`}
+                                    onClick={handleNavClick}
+                                    className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors text-left w-full"
+                                  >
+                                    {icon}
+                                    <div>
+                                      <p className="font-medium text-sm">{label}</p>
+                                      <p className="text-xs text-gray-600">{description}</p>
+                                    </div>
+                                  </Link>
+                                );
+                              })()
                             )
                           )}
                         </div>
@@ -274,18 +281,24 @@ const Navbar = () => {
                   <div className="pl-4 py-2 space-y-2">
                     {[...ofertaItems, ...ofertaItems2].map(
                       ({ id, icon, label, description }) => (
-                        <Link
-                          key={id}
-                          to={`/page/${id}`}
-                          onClick={handleNavClick}
-                          className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
-                        >
-                          {icon}
-                          <div>
-                            <p className="text-sm font-medium">{label}</p>
-                            <p className="text-xs text-gray-600">{description}</p>
-                          </div>
-                        </Link>
+                        (() => {
+                          const page = pages.find((p) => p.id === id.toString());
+                          return (
+                            <Link
+                              key={id}
+                              to={`/${page?.slug || ""}`}
+                              onClick={handleNavClick}
+                              className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
+                            >
+                              {icon}
+                              <div>
+                                <p className="text-sm font-medium">{label}</p>
+                                <p className="text-xs text-gray-600">{description}</p>
+                              </div>
+                            </Link>
+                          );
+                        })()
+                        
                       )
                     )}
                   </div>

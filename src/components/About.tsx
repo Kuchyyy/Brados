@@ -99,7 +99,7 @@ const About = () => {
       {/* GÓRNY PROSTOKĄT */}
       <div className="col-span-1 md:col-span-2 relative overflow-hidden 
                       rounded-2xl bg-white p-4 md:p-8 
-                      shadow-2xl/20 hover:scale-[1.01] transition-transform 
+                      shadow-md/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
 
         {/* Logo – góra prawa */}
@@ -129,7 +129,7 @@ const About = () => {
       <div
         className="rounded-2xl bg-white 
                   p-4 sm:p-6 
-                  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-2xl/20 hover:scale-[1.01] transition-transform"
+                  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform"
       >
         <StatCard icon={Users} value={25} label="Lat doświadczenia" />
         <StatCard icon={Package} value={5000} label="Produktów" />
@@ -139,7 +139,7 @@ const About = () => {
 
 
         {/* DOLNY KWADRAT – Misja */}
-        <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-2xl bg-white  p-6 shadow-2xl/20 hover:scale-[1.02] transition-transform flex items-end">
+        <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-2xl bg-white  p-6 shadow-md/20 hover:scale-[1.02] transition-transform flex items-end">
           {/* Ripple efekt w tle */}
           <Ripple className="z-0" />
 
@@ -159,7 +159,7 @@ const About = () => {
         <div
           ref={containerRef}
           className="col-span-1 md:col-span-2 relative overflow-hidden pt-14 md:pt-20
-                    rounded-2xl bg-white  p-6 min-h-[300px] shadow-2xl/20
+                    rounded-2xl bg-white  p-6 min-h-[300px] shadow-md/20
                     flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >
           {/* GÓRA – animacja */}

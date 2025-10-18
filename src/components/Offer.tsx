@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, type Key } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -18,21 +18,26 @@ import {
   Zap,
   Circle,
 } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { pages } from "../data/page";
+
+
 
 const firstCarouselItems = [
-  { icon: <Settings />, label: 'Aparatura modułowa i sterowanie', description: 'Sterowniki, moduły i automatyka' },
-  { icon: <Wifi />, label: 'Narzędzia i mierniki', description: 'Multimetry, testery i akcesoria' },
-  { icon: <Zap />, label: 'Sieci niskoprądowe i okablowanie strukturalne', description: 'Instalacje i przewody' },
-  { icon: <Box />, label: 'Rozdzielnice i obudowy', description: 'Bezpieczne obudowy dla instalacji' },
-  { icon: <Plug />, label: 'Osprzęt elektroinstalacyjny i siłowy', description: 'Gniazda, wyłączniki i złącza' },
+  { id: "1", icon: <Settings />, label: "Aparatura modułowa i sterowanie", description: "Sterowniki, moduły i automatyka" },
+  { id: "2", icon: <Wifi />, label: "Narzędzia i mierniki", description: "Multimetry, testery i akcesoria" },
+  { id: "3", icon: <Zap />, label: "Sieci niskoprądowe i okablowanie strukturalne", description: "Instalacje i przewody" },
+  { id: "4", icon: <Box />, label: "Rozdzielnice i obudowy", description: "Bezpieczne obudowy dla instalacji" },
+  { id: "5", icon: <Plug />, label: "Osprzęt elektroinstalacyjny i siłowy", description: "Gniazda, wyłączniki i złącza" },
 ];
 
+
 const secondCarouselItems = [
-  { icon: <Lightbulb />, label: 'Technika świetlna', description: 'Lampy, oprawy i oświetlenie LED' },
-  { icon: <Antenna />, label: 'System tras i mocowania', description: 'Kanały, koryta i uchwyty' },
-  { icon: <Plug />, label: 'Kable i przewody', description: 'Przewody energetyczne i sygnałowe' },
-  { icon: <Zap />, label: 'Ochrona odgromowa', description: 'Systemy ochrony przed wyładowaniami' },
-  { icon: <Circle />, label: 'Pozostałe', description: 'Dodatkowe akcesoria i komponenty' },
+  { id: "6", icon: <Lightbulb />, label: "Technika świetlna", description: "Lampy, oprawy i oświetlenie LED" },
+  { id: "7", icon: <Antenna />, label: "System tras i mocowania", description: "Kanały, koryta i uchwyty" },
+  { id: "8", icon: <Plug />, label: "Kable i przewody", description: "Przewody energetyczne i sygnałowe" },
+  { id: "9", icon: <Zap />, label: "Ochrona odgromowa", description: "Systemy ochrony przed wyładowaniami" },
+  { id: "10", icon: <Circle />, label: "Pozostałe", description: "Dodatkowe akcesoria i komponenty" },
 ];
 
 const Offer = () => {
@@ -62,12 +67,10 @@ const Offer = () => {
     return () => clearTimeout(timer);
   }, [siteAlert]);
 
-  const handleLearnMore = (label: string) => {
-    setSiteAlert(`Sekcja "${label}" pojawi się wkrótce  🚧`);
-  };
-
   const renderCarousel = (
-    items: { icon: React.ReactNode; label: string; description?: string }[],
+    items: {
+      id: Key | null | undefined; icon: React.ReactNode; label: string; description?: string 
+}[],
     startIndex: number
   ) => (
     <div
@@ -97,45 +100,48 @@ const Offer = () => {
         </div>
 
         <CarouselContent className="flex gap-4 px-4 overflow-visible">
-          {items.map((item, index) => (
-           <CarouselItem
-           key={index}
-           className="
-             flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative shadow-lg/10 mb-6
-              sm:basis-1/2 md:basis-1/3 lg:basis-1/4 
-           "
-         >
-         
-          
-              {/* Ikona */}
-              <div className="absolute top-6 left-6 text-orange-600">{item.icon}</div>
-
-              {/* Środek */}
-              <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <div className="text-base md:text-lg lg:text-xl font-medium mt-8">
-                  {item.label}
-                </div>
-                {item.description && (
-                  <div className="text-sm md:text-base lg:text-lg text-gray-500 mt-1">
-                    {item.description}
-                  </div>
-                )}
-              </div>
-
-              {/* Numer itemu */}
-              <div className="absolute bottom-4 left-4 text-xs md:text-sm font-bold text-gray-400">
-                {startIndex + index}
-              </div>
-
-              {/* Przycisk */}
-              <button
-                onClick={() => handleLearnMore(item.label)}
-                className="absolute bottom-4 right-4 text-sm md:text-base font-semibold text-orange-600 hover:underline"
+          {items.map((item, index) => {
+            const page = pages.find((p) => p.id === item.id); // 👈 znajdź w pages po id
+            return (
+              <CarouselItem
+                key={item.id}
+                className="
+                  flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative shadow-lg/10 mb-6
+                  sm:basis-1/2 md:basis-1/3 lg:basis-1/4 
+                "
               >
-                Dowiedz się więcej →
-              </button>
-            </CarouselItem>
-          ))}
+                {/* Ikona */}
+                <div className="absolute top-6 left-6 text-orange-600">{item.icon}</div>
+
+                {/* Środek */}
+                <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                  <div className="text-base md:text-lg lg:text-xl font-medium mt-8">
+                    {item.label}
+                  </div>
+                  {item.description && (
+                    <div className="text-sm md:text-base lg:text-lg text-gray-500 mt-1">
+                      {item.description}
+                    </div>
+                  )}
+                </div>
+
+                {/* Numer itemu */}
+                <div className="absolute bottom-4 left-4 text-xs md:text-sm font-bold text-gray-400">
+                  {startIndex + index}
+                </div>
+
+                {page && (
+                  <Link
+                    to={`/${page.slug}`}
+                    className="absolute bottom-4 right-4 text-sm md:text-base font-semibold text-orange-600 hover:underline"
+                  >
+                    Dowiedz się więcej →
+                  </Link>
+                )}
+              </CarouselItem>
+            );
+          })}
+
         </CarouselContent>
       </Carousel>
     </div>

@@ -1,6 +1,7 @@
 export const pages = [
     {
       id: "1",
+      slug: "aparatura-modulowa",
       title: "Aparatura modułowa",
       description: `Wysoka niezawodność produktów w połączeniu z wszechstronnością zastosowania to idealny zestaw, aby zapewnić bezpieczeństwo i optymalną pracę instalacji elektrycznej w obiektach mieszkalnych, komercyjnych, jak i użyteczności publicznej. 
       W portfolio produktów znajdziesz wysokiej jakości urządzenia, w różnych kategoriach cenowych, cechujących się ergonomicznym designem i łatwością montażu, w tym m.in.:`,
@@ -29,6 +30,7 @@ export const pages = [
 
     {
         id: "2",
+        slug: "narzedzia-i-mierniki",
         title: "Narzędzia i mierniki",
         description: `Jeśli rozpoczynasz budowę, robisz remont, jesteś zapalonym majsterkowiczem, 
         bądź do codziennej pracy potrzebujesz profesjonalnych narzędzi, wszystkie niezbędne produkty 
@@ -56,6 +58,7 @@ export const pages = [
 
       {
         id: "3",
+        slug: "sieci-niskoprzadowe-i-okablowanie-strukturalne",
         title: "Sieci niskoprądowe i okablowanie strukturalne",
         description: `Nasze produkty telekomunikacyjne cechują się doskonałą jakością oraz niezawodnością, 
         co zapewnia naszym klientom stabilne i wydajne rozwiązania w codziennej komunikacji. 
@@ -87,6 +90,7 @@ export const pages = [
 
       {
         id: "4",
+        slug: "rozdzielnice-i-obudowy",
         title: "Rozdzielnice i obudowy",
         description: `Asortyment znajdujący szerokie zastosowanie w różnych branżach, 
         od budownictwa komercyjnego, mieszkaniowego po przemysł. 
@@ -121,6 +125,7 @@ export const pages = [
 
       {
         id: "5",
+        slug: "osprzet-elektroinstalacyjny-i-silowy",
         title: "Osprzęt elektroinstalacyjny i siłowy",
         description: `Bogata gama asortymentu, szerokość dostępnych serii oraz kolorystyki, 
         a przede wszystkim różnorodność funkcji i przeznaczenia produktów z osprzętu elektroinstalacyjnego, 
@@ -159,6 +164,7 @@ export const pages = [
 
       {
         id: "6",
+        slug: "technika-swietlna",
         title: "Technika świetlna",
         description: `Różne źródła światła, nowoczesna technologia oświetleniowa, atrakcyjne wzornictwo, 
         a przede wszystkim rozmaite przeznaczenie sprawiają, że nasza oferta oświetleniowa w sposób kompleksowy 
@@ -193,6 +199,7 @@ export const pages = [
 
       {
         id: "7",
+        slug: "systemy-tras-i-mocowania",
         title: "System tras i mocowania",
         description: `Zastosowanie systemów prowadzenia kabli pozwala nie tylko skutecznie je zabezpieczyć 
         przed ewentualnymi uszkodzeniami czy warunkami atmosferycznymi, ale również zachować estetyczny wygląd wnętrza, 
@@ -229,6 +236,7 @@ export const pages = [
       
       {
         id: "8",
+        slug: "kable-i-przewody",
         title: "Kable i przewody",
         description: `W ofercie znajdziesz nie tylko standardowe kable i przewody elektryczne, dzięki którym możliwe jest 
         doprowadzenie prądu do obiektów i ich poszczególnych pomieszczeń, ale również kable i przewody do specjalistycznych 
@@ -261,6 +269,7 @@ export const pages = [
 
       {
         id: "9",
+        slug: "ochrona-odgromowa",
         title: "Ochrona odgromowa",
         description: `Jak zabezpieczać zdrowie i życie ludzi przebywających w budynkach, budynki oraz obiekty przemysłowe przed 
         ryzykiem związanym z niekorzystnymi warunkami atmosferycznymi? Jakie elementy powinien zawierać właściwy projekt instalacji 
@@ -290,6 +299,7 @@ export const pages = [
 
       {
         id: "10",
+        slug: "pozostale",
         title: "Pozostałe",
         description: `Odpowiadając na Wasze potrzeby, stale poszerzamy naszą ofertę asortymentową, uzupełniając ją o produkty, 
         które umożliwiają natychmiastową pracę urządzeń po ich zakupie, wspomagające pracę przy instalacjach elektrotechnicznych 

@@ -6,8 +6,8 @@ import CTAAndFooter from "./CTAAndFooter";
 import Description from "./Description";
 
 const Subpages = () => {
-  const { id } = useParams<{ id: string }>();
-  const page = pages.find((p) => p.id === id);
+  const { slug } = useParams<{ slug: string }>();
+  const page = pages.find((p) => p.slug === slug);
 
   if (!page) return <p>Strona nie znaleziona</p>;
 

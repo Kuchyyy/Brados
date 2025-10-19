@@ -22,7 +22,7 @@ export const pages = [
         "https://elsigma.pl/wp-content/uploads/2023/09/LOGO-LCTEC.jpg",
         "https://elsigma.pl/wp-content/uploads/2023/09/legrand-1.jpg",
         "https://elsigma.pl/wp-content/uploads/2023/09/MPL_Power_Elektro.png",
-        "noark.png",
+        "https://szkolenierodo.pl/wp-content/uploads/2018/11/szkolenie-rodo-dla-kadr-logo-noark_electric.png",
         "https://elsigma.pl/wp-content/uploads/2024/04/tracon.jpg",
         "https://elsigma.pl/wp-content/uploads/2023/09/Opera-Zrzut-ekranu_2023-09-13_231832_vcx.com_.pl_.png",
       ],

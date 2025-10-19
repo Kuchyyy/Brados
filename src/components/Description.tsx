@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import gsap from "gsap";
 import { pages } from "../data/page";
 import { ArrowUpRight } from "lucide-react";
+import { Check } from "lucide-react";
 
 type DescriptionProps = {
   title: string;
@@ -91,7 +92,7 @@ const Description: React.FC<DescriptionProps> = ({
             <ul className="list-none space-y-2">
               {products.map((product, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-gray-800">
-                  <span className="text-green-600">✔</span>
+                  <Check size={18} className="text-green-600 mt-1" />
                   <span>{product}</span>
                 </li>
               ))}
@@ -114,8 +115,8 @@ const Description: React.FC<DescriptionProps> = ({
                       }`}
                     >
                       <span>{sub.title}</span>
-                      <ArrowUpRight size={16} className="ml-2" />
-                    </Link>
+                      <ArrowUpRight size={18} className="shrink-0 w-4 h-4" />
+                    </Link> 
                   </li>
                 );
               })}

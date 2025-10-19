@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import gsap from "gsap";
+import { pages } from "../data/page";
+import { ArrowUpRight } from "lucide-react";
 
 type DescriptionProps = {
   title: string;
   description: string;
   products: string[];
   producers: string[];
-  subpages?: { id: string; title: string }[];
 };
 
 const Description: React.FC<DescriptionProps> = ({
@@ -17,23 +18,11 @@ const Description: React.FC<DescriptionProps> = ({
   producers,
 }) => {
   const location = useLocation();
+  const { slug } = useParams<{ slug: string }>();
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLImageElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
-
-  const categories = [
-    { id: "1", title: "Aparatura modułowa i sterowanie" },
-    { id: "2", title: "Narzędzia i mierniki" },
-    { id: "3", title: "Sieci niskoprądowe i okablowanie" },
-    { id: "4", title: "Rozdzielnice i obudowy" },
-    { id: "5", title: "Osprzęt elektroinstalacyjny i siłowy" },
-    { id: "6", title: "Technika świetlna" },
-    { id: "7", title: "System tras i mocowania" },
-    { id: "8", title: "Kable i przewody" },
-    { id: "9", title: "Ochrona odgromowa" },
-    { id: "10", title: "Pozostałe" },
-  ];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
@@ -92,11 +81,11 @@ const Description: React.FC<DescriptionProps> = ({
       </div>
 
       <section className="w-full max-w-7xl mx-auto px-6 py-16">
-        <h1 className="font-robert-medium text-3xl md:text-5xl font-bold mb-10 text-center">
+        <h1 className="font-robert-medium text-3xl md:text-5xl font-bold mb-10 text-start">
           {title}
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 font-robert-medium">
           <div className="md:col-span-2 space-y-6">
             <p className="text-lg leading-relaxed text-gray-700">{description}</p>
             <ul className="list-none space-y-2">
@@ -109,25 +98,47 @@ const Description: React.FC<DescriptionProps> = ({
             </ul>
           </div>
 
-          <aside className="bg-stone-100 rounded-xl shadow-md p-6 space-y-4">
-            <h3 className="text-lg font-semibold mb-4">Pozostałe kategorie</h3>
+          <aside className="bg-white rounded-xl shadow-md/20 p-6 space-y-4">
+            <h3 className="text-2xl font-semibold mb-4 px-2">Pozostałe kategorie</h3>
             <ul className="space-y-2">
-              {categories.map((sub) => (
-                <li key={sub.id}>
-                  <Link to={`/page/${sub.id}`} className="text-orange-600 hover:underline">
-                    {sub.title}
-                  </Link>
-                </li>
-              ))}
+              {pages.map((sub) => {
+                const isActive = slug === sub.slug;
+                return (
+                  <li key={sub.id}>
+                    <Link
+                      to={`/${sub.slug}`}
+                      className={`flex items-center justify-between py-2 px-2 rounded-md transition-colors ${
+                        isActive
+                          ? "bg-stone-100 text-black font-semibold"
+                          : "text-orange-600 hover:text-zinc-900 hover:bg-stone-50"
+                      }`}
+                    >
+                      <span>{sub.title}</span>
+                      <ArrowUpRight size={16} className="ml-2" />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </aside>
         </div>
 
         <div className="mt-16">
-          <h2 className="text-xl font-semibold mb-8 text-center">Partnerzy</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
+          <h2 className="text-3xl md:text-5xl font-bold font-robert-medium mb-8 text-start">
+            Partnerzy
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 items-center justify-items-center w-full">
             {producers.map((logo, idx) => (
-              <img key={idx} src={logo} alt={`logo producenta ${idx}`} className="h-12 object-contain" />
+              <div
+                key={idx}
+                className="flex items-center justify-center w-full aspect-square bg-white rounded-lg shadow-md hover:shadow-lg transition"
+              >
+                <img
+                  src={logo}
+                  alt={`logo producenta ${idx}`}
+                  className="max-w-[70%] max-h-[70%] object-contain grayscale hover:grayscale-0 transition duration-300"
+                />
+              </div>
             ))}
           </div>
         </div>

@@ -77,7 +77,7 @@ body {
   }
 
   .hero-heading {
-    @apply uppercase font-zentry text-white text-6xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[12rem];
+    @apply uppercase font-zentry text-white text-7xl sm:right-10 sm:text-9xl md:text-9xl lg:text-[12rem];
   }
 
   .mask-clip-path {

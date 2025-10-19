@@ -31,7 +31,7 @@ export const MagneticButton = React.forwardRef<
   useEffect(() => {
     const newParticles = Array.from({ length: particleCount }, (_, i) => ({
       id: i,
-      x: Math.random() * 360 - 100,
+      x: Math.random() * 360 - 80,
       y: Math.random() * 360 - 180,
     }));
     setParticles(newParticles);

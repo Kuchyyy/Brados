@@ -75,14 +75,13 @@ export const pages = [
           "Systemy Automatyki"
         ],
         producers: [
-          "https://oneplace.marketplanet.pl/image/organization_logo?img_id=6656243&t=1716075484490",
           "https://aicom.pl/file/home/img/other/a-lan.png",
-          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbUAAABz...", // w oryginale jest base64
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCkTpqq-I2yGuOTXXgScW8MPKbBKnzWKUaqeysFaz4Tb0t8J5X6noDMo1s14Vei53N9g&usqp=CAU",
           "https://www.telegaertner.com/_assets/ee86e0084e53ce4c0168692d3b75689a/Img/logo.png",
           "https://upload.wikimedia.org/wikipedia/de/6/62/Draka_logo.svg",
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSSKLGpOQnL1ClRN1Cx6BBNBULpU9q3Cclw&s",
           "https://datwyler.com/assets/img/logo.svg",
-          "https://lh3.googleusercontent.com/proxy/vkNoUuffSzy8Qg6hKhBUDomiAsxsnivskgUH3awailnTtZm3RFe4FZUqHMQDR0zP52EzAZFITOIXvshPZyug89aHJZNZGiWSYRdC26F45w",
+          "https://gonep.com/media/kjcpmylv/molex-logo.png",
           "https://www.ogcs.com.ua/wp-content/uploads/2019/05/rittal.jpg",
           "https://wsad.getreview.pl/https://app.getreview.pl/data/567/4rxb4/1_34872.png"
         ]
@@ -156,7 +155,7 @@ export const pages = [
           "https://www.libra.com.pl/assets/res/lib/logotypy/Elgotech.png",
           "https://www.emos.pl/content/wysiwyg/B2C%20PL/emos_logo_a4.png",
           "https://www.archispace.pl/public/uploaded/141/image/logo_ok(1).png",
-          "https://elektro-hurt.com/img/producers/43.png",
+          "https://www.gowork.pl/media/cache/company_logo_profile_large_webp/uploads/alfa/employee/max/119662.png",
           "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Logo_Legrand_SA.svg/1024px-Logo_Legrand_SA.svg.png",
           "https://www.javel.com.pl/files/images/logo.svg"
         ]
@@ -187,7 +186,7 @@ export const pages = [
         producers: [
           "https://elsigma.pl/wp-content/uploads/2023/09/awex-q7bd706jz36wc56jd8x8ua6zi4pbuutq0bi6inifwg.jpg",
           "https://logovectordl.com/wp-content/uploads/2020/07/glamox-logo-vector.png",
-          "pxflighting.jpg",
+          "https://lhc.no/wp-content/uploads/2018/10/pxf_lighting_logo.png",
           "https://elsigma.pl/wp-content/uploads/2023/09/lumax.jpg",
           "https://elsigma.pl/wp-content/uploads/2023/09/Breve-500x239-1.jpg",
           "https://elsigma.pl/wp-content/uploads/2023/09/GTV-blue-1.png",
@@ -259,7 +258,7 @@ export const pages = [
           "https://elsigma.pl/wp-content/uploads/2023/09/zamel-1-2.jpg",
           "https://elsigma.pl/wp-content/uploads/2023/09/elektrokabel.jpg",
           "https://elsigma.pl/wp-content/uploads/2023/09/eltrim-q7bd7228cr9gzd3t29qhz9pwowg2a916okt5h7fnk0-1.png",
-          "https://sunprofi.pl/wp-content/uploads/helukabel-logo.png",
+          "https://lh5.googleusercontent.com/proxy/DVLmkGLasvwWK0YQGfr1Ea_lTDORyTOCm_p1S9dOJviMgqa_86RAeh6IB0Nkm8TqlKskBWYsQWHDENoiXI_cQvVmE9xTvBM",
           "https://elsigma.pl/wp-content/uploads/2023/09/ospel.jpg",
           "https://elsigma.pl/wp-content/uploads/2023/09/radpol.gif",
           "https://enexon.pl/wp-content/uploads/2019/01/enexon_www_technokabel_logo.png",

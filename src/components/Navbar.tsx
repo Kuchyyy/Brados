@@ -17,9 +17,12 @@ import {
   Lightbulb,
   Antenna,
   Circle,
+  ChevronLeft,
 } from "lucide-react";
 import { RippleButton } from "./ui/shadcn-io/ripple-button";
 import { pages } from "../data/page";
+
+
 
 
 const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
@@ -53,7 +56,8 @@ const Navbar = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const isSubpage = location.pathname.startsWith("/page/");
+  const slugs = pages.map(p => `/${p.slug}`);
+  const isSubpage = slugs.includes(location.pathname);
 
   const goHomeAndScroll = (hash?: string) => {
     navigate("/"); 
@@ -212,7 +216,7 @@ const Navbar = () => {
               {isSubpage ? (
                 <Link to="/" className="hidden md:flex">
                   <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors">
-                    ← <span className="uppercase font-robert-medium font-bold">Powrót</span>
+                  <ChevronLeft size={18} /> <span className="uppercase font-robert-medium font-bold">Powrót</span>
                   </RippleButton>
                 </Link>
               ) : (

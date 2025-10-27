@@ -17,8 +17,8 @@ import ScrollLoader from './components/ScrollLoader';
 function App() {
   return (
     <Router>
-      <ScrollLoader />
       <Layout>
+      <ScrollLoader />
         <Routes>
           
           <Route path="/" element={

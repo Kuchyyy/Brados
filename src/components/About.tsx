@@ -103,7 +103,7 @@ const About = () => {
                       shadow-md/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
         
-        <DottedGlowBackground
+       {/* <DottedGlowBackground
           className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
           opacity={0.5}
           gap={10}
@@ -116,7 +116,7 @@ const About = () => {
           speedMin={0.3}
           speedMax={1.6}
           speedScale={1}
-        />
+        /> */}
 
         {/* Logo – góra prawa */}
         <div className="flex justify-end">
@@ -178,7 +178,7 @@ const About = () => {
                     rounded-2xl bg-white  p-6 min-h-[300px] shadow-md/20
                     flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >
-           <DottedGlowBackground
+           {/*<DottedGlowBackground
           className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
           opacity={0.5}
           gap={10}
@@ -191,7 +191,7 @@ const About = () => {
           speedMin={0.3}
           speedMax={1.6}
           speedScale={1}
-        />
+        />*/}
           {/* GÓRA – animacja */}
           <div className="relative flex items-start justify-between">
             {/* Punkt startowy – ludzik */}

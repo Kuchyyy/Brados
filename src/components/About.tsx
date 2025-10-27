@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Users, Package, ArrowUpRight, Star } from "lucide-react";
 import { Ripple } from "./ui/shadcn-io/ripple";
 import { AnimatedBeam } from "@/components/ui/shadcn-io/animated-beam";
+import DottedGlowBackground from "./ui/dotted-glow-background";
 
 
 
@@ -119,7 +120,7 @@ const About = () => {
         /> */}
 
         {/* Logo – góra prawa */}
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4 sm:mt-0">
           <img
             src="/photos/elsigma.png"
             alt="Logo El-Sigma"
@@ -178,7 +179,7 @@ const About = () => {
                     rounded-2xl bg-white  p-6 min-h-[300px] shadow-md/20
                     flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >
-           {/*<DottedGlowBackground
+           <DottedGlowBackground
           className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
           opacity={0.5}
           gap={10}
@@ -191,7 +192,7 @@ const About = () => {
           speedMin={0.3}
           speedMax={1.6}
           speedScale={1}
-        />*/}
+        />
           {/* GÓRA – animacja */}
           <div className="relative flex items-start justify-between">
             {/* Punkt startowy – ludzik */}

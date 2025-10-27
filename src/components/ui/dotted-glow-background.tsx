@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type DottedGlowBackgroundProps = {
   className?: string;
@@ -203,11 +203,11 @@ export function DottedGlowBackground({
 
     regenDots();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let last = performance.now();
 
     const draw = (now: number) => {
       if (stopped) return;
-      const dt = (now - last) / 1000; // seconds
       last = now;
       const { width, height } = container.getBoundingClientRect();
 

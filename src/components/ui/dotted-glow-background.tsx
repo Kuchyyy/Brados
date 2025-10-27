@@ -203,12 +203,11 @@ export function DottedGlowBackground({
 
     regenDots();
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let last = performance.now();
+    
+
 
     const draw = (now: number) => {
       if (stopped) return;
-      last = now;
       const { width, height } = container.getBoundingClientRect();
 
       ctx.clearRect(0, 0, el.width, el.height);

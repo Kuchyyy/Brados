@@ -38,7 +38,7 @@ const CTAAndFooter = () => {
       )}
 
       {/* CTA sekcja */}
-      <section className="relative max-w-[96%] mx-auto py-6 rounded-3xl">
+      <section className="relative max-w-[100%] mx-auto py-6 rounded-3xl">
         {/* Treść CTA */}
         <div className="relative z-10 max-w-3xl mx-auto text-center space-y-10 px-6">
           <div className="flex flex-col gap-4 mb-6">

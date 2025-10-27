@@ -101,13 +101,13 @@ const Offer = () => {
 
         <CarouselContent className="flex gap-4 px-4 overflow-visible">
           {items.map((item, index) => {
-            const page = pages.find((p) => p.id === item.id); // 👈 znajdź w pages po id
+            const page = pages.find((p) => p.id === item.id); 
             return (
               <CarouselItem
                 key={item.id}
                 className="
-                  flex flex-col justify-between aspect-square bg-white rounded-lg p-4 relative shadow-lg/10 mb-6
-                  sm:basis-1/2 md:basis-1/3 lg:basis-1/4 
+                  flex flex-col justify-between aspect-square bg-white rounded-lg p-8 relative mb-6
+                  sm:basis-1/2 md:basis-1/2 lg:basis-1/3 
                 "
               >
                 {/* Ikona */}

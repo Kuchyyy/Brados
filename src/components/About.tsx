@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Users, Package, ArrowUpRight, Star } from "lucide-react";
 import { Ripple } from "./ui/shadcn-io/ripple";
 import { AnimatedBeam } from "@/components/ui/shadcn-io/animated-beam";
+import DottedGlowBackground from "@/components/ui/dotted-glow-background";
 
 // 🔹 Hook do animacji liczb
 const useCountUp = (end: number, inView: boolean, duration = 2000) => {
@@ -101,6 +102,21 @@ const About = () => {
                       rounded-2xl bg-white p-4 md:p-8 
                       shadow-md/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
+        
+        <DottedGlowBackground
+          className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
+          opacity={0.5}
+          gap={10}
+          radius={1.6}
+          colorLightVar="--color-neutral-500"
+          glowColorLightVar="--color-neutral-600"
+          colorDarkVar="--color-neutral-500"
+          glowColorDarkVar="--color-sky-800"
+          backgroundOpacity={0.15}
+          speedMin={0.3}
+          speedMax={1.6}
+          speedScale={1}
+        />
 
         {/* Logo – góra prawa */}
         <div className="flex justify-end">
@@ -162,6 +178,20 @@ const About = () => {
                     rounded-2xl bg-white  p-6 min-h-[300px] shadow-md/20
                     flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >
+           <DottedGlowBackground
+          className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
+          opacity={0.5}
+          gap={10}
+          radius={1.6}
+          colorLightVar="--color-neutral-500"
+          glowColorLightVar="--color-neutral-600"
+          colorDarkVar="--color-neutral-500"
+          glowColorDarkVar="--color-sky-800"
+          backgroundOpacity={0.15}
+          speedMin={0.3}
+          speedMax={1.6}
+          speedScale={1}
+        />
           {/* GÓRA – animacja */}
           <div className="relative flex items-start justify-between">
             {/* Punkt startowy – ludzik */}

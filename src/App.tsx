@@ -34,7 +34,7 @@ function App() {
             </>
           } /> 
 
-          {/* 🔹 Podstrony dynamiczne */}
+
           <Route path="/:slug" element={<Subpages />} />
         </Routes>
       </Layout>

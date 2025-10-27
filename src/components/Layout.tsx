@@ -8,7 +8,7 @@ import {
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="pl">
+    <html lang="pl" >
       <body className="bg-stone-100">
         <CursorProvider>
           {/* Ikona kursora – widoczna tylko na xl+ */}
@@ -26,7 +26,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
           </Cursor>
 
 
-          {children}
+           <div className="w-full max-w-[1440px] mx-auto">
+            {children}
+          </div>
         </CursorProvider>
       </body>
     </html>

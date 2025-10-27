@@ -21,7 +21,7 @@ const CTAAndFooter = () => {
   const oferta2 = pages.slice(5);     // reszta
 
   return (
-    <div className="relative mt-20 pb-2 sm:pb-10 bg-radial-[at_10%_80%] from-stone-400 via-stone-100 to-stone-100">
+    <div className="relative mt-20 pb-2 sm:pb-10 bg-radial-[at_50%_50%] from-stone-400 via-stone-100 to-stone-100">
       {/* ALERT FIXED */}
       {siteAlert && (
         <div className="fixed top-4 inset-x-0 flex justify-center z-[9999] px-4">

@@ -45,7 +45,7 @@ const Team1 = () => {
   };
 
   return (
-    <div id="zespół" className="min-h-screen w-screen bg-stone-100">
+    <div id="zespół" className="min-h-screen bg-stone-100">
       <div className="relative mb-8 mt-36 flex flex-col items-center gap-5 w-[96%] mx-auto">
         {/* Napis wstępny */}
         <p className="font-medium text-sm uppercase md:text-[16px]">

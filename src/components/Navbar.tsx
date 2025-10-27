@@ -142,7 +142,7 @@ const Navbar = () => {
     <>
       <div
         ref={navContainerRef}
-        className={`pointer-events-auto max-w-[1440px] md:w-[90%] inset-x-2 mx-auto h-16  top-4 z-50 fixed rounded-xl transition-all duration-500 ease-in-out
+        className={`pointer-events-auto max-w-[1382px] md:w-[90%] inset-x-2 mx-auto h-16  top-4 z-50 fixed rounded-xl transition-all duration-500 ease-in-out
           ${
             mobileOpen
               ? "bg-white"

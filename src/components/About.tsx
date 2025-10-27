@@ -104,20 +104,6 @@ const About = () => {
                       shadow-md/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
         
-        <DottedGlowBackground
-          className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
-          opacity={0.5}
-          gap={10}
-          radius={1.6}
-          colorLightVar="--color-neutral-500"
-          glowColorLightVar="--color-neutral-600"
-          colorDarkVar="--color-neutral-500"
-          glowColorDarkVar="--color-sky-800"
-          backgroundOpacity={0.15}
-          speedMin={0.3}
-          speedMax={1.6}
-          speedScale={1}
-        /> 
 
         {/* Logo – góra prawa */}
         <div className="flex justify-end mt-4 sm:mt-0">

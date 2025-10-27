@@ -83,7 +83,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 max-w-[96%] mx-auto bg-stone-100"
+      className="py-20 max-w-[96%] mx-auto bg-stone-100 min-h-screen"
     >
       {/* Nagłówek */}
       <div className="mb-8 text-center flex flex-col gap-4">
@@ -104,7 +104,7 @@ const About = () => {
                       shadow-md/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
         
-       {/* <DottedGlowBackground
+        <DottedGlowBackground
           className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
           opacity={0.5}
           gap={10}
@@ -117,7 +117,7 @@ const About = () => {
           speedMin={0.3}
           speedMax={1.6}
           speedScale={1}
-        /> */}
+        /> 
 
         {/* Logo – góra prawa */}
         <div className="flex justify-end mt-4 sm:mt-0">

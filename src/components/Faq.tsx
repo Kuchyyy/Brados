@@ -28,7 +28,7 @@ const Faq = () => {
   return (
     <section
 
-      className="max-w-[96%] mx-auto py-16 space-y-10"
+      className="max-w-[96%] mx-auto py-16 space-y-10 min-h-screen"
     >
       {/* Nagłówek */}
       <div className="text-center flex flex-col gap-4 mb-10">

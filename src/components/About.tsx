@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { Users, Package, ArrowUpRight, Star } from "lucide-react";
 import { Ripple } from "./ui/shadcn-io/ripple";
 import { AnimatedBeam } from "@/components/ui/shadcn-io/animated-beam";
-import DottedGlowBackground from "@/components/ui/dotted-glow-background";
 
-// 🔹 Hook do animacji liczb
+
+
 const useCountUp = (end: number, inView: boolean, duration = 2000) => {
   const [count, setCount] = useState(0);
 

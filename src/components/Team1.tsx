@@ -46,19 +46,19 @@ const Team1 = () => {
 
   return (
     <div id="zespół" className="min-h-screen bg-stone-100">
-      <div className="relative mb-8 mt-36 flex flex-col items-center gap-5 w-[96%] mx-auto">
+      <div className="relative  py-20 flex flex-col items-center gap-5 w-[96%] mx-auto">
         {/* Napis wstępny */}
         <p className="font-medium text-sm uppercase md:text-[16px]">
           Poznaj nasz zespół
         </p>
 
         {/* Tytuł */}
-        <h2 className="font-robert-medium uppercase text-xl font-extrabold leading-tight md:text-5xl text-center">
+        <h2 className="font-robert-medium uppercase text-2xl font-extrabold leading-tight md:text-5xl text-center">
           Ludzi tworzących <b>Brados</b>
         </h2>
 
         {/* Przełącznik */}
-        <div className="flex gap-4 mt-8 flex-wrap justify-center font-robert-medium">
+        <div className="flex gap-3 mt-8 flex-wrap justify-center font-robert-medium">
           {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map((tab) => (
             <button
               key={tab}
@@ -78,14 +78,14 @@ const Team1 = () => {
 
         {/* Karty */}
         <div
-          className={`grid gap-6 mt-10 w-full font-robert-medium
+          className={`grid gap-3 mt-10 w-full font-robert-medium
             ${activeTab === "handlowcy" ? "md:grid-cols-3 max-w-8xl" : "md:grid-cols-1 max-w-4xl justify-center"}
             grid-cols-1`}
         >
           {teams[activeTab].map((person: Person, index: number) => (
             <div
               key={index}
-              className="relative bg-white rounded-xl shadow-md/20 p-6 flex flex-col items-center text-center"
+              className="relative bg-white rounded-xl shadow-md/20 p-6 flex flex-col items-center text-center border border-zinc-200"
             >
               {/* Ikonki */}
               <div className="absolute top-4 right-4 flex gap-2">

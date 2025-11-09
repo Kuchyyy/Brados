@@ -7,18 +7,19 @@ const Hero = () => {
         
 
         <img 
-          src="/firma.png" 
-          alt="firma" 
+          src="/firma.png"
+          alt="firma"
+          loading="eager"
           className="hidden sm:block w-full h-full object-cover"
         />
 
-
         <img 
-          src="/firmatel.png" 
+          src="/firmatel.png"
           alt="firma mobile"
-          className=" sm:hidden w-full h-full object-cover"
+          loading="eager"
+          className="sm:hidden w-full h-full object-cover"
         />
-
+        
         <div className="
           absolute special-font font-zentry hero-heading text-white drop-shadow-lg
           top-5 sm:top-5

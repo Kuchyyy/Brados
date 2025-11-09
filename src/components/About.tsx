@@ -86,20 +86,20 @@ const About = () => {
       className="py-20 max-w-[96%] mx-auto bg-stone-100 min-h-screen"
     >
       {/* Nagłówek */}
-      <div className="mb-8 text-center flex flex-col gap-4">
+      <div className="mb-2 ml-1 text-left flex flex-col gap-2">
         <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
           Poznaj naszą firmę
         </p>
-        <h2 className="uppercase text-2xl font-extrabold font-robert-medium leading-tight md:text-5xl text-black">
+        <h2 className="uppercase text-2xl font-bold font-robert-medium  md:text-3xl text-black">
           Dlaczego warto wybrać  <br />
           właśnie nas
         </h2>
       </div>
 
       {/* Grid główny */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto font-robert-medium">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-auto font-robert-medium">
       {/* GÓRNY PROSTOKĄT */}
-      <div className="col-span-1 md:col-span-2 relative overflow-hidden 
+      <div className="col-span-1 md:col-span-2 relative overflow-hidden border border-zinc-200
                       rounded-2xl bg-white p-4 md:p-8 
                       shadow-md/20 hover:scale-[1.01] transition-transform 
                       flex flex-col justify-between h-full min-h-[250px]">
@@ -130,7 +130,7 @@ const About = () => {
 
       {/* GÓRNY KWADRAT – Statystyki */}
       <div
-        className="rounded-2xl bg-white 
+        className="rounded-2xl bg-white border border-zinc-200 
                   p-4 sm:p-6 
                   grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform"
       >
@@ -142,7 +142,7 @@ const About = () => {
 
 
         {/* DOLNY KWADRAT – Misja */}
-        <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-2xl bg-white  p-6 shadow-md/20 hover:scale-[1.02] transition-transform flex items-end">
+        <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-2xl bg-white  p-6 shadow-md/20 hover:scale-[1.02] transition-transform flex items-end border border-zinc-200">
           {/* Ripple efekt w tle */}
           <Ripple className="z-0" />
 
@@ -161,7 +161,7 @@ const About = () => {
         {/* DOLNY PROSTOKĄT */}
         <div
           ref={containerRef}
-          className="col-span-1 md:col-span-2 relative overflow-hidden pt-14 md:pt-20
+          className="col-span-1 md:col-span-2 relative overflow-hidden pt-14 md:pt-20 border border-zinc-200
                     rounded-2xl bg-white  p-6 min-h-[300px] shadow-md/20
                     flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >

@@ -4,7 +4,7 @@ import gsap from "gsap";
 
 const ScrollLoader: React.FC = () => {
   const location = useLocation();
-  const loaderRef = useRef<HTMLDivElement | null>(null);
+  const loaderRef = useRef(null);
   const prevPathRef = useRef<string | null>(null);
   const [shouldAnimate, setShouldAnimate] = useState(false);
 

@@ -28,14 +28,14 @@ const Faq = () => {
   return (
     <section
 
-      className="max-w-[96%] mx-auto py-16 space-y-10 min-h-screen"
+      className="max-w-[96%] mx-auto py-20 space-y-10 min-h-screen"
     >
       {/* Nagłówek */}
-      <div className="text-center flex flex-col gap-4 mb-10">
+      <div className="text-left flex flex-col gap-2 mb-2 ml-1">
         <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
           Masz pytanie?
         </p>
-        <h2 className="uppercase text-2xl font-extrabold font-robert-medium leading-tight md:text-5xl text-black">
+        <h2 className="uppercase text-2xl font-extrabold font-robert-medium leading-tight md:text-3xl text-black">
           Razem możemy osiągnąć więcej
         </h2>
       </div>
@@ -43,11 +43,11 @@ const Faq = () => {
       {/* Główna siatka */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         {/* FAQ */}
-        <div className="space-y-4 flex justify-around flex-col">
+        <div className="space-y-3 flex justify-around flex-col">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className=" rounded-xl overflow-hidden shadow-md/20 bg-white font-robert-medium"
+              className=" rounded-xl overflow-hidden shadow-md/20 bg-white font-robert-medium border border-zinc-200"
             >
               <button
                 className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black"
@@ -103,13 +103,13 @@ const Faq = () => {
 
         {/* Mobile */}
         <div className="flex flex-col w-full items-end">
-          <div className="flex flex-col w-full lg:max-w-sm items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-md/20">
+          <div className="flex flex-col w-full lg:max-w-sm items-center gap-3 mt-4 bg-white p-4 rounded-xl shadow-md/20 border border-zinc-200">
             <p className="font-medium text-black">Masz więcej pytań?</p>
             <a
               href="https://maps.app.goo.gl/nokuNXtSYTpPJjG28"
               target="_blank"
               rel="noopener noreferrer"
-              className="mx-auto px-4 py-2 bg-orange-500 text-white rounded-lg font-medium shadow-md hover:bg-orange-600 transition flex justify-center"
+              className="sm:mx-auto w-full px-4 py-2 bg-orange-500 text-white rounded-lg font-medium shadow-md hover:bg-orange-600 transition flex justify-center"
             >
               Prowadź do firmy Brados
             </a>

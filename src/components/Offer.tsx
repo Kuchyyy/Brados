@@ -60,7 +60,7 @@ const Offer = () => {
     return () => observer.disconnect();
   }, [hasAnimated]);
 
-  // automatyczne zamykanie komunikatu po 4s
+ 
   useEffect(() => {
     if (!siteAlert) return;
     const timer = setTimeout(() => setSiteAlert(null), 2000);
@@ -75,7 +75,7 @@ const Offer = () => {
   ) => (
     <div
       className={`
-        relative w-full max-w-[100%] mx-auto mt-6
+        relative w-full max-w-[100%] mx-auto mt-2
         transform transition-all duration-700 ease-out
         ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
       `}
@@ -99,14 +99,14 @@ const Offer = () => {
           </CarouselNext>
         </div>
 
-        <CarouselContent className="flex gap-4 px-4 overflow-visible">
+        <CarouselContent className="flex gap-3 px-3 overflow-visible">
           {items.map((item, index) => {
             const page = pages.find((p) => p.id === item.id); 
             return (
               <CarouselItem
                 key={item.id}
                 className="
-                  flex flex-col justify-between aspect-square bg-white rounded-lg p-8 relative mb-6
+                  flex flex-col justify-between aspect-square bg-white rounded-lg p-8 relative mb-1 border border-zinc-200
                   sm:basis-1/2 md:basis-1/2 lg:basis-1/3 
                 "
               >
@@ -151,7 +151,7 @@ const Offer = () => {
     <section
       ref={sectionRef}
       id="oferta"
-      className="py-12 bg-stone-100 max-w-[96%] mx-auto overflow-hidden relative"
+      className="py-20 bg-stone-100 max-w-[96%] mx-auto overflow-hidden relative"
     >
       {/* ALERT FIXED */}
       {siteAlert && (

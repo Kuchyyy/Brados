@@ -186,205 +186,211 @@ const Navbar = () => {
   }, [mobileOpen]);
 
   return (
-    <>
-      <div
-        ref={navContainerRef}
-        className={`pointer-events-auto max-w-[1440px] md:w-[90%] inset-x-2 mx-auto h-16  top-4 z-50 fixed rounded-xl transition-all duration-500 ease-in-out
-          ${
-            mobileOpen
-              ? "bg-white"
-              : currentScrollY > 0
-              ? "bg-stone-200 backdrop-blur-lg"
-              : "bg-transparent"
-          }`}
-      >
-        <header className="absolute top-1/2 w-full -translate-y-1/2">
-          <nav className="flex items-center justify-between w-full px-4">
-            <div
-              className="flex items-center gap-3 cursor-pointer"
-              onClick={() => goHomeAndScroll()}
-            >
-              <img src="/brados.png" alt="Logo" className="w-10" />
-            </div>
+    <div className="fixed top-4 inset-x-0 z-50 pointer-events-none">
+      <div className="w-[96%] max-w-[1384px] mx-auto flex justify-center items-center pointer-events-auto">
+        <div
+          ref={navContainerRef}
+          className={`
+        h-16 w-full rounded-xl transition-all duration-500 ease-in-out
+        ${
+          mobileOpen
+            ? "bg-white"
+            : currentScrollY > 0
+            ? "bg-stone-200 backdrop-blur-lg"
+            : "bg-transparent"
+        }
+      `}
+        >
+          <header className="absolute top-1/2 w-full -translate-y-1/2">
+            <nav className="flex items-center justify-between w-full px-4">
+              <div
+                className="flex items-center gap-3 cursor-pointer"
+                onClick={() => goHomeAndScroll()}
+              >
+                <img src="/brados.png" alt="Logo" className="w-10" />
+              </div>
 
-            <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-6 mr-3">
-                {navItems.map((item) =>
-                  item === "OFERTA" ? (
-                    <div key={item} className="relative group inline-block">
-                      <span className="flex items-center gap-1 nav-hover-btn text-black cursor-pointer">
-                        {item}
-                        <ChevronDown
-                          size={16}
-                          className="transition-transform duration-300 group-hover:rotate-180"
-                        />
-                      </span>
-                      <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
-                        <div className="grid grid-cols-2 gap-4 p-4">
-                          {[...ofertaItems, ...ofertaItems2].map(
-                            ({ id, icon, label, description }) =>
-                              (() => {
-                                const page = pages.find(
-                                  (p) => p.id === id.toString()
-                                );
-                                return (
-                                  <Link
-                                    key={id}
-                                    to={`/${page?.slug || ""}`}
-                                    onClick={handleNavClick}
-                                    className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors text-left w-full"
-                                  >
-                                    {icon}
-                                    <div>
-                                      <p className="font-medium text-sm">
-                                        {label}
-                                      </p>
-                                      <p className="text-xs text-gray-600">
-                                        {description}
-                                      </p>
-                                    </div>
-                                  </Link>
-                                );
-                              })()
-                          )}
+              <div className="flex items-center gap-4">
+                <div className="hidden md:flex items-center gap-6 mr-3">
+                  {navItems.map((item) =>
+                    item === "OFERTA" ? (
+                      <div key={item} className="relative group inline-block">
+                        <span className="flex items-center gap-1 nav-hover-btn text-black cursor-pointer">
+                          {item}
+                          <ChevronDown
+                            size={16}
+                            className="transition-transform duration-300 group-hover:rotate-180"
+                          />
+                        </span>
+                        <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
+                          <div className="grid grid-cols-2 gap-4 p-4">
+                            {[...ofertaItems, ...ofertaItems2].map(
+                              ({ id, icon, label, description }) =>
+                                (() => {
+                                  const page = pages.find(
+                                    (p) => p.id === id.toString()
+                                  );
+                                  return (
+                                    <Link
+                                      key={id}
+                                      to={`/${page?.slug || ""}`}
+                                      onClick={handleNavClick}
+                                      className="flex items-start gap-2 p-2 rounded-md hover:bg-stone-100 transition-colors text-left w-full"
+                                    >
+                                      {icon}
+                                      <div>
+                                        <p className="font-medium text-sm">
+                                          {label}
+                                        </p>
+                                        <p className="text-xs text-gray-600">
+                                          {description}
+                                        </p>
+                                      </div>
+                                    </Link>
+                                  );
+                                })()
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <button
-                      key={item}
-                      onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
-                      className="nav-hover-btn text-black cursor-pointer"
-                    >
-                      {item}
-                    </button>
-                  )
-                )}
-              </div>
+                    ) : (
+                      <button
+                        key={item}
+                        onClick={() =>
+                          goHomeAndScroll(`#${item.toLowerCase()}`)
+                        }
+                        className="nav-hover-btn text-black cursor-pointer"
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
+                </div>
 
-              <button onClick={() => goHomeAndScroll("#zespół")}>
-                <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
-                  ZADZWOŃ
-                </RippleButton>
-              </button>
-
-              {isSubpage ? (
-                <Link to="/" className="hidden md:flex">
-                  <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors">
-                    <ChevronLeft size={18} />{" "}
-                    <span className="uppercase font-robert-medium font-bold">
-                      Powrót
-                    </span>
+                <button onClick={() => goHomeAndScroll("#zespół")}>
+                  <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
+                    ZADZWOŃ
                   </RippleButton>
-                </Link>
-              ) : (
-                <RippleButton
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
-                  }
-                  className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
+                </button>
+
+                {isSubpage ? (
+                  <Link to="/" className="hidden md:flex">
+                    <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors">
+                      <ChevronLeft size={18} />{" "}
+                      <span className="uppercase font-robert-medium font-bold">
+                        Powrót
+                      </span>
+                    </RippleButton>
+                  </Link>
+                ) : (
+                  <RippleButton
+                    onClick={() =>
+                      window.scrollTo({ top: 0, behavior: "smooth" })
+                    }
+                    className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
+                  >
+                    <ArrowUp size={18} />
+                  </RippleButton>
+                )}
+
+                <button
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  className="md:hidden p-2 rounded-lg bg-orange-500 text-white"
                 >
-                  <ArrowUp size={18} />
-                </RippleButton>
-              )}
-
-              <button
-                onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 rounded-lg bg-orange-500 text-white"
-              >
-                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
-          </nav>
-        </header>
-      </div>
-
-      {/* overlay */}
-      <div
-        ref={overlayRef}
-        className="fixed inset-0 bg-black z-40 md:hidden opacity-0 invisible"
-        onClick={() => setMobileOpen(false)}
-      />
-
-      {/* mobile menu */}
-      <div
-        ref={mobileMenuRef}
-        className="fixed top-0 left-0 w-full h-full bg-white text-black z-50 md:hidden overflow-y-auto opacity-0 invisible -translate-y-full"
-      >
-        <div className="flex items-center justify-between px-6 py-6">
-          <img src="/brados.png" alt="Logo" className="w-10" />
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="p-2 rounded-lg bg-orange-500 text-white"
-          >
-            <X size={20} />
-          </button>
+                  {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+              </div>
+            </nav>
+          </header>
         </div>
 
-        <div className="flex flex-col items-start pt-4 pb-8 gap-2 w-full">
-          {navItems.map((item) =>
-            item === "OFERTA" ? (
-              <div key={item} className="w-full">
-                <button
-                  onClick={() => setMobileOfertaOpen((prev) => !prev)}
-                  className="flex justify-between items-center w-full text-lg font-robert-medium py-3 px-6 border-b border-stone-300"
-                >
-                  {item}
-                  <ChevronDown
-                    size={18}
-                    className={`transition-transform duration-300 ${
-                      mobileOfertaOpen ? "rotate-180" : ""
+        {/* overlay */}
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 bg-black z-40 md:hidden opacity-0 invisible"
+          onClick={() => setMobileOpen(false)}
+        />
+
+        {/* mobile menu */}
+        <div
+          ref={mobileMenuRef}
+          className="fixed top-0 left-0 w-full h-full bg-white text-black z-50 md:hidden overflow-y-auto opacity-0 invisible -translate-y-full"
+        >
+          <div className="flex items-center justify-between px-6 py-6">
+            <img src="/brados.png" alt="Logo" className="w-10" />
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-2 rounded-lg bg-orange-500 text-white"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="flex flex-col items-start pt-4 pb-8 gap-2 w-full">
+            {navItems.map((item) =>
+              item === "OFERTA" ? (
+                <div key={item} className="w-full">
+                  <button
+                    onClick={() => setMobileOfertaOpen((prev) => !prev)}
+                    className="flex justify-between items-center w-full text-lg font-robert-medium py-3 px-6 border-b border-stone-300"
+                  >
+                    {item}
+                    <ChevronDown
+                      size={18}
+                      className={`transition-transform duration-300 ${
+                        mobileOfertaOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      mobileOfertaOpen
+                        ? "max-h-[1000px] opacity-100"
+                        : "max-h-0 opacity-0"
                     }`}
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    mobileOfertaOpen
-                      ? "max-h-[1000px] opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="pl-4 py-2 space-y-2">
-                    {[...ofertaItems, ...ofertaItems2].map(
-                      ({ id, icon, label, description }) =>
-                        (() => {
-                          const page = pages.find(
-                            (p) => p.id === id.toString()
-                          );
-                          return (
-                            <Link
-                              key={id}
-                              to={`/${page?.slug || ""}`}
-                              onClick={handleNavClick}
-                              className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
-                            >
-                              {icon}
-                              <div>
-                                <p className="text-sm font-medium">{label}</p>
-                                <p className="text-xs text-gray-600">
-                                  {description}
-                                </p>
-                              </div>
-                            </Link>
-                          );
-                        })()
-                    )}
+                  >
+                    <div className="pl-4 py-2 space-y-2">
+                      {[...ofertaItems, ...ofertaItems2].map(
+                        ({ id, icon, label, description }) =>
+                          (() => {
+                            const page = pages.find(
+                              (p) => p.id === id.toString()
+                            );
+                            return (
+                              <Link
+                                key={id}
+                                to={`/${page?.slug || ""}`}
+                                onClick={handleNavClick}
+                                className="flex items-start gap-2 py-2 border-b border-stone-200 text-left w-full"
+                              >
+                                {icon}
+                                <div>
+                                  <p className="text-sm font-medium">{label}</p>
+                                  <p className="text-xs text-gray-600">
+                                    {description}
+                                  </p>
+                                </div>
+                              </Link>
+                            );
+                          })()
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <button
-                key={item}
-                onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
-                className="w-full text-left px-6 text-lg font-robert-medium hover:text-orange-500 border-b border-stone-300 py-3"
-              >
-                {item}
-              </button>
-            )
-          )}
+              ) : (
+                <button
+                  key={item}
+                  onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
+                  className="w-full text-left px-6 text-lg font-robert-medium hover:text-orange-500 border-b border-stone-300 py-3"
+                >
+                  {item}
+                </button>
+              )
+            )}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

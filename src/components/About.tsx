@@ -4,9 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Users, Package, ArrowUpRight, Star } from "lucide-react";
 import { Ripple } from "./ui/shadcn-io/ripple";
 import { AnimatedBeam } from "@/components/ui/shadcn-io/animated-beam";
-import DottedGlowBackground from "./ui/dotted-glow-background";
-
-
 
 const useCountUp = (end: number, inView: boolean, duration = 2000) => {
   const [count, setCount] = useState(0);
@@ -85,68 +82,60 @@ const About = () => {
       id="about"
       className="py-20 max-w-[96%] mx-auto bg-stone-100 min-h-screen"
     >
-      {/* Nagłówek */}
       <div className="mb-2 ml-1 text-left flex flex-col gap-2">
         <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
           Poznaj naszą firmę
         </p>
         <h2 className="uppercase text-2xl font-bold font-robert-medium  md:text-3xl text-black">
-          Dlaczego warto wybrać  <br />
+          Dlaczego warto wybrać <br />
           właśnie nas
         </h2>
       </div>
 
-      {/* Grid główny */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-auto font-robert-medium">
-      {/* GÓRNY PROSTOKĄT */}
-      <div className="col-span-1 md:col-span-2 relative overflow-hidden border border-zinc-200
+        <div
+          className="col-span-1 md:col-span-2 relative overflow-hidden border border-zinc-200
                       rounded-2xl bg-white p-4 md:p-8 
                       shadow-md/20 hover:scale-[1.01] transition-transform 
-                      flex flex-col justify-between h-full min-h-[250px]">
-        
+                      flex flex-col justify-between h-full min-h-[250px]"
+        >
+          <div className="flex justify-end mt-4 sm:mt-0">
+            <img
+              src="/photos/elsigma.png"
+              alt="Logo El-Sigma"
+              className=" object-contain pointer-events-none w-[100%] md:w-[80%] select-none pt-2"
+            />
+          </div>
 
-        {/* Logo – góra prawa */}
-        <div className="flex justify-end mt-4 sm:mt-0">
-          <img
-            src="/photos/elsigma.png"
-            alt="Logo El-Sigma"
-            className=" object-contain pointer-events-none w-[100%] md:w-[80%] select-none pt-2"
-          />
+          <div className="mt-3 md:mt-0">
+            <h3 className="text-2xl md:text-3xl font-bold mb-3 text-black">
+              El-Sigma
+            </h3>
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
+              Od lat wspieramy klientów w tworzeniu niezawodnych instalacji
+              elektrycznych. Stawiamy na innowacje, jakość i rozwój.
+            </p>
+          </div>
         </div>
 
-        {/* Tekst – dół lewa */}
-        <div className="mt-3 md:mt-0">
-          <h3 className="text-2xl md:text-3xl font-bold mb-3 text-black">
-            El-Sigma
-          </h3>
-          <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
-            Od lat wspieramy klientów w tworzeniu niezawodnych instalacji
-            elektrycznych. Stawiamy na innowacje, jakość i rozwój.
-          </p>
-        </div>
-      </div>
-
-
-
-      {/* GÓRNY KWADRAT – Statystyki */}
-      <div
-        className="rounded-2xl bg-white border border-zinc-200 
+        <div
+          className="rounded-2xl bg-white border border-zinc-200 
                   p-4 sm:p-6 
                   grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform"
-      >
-        <StatCard icon={Users} value={25} label="Lat doświadczenia" />
-        <StatCard icon={Package} value={5000} label="Produktów" />
-        <StatCard icon={ArrowUpRight} value={1000} label="Zadowolonych klientów" />
-        <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
-      </div>
+        >
+          <StatCard icon={Users} value={25} label="Lat doświadczenia" />
+          <StatCard icon={Package} value={5000} label="Produktów" />
+          <StatCard
+            icon={ArrowUpRight}
+            value={1000}
+            label="Zadowolonych klientów"
+          />
+          <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
+        </div>
 
-
-        {/* DOLNY KWADRAT – Misja */}
         <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-2xl bg-white  p-6 shadow-md/20 hover:scale-[1.02] transition-transform flex items-end border border-zinc-200">
-          {/* Ripple efekt w tle */}
           <Ripple className="z-0" />
 
-          {/* Treść na wierzchu */}
           <div className="relative z-10">
             <h4 className="text-xl md:text-2xl font-bold mb-2 text-black">
               Nasza Misja
@@ -158,30 +147,13 @@ const About = () => {
           </div>
         </div>
 
-        {/* DOLNY PROSTOKĄT */}
         <div
           ref={containerRef}
           className="col-span-1 md:col-span-2 relative overflow-hidden pt-14 md:pt-20 border border-zinc-200
                     rounded-2xl bg-white  p-6 min-h-[300px] shadow-md/20
                     flex flex-col justify-between hover:scale-[1.01] transition-transform"
         >
-           <DottedGlowBackground
-          className="pointer-events-none mask-radial-to-100% mask-radial-at-center opacity-50 dark:opacity-100"
-          opacity={0.5}
-          gap={10}
-          radius={1.6}
-          colorLightVar="--color-neutral-500"
-          glowColorLightVar="--color-neutral-600"
-          colorDarkVar="--color-neutral-500"
-          glowColorDarkVar="--color-sky-800"
-          backgroundOpacity={0.15}
-          speedMin={0.3}
-          speedMax={1.6}
-          speedScale={1}
-        />
-          {/* GÓRA – animacja */}
           <div className="relative flex items-start justify-between">
-            {/* Punkt startowy – ludzik */}
             <div
               ref={startRef}
               className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
@@ -190,24 +162,26 @@ const About = () => {
               <Users className="w-6 h-6 md:w-7 md:h-7 text-black" />
             </div>
 
-            {/* Punkt końcowy – logo Brados */}
             <div
               ref={endRef}
               className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
                         bg-white shadow-md border"
             >
-              <img src="/brados.png" alt="Logo Brados" className="w-8 h-8 md:w-10 md:h-10" />
+              <img
+                src="/brados.png"
+                alt="Logo Brados"
+                className="w-8 h-8 md:w-10 md:h-10"
+              />
             </div>
           </div>
 
-          {/* BEAM – 90% szerokości */}
           <AnimatedBeam
             containerRef={containerRef}
             fromRef={startRef}
             toRef={endRef}
             curvature={0}
-            startXOffset={0}   // przesunięcie początkowe
-            endXOffset={-0}    // przesunięcie końcowe
+            startXOffset={0}
+            endXOffset={-0}
             gradientStartColor="#ff7e5f"
             gradientStopColor="#ffb347"
             pathWidth={3}
@@ -215,7 +189,6 @@ const About = () => {
             className="z-10"
           />
 
-          {/* DÓŁ – tekst */}
           <div className="relative z-20 max-w-md mt-6">
             <h4 className="text-xl md:text-2xl font-bold mb-3 text-black">
               Komunikacja i Rozwój

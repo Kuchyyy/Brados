@@ -23,17 +23,42 @@ const Team1 = () => {
   const teams: Teams = {
     handlowcy: [
       { name: "Paweł Pawlak", phone: "691489111", email: "p.pawlak@brados.pl" },
-      { name: "Krzysztof Kuchciński", phone: "691032975", email: "k.kuchcinski@brados.pl" },
+      {
+        name: "Krzysztof Kuchciński",
+        phone: "691032975",
+        email: "k.kuchcinski@brados.pl",
+      },
       { name: "Łukasz Zboch", phone: "697466111", email: "l.zboch@brados.pl" },
-      { name: "Michał Wlaszczyk", phone: "691745111", email: "m.wlaszczyk@brados.pl" },
-      { name: "Michał Kleczkowski", phone: "697277588", email: "m.kleczkowski@brados.pl" },
+      {
+        name: "Michał Wlaszczyk",
+        phone: "691745111",
+        email: "m.wlaszczyk@brados.pl",
+      },
+      {
+        name: "Michał Kleczkowski",
+        phone: "697277588",
+        email: "m.kleczkowski@brados.pl",
+      },
     ],
     magazyn: [
-      { name: "Paweł Zawartko", phone: "691725111", email: "magazyn@brados.pl" },
-      { name: "Artur Kozłowski", role: "Kierowca", phone: "669456111", email: "magazyn@brados.pl" },
+      {
+        name: "Paweł Zawartko",
+        phone: "691725111",
+        email: "magazyn@brados.pl",
+      },
+      {
+        name: "Artur Kozłowski",
+        role: "Kierowca",
+        phone: "669456111",
+        email: "magazyn@brados.pl",
+      },
     ],
     finanse: [
-      { name: "Tomasz Grzesiak", phone: "691479111", email: "t.grzesiak@brados.pl" },
+      {
+        name: "Tomasz Grzesiak",
+        phone: "691479111",
+        email: "t.grzesiak@brados.pl",
+      },
     ],
   };
 
@@ -59,40 +84,46 @@ const Team1 = () => {
 
         {/* Przełącznik */}
         <div className="flex gap-3 mt-8 flex-wrap justify-center font-robert-medium">
-          {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-lg transition ${
-                activeTab === tab ? "bg-black text-white" : "bg-white border"
-              }`}
-            >
-              {tab === "handlowcy"
-                ? "Handlowcy"
-                : tab === "magazyn"
-                ? "Magazyn"
-                : "Rachunki i finanse"}
-            </button>
-          ))}
+          {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map(
+            (tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 rounded-lg transition cursor-pointer ${
+                  activeTab === tab ? "bg-black text-white" : "bg-white border"
+                }`}
+              >
+                {tab === "handlowcy"
+                  ? "Handlowcy"
+                  : tab === "magazyn"
+                  ? "Magazyn"
+                  : "Rachunki i finanse"}
+              </button>
+            )
+          )}
         </div>
 
         {/* Karty */}
         <div
           className={`grid gap-3 mt-10 w-full font-robert-medium
-            ${activeTab === "handlowcy" ? "md:grid-cols-3 max-w-8xl" : "md:grid-cols-1 max-w-4xl justify-center"}
+            ${
+              activeTab === "handlowcy"
+                ? "md:grid-cols-3 max-w-8xl"
+                : "md:grid-cols-1 max-w-4xl justify-center"
+            }
             grid-cols-1`}
         >
           {teams[activeTab].map((person: Person, index: number) => (
             <div
               key={index}
-              className="relative bg-white rounded-xl shadow-md/20 p-6 flex flex-col items-center text-center border border-zinc-200"
+              className="relative bg-white rounded-xl shadow-md/20 p-6 flex flex-col items-center text-center border border-zinc-200 "
             >
               {/* Ikonki */}
               <div className="absolute top-4 right-4 flex gap-2">
                 {person.phone && (
                   <a
                     href={`tel:${person.phone}`}
-                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600"
+                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600 cursor-pointer"
                   >
                     <Phone className="w-4 h-4" />
                   </a>
@@ -100,7 +131,7 @@ const Team1 = () => {
                 {person.email && (
                   <button
                     onClick={() => handleCopyEmail(person.email)}
-                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600"
+                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600 cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
                   </button>

@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import TextPressure from "@/components/ui/shadcn-io/text-pressure";
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(0);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? 3 : index);
+  };
 
   const faqs = [
     {
@@ -26,10 +30,7 @@ const Faq = () => {
   ];
 
   return (
-    <section
-
-      className="max-w-[96%] mx-auto py-20 space-y-10 min-h-screen"
-    >
+    <section className="max-w-[96%] mx-auto py-20 space-y-10 min-h-screen">
       {/* Nagłówek */}
       <div className="text-left flex flex-col gap-2 mb-2 ml-1">
         <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
@@ -47,16 +48,16 @@ const Faq = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className=" rounded-xl overflow-hidden shadow-md/20 bg-white font-robert-medium border border-zinc-200"
+              className=" rounded-xl overflow-hidden shadow-md/20 bg-white font-robert-medium border border-zinc-200 "
             >
               <button
-                className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black"
-                onClick={() => setOpenIndex(index)}
+                className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium text-black cursor-pointer gap-3"
+                onClick={() => toggle(index)}
               >
                 {faq.question}
-                <ChevronDown
-                  className={`transition-transform duration-300 min-w-6 ${
-                    openIndex === index ? "rotate-180" : ""
+                <Plus
+                  className={`transition-transform duration-300 min-w-6 shrink-0 ${
+                    openIndex === index ? "rotate-45" : ""
                   }`}
                 />
               </button>
@@ -91,7 +92,7 @@ const Faq = () => {
       </div>
 
       {/* Mapa */}
-      <div id="lokalizacja"  className="w-full">
+      <div id="lokalizacja" className="w-full">
         <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-lg">
           <iframe
             className="w-full h-full"

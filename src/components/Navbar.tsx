@@ -22,25 +22,72 @@ import {
 import { RippleButton } from "./ui/shadcn-io/ripple-button";
 import { pages } from "../data/page";
 
-
-
-
 const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
 
 const ofertaItems = [
-  { id: "1", icon: <Settings size={16} />, label: "Aparatura modułowa i sterowanie", description: "Sterowniki, moduły i automatyka" },
-  { id: "2", icon: <Wifi size={16} />, label: "Narzędzia i mierniki", description: "Multimetry, testery i akcesoria" },
-  { id: "3", icon: <Zap size={16} />, label: "Sieci niskoprądowe i okablowanie", description: "Instalacje i przewody" },
-  { id: "4", icon: <Box size={16} />, label: "Rozdzielnice i obudowy", description: "Bezpieczne obudowy dla instalacji" },
-  { id: "5", icon: <Plug size={16} />, label: "Osprzęt elektroinstalacyjny i siłowy", description: "Gniazda, wyłączniki i złącza" },
+  {
+    id: "1",
+    icon: <Settings size={16} />,
+    label: "Aparatura modułowa i sterowanie",
+    description: "Sterowniki, moduły i automatyka",
+  },
+  {
+    id: "2",
+    icon: <Wifi size={16} />,
+    label: "Narzędzia i mierniki",
+    description: "Multimetry, testery i akcesoria",
+  },
+  {
+    id: "3",
+    icon: <Zap size={16} />,
+    label: "Sieci niskoprądowe i okablowanie",
+    description: "Instalacje i przewody",
+  },
+  {
+    id: "4",
+    icon: <Box size={16} />,
+    label: "Rozdzielnice i obudowy",
+    description: "Bezpieczne obudowy dla instalacji",
+  },
+  {
+    id: "5",
+    icon: <Plug size={16} />,
+    label: "Osprzęt elektroinstalacyjny i siłowy",
+    description: "Gniazda, wyłączniki i złącza",
+  },
 ];
 
 const ofertaItems2 = [
-  { id: "6", icon: <Lightbulb size={16} />, label: "Technika świetlna", description: "Lampy, oprawy i oświetlenie LED" },
-  { id: "7", icon: <Antenna size={16} />, label: "System tras i mocowania", description: "Kanały, koryta i uchwyty" },
-  { id: "8", icon: <Plug size={16} />, label: "Kable i przewody", description: "Przewody energetyczne i sygnałowe" },
-  { id: "9", icon: <Zap size={16} />, label: "Ochrona odgromowa", description: "Systemy ochrony przed wyładowaniami" },
-  { id: "10", icon: <Circle size={16} />, label: "Pozostałe", description: "Dodatkowe akcesoria i komponenty" },
+  {
+    id: "6",
+    icon: <Lightbulb size={16} />,
+    label: "Technika świetlna",
+    description: "Lampy, oprawy i oświetlenie LED",
+  },
+  {
+    id: "7",
+    icon: <Antenna size={16} />,
+    label: "System tras i mocowania",
+    description: "Kanały, koryta i uchwyty",
+  },
+  {
+    id: "8",
+    icon: <Plug size={16} />,
+    label: "Kable i przewody",
+    description: "Przewody energetyczne i sygnałowe",
+  },
+  {
+    id: "9",
+    icon: <Zap size={16} />,
+    label: "Ochrona odgromowa",
+    description: "Systemy ochrony przed wyładowaniami",
+  },
+  {
+    id: "10",
+    icon: <Circle size={16} />,
+    label: "Pozostałe",
+    description: "Dodatkowe akcesoria i komponenty",
+  },
 ];
 
 const Navbar = () => {
@@ -56,11 +103,11 @@ const Navbar = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const slugs = pages.map(p => `/${p.slug}`);
+  const slugs = pages.map((p) => `/${p.slug}`);
   const isSubpage = slugs.includes(location.pathname);
 
   const goHomeAndScroll = (hash?: string) => {
-    navigate("/"); 
+    navigate("/");
     setTimeout(() => {
       if (hash) {
         const el = document.querySelector(hash);
@@ -142,7 +189,7 @@ const Navbar = () => {
     <>
       <div
         ref={navContainerRef}
-        className={`pointer-events-auto max-w-[1382px] md:w-[90%] inset-x-2 mx-auto h-16  top-4 z-50 fixed rounded-xl transition-all duration-500 ease-in-out
+        className={`pointer-events-auto max-w-[1440px] md:w-[90%] inset-x-2 mx-auto h-16  top-4 z-50 fixed rounded-xl transition-all duration-500 ease-in-out
           ${
             mobileOpen
               ? "bg-white"
@@ -153,7 +200,10 @@ const Navbar = () => {
       >
         <header className="absolute top-1/2 w-full -translate-y-1/2">
           <nav className="flex items-center justify-between w-full px-4">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={() => goHomeAndScroll()}>
+            <div
+              className="flex items-center gap-3 cursor-pointer"
+              onClick={() => goHomeAndScroll()}
+            >
               <img src="/brados.png" alt="Logo" className="w-10" />
             </div>
 
@@ -172,9 +222,11 @@ const Navbar = () => {
                       <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
                         <div className="grid grid-cols-2 gap-4 p-4">
                           {[...ofertaItems, ...ofertaItems2].map(
-                            ({ id, icon, label, description }) => (
+                            ({ id, icon, label, description }) =>
                               (() => {
-                                const page = pages.find((p) => p.id === id.toString());
+                                const page = pages.find(
+                                  (p) => p.id === id.toString()
+                                );
                                 return (
                                   <Link
                                     key={id}
@@ -184,13 +236,16 @@ const Navbar = () => {
                                   >
                                     {icon}
                                     <div>
-                                      <p className="font-medium text-sm">{label}</p>
-                                      <p className="text-xs text-gray-600">{description}</p>
+                                      <p className="font-medium text-sm">
+                                        {label}
+                                      </p>
+                                      <p className="text-xs text-gray-600">
+                                        {description}
+                                      </p>
                                     </div>
                                   </Link>
                                 );
                               })()
-                            )
                           )}
                         </div>
                       </div>
@@ -199,7 +254,7 @@ const Navbar = () => {
                     <button
                       key={item}
                       onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
-                      className="nav-hover-btn text-black"
+                      className="nav-hover-btn text-black cursor-pointer"
                     >
                       {item}
                     </button>
@@ -216,12 +271,17 @@ const Navbar = () => {
               {isSubpage ? (
                 <Link to="/" className="hidden md:flex">
                   <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors">
-                  <ChevronLeft size={18} /> <span className="uppercase font-robert-medium font-bold">Powrót</span>
+                    <ChevronLeft size={18} />{" "}
+                    <span className="uppercase font-robert-medium font-bold">
+                      Powrót
+                    </span>
                   </RippleButton>
                 </Link>
               ) : (
                 <RippleButton
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
                   className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
                 >
                   <ArrowUp size={18} />
@@ -279,14 +339,18 @@ const Navbar = () => {
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
-                    mobileOfertaOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+                    mobileOfertaOpen
+                      ? "max-h-[1000px] opacity-100"
+                      : "max-h-0 opacity-0"
                   }`}
                 >
                   <div className="pl-4 py-2 space-y-2">
                     {[...ofertaItems, ...ofertaItems2].map(
-                      ({ id, icon, label, description }) => (
+                      ({ id, icon, label, description }) =>
                         (() => {
-                          const page = pages.find((p) => p.id === id.toString());
+                          const page = pages.find(
+                            (p) => p.id === id.toString()
+                          );
                           return (
                             <Link
                               key={id}
@@ -297,13 +361,13 @@ const Navbar = () => {
                               {icon}
                               <div>
                                 <p className="text-sm font-medium">{label}</p>
-                                <p className="text-xs text-gray-600">{description}</p>
+                                <p className="text-xs text-gray-600">
+                                  {description}
+                                </p>
                               </div>
                             </Link>
                           );
                         })()
-                        
-                      )
                     )}
                   </div>
                 </div>

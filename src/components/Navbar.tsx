@@ -207,7 +207,7 @@ const Navbar = () => {
                 className="flex items-center gap-3 cursor-pointer"
                 onClick={() => goHomeAndScroll()}
               >
-                <img src="/brados.png" alt="Logo" className="w-10" />
+                <img src="/photos/brados.webp" alt="Logo" className="w-10" />
               </div>
 
               <div className="flex items-center gap-2">
@@ -317,7 +317,7 @@ const Navbar = () => {
           className="fixed top-0 left-0 w-full h-full bg-white text-black z-50 md:hidden overflow-y-auto opacity-0 invisible -translate-y-full"
         >
           <div className="flex items-center justify-between px-6 py-6">
-            <img src="/brados.png" alt="Logo" className="w-10" />
+            <img src="/photos/brados.webp" alt="Logo" className="w-10" />
             <button
               onClick={() => setMobileOpen(false)}
               className="p-2 rounded-md bg-orange-500 text-white"

@@ -8,14 +8,14 @@ const Hero = () => {
     >
       <div className="relative w-[96%] md:h-[86dvh] max-w-[1440px] flex items-center justify-center z-20 rounded-md overflow-hidden shadow-lg mask-b-from-80% mask-b-to-96%">
         <img
-          src="/firma.png"
+          src="/photos/firma.webp"
           alt="firma"
           loading="eager"
           className="hidden sm:block w-full h-full object-cover"
         />
 
         <img
-          src="/firmatel.png"
+          src="/photos/firmatel.webp"
           alt="firma mobile"
           loading="eager"
           className="sm:hidden w-full h-full object-cover"

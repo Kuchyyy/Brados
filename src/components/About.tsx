@@ -60,7 +60,7 @@ const StatCard = ({
   return (
     <div
       ref={ref}
-      className="relative flex flex-col justify-end rounded-xl bg-stone-100 p-4 hover:bg-stone-200 transition h-32 sm:h-40"
+      className="relative flex flex-col justify-end rounded-md bg-stone-100 p-4 hover:bg-stone-200 transition h-32 sm:h-40"
     >
       <Icon className="absolute top-3 right-3 text-orange-500 w-6 h-6" />
       <h4 className="text-2xl md:text-3xl text-black">
@@ -102,7 +102,7 @@ const About = () => {
           >
             <div className="flex justify-end mt-4 sm:mt-0">
               <img
-                src="/photos/elsigma.png"
+                src="/photos/elsigma.webp"
                 alt="Logo El-Sigma"
                 className=" object-contain pointer-events-none w-[100%] md:w-[80%] select-none pt-2"
               />
@@ -169,7 +169,7 @@ const About = () => {
                           bg-white shadow-md border"
               >
                 <img
-                  src="/brados.png"
+                  src="/photos/brados.webp"
                   alt="Logo Brados"
                   className="w-8 h-8 md:w-10 md:h-10"
                 />

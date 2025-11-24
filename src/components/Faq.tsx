@@ -78,7 +78,7 @@ const Faq = () => {
           <div className="flex items-center justify-center ">
             <div className="w-full h-full flex items-center justify-center">
               <img
-                src="/photos/logo3d.png"
+                src="/photos/logo3d.webp"
                 alt="BRADOS 3D logo"
                 className="w-[300px] md:w-[320px] h-full object-contain"
               />

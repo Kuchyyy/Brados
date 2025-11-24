@@ -16,7 +16,7 @@ import ScrollLoader from "./components/ScrollLoader";
 function App() {
   return (
     <div className="w-full flex justify-center items-center">
-      <div className="max-w-[1440px] w-full">
+      <div className=" w-full">
         <Router>
           <ScrollLoader />
           <Routes>

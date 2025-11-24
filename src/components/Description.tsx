@@ -81,73 +81,78 @@ const Description: React.FC<DescriptionProps> = ({
         </h1>
       </div>
 
-      <section className="w-[96%] mx-auto px-6 py-16">
-        <h1 className="font-robert-medium text-3xl md:text-5xl font-bold mb-10 text-start">
-          {title}
-        </h1>
+      <div className="w-full flex justify-center items-center bg-linear-to-b from-stone-100 to-neutral-200">
+        <section className="w-[96%] max-w-[1440px] mx-auto py-16">
+          <h1 className="font-robert-medium text-3xl md:text-5xl font-bold mb-10 text-start">
+            {title}
+          </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 font-robert-medium">
-          <div className="md:col-span-2 space-y-6">
-            <p className="text-lg leading-relaxed text-gray-700">
-              {description}
-            </p>
-            <ul className="list-none space-y-2">
-              {products.map((product, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-gray-800">
-                  <Check size={18} className="text-green-600 mt-1" />
-                  <span>{product}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <aside className="bg-white rounded-xl shadow-md/20 p-6 space-y-4">
-            <h3 className="text-2xl font-semibold mb-4 px-2">
-              Pozostałe kategorie
-            </h3>
-            <ul className="space-y-2">
-              {pages.map((sub) => {
-                const isActive = slug === sub.slug;
-                return (
-                  <li key={sub.id}>
-                    <Link
-                      to={`/${sub.slug}`}
-                      className={`flex items-center justify-between py-2 px-2 rounded-md transition-colors ${
-                        isActive
-                          ? "bg-stone-100 text-black font-semibold"
-                          : "text-orange-600 hover:text-zinc-900 hover:bg-stone-50"
-                      }`}
-                    >
-                      <span>{sub.title}</span>
-                      <ArrowUpRight size={18} className="shrink-0 w-4 h-4" />
-                    </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 font-robert-medium">
+            <div className="md:col-span-2 space-y-6">
+              <p className="text-lg leading-relaxed text-gray-700">
+                {description}
+              </p>
+              <ul className="list-none space-y-2">
+                {products.map((product, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-start gap-2 text-gray-800"
+                  >
+                    <Check size={18} className="text-green-600 mt-1" />
+                    <span>{product}</span>
                   </li>
-                );
-              })}
-            </ul>
-          </aside>
-        </div>
+                ))}
+              </ul>
+            </div>
 
-        <div className="mt-16">
-          <h2 className="text-3xl md:text-5xl font-bold font-robert-medium mb-8 text-start">
-            Partnerzy
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 items-center justify-items-center w-full">
-            {producers.map((logo, idx) => (
-              <div
-                key={idx}
-                className="flex items-center justify-center w-full aspect-square bg-white rounded-lg shadow-md hover:shadow-lg transition"
-              >
-                <img
-                  src={logo}
-                  alt={`logo producenta ${idx}`}
-                  className="max-w-[70%] max-h-[70%] object-contain grayscale hover:grayscale-0 transition duration-300"
-                />
-              </div>
-            ))}
+            <aside className="bg-white rounded-md shadow-md/20 p-6 space-y-4">
+              <h3 className="text-2xl font-semibold mb-4 px-2">
+                Pozostałe kategorie
+              </h3>
+              <ul className="space-y-2">
+                {pages.map((sub) => {
+                  const isActive = slug === sub.slug;
+                  return (
+                    <li key={sub.id}>
+                      <Link
+                        to={`/${sub.slug}`}
+                        className={`flex items-center justify-between py-2 px-2 rounded-md transition-colors ${
+                          isActive
+                            ? "bg-stone-100 text-black font-semibold"
+                            : "text-orange-600 hover:text-zinc-900 hover:bg-stone-50"
+                        }`}
+                      >
+                        <span>{sub.title}</span>
+                        <ArrowUpRight size={18} className="shrink-0 w-4 h-4" />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </aside>
           </div>
-        </div>
-      </section>
+
+          <div className="mt-16">
+            <h2 className="text-3xl md:text-5xl font-bold font-robert-medium mb-8 text-start">
+              Partnerzy
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 items-center justify-items-center w-full">
+              {producers.map((logo, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-center w-full aspect-square bg-white rounded-md shadow-md hover:shadow-lg transition"
+                >
+                  <img
+                    src={logo}
+                    alt={`logo producenta ${idx}`}
+                    className="max-w-[70%] max-h-[70%] object-contain grayscale hover:grayscale-0 transition duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 };

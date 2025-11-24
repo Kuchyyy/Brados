@@ -39,10 +39,6 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  @apply bg-stone-100;
-}
-
 @theme {
   --font-zentry: "zentry", sans-serif;
   --font-general: "general", sans-serif;
@@ -51,11 +47,12 @@ body {
   --font-circular-web: "circular-web", sans-serif;
 }
 
-@layer utilities {
-  .floating-nav {
-    @apply bg-black rounded-lg;
-  }
+@theme {
+  --color-cream: #f9f3e8;
+  --color-cream-dark: #eaddcb;
+}
 
+@layer utilities {
   .nav-hover-btn {
     @apply mt-1 relative ms-5 font-general uppercase text-sm text-black 
            after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full 
@@ -63,7 +60,7 @@ body {
            after:transition-transform after:duration-300 
            after:ease-[cubic-bezier(0.65_0.05_0.36_1)] 
            hover:after:origin-bottom-left hover:after:scale-x-100 
-           dark:after:bg-white cursor-none;
+           dark:after:bg-white;
   }
 
   .dropdown-menu a,
@@ -98,5 +95,20 @@ body {
 
   .animate-pulse-ripple {
     animation: pulse-ripple 3s infinite ease-in-out;
+  }
+
+  @layer utilities {
+    @keyframes shine {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: -200% 0%;
+      }
+    }
+
+    .animate-shine {
+      animation: shine var(--duration) linear infinite;
+    }
   }
 }

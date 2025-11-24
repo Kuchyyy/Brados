@@ -187,16 +187,16 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-4 inset-x-0 z-50 pointer-events-none">
-      <div className="w-[96%] max-w-[1384px] mx-auto flex justify-center items-center pointer-events-auto">
+      <div className="w-[96%] max-w-[1440px] mx-auto flex justify-center items-center pointer-events-auto">
         <div
           ref={navContainerRef}
           className={`
-        h-16 w-full rounded-xl transition-all duration-500 ease-in-out
+        h-16 w-full rounded-md transition-all duration-500 ease-in-out
         ${
           mobileOpen
             ? "bg-white"
             : currentScrollY > 0
-            ? "bg-stone-200 backdrop-blur-lg"
+            ? "bg-stone-50 border border-zinc-700 backdrop-blur-lg"
             : "bg-transparent"
         }
       `}
@@ -210,8 +210,8 @@ const Navbar = () => {
                 <img src="/brados.png" alt="Logo" className="w-10" />
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center gap-6 mr-3">
+              <div className="flex items-center gap-2">
+                <div className="hidden md:flex items-center gap-3 mr-6">
                   {navItems.map((item) =>
                     item === "OFERTA" ? (
                       <div key={item} className="relative group inline-block">
@@ -222,7 +222,7 @@ const Navbar = () => {
                             className="transition-transform duration-300 group-hover:rotate-180"
                           />
                         </span>
-                        <div className="absolute -left-40 mt-2 w-[600px] rounded-lg bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
+                        <div className="absolute -left-40 mt-2 w-[600px] rounded-md bg-white text-black shadow-lg opacity-0 invisible transition-all duration-200 group-hover:opacity-100 group-hover:visible">
                           <div className="grid grid-cols-2 gap-4 p-4">
                             {[...ofertaItems, ...ofertaItems2].map(
                               ({ id, icon, label, description }) =>
@@ -268,14 +268,14 @@ const Navbar = () => {
                 </div>
 
                 <button onClick={() => goHomeAndScroll("#zespół")}>
-                  <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-lg shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
+                  <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-md shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
                     ZADZWOŃ
                   </RippleButton>
                 </button>
 
                 {isSubpage ? (
                   <Link to="/" className="hidden md:flex">
-                    <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors">
+                    <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-md shadow-md hover:bg-orange-600 transition-colors">
                       <ChevronLeft size={18} />{" "}
                       <span className="uppercase font-robert-medium font-bold">
                         Powrót
@@ -287,7 +287,7 @@ const Navbar = () => {
                     onClick={() =>
                       window.scrollTo({ top: 0, behavior: "smooth" })
                     }
-                    className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
+                    className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-md shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
                   >
                     <ArrowUp size={18} />
                   </RippleButton>
@@ -295,7 +295,7 @@ const Navbar = () => {
 
                 <button
                   onClick={() => setMobileOpen(!mobileOpen)}
-                  className="md:hidden p-2 rounded-lg bg-orange-500 text-white"
+                  className="md:hidden p-2 rounded-md bg-orange-500 text-white"
                 >
                   {mobileOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
@@ -320,7 +320,7 @@ const Navbar = () => {
             <img src="/brados.png" alt="Logo" className="w-10" />
             <button
               onClick={() => setMobileOpen(false)}
-              className="p-2 rounded-lg bg-orange-500 text-white"
+              className="p-2 rounded-md bg-orange-500 text-white"
             >
               <X size={20} />
             </button>

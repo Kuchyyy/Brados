@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { User, Phone, Mail } from "lucide-react";
+import { DotPattern } from "./ui/dot-pattern";
 
 // Typy danych dla członków zespołu
 type Person = {
@@ -70,8 +71,20 @@ const Team1 = () => {
   };
 
   return (
-    <div id="zespół" className="min-h-screen bg-stone-100">
-      <div className="relative  py-20 flex flex-col items-center gap-5 w-[96%] mx-auto">
+    <div
+      id="zespół"
+      className="
+    min-h-screen
+    bg-white
+    backdrop-blur-6xl
+    border-y-2
+    border-zinc-700
+    shadow-[0_0_60px_rgba(255,255,255,0.1)]
+    w-full flex justify-center items-center relative
+  "
+    >
+      <DotPattern className="[mask:radial-gradient(2000px_circle_at_middle,transparent)] absolute inset-0 z-10 text-zinc-700/25 h-full w-full" />
+      <div className="relative  py-20 flex flex-col items-center gap-2 w-[96%] max-w-[1440px] mx-auto">
         {/* Napis wstępny */}
         <p className="font-medium text-sm uppercase md:text-[16px]">
           Poznaj nasz zespół
@@ -83,13 +96,13 @@ const Team1 = () => {
         </h2>
 
         {/* Przełącznik */}
-        <div className="flex gap-3 mt-8 flex-wrap justify-center font-robert-medium">
+        <div className="flex gap-3 mt-8 flex-wrap justify-center font-robert-medium z-20">
           {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map(
             (tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-lg transition cursor-pointer ${
+                className={`px-4 py-2 rounded-md transition cursor-pointer ${
                   activeTab === tab ? "bg-black text-white" : "bg-white border"
                 }`}
               >
@@ -105,7 +118,7 @@ const Team1 = () => {
 
         {/* Karty */}
         <div
-          className={`grid gap-3 mt-10 w-full font-robert-medium
+          className={`grid gap-3 mt-10 w-full font-robert-medium z-20
             ${
               activeTab === "handlowcy"
                 ? "md:grid-cols-3 max-w-8xl"
@@ -116,14 +129,14 @@ const Team1 = () => {
           {teams[activeTab].map((person: Person, index: number) => (
             <div
               key={index}
-              className="relative bg-white rounded-xl shadow-md/20 p-6 flex flex-col items-center text-center border border-zinc-200 "
+              className="relative bg-white rounded-md shadow-md/20 p-6 flex flex-col items-center text-center border border-zinc-700 "
             >
               {/* Ikonki */}
               <div className="absolute top-4 right-4 flex gap-2">
                 {person.phone && (
                   <a
                     href={`tel:${person.phone}`}
-                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600 cursor-pointer"
+                    className="bg-orange-500 p-2 rounded-md text-white hover:bg-orange-600 cursor-pointer"
                   >
                     <Phone className="w-4 h-4" />
                   </a>
@@ -131,7 +144,7 @@ const Team1 = () => {
                 {person.email && (
                   <button
                     onClick={() => handleCopyEmail(person.email)}
-                    className="bg-orange-500 p-2 rounded-lg text-white hover:bg-orange-600 cursor-pointer"
+                    className="bg-orange-500 p-2 rounded-md text-white hover:bg-orange-600 cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
                   </button>
@@ -180,7 +193,7 @@ const Team1 = () => {
 
       {/* Powiadomienie o skopiowaniu */}
       {copiedEmail && (
-        <div className="fixed z-50 bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-robert-medium">
+        <div className="fixed z-50 bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-md shadow-lg text-sm font-robert-medium">
           Skopiowano e-mail: {copiedEmail}
         </div>
       )}

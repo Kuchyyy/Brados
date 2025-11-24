@@ -28,7 +28,7 @@ export default function InfiniteSliderBasic() {
 
   return (
     <section className="py-12 bg-stone-100">
-      <div className="w-[96%] mx-auto">
+      <div className="w-[96%] max-w-[1440px] mx-auto">
         <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold mb-8">
           NASI DOSTAWCY <br />
           WSZYTSKO W JEDNYM MIEJSCU
@@ -45,7 +45,7 @@ export default function InfiniteSliderBasic() {
               {logos.map((logo, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-center w-[160px] h-[160px] bg-white rounded-lg shadow-md/20 "
+                  className="flex items-center justify-center w-[160px] h-[160px] bg-white rounded-md shadow-md/20 "
                 >
                   <img
                     src={logo.src}

@@ -91,8 +91,6 @@ const ofertaItems2 = [
 ];
 
 const Navbar = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScroll, setLastScroll] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileOfertaOpen, setMobileOfertaOpen] = useState(false);
 
@@ -123,35 +121,6 @@ const Navbar = () => {
     setMobileOpen(false);
     setMobileOfertaOpen(false);
   };
-
-  // scroll behavior
-  useEffect(() => {
-    if (!navContainerRef.current || mobileOpen) return;
-
-    if (currentScrollY === 0) {
-      setIsVisible(true);
-      navContainerRef.current.classList.remove("floating-nav");
-    } else if (currentScrollY > lastScroll) {
-      setIsVisible(false);
-      navContainerRef.current.classList.add("floating-nav");
-    } else if (currentScrollY < lastScroll) {
-      setIsVisible(true);
-      navContainerRef.current.classList.add("floating-nav");
-    }
-
-    setLastScroll(currentScrollY);
-  }, [currentScrollY, lastScroll, mobileOpen]);
-
-  // animate navbar show/hide
-  useEffect(() => {
-    if (!navContainerRef.current) return;
-
-    gsap.to(navContainerRef.current, {
-      duration: 0.3,
-      y: mobileOpen || isVisible ? 0 : -100,
-      ease: "power1.out",
-    });
-  }, [isVisible, mobileOpen]);
 
   // animate mobile menu + overlay
   useEffect(() => {
@@ -197,12 +166,12 @@ const Navbar = () => {
             ? "bg-white"
             : currentScrollY > 0
             ? "bg-stone-50 border border-zinc-700 backdrop-blur-lg"
-            : "bg-transparent"
+            : "bg-transparent "
         }
       `}
         >
-          <header className="absolute top-1/2 w-full -translate-y-1/2">
-            <nav className="flex items-center justify-between w-full px-4">
+          <header className="w-full h-16 flex items-center justify-between">
+            <nav className="flex items-center max-w-[1440px] w-full justify-between px-4">
               <div
                 className="flex items-center gap-3 cursor-pointer"
                 onClick={() => goHomeAndScroll()}

@@ -72,7 +72,12 @@ const Description: React.FC<DescriptionProps> = ({
         className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-white"
         style={{ opacity: 0, pointerEvents: "none" }}
       >
-        <img ref={logoRef} src="/brados.png" alt="Logo" className="w-20 mb-6" />
+        <img
+          ref={logoRef}
+          src="/photos/brados.webp"
+          alt="Logo"
+          className="w-20 mb-6"
+        />
         <h1
           ref={titleRef}
           className="text-2xl md:text-4xl font-bold font-robert-medium text-gray-800 text-center"

@@ -71,7 +71,7 @@ const CTAAndFooter = () => {
             <footer className="px-6 py-12 grid grid-cols-1 lg:grid-cols-4 gap-10 min-h-[400px]">
               <div className="col-span-1 space-y-4 flex justify-center flex-col items-center">
                 <img
-                  src="/brados.png"
+                  src="/photos/brados.webp"
                   alt="BRADOS logo"
                   className="w-28 md:w-32 object-contain"
                 />

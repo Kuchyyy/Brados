@@ -58,7 +58,11 @@ const ScrollLoader: React.FC = () => {
       ref={loaderRef}
       className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-white opacity-0 pointer-events-none"
     >
-      <img src="/brados.png" alt="Logo" className="loader-logo w-20 mb-6" />
+      <img
+        src="/photos/brados.webp"
+        alt="Logo"
+        className="loader-logo w-20 mb-6"
+      />
       <h1 className="loader-title text-2xl md:text-4xl font-bold font-robert-medium text-gray-800 text-center">
         Lider w branży elektrycznej i telekomunikacyjnej
       </h1>

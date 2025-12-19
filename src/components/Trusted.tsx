@@ -51,7 +51,7 @@ export default function InfiniteSliderBasic() {
                     src={logo.src}
                     alt={logo.alt}
                     draggable="false"
-                    className="max-w-[120px] max-h-[120px] object-contain grayscale hover:grayscale-0 transition duration-300"
+                    className="max-w-[120px] max-h-[120px] object-contain  transition duration-300"
                   />
                 </div>
               ))}

@@ -86,7 +86,7 @@ const Description: React.FC<DescriptionProps> = ({
         </h1>
       </div>
 
-      <div className="w-full flex justify-center items-center bg-linear-to-b from-stone-100 to-neutral-200">
+      <div className="w-full flex justify-center items-center bg-stone-100">
         <section className="w-[96%] max-w-[1440px] mx-auto py-16">
           <h1 className="font-robert-medium text-3xl md:text-5xl font-bold mb-10 text-start">
             {title}
@@ -150,7 +150,7 @@ const Description: React.FC<DescriptionProps> = ({
                   <img
                     src={logo}
                     alt={`logo producenta ${idx}`}
-                    className="max-w-[70%] max-h-[70%] object-contain grayscale hover:grayscale-0 transition duration-300"
+                    className="max-w-[70%] max-h-[70%] object-contain  transition duration-300"
                   />
                 </div>
               ))}

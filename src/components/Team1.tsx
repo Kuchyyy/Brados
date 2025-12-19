@@ -74,7 +74,7 @@ const Team1 = () => {
     <div
       id="zespół"
       className="
-    min-h-screen
+min-h-svh
     bg-white
     backdrop-blur-6xl
     border-y-2

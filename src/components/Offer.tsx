@@ -198,7 +198,7 @@ const Offer = () => {
   );
 
   return (
-    <div className="bg-linear-to-b from-stone-100 to-neutral-200 w-full flex items-center justify-center">
+    <div className="bg-stone-100 w-full flex items-center justify-center">
       <section
         ref={sectionRef}
         id="oferta"

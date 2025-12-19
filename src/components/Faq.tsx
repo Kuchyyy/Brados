@@ -7,7 +7,7 @@ const Faq = () => {
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggle = (index: number) => {
-    setOpenIndex(openIndex === index ? 3 : index);
+    setOpenIndex(openIndex === index ? index : index);
   };
 
   const faqs = [
@@ -29,9 +29,8 @@ const Faq = () => {
   ];
 
   return (
-    <div className="w-full flex justify-center items-center bg-linear-to-b from-stone-100 to-neutral-200">
-      <section className="w-[96%] max-w-[1440px] mx-auto py-20 space-y-10 min-h-screen">
-        {/* Nagłówek */}
+    <div className="w-full flex justify-center items-center bg-stone-100">
+      <section className="w-[96%] max-w-[1440px] mx-auto py-20 space-y-10 min-h-svh">
         <div className="text-left flex flex-col gap-2 mb-2 ml-1">
           <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
             Masz pytanie?
@@ -41,10 +40,8 @@ const Faq = () => {
           </h2>
         </div>
 
-        {/* Główna siatka */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-          {/* FAQ */}
-          <div className="space-y-3 flex justify-around flex-col">
+          <div className="gap-3 flex justify-around flex-col">
             {faqs.map((faq, index) => (
               <div
                 key={index}
@@ -56,13 +53,13 @@ const Faq = () => {
                 >
                   {faq.question}
                   <Plus
-                    className={`transition-transform duration-300 min-w-6 shrink-0 ${
+                    className={`transition-transform duration-300 min-w-6 shrink-0   ${
                       openIndex === index ? "rotate-45" : ""
                     }`}
                   />
                 </button>
                 <div
-                  className={`px-6 pb-4 text-gray-600 transition-all duration-500 ease-in-out ${
+                  className={`px-6 pb-4 text-gray-600 transition-all duration-500 ease-in-out max-w-2xl ${
                     openIndex === index
                       ? "max-h-[1000px] opacity-100"
                       : "max-h-0 opacity-0 overflow-hidden"
@@ -74,19 +71,17 @@ const Faq = () => {
             ))}
           </div>
 
-          {/* BRADOS LOGO 3D */}
-          <div className="flex items-center justify-center ">
+          <div className="flex items-start justify-center">
             <div className="w-full h-full flex items-center justify-center">
               <img
                 src="/photos/logo3d.webp"
                 alt="BRADOS 3D logo"
-                className="w-[300px] md:w-[320px] h-full object-contain"
+                className="w-[300px] object-contain"
               />
             </div>
           </div>
         </div>
 
-        {/* Mapa */}
         <div id="lokalizacja" className="w-full">
           <div className="relative w-full h-[400px] rounded-md overflow-hidden shadow-lg">
             <iframe
@@ -97,7 +92,6 @@ const Faq = () => {
             ></iframe>
           </div>
 
-          {/* Mobile */}
           <div className="flex flex-col w-full items-end">
             <div className="flex flex-col w-full lg:max-w-sm items-center gap-3 mt-4 bg-white p-4 rounded-md shadow-md/20 border border-zinc-200">
               <p className="font-medium text-black">Masz więcej pytań?</p>

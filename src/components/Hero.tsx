@@ -3,10 +3,10 @@
 const Hero = () => {
   return (
     <section
-      className="bg-linear-to-t from-stone-100 to-neutral-200
- w-full flex items-center justify-center pt-24"
+      className="bg-stone-100
+ w-full flex items-center justify-center pt-24  relative"
     >
-      <div className="relative w-[96%] md:h-[86dvh] max-w-[1440px] flex items-center justify-center z-20 rounded-md overflow-hidden shadow-lg mask-b-from-80% mask-b-to-96%">
+      <div className="relative w-[96%] md:h-[86dvh] max-w-[1440px] flex items-center justify-start z-20 rounded-md overflow-hidden shadow-lg mask-b-from-80% mask-b-to-96%">
         <img
           src="/photos/firma.webp"
           alt="firma"

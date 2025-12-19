@@ -14,8 +14,7 @@ const useCountUp = (end: number, inView: boolean, duration = 2000) => {
 
     const step = (currentTime: number) => {
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      const value = Math.floor(progress * end);
-      setCount(value);
+      setCount(Math.floor(progress * end));
       if (progress < 1) requestAnimationFrame(step);
     };
 
@@ -25,7 +24,6 @@ const useCountUp = (end: number, inView: boolean, duration = 2000) => {
   return count;
 };
 
-// 🔹 Komponent kafelka ze statystyką
 const StatCard = ({
   icon: Icon,
   value,
@@ -43,17 +41,14 @@ const StatCard = ({
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setInView(true);
-        }
-      },
+      (entries) => entries[0].isIntersecting && setInView(true),
       { threshold: 0.6 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      if (ref.current) observer.unobserve(ref.current);
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
     };
   }, []);
 
@@ -78,38 +73,32 @@ const About = () => {
   const endRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <div className="w-full flex justify-center items-center bg-linear-to-t from-stone-100 to-neutral-200">
+    <div className="w-full flex justify-center items-center bg-stone-100">
       <section
         id="about"
-        className="py-20 w-[96%] max-w-[1440px] mx-auto  min-h-screen"
+        className="py-20 w-[96%] max-w-[1440px] mx-auto min-h-svh"
       >
         <div className="mb-2 ml-1 text-left flex flex-col gap-2">
           <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
             Poznaj naszą firmę
           </p>
-          <h2 className="uppercase text-2xl font-bold font-robert-medium  md:text-3xl text-black">
+          <h2 className="uppercase text-2xl font-bold font-robert-medium md:text-3xl text-black">
             Dlaczego warto wybrać <br />
             właśnie nas
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-auto font-robert-medium">
-          <div
-            className="col-span-1 md:col-span-2 relative overflow-hidden border border-zinc-200
-                        rounded-md bg-white p-4 md:p-8 
-                        shadow-md/20 hover:scale-[1.01] transition-transform 
-                        flex flex-col justify-between h-full min-h-[250px]"
-          >
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 auto-rows-auto font-robert-medium">
+          <div className="col-span-1 md:col-span-2 xl:col-span-2 relative overflow-hidden border border-zinc-200 rounded-md bg-white p-6 shadow-md/20 flex flex-col justify-between min-h-[250px]">
             <div className="flex justify-end mt-4 sm:mt-0">
               <img
                 src="/photos/elsigma.webp"
                 alt="Logo El-Sigma"
-                className=" object-contain pointer-events-none w-[100%] md:w-[80%] select-none pt-2"
+                className="object-contain pointer-events-none w-full md:w-[80%] select-none pt-2"
               />
             </div>
-
             <div className="mt-3 md:mt-0">
-              <h3 className="text-2xl md:text-3xl font-bold mb-3 text-black">
+              <h3 className="text-xl md:text-2xl font-bold mb-3 text-black">
                 El-Sigma
               </h3>
               <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
@@ -119,11 +108,7 @@ const About = () => {
             </div>
           </div>
 
-          <div
-            className="rounded-md bg-white border border-zinc-200 
-                    p-4 sm:p-6 
-                    grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform"
-          >
+          <div className="col-span-1 md:col-span-2 xl:col-span-1 rounded-md bg-white border border-zinc-200 p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform">
             <StatCard icon={Users} value={25} label="Lat doświadczenia" />
             <StatCard icon={Package} value={5000} label="Produktów" />
             <StatCard
@@ -134,9 +119,8 @@ const About = () => {
             <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
           </div>
 
-          <div className="relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-md bg-white  p-6 shadow-md/20 hover:scale-[1.02] transition-transform flex items-end border border-zinc-200">
+          <div className="col-span-1 relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-md bg-white p-6 shadow-md/20 flex items-end border border-zinc-200">
             <Ripple className="z-0" />
-
             <div className="relative z-10">
               <h4 className="text-xl md:text-2xl font-bold mb-2 text-black">
                 Nasza Misja
@@ -150,23 +134,19 @@ const About = () => {
 
           <div
             ref={containerRef}
-            className="col-span-1 md:col-span-2 relative overflow-hidden pt-14 md:pt-20 border border-zinc-200
-                      rounded-md bg-white  p-6 min-h-[300px] shadow-md/20
-                      flex flex-col justify-between hover:scale-[1.01] transition-transform"
+            className="col-span-1 md:col-span-1 xl:col-span-2 relative overflow-hidden pt-14 md:pt-20 border border-zinc-200 rounded-md bg-white p-6 min-h-[300px] shadow-md/20 flex flex-col justify-between hover:scale-[1.01] transition-transform"
           >
             <div className="relative flex items-start justify-between">
               <div
                 ref={startRef}
-                className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
-                          bg-white shadow-md border"
+                className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-md border"
               >
                 <Users className="w-6 h-6 md:w-7 md:h-7 text-black" />
               </div>
 
               <div
                 ref={endRef}
-                className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full 
-                          bg-white shadow-md border"
+                className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-md border"
               >
                 <img
                   src="/photos/brados.webp"
@@ -181,8 +161,6 @@ const About = () => {
               fromRef={startRef}
               toRef={endRef}
               curvature={0}
-              startXOffset={0}
-              endXOffset={-0}
               gradientStartColor="#ff7e5f"
               gradientStopColor="#ffb347"
               pathWidth={3}

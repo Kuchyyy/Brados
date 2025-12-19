@@ -36,13 +36,13 @@ export default function InfiniteSliderBasic() {
           WSZYTSKO W JEDNYM MIEJSCU
         </h2>
 
-        <div className="relative w-full h-[180px] overflow-hidden touch-pan-y">
+        <div className="relative w-full h-[180px] overflow-hidden touch-pan-y flex items-start">
           <div className="absolute inset-0 md:mask-[linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
             <InfiniteSlider
               gap={16}
               reverse
               duration={80}
-              className="w-full h-full transform-gpu will-change-transform"
+              className="w-full h-full transform-gpu min-h-[160px] will-change-transform"
             >
               {logos.map((logo, index) => (
                 <div

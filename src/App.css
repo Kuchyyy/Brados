@@ -2,3 +2,10 @@
   overscroll-behavior: none;
 }
 
+body {
+  @apply overflow-x-hidden;
+}
+
+html {
+  @apply overscroll-none;
+}

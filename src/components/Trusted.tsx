@@ -40,7 +40,7 @@ export default function InfiniteSliderBasic() {
           className="relative w-full h-[180px] overflow-hidden touch-pan-y flex items-start"
           style={{ contain: "layout paint" }}
         >
-          <div className="absolute inset-0 md:mask-[linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
+          <div className="absolute inset-0 mask-[linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
             <InfiniteSlider
               gap={16}
               reverse

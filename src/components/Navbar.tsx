@@ -122,7 +122,6 @@ const Navbar = () => {
     setMobileOfertaOpen(false);
   };
 
-  // animate mobile menu + overlay
   useEffect(() => {
     if (!mobileMenuRef.current || !overlayRef.current) return;
 
@@ -160,15 +159,13 @@ const Navbar = () => {
         <div
           ref={navContainerRef}
           className={`
-        h-16 w-full rounded-md transition-all duration-500 ease-in-out
-        ${
-          mobileOpen
-            ? "bg-white"
-            : currentScrollY > 0
-            ? "bg-stone-50 border border-zinc-700 backdrop-blur-lg"
-            : "bg-transparent "
-        }
-      `}
+            h-16 w-full rounded-md ease-in-out border-1 border-transparent
+            ${
+              currentScrollY > 0
+                ? "bg-stone-50 border border-zinc-700 backdrop-blur-lg"
+                : "bg-transparent"
+            }
+          `}
         >
           <header className="w-full h-16 flex items-center justify-between">
             <nav className="flex items-center max-w-[1440px] w-full justify-between px-4">

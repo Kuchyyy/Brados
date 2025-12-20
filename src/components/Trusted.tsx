@@ -43,8 +43,7 @@ export default function InfiniteSliderBasic() {
           <div className="absolute inset-0 mask-[linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
             <InfiniteSlider
               gap={16}
-              reverse
-              duration={80}
+              reverse={false}
               className="w-full h-full transform-gpu min-h-[160px] will-change-transform"
             >
               {logos.map((logo, index) => (

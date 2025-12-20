@@ -1,14 +1,14 @@
 "use client";
-
 import { cn } from "@/lib/utils";
-import { motion, useMotionValue } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useMotionValue, animate, motion } from "motion/react";
+import { useState, useEffect } from "react";
 import useMeasure from "react-use-measure";
 
-type InfiniteSliderProps = {
+export type InfiniteSliderProps = {
   children: React.ReactNode;
   gap?: number;
-  duration?: number;
+  speed?: number;
+  speedOnHover?: number;
   direction?: "horizontal" | "vertical";
   reverse?: boolean;
   className?: string;
@@ -16,68 +16,84 @@ type InfiniteSliderProps = {
 
 export function InfiniteSlider({
   children,
-  gap = 50,
-  duration = 20,
+  gap = 16,
+  speed = 100,
+  speedOnHover,
   direction = "horizontal",
   reverse = false,
   className,
 }: InfiniteSliderProps) {
+  const [currentSpeed, setCurrentSpeed] = useState(speed);
+  const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
-  const [ref, bounds] = useMeasure();
-  const sizeRef = useRef<number | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
-    const size = direction === "horizontal" ? bounds.width : bounds.height;
+    let controls;
+    const size = direction === "horizontal" ? width : height;
+    const contentSize = size + gap;
+    const from = reverse ? -contentSize / 2 : 0;
+    const to = reverse ? 0 : -contentSize / 2;
 
-    if (!size || sizeRef.current !== null) return;
+    const distanceToTravel = Math.abs(to - from);
+    const duration = distanceToTravel / currentSpeed;
 
-    sizeRef.current = size + gap;
+    if (isTransitioning) {
+      const remainingDistance = Math.abs(translation.get() - to);
+      const transitionDuration = remainingDistance / currentSpeed;
 
-    const from = reverse ? -sizeRef.current / 2 : 0;
-    const speed = sizeRef.current / duration;
+      controls = animate(translation, [translation.get(), to], {
+        ease: "linear",
+        duration: transitionDuration,
+        onComplete: () => {
+          setIsTransitioning(false);
+          setKey((prevKey) => prevKey + 1);
+        },
+      });
+    } else {
+      controls = animate(translation, [from, to], {
+        ease: "linear",
+        duration: duration,
+        repeat: Infinity,
+        repeatType: "loop",
+        repeatDelay: 0,
+        onRepeat: () => {
+          translation.set(from);
+        },
+      });
+    }
 
-    translation.set(from);
-
-    const loop = (time: number) => {
-      if (lastTimeRef.current === null) {
-        lastTimeRef.current = time;
-      }
-
-      const delta = time - lastTimeRef.current;
-      lastTimeRef.current = time;
-
-      let next = translation.get() - speed * (delta / 1600);
-
-      if (sizeRef.current !== null && Math.abs(next) >= sizeRef.current) {
-        next = from;
-      }
-
-      translation.set(next);
-      rafRef.current = requestAnimationFrame(loop);
-    };
-
-    rafRef.current = requestAnimationFrame(loop);
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+    return controls?.stop;
   }, [
-    bounds.width,
-    bounds.height,
-    direction,
-    gap,
-    duration,
-    reverse,
+    key,
     translation,
+    currentSpeed,
+    width,
+    height,
+    gap,
+    isTransitioning,
+    direction,
+    reverse,
   ]);
+
+  const hoverProps = speedOnHover
+    ? {
+        onHoverStart: () => {
+          setIsTransitioning(true);
+          setCurrentSpeed(speedOnHover);
+        },
+        onHoverEnd: () => {
+          setIsTransitioning(true);
+          setCurrentSpeed(speed);
+        },
+      }
+    : {};
 
   return (
     <div className={cn("overflow-hidden", className)}>
       <motion.div
-        ref={ref}
-        className="flex w-max will-change-transform"
+        className="flex w-max"
         style={{
           ...(direction === "horizontal"
             ? { x: translation }
@@ -85,6 +101,8 @@ export function InfiniteSlider({
           gap: `${gap}px`,
           flexDirection: direction === "horizontal" ? "row" : "column",
         }}
+        ref={ref}
+        {...hoverProps}
       >
         {children}
         {children}

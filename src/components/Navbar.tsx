@@ -233,11 +233,12 @@ const Navbar = () => {
                   )}
                 </div>
 
-                <button onClick={() => goHomeAndScroll("#zespół")}>
-                  <RippleButton className="px-4 py-2 bg-orange-500 text-white rounded-md shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block">
-                    ZADZWOŃ
-                  </RippleButton>
-                </button>
+                <RippleButton
+                  onClick={() => goHomeAndScroll("#zespół")}
+                  className="px-4 py-2 bg-orange-500 text-white rounded-md shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block relative"
+                >
+                  ZADZWOŃ
+                </RippleButton>
 
                 {isSubpage ? (
                   <Link to="/" className="hidden md:flex">

@@ -57,7 +57,7 @@ const StatCard = ({
       ref={ref}
       className="relative flex flex-col justify-end rounded-md bg-stone-100 p-4 hover:bg-stone-200 transition h-32 sm:h-40"
     >
-      <Icon className="absolute top-3 right-3 text-orange-500 w-6 h-6" />
+      <Icon className="absolute top-3 right-3 text-accent-orange w-6 h-6" />
       <h4 className="text-2xl md:text-3xl text-black">
         {count}
         {inView && suffix}
@@ -76,7 +76,7 @@ const About = () => {
     <div className="w-full flex justify-center items-center bg-stone-100">
       <section
         id="about"
-        className="py-20 w-[96%] max-w-[1440px] mx-auto min-h-svh"
+        className="py-20 w-[90%] max-w-[1440px] mx-auto min-h-svh"
       >
         <div className="mb-2 ml-1 text-left flex flex-col gap-2">
           <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">

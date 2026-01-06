@@ -202,12 +202,12 @@ const Offer = () => {
       <section
         ref={sectionRef}
         id="oferta"
-        className="py-20 w-[96%] max-w-[1440px] mx-auto overflow-hidden relative"
+        className="py-20 w-[90%] max-w-[1440px] mx-auto overflow-hidden relative"
       >
         {/* ALERT FIXED */}
         {siteAlert && (
           <div className="fixed top-4 inset-x-0 flex justify-center z-[9999] px-4">
-            <div className="bg-orange-500 text-white px-6 py-3 rounded-md shadow-lg flex items-center gap-4 animate-fade-in">
+            <div className="bg-accent-orange text-white px-6 py-3 rounded-md shadow-lg flex items-center gap-4 animate-fade-in">
               <span>{siteAlert}</span>
               <button
                 onClick={() => setSiteAlert(null)}

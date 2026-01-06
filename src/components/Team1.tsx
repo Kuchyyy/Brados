@@ -84,7 +84,7 @@ min-h-svh
   "
     >
       <DotPattern className="[mask:radial-gradient(2000px_circle_at_middle,transparent)] absolute inset-0 z-10 text-zinc-700/25 h-full w-full" />
-      <div className="relative  py-20 flex flex-col items-center gap-2 w-[96%] max-w-[1440px] mx-auto">
+      <div className="relative  py-20 flex flex-col items-center gap-2 w-[90%] max-w-[1440px] mx-auto">
         {/* Napis wstępny */}
         <p className="font-medium text-sm uppercase md:text-[16px]">
           Poznaj nasz zespół
@@ -136,7 +136,7 @@ min-h-svh
                 {person.phone && (
                   <a
                     href={`tel:${person.phone}`}
-                    className="bg-orange-500 p-2 rounded-md text-white hover:bg-orange-600 cursor-pointer"
+                    className="bg-accent-orange p-2 rounded-md text-white hover:bg-orange-600 cursor-pointer"
                   >
                     <Phone className="w-4 h-4" />
                   </a>
@@ -144,7 +144,7 @@ min-h-svh
                 {person.email && (
                   <button
                     onClick={() => handleCopyEmail(person.email)}
-                    className="bg-orange-500 p-2 rounded-md text-white hover:bg-orange-600 cursor-pointer"
+                    className="bg-accent-orange p-2 rounded-md text-white hover:bg-orange-600 cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
                   </button>
@@ -193,7 +193,7 @@ min-h-svh
 
       {/* Powiadomienie o skopiowaniu */}
       {copiedEmail && (
-        <div className="fixed z-50 bottom-6 right-6 bg-orange-500 text-white px-4 py-2 rounded-md shadow-lg text-sm font-robert-medium">
+        <div className="fixed z-50 bottom-6 right-6 bg-accent-orange text-white px-4 py-2 rounded-md shadow-lg text-sm font-robert-medium">
           Skopiowano e-mail: {copiedEmail}
         </div>
       )}

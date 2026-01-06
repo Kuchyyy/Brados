@@ -38,9 +38,9 @@ const CTAAndFooter = () => {
   return (
     <div className="w-full flex justify-center items-center bg-white border-t-2 border-zinc-700 relative">
       <DotPattern className="[mask:radial-gradient(1000px_circle_at_middle,transparent)] absolute inset-0 z-20 text-zinc-700/25 h-full w-full" />
-      <div className=" mt-20 pb-2 sm:pb-10 max-w-[1440px] w-[96%] z-40">
+      <div className=" mt-20 pb-2 sm:pb-10 max-w-[1440px] w-[90%] z-40">
         <section className="relative w-full py-6 rounded-md">
-          <div className="relative z-10 max-w-3xl mx-auto text-start sm:text-center space-y-10 w-[96%] ">
+          <div className="relative z-10 max-w-3xl mx-auto text-start sm:text-center space-y-10 w-[90%] ">
             <div className="flex flex-col gap-2 mb-2 ml-1">
               <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
                 Gotowy na współpracę z nami?
@@ -86,7 +86,7 @@ const CTAAndFooter = () => {
                     <li key={page.id}>
                       <Link
                         to={`/${page.slug}`}
-                        className="hover:text-orange-500 transition text-left w-full block"
+                        className="hover:text-accent-orange transition text-left w-full block"
                       >
                         {page.title}
                       </Link>
@@ -104,7 +104,7 @@ const CTAAndFooter = () => {
                     <li key={page.id}>
                       <Link
                         to={`/${page.slug}`}
-                        className="hover:text-orange-500 transition text-left w-full block cursor-pointer"
+                        className="hover:text-accent-orange transition text-left w-full block cursor-pointer"
                       >
                         {page.title}
                       </Link>
@@ -153,7 +153,7 @@ const CTAAndFooter = () => {
                     href="https://github.com/Kuchyyy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-orange-500 transition"
+                    className="hover:text-accent-orange transition"
                   >
                     @KHY
                   </a>

@@ -155,11 +155,11 @@ const Navbar = () => {
 
   return (
     <div className="fixed top-4 inset-x-0 z-50 pointer-events-none">
-      <div className="w-[96%] max-w-[1440px] mx-auto flex justify-center items-center pointer-events-auto">
+      <div className="w-[90%] max-w-[1440px] mx-auto flex justify-center items-center pointer-events-auto">
         <div
           ref={navContainerRef}
           className={`
-            h-16 w-full rounded-md ease-in-out border-1 border-transparent
+            h-16 w-full rounded-md ease-in-out border-1 border-transparent transition-all duration-400
             ${
               currentScrollY > 0
                 ? "bg-stone-50 border border-zinc-700 backdrop-blur-lg"
@@ -235,14 +235,14 @@ const Navbar = () => {
 
                 <RippleButton
                   onClick={() => goHomeAndScroll("#zespół")}
-                  className="px-4 py-2 bg-orange-500 text-white rounded-md shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block relative"
+                  className="px-4 py-2 bg-accent-orange text-white rounded-md shadow-md font-bold font-robert-medium transition-colors hover:bg-orange-600 hidden md:block relative"
                 >
                   ZADZWOŃ
                 </RippleButton>
 
                 {isSubpage ? (
                   <Link to="/" className="hidden md:flex">
-                    <RippleButton className="px-4 py-2 flex items-center gap-2 bg-orange-500 text-white rounded-md shadow-md hover:bg-orange-600 transition-colors">
+                    <RippleButton className="px-4 py-2 flex items-center gap-2 bg-accent-orange text-white rounded-md shadow-md hover:bg-orange-600 transition-colors">
                       <ChevronLeft size={18} />{" "}
                       <span className="uppercase font-robert-medium font-bold">
                         Powrót
@@ -254,7 +254,7 @@ const Navbar = () => {
                     onClick={() =>
                       window.scrollTo({ top: 0, behavior: "smooth" })
                     }
-                    className="w-10 h-10 items-center justify-center bg-orange-500 text-white rounded-md shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
+                    className="w-10 h-10 items-center justify-center bg-accent-orange text-white rounded-md shadow-md hover:bg-orange-600 transition-colors hidden md:flex"
                   >
                     <ArrowUp size={18} />
                   </RippleButton>
@@ -262,7 +262,7 @@ const Navbar = () => {
 
                 <button
                   onClick={() => setMobileOpen(!mobileOpen)}
-                  className="md:hidden p-2 rounded-md bg-orange-500 text-white"
+                  className="md:hidden p-2 rounded-md bg-accent-orange text-white"
                 >
                   {mobileOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
@@ -287,7 +287,7 @@ const Navbar = () => {
             <img src="/photos/brados.webp" alt="Logo" className="w-10" />
             <button
               onClick={() => setMobileOpen(false)}
-              className="p-2 rounded-md bg-orange-500 text-white"
+              className="p-2 rounded-md bg-accent-orange text-white"
             >
               <X size={20} />
             </button>
@@ -348,7 +348,7 @@ const Navbar = () => {
                 <button
                   key={item}
                   onClick={() => goHomeAndScroll(`#${item.toLowerCase()}`)}
-                  className="w-full text-left px-6 text-lg font-robert-medium hover:text-orange-500 border-b border-stone-300 py-3"
+                  className="w-full text-left px-6 text-lg font-robert-medium hover:text-accent-orange border-b border-stone-300 py-3"
                 >
                   {item}
                 </button>

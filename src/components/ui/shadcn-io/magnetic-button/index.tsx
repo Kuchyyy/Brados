@@ -92,7 +92,7 @@ export const MagneticButton = React.forwardRef<
         className={cn(
           "relative min-w-40 overflow-hidden",
           "px-6 py-3 rounded-lg font-robert-medium uppercase",
-          "bg-orange-500 text-white shadow-lg",
+          "bg-accent-orange text-white shadow-lg",
           "hover:bg-orange-600 transition-all duration-300 z-10",
           className
         )}

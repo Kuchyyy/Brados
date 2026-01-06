@@ -33,6 +33,34 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMSans";
+  src: url("/fonts/DM_Sans/static/DMSans_36pt-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 @import "tailwindcss";
 
 html {
@@ -45,11 +73,15 @@ html {
   --font-robert-medium: "robert-medium", sans-serif;
   --font-robert-regular: "robert-regular", sans-serif;
   --font-circular-web: "circular-web", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-dmsans: "DMSans", sans-serif;
 }
 
 @theme {
   --color-cream: #f9f3e8;
   --color-cream-dark: #eaddcb;
+  --color-accent-orange: #ee721b;
+  --color-blackk: #1a1a1a;
 }
 
 @layer utilities {
@@ -68,13 +100,8 @@ html {
     cursor: pointer !important;
   }
 
-  .special-font b {
-    font-family: "zentry";
-    font-feature-settings: "ss01" on;
-  }
-
   .hero-heading {
-    @apply uppercase font-zentry text-white text-7xl sm:right-10 sm:text-9xl md:text-9xl lg:text-[12rem];
+    @apply text-white text-[2rem]  sm:text-[4rem] md:text-[6rem] lg:text-[7rem];
   }
 
   .mask-clip-path {

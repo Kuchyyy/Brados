@@ -30,17 +30,19 @@ export default function InfiniteSliderBasic() {
 
   return (
     <section className="py-12 bg-stone-100 h-[380px]">
-      <div className="w-[90%] max-w-[1440px] mx-auto">
-        <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold mb-8">
-          NASI DOSTAWCY <br />
-          WSZYTSKO W JEDNYM MIEJSCU
-        </h2>
+      <div className="w-full sm:w-[90%] max-w-[1440px] mx-auto flex flex-col items-center">
+        <div className="w-[90%] sm:w-full">
+          <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold mb-8">
+            NASI DOSTAWCY <br />
+            WSZYTSKO W JEDNYM MIEJSCU
+          </h2>
+        </div>
 
         <div
           className="relative w-full h-[180px] overflow-hidden touch-pan-y flex items-start"
           style={{ contain: "layout paint" }}
         >
-          <div className="absolute inset-0 mask-[linear-gradient(to_right,transparent_0%,black_15%,black_85%,transparent_100%)]">
+          <div className="absolute inset-0 ">
             <InfiniteSlider
               gap={16}
               reverse={false}

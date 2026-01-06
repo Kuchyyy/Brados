@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { pages } from "../data/page";
 import Navbar from "./Navbar";
+import Hero from "../components/Hero";
 import CTAAndFooter from "./CTAAndFooter";
 import Description from "./Description";
 
@@ -13,6 +14,7 @@ const Subpages = () => {
   return (
     <div>
       <Navbar />
+      <Hero />
       <Description
         title={page.title}
         description={page.description}

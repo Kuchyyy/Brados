@@ -86,7 +86,7 @@ html {
 
 @layer utilities {
   .nav-hover-btn {
-    @apply mt-1 relative ms-5 font-general uppercase text-sm text-black 
+    @apply mt-1 relative ms-5 font-poppins uppercase text-sm text-black 
            after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full 
            after:origin-bottom-right after:scale-x-0 after:bg-black 
            after:transition-transform after:duration-300 

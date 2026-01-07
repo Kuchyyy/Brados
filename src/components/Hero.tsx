@@ -87,8 +87,12 @@ const Hero = () => {
   const topInset = Math.max(textH - maskHeight, 0);
 
   return (
-    <section className="bg-white w-full pt-24 relative">
-      <div className="sticky top-32 z-30 flex justify-center">
+    <section className="bg-white w-full pt-30 relative">
+      <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight">
+        <div>tutaj moze byc jakis element na gorce np. navbar</div>
+        <div className="text-blackk/60">siemka naklejka </div>
+      </div>
+      <div className="sticky top-40 z-30 flex justify-center">
         <div
           ref={titleWrapperRef}
           className="font-poppins tracking-tight         text-[2.2rem]
@@ -112,7 +116,7 @@ const Hero = () => {
 
       <div
         ref={imageRef}
-        className="relative w-[90%] md:h-[90dvh] max-w-[1440px] mx-auto mt-16 rounded-md overflow-hidden shadow-lg"
+        className="relative w-[90%] md:h-[90dvh] max-w-[1440px] mx-auto rounded-md overflow-hidden shadow-lg"
       >
         <img
           src="/photos/firma.webp"

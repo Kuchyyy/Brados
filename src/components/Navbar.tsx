@@ -22,7 +22,7 @@ import {
 import { RippleButton } from "./ui/shadcn-io/ripple-button";
 import { pages } from "../data/page";
 
-const navItems = ["OFERTA", "ZESPÓŁ", "LOKALIZACJA"];
+const navItems = ["Oferta", "Zespół", "Lokalizacja"];
 
 const ofertaItems = [
   {
@@ -179,7 +179,7 @@ const Navbar = () => {
               <div className="flex items-center gap-2">
                 <div className="hidden md:flex items-center gap-3 mr-6">
                   {navItems.map((item) =>
-                    item === "OFERTA" ? (
+                    item === "Oferta" ? (
                       <div key={item} className="relative group inline-block">
                         <span className="flex items-center gap-1 nav-hover-btn text-black cursor-pointer">
                           {item}

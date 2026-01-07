@@ -108,7 +108,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="col-span-1 md:col-span-2 xl:col-span-1 rounded-md bg-white border border-zinc-200 p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform">
+          <div className="col-span-1 md:col-span-2 xl:col-span-1 rounded-md bg-white border border-zinc-200 p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform">
             <StatCard icon={Users} value={25} label="Lat doświadczenia" />
             <StatCard icon={Package} value={5000} label="Produktów" />
             <StatCard

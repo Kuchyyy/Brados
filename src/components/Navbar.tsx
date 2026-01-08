@@ -108,7 +108,7 @@ const Navbar = () => {
     if (!navRef.current || !contentRef.current) return;
 
     gsap.to(contentRef.current, {
-      maxHeight: open ? "70svh" : 0,
+      maxHeight: open ? "90svh" : 0,
       opacity: open ? 1 : 0,
       duration: 0.6,
       ease: open ? "power3.out" : "power2.inOut",
@@ -145,7 +145,7 @@ const Navbar = () => {
     <>
       {open && (
         <div
-          className="fixed inset-0 bg-black/40 z-40 backdrop-blur-[2px]"
+          className="fixed inset-0 bg-black/50 z-40 backdrop-blur-[2px]"
           onClick={closeNavbar}
         />
       )}

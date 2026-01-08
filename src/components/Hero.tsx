@@ -87,15 +87,17 @@ const Hero = () => {
   const topInset = Math.max(textH - maskHeight, 0);
 
   return (
-    <section className="bg-white w-full pt-30 relative">
+    <section className="bg-white w-full pt-40 relative">
       <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight">
-        <div>tutaj moze byc jakis element na gorce np. navbar</div>
-        <div className="text-blackk/60">siemka naklejka </div>
+        <div>Lider w branży</div>
+        <div className="text-blackk/60">
+          Tutaj znajdziesz wszysko czego potrzebujesz
+        </div>
       </div>
-      <div className="sticky top-40 z-30 flex justify-center">
+      <div className="sticky top-50 z-30 flex justify-center">
         <div
           ref={titleWrapperRef}
-          className="font-poppins tracking-tight         text-[2.2rem]
+          className="font-poppins tracking-tight         text-[2.5rem]
           sm:text-[3.2rem]
           md:text-[4rem]
           lg:text-[5rem]

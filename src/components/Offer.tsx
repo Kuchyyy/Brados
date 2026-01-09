@@ -1,13 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState, type Key } from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import {
   Settings,
   Wifi,
@@ -92,6 +85,11 @@ const Offer = () => {
   const [visible, setVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [siteAlert, setSiteAlert] = useState<string | null>(null);
+  const scrollContainerRefs = useRef<(HTMLDivElement | null)[]>([null, null]);
+  const [scrollProgress, setScrollProgress] = useState<[number, number]>([
+    0, 0,
+  ]);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -113,6 +111,41 @@ const Offer = () => {
     return () => clearTimeout(timer);
   }, [siteAlert]);
 
+  const updateScrollProgress = (index: number) => {
+    if (!scrollContainerRefs.current[index]) return;
+    const container = scrollContainerRefs.current[index];
+    const { scrollLeft, scrollWidth, clientWidth } = container!;
+    const maxScroll = scrollWidth - clientWidth;
+    const progress = maxScroll > 0 ? scrollLeft / maxScroll : 1;
+    setScrollProgress((prev) => {
+      const newProgress = [...prev] as [number, number];
+      newProgress[index] = progress;
+      return newProgress;
+    });
+  };
+
+  const handleScroll = (direction: "left" | "right", index: number) => {
+    const container = scrollContainerRefs.current[index];
+    if (!container) return;
+
+    const scrollAmount = 400;
+    const currentScroll = container.scrollLeft;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+
+    import("gsap").then((gsap_module) => {
+      const gsap = gsap_module.default;
+      gsap.to(container, {
+        scrollLeft:
+          direction === "right"
+            ? Math.min(currentScroll + scrollAmount, maxScroll)
+            : Math.max(currentScroll - scrollAmount, 0),
+        duration: 0,
+        ease: "power2.out",
+        onUpdate: () => updateScrollProgress(index),
+      });
+    });
+  };
+
   const renderCarousel = (
     items: {
       id: Key | null | undefined;
@@ -120,91 +153,103 @@ const Offer = () => {
       label: string;
       description?: string;
     }[],
-    startIndex: number
+    carouselIndex: number
   ) => (
     <div
       className={`
-        relative w-full max-w-[100%] mx-auto mt-2
+        relative w-full max-w-[100%] mx-auto mt-2 p-4 border border-black/30 rounded-xl bg-white
         transform transition-all duration-700 ease-out 
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
       `}
     >
-      <Carousel
-        opts={{
-          loop: true,
-          align: "start",
-          skipSnaps: false,
-          containScroll: "keepSnaps",
-        }}
-        className="w-full"
-      >
-        <div className="absolute right-20 top-[20px] flex items-center gap-2 z-10">
-          <span className="text-sm font-medium">Przesuń</span>
-          <CarouselPrevious className="p-2 bg-white rounded-md">
-            <ArrowLeft />
-          </CarouselPrevious>
-          <CarouselNext className="p-2 bg-white rounded-md">
-            <ArrowRight />
-          </CarouselNext>
+      <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight mb-6">
+        <div className="text-black font-medium">
+          Przesuń aby zobaczyć więcej
         </div>
+      </div>
 
-        <CarouselContent className="flex gap-3 px-3 overflow-visible">
-          {items.map((item, index) => {
-            const page = pages.find((p) => p.id === item.id);
-            return (
-              <CarouselItem
-                key={item.id}
-                className="
-                  flex flex-col justify-between aspect-square bg-white rounded-md p-8 relative mb-1 border border-zinc-200
-                  sm:basis-1/2 md:basis-1/2 lg:basis-1/3 
-                "
-              >
-                {/* Ikona */}
-                <div className="absolute top-6 left-6 text-orange-600">
+      <div
+        ref={(el) => {
+          scrollContainerRefs.current[carouselIndex] = el;
+        }}
+        onScroll={() => updateScrollProgress(carouselIndex)}
+        className="grid grid-flow-col auto-cols-max gap-3 w-full overflow-x-auto scroll-smooth scrollbar-hide [&::-webkit-scrollbar]:h-1  [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-white [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:hover:bg-accent-orange"
+      >
+        {items.map((item) => {
+          const page = pages.find((p) => p.id === item.id);
+          return (
+            <div
+              key={item.id}
+              className="aspect-square bg-stone-50 rounded-md p-6 border border-black/10 flex-shrink-0 w-75 flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-accent-orange mb-3 text-2xl">
                   {item.icon}
                 </div>
-
-                {/* Środek */}
-                <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                  <div className="text-base md:text-lg lg:text-xl font-medium mt-8">
-                    {item.label}
-                  </div>
-                  {item.description && (
-                    <div className="text-sm md:text-base lg:text-lg text-gray-500 mt-1">
-                      {item.description}
-                    </div>
-                  )}
-                </div>
-
-                {/* Numer itemu */}
-                <div className="absolute bottom-4 left-4 text-xs md:text-sm font-bold text-gray-400">
-                  {startIndex + index}
-                </div>
-
-                {page && (
-                  <Link
-                    to={`/${page.slug}`}
-                    className="absolute bottom-4 right-4 text-sm md:text-base font-semibold text-orange-600 hover:underline"
-                  >
-                    Dowiedz się więcej →
-                  </Link>
+                <h3 className="text-base font-medium mb-2">{item.label}</h3>
+                {item.description && (
+                  <p className="text-xs text-black/60">{item.description}</p>
                 )}
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-      </Carousel>
+              </div>
+
+              {page && (
+                <Link
+                  to={`/${page.slug}`}
+                  className="text-sm font-medium text-accent-orange hover:underline"
+                >
+                  Dowiedz się więcej
+                  <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
+                </Link>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {isMobile && (
+        <div className="flex justify-center items-center gap-3 mt-6 ">
+          <div className="flex gap-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className={`transition-all duration-300 h-1.5 rounded-full ${
+                  i / 5 <= scrollProgress[carouselIndex]
+                    ? "bg-accent-orange w-6"
+                    : "bg-black/20 w-2"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!isMobile && (
+        <div className="flex justify-center items-center gap-3 mt-6 hidden sm:flex">
+          <button
+            onClick={() => handleScroll("left", carouselIndex)}
+            className="p-2 border border-black/30 rounded-md hover:bg-black/5 transition-colors"
+          >
+            <ArrowLeft size={18} />
+          </button>
+
+          <button
+            onClick={() => handleScroll("right", carouselIndex)}
+            className="p-2 border border-black/30 rounded-md hover:bg-black/5 transition-colors"
+          >
+            <ArrowRight size={18} />
+          </button>
+        </div>
+      )}
     </div>
   );
 
   return (
-    <div className="bg-stone-100 w-full flex items-center justify-center">
+    <div className="w-full flex items-center justify-center">
       <section
         ref={sectionRef}
         id="oferta"
-        className="py-20 w-[90%] max-w-[1440px] mx-auto overflow-hidden relative"
+        className=" w-[90%] max-w-[1440px] mx-auto overflow-hidden relative"
       >
-        {/* ALERT FIXED */}
         {siteAlert && (
           <div className="fixed top-4 inset-x-0 flex justify-center z-[9999] px-4">
             <div className="bg-accent-orange text-white px-6 py-3 rounded-md shadow-lg flex items-center gap-4 animate-fade-in">
@@ -219,16 +264,15 @@ const Offer = () => {
           </div>
         )}
 
-        <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold">
-          NASZA OFERTA <br />
-          NACIŚNIJ I DOWIEDZ SIĘ WIĘCEJ
+        <h2 className="text-center text-xl font-poppins justify-center items-center flex flex-col tracking-tight mt-2 border border-black/30 rounded-xl p-8  aspect-square sm:aspect-auto">
+          Nasza oferta <br />
+          <div className="inline-flex text-black/60">
+            nacisnij i dowiedz się więcej
+          </div>
         </h2>
 
-        {/* Pierwsza karuzela 1–5 */}
-        {renderCarousel(firstCarouselItems, 1)}
-
-        {/* Druga karuzela 6–10 */}
-        {renderCarousel(secondCarouselItems, 6)}
+        {renderCarousel(firstCarouselItems, 0)}
+        {renderCarousel(secondCarouselItems, 1)}
       </section>
     </div>
   );

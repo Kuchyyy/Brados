@@ -98,10 +98,10 @@ const Hero = () => {
   const topInset = Math.max(textH - maskHeight, 0);
 
   return (
-    <section className=" w-full pt-40 relative">
+    <section className="w-full pt-40 relative">
       <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight">
         <div>Lider w branży</div>
-        <div className="text-blackk/60">
+        <div className="text-black/60">
           Tutaj znajdziesz wszysko czego potrzebujesz
         </div>
       </div>
@@ -112,11 +112,7 @@ const Hero = () => {
       >
         <div
           ref={titleWrapperRef}
-          className="font-poppins tracking-tight         text-[2.5rem]
-          sm:text-[3.2rem]
-          md:text-[4rem]
-          lg:text-[5rem]
-          xl:text-[6rem] text-center"
+          className="font-poppins tracking-tight text-[2.5rem] sm:text-[3.2rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] text-center"
         >
           <h1 ref={textRef} className="relative inline-block font-medium">
             <span className="text-black">Hurtownia Brados</span>
@@ -133,12 +129,12 @@ const Hero = () => {
         </div>
         <a
           href="#zespół"
-          className="flex sm:hidden justify-between items-center w-[90%] self-center mb-2 gap-2 border border-blackk/30 rounded-md px-2"
+          className="flex sm:hidden justify-between items-center  self-center mt-2 pl-4 pr-2 gap-4 border border-black/30 rounded-md "
         >
-          <div className="flex w-full items-center justify-center  text-black py-4 rounded-md text-sm font-poppins tracking-tight">
+          <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
             Zadzwoń do nas
           </div>
-          <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center ">
+          <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
             <ArrowUpRight className="w-4 h-4" />
           </div>
         </a>
@@ -146,12 +142,12 @@ const Hero = () => {
 
       <div
         ref={imageRef}
-        className="relative w-[90%] md:h-[90dvh] max-w-[1440px] mx-auto rounded-md overflow-hidden shadow-lg"
+        className="relative w-[90%] max-w-[1440px] mx-auto rounded-xl overflow-hidden mt-2"
       >
         <img
           src="/photos/firma.webp"
           alt="firma"
-          className="hidden sm:block w-full h-full object-cover"
+          className="hidden sm:block w-full h-[90dvh] object-cover"
         />
         <img
           src="/photos/firmatel.webp"

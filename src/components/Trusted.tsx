@@ -1,8 +1,6 @@
 "use client";
 
-import { InfiniteSlider } from "@/components/ui/infinite-slider";
-
-export default function InfiniteSliderBasic() {
+export default function Trusted() {
   const logos = [
     { src: "/photos/awex.webp", alt: "Awex logo" },
     { src: "/photos/dehn.webp", alt: "Dehn logo" },
@@ -15,54 +13,34 @@ export default function InfiniteSliderBasic() {
     { src: "/photos/noark.webp", alt: "Noark logo" },
     { src: "/photos/ospel.webp", alt: "Ospel logo" },
     { src: "/photos/wago.webp", alt: "Wago logo" },
-    { src: "/photos/awex.webp", alt: "Awex logo" },
-    { src: "/photos/dehn.webp", alt: "Dehn logo" },
-    { src: "/photos/elektro.webp", alt: "Elektroplast logo" },
-    { src: "/photos/hager.webp", alt: "Hager logo" },
-    { src: "/photos/kanlux.webp", alt: "Kanlux logo" },
-    { src: "/photos/koelner.webp", alt: "Koelner logo" },
-    { src: "/photos/Kopos.webp", alt: "Kopos logo" },
-    { src: "/photos/legrand.webp", alt: "Legrand logo" },
-    { src: "/photos/noark.webp", alt: "Noark logo" },
-    { src: "/photos/ospel.webp", alt: "Ospel logo" },
-    { src: "/photos/wago.webp", alt: "Wago logo" },
+    {
+      src: "https://cdn.traconelectric.com/o/tracon-liferay-theme/images/tracon_logo.png",
+      alt: "tracon logo",
+    },
   ];
 
   return (
-    <section className="py-12 bg-stone-100 h-[380px]">
-      <div className="w-full sm:w-[90%] max-w-[1440px] mx-auto flex flex-col items-center">
-        <div className="w-[90%] sm:w-full">
-          <h2 className="text-left text-2xl md:text-3xl font-robert-medium font-bold mb-8">
-            NASI DOSTAWCY <br />
-            WSZYTSKO W JEDNYM MIEJSCU
-          </h2>
-        </div>
+    <section className=" mt-2">
+      <div className="w-[90%] max-w-[1440px] mx-auto flex flex-col items-center border border-black/30 rounded-xl p-2">
+        <h2 className="flex flex-col justify-center items-center font-poppins text-xl tracking-tight py-8">
+          <div>Nasi dostawcy</div>
+          <div className="text-black/60">wszytsko w jednym miejscu</div>
+        </h2>
 
-        <div
-          className="relative w-full h-[180px] overflow-hidden touch-pan-y flex items-start"
-          style={{ contain: "layout paint" }}
-        >
-          <div className="absolute inset-0 ">
-            <InfiniteSlider
-              gap={16}
-              reverse={false}
-              className="w-full h-full transform-gpu min-h-[160px] will-change-transform"
+        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 w-full">
+          {logos.map((logo, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-center h-32  rounded-md border border-black/30 transition-colors bg-stone-50"
             >
-              {logos.map((logo, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center w-[160px] h-[160px] bg-white rounded-md md:shadow-md/20"
-                >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    draggable="false"
-                    className="max-w-[120px] max-h-[120px] object-contain"
-                  />
-                </div>
-              ))}
-            </InfiniteSlider>
-          </div>
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                draggable="false"
+                className="max-w-[80%] max-h-[80%] object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

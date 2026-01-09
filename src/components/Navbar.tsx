@@ -57,12 +57,26 @@ const Navbar = () => {
   const viewRef = useRef<HTMLDivElement | null>(null);
   const prevView = useRef<"menu" | "oferta">("menu");
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [open]);
+
   const navigate = useNavigate();
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   const closeNavbar = () => {
     setOpen(false);
-    gsap.delayedCall(0.5, () => setActiveView("menu"));
   };
 
   const goHomeAndScroll = (hash?: string) => {
@@ -78,18 +92,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  useEffect(() => {
     if (!navRef.current || !contentRef.current) return;
 
     gsap.set(navRef.current, {
@@ -100,7 +102,6 @@ const Navbar = () => {
       maxHeight: 0,
       opacity: 0,
       overflow: "hidden",
-      pointerEvents: "none",
     });
   }, []);
 
@@ -110,14 +111,13 @@ const Navbar = () => {
     gsap.to(contentRef.current, {
       maxHeight: open ? "90svh" : 0,
       opacity: open ? 1 : 0,
-      duration: 0.6,
+      duration: 0.5,
       ease: open ? "power3.out" : "power2.inOut",
-      pointerEvents: open ? "auto" : "none",
     });
 
     gsap.to(navRef.current, {
       width: open ? (isMobile ? "96%" : 600) : isMobile ? "90%" : 400,
-      duration: 0.45,
+      duration: 0.35,
       ease: open ? "back.out(1.3)" : "power2.inOut",
     });
   }, [open, isMobile]);
@@ -127,14 +127,15 @@ const Navbar = () => {
 
     const fromX =
       prevView.current === "menu" && activeView === "oferta"
-        ? -30
+        ? -100
         : prevView.current === "oferta" && activeView === "menu"
-        ? 30
+        ? 100
         : 0;
 
+    gsap.killTweensOf(viewRef.current);
     gsap.fromTo(
       viewRef.current,
-      { opacity: 0, x: fromX },
+      { opacity: 1, x: fromX },
       { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }
     );
 
@@ -145,7 +146,7 @@ const Navbar = () => {
     <>
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 backdrop-blur-[2px]"
+          className="fixed inset-0 bg-black/50 z-50 backdrop-blur-[2px]"
           onClick={closeNavbar}
         />
       )}
@@ -161,16 +162,24 @@ const Navbar = () => {
               className="w-10 cursor-pointer"
               onClick={() => goHomeAndScroll()}
             />
-            <span className="uppercase text-2xl">brados</span>
+
             <button
-              onClick={() => (open ? closeNavbar() : setOpen(true))}
+              onClick={() => {
+                setOpen(!open);
+                if (!open) setActiveView("menu");
+              }}
               className="p-2 hover:bg-black/5 rounded-md cursor-pointer"
             >
               {open ? <X /> : <Menu />}
             </button>
           </div>
 
-          <div ref={contentRef} className="flex flex-col overflow-y-auto">
+          <div
+            ref={contentRef}
+            className={`flex flex-col ${
+              open ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+          >
             <div className="grid py-5 px-2 gap-2">
               <div ref={viewRef} className="flex flex-col">
                 {activeView === "menu" &&

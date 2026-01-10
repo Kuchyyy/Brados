@@ -38,9 +38,9 @@ const CTAAndFooter = () => {
   return (
     <div className="w-full flex justify-center items-center bg-white border-t-2 border-zinc-700 relative">
       <DotPattern className="[mask:radial-gradient(1000px_circle_at_middle,transparent)] absolute inset-0 z-20 text-zinc-700/25 h-full w-full" />
-      <div className=" mt-20 pb-2 sm:pb-10 max-w-[1440px] w-[90%] z-40">
+      <div className=" mt-20 pb-2 sm:pb-10 max-w-[1440px] w-[95%] z-40">
         <section className="relative w-full py-6 rounded-md">
-          <div className="relative z-10 max-w-3xl mx-auto text-start sm:text-center space-y-10 w-[90%] ">
+          <div className="relative z-10 max-w-3xl mx-auto text-start sm:text-center space-y-10 w-[95%] ">
             <div className="flex flex-col gap-2 mb-2 ml-1">
               <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
                 Gotowy na współpracę z nami?

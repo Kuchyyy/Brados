@@ -87,7 +87,7 @@ const Description: React.FC<DescriptionProps> = ({
       </div>
 
       <div className="w-full flex justify-center items-center bg-stone-100">
-        <section className="w-[90%] max-w-[1440px] mx-auto py-16 pt-30">
+        <section className="w-[95%] max-w-[1440px] mx-auto py-16 pt-30">
           <h1 className="font-robert-medium text-3xl md:text-5xl font-bold mb-10 text-start">
             {title}
           </h1>

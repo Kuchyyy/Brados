@@ -142,7 +142,7 @@ const Hero = () => {
 
       <div
         ref={imageRef}
-        className="relative w-[90%] max-w-[1440px] mx-auto rounded-xl overflow-hidden mt-2"
+        className="relative w-[95%] max-w-[1440px] mx-auto rounded-xl overflow-hidden mt-2"
       >
         <img
           src="/photos/firma.webp"

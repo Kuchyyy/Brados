@@ -76,7 +76,7 @@ const About = () => {
     <div className="w-full flex justify-center items-center bg-stone-100">
       <section
         id="about"
-        className="py-20 w-[90%] max-w-[1440px] mx-auto min-h-svh"
+        className="py-20 w-[95%] max-w-[1440px] mx-auto min-h-svh"
       >
         <div className="mb-2 ml-1 text-left flex flex-col gap-2">
           <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">

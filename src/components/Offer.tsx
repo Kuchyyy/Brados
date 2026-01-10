@@ -153,13 +153,15 @@ const Offer = () => {
       label: string;
       description?: string;
     }[],
-    carouselIndex: number
+    carouselIndex: number,
+    isLast: boolean
   ) => (
     <div
       className={`
         relative w-full max-w-[100%] mx-auto mt-2 p-4 border border-black/30 rounded-xl bg-white
         transform transition-all duration-700 ease-out 
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+        ${isLast ? "rounded-b-4xl" : " rounded-t-4xl"}
       `}
     >
       <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight mb-6">
@@ -173,14 +175,14 @@ const Offer = () => {
           scrollContainerRefs.current[carouselIndex] = el;
         }}
         onScroll={() => updateScrollProgress(carouselIndex)}
-        className="grid grid-flow-col auto-cols-max gap-3 w-full overflow-x-auto scroll-smooth scrollbar-hide [&::-webkit-scrollbar]:h-1  [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-white [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:hover:bg-accent-orange"
+        className="grid grid-flow-col auto-cols-max gap-3 w-full overflow-x-auto scroll-smooth scrollbar-hide [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-white [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:hover:bg-accent-orange"
       >
         {items.map((item) => {
           const page = pages.find((p) => p.id === item.id);
           return (
             <div
               key={item.id}
-              className="aspect-square bg-stone-50 rounded-md p-6 border border-black/10 flex-shrink-0 w-75 flex flex-col justify-between"
+              className="aspect-square bg-stone-50 rounded-xl p-6 border border-black/10 flex-shrink-0 w-75 flex flex-col justify-between"
             >
               <div>
                 <div className="text-accent-orange mb-3 text-2xl">
@@ -207,7 +209,7 @@ const Offer = () => {
       </div>
 
       {isMobile && (
-        <div className="flex justify-center items-center gap-3 mt-6 ">
+        <div className="flex justify-center items-center gap-3 mt-6">
           <div className="flex gap-2">
             {Array.from({ length: 5 }).map((_, i) => (
               <div
@@ -248,7 +250,7 @@ const Offer = () => {
       <section
         ref={sectionRef}
         id="oferta"
-        className=" w-[90%] max-w-[1440px] mx-auto overflow-hidden relative"
+        className="w-[95%] max-w-[1440px] mx-auto overflow-hidden relative mb-2"
       >
         {siteAlert && (
           <div className="fixed top-4 inset-x-0 flex justify-center z-[9999] px-4">
@@ -264,15 +266,15 @@ const Offer = () => {
           </div>
         )}
 
-        <h2 className="text-center text-xl font-poppins justify-center items-center flex flex-col tracking-tight mt-2 border border-black/30 rounded-xl p-8  aspect-square sm:aspect-auto">
+        <h2 className="text-center text-sm font-poppins justify-center items-center flex flex-col tracking-tight mt-2  p-8 ">
           Nasza oferta <br />
           <div className="inline-flex text-black/60">
             nacisnij i dowiedz się więcej
           </div>
         </h2>
 
-        {renderCarousel(firstCarouselItems, 0)}
-        {renderCarousel(secondCarouselItems, 1)}
+        {renderCarousel(firstCarouselItems, 0, false)}
+        {renderCarousel(secondCarouselItems, 1, true)}
       </section>
     </div>
   );

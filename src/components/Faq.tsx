@@ -30,7 +30,7 @@ const Faq = () => {
 
   return (
     <div className="w-full flex justify-center items-center bg-stone-100">
-      <section className="w-[90%] max-w-[1440px] mx-auto py-20 space-y-10 min-h-svh">
+      <section className="w-[95%] max-w-[1440px] mx-auto py-20 space-y-10 min-h-svh">
         <div className="text-left flex flex-col gap-2 mb-2 ml-1">
           <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
             Masz pytanie?

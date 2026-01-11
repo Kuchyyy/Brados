@@ -1,13 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { User, Phone, Mail } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DotPattern } from "./ui/dot-pattern";
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Typy danych dla członków zespołu
 type Person = {
   name: string;
   phone: string;
@@ -71,23 +66,26 @@ const Team1 = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const tween = gsap.fromTo(
-      document.body,
-      { backgroundColor: "#ffffff" },
-      {
-        backgroundColor: "#1b1b1b",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom center",
-          scrub: true,
-        },
-      }
+    document.body.style.transition = "background-color 0.5s ease";
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          document.body.style.backgroundColor = "#e5e5e5";
+        } else {
+          if (entry.boundingClientRect.top > 0) {
+            document.body.style.backgroundColor = "#ffffff";
+          }
+        }
+      },
+      { threshold: 0.3 }
     );
 
+    observer.observe(sectionRef.current);
+
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      observer.disconnect();
+      document.body.style.backgroundColor = "#ffffff";
     };
   }, []);
 
@@ -102,52 +100,45 @@ const Team1 = () => {
     <div
       ref={sectionRef}
       id="zespół"
-      className="min-h-svh mx-auto backdrop-blur-6xl w-[95%] self-center border max-w-[1440px] border-black/30 shadow-[0_0_60px_rgba(255,255,255,0.1)] flex justify-center items-center relative rounded-4xl overflow-hidden bg-white mb-20"
+      className="min-h-svh mx-auto backdrop-blur-6xl w-[95%] self-center border max-w-[1200px] border-black/30 shadow-[0_0_60px_rgba(255,255,255,0.1)] flex justify-center items-center relative rounded-4xl overflow-hidden bg-white mb-20"
     >
       <DotPattern className="[mask:radial-gradient(2000px_circle_at_middle,transparent)] absolute inset-0 z-10 text-zinc-700/25 h-full w-full" />
-      <div className="relative py-20 flex flex-col items-center gap-2 w-[95%] max-w-[1440px] mx-auto">
-        {/* Napis wstępny */}
+
+      <div className="relative py-20 flex flex-col items-center gap-2 w-[95%] max-w-[1200px] mx-auto">
         <p className="font-medium text-sm uppercase md:text-[16px] font-poppins tracking-tight">
           Poznaj nasz zespół
         </p>
 
-        {/* Tytuł */}
         <h2 className="uppercase text-2xl font-extrabold leading-tight md:text-5xl text-center font-poppins tracking-tight">
           Ludzi tworzących <b>Brados</b>
         </h2>
 
-        {/* Przełącznik */}
         <div className="flex gap-3 mt-8 flex-wrap justify-center font-poppins tracking-tight z-20">
-          {(["handlowcy", "magazyn", "finanse"] as (keyof Teams)[]).map(
-            (tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-md transition cursor-pointer ${
-                  activeTab === tab ? "bg-black text-white" : "bg-white border"
-                }`}
-              >
-                {tab === "handlowcy"
-                  ? "Handlowcy"
-                  : tab === "magazyn"
-                  ? "Magazyn"
-                  : "Rachunki i finanse"}
-              </button>
-            )
-          )}
+          {(Object.keys(teams) as (keyof Teams)[]).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-md transition cursor-pointer ${
+                activeTab === tab ? "bg-black text-white" : "bg-white border"
+              }`}
+            >
+              {tab === "handlowcy"
+                ? "Handlowcy"
+                : tab === "magazyn"
+                ? "Magazyn"
+                : "Rachunki i finanse"}
+            </button>
+          ))}
         </div>
 
-        {/* Karty */}
         <div
-          className={`grid gap-3 mt-10 w-full font-poppins tracking-tight z-20
-            ${
-              activeTab === "handlowcy"
-                ? "md:grid-cols-3 max-w-8xl"
-                : "md:grid-cols-1 max-w-4xl justify-center"
-            }
-            grid-cols-1`}
+          className={`grid gap-3 mt-10 w-full font-poppins tracking-tight z-20 ${
+            activeTab === "handlowcy"
+              ? "md:grid-cols-3 max-w-8xl"
+              : "md:grid-cols-1 max-w-4xl justify-center"
+          } grid-cols-1`}
         >
-          {teams[activeTab].map((person: Person, index: number) => (
+          {teams[activeTab].map((person, index) => (
             <div
               key={index}
               className="relative bg-white rounded-md shadow-md/20 p-2 pt-6 border border-black/30 flex flex-col justify-between"
@@ -190,7 +181,6 @@ const Team1 = () => {
           ))}
         </div>
 
-        {/* Tekst opisowy */}
         <div className="about-subtext max-w-2xl text-center mt-10 px-4 font-poppins tracking-tight">
           <p className="text-base md:text-lg">
             Nasza siła tkwi w ludziach — to oni nadają kierunek i charakter
@@ -204,7 +194,6 @@ const Team1 = () => {
         </div>
       </div>
 
-      {/* Powiadomienie o skopiowaniu */}
       {copiedEmail && (
         <div className="fixed z-50 bottom-6 right-6 bg-accent-orange text-white px-4 py-2 rounded-md shadow-lg text-sm font-poppins tracking-tight">
           Skopiowano e-mail: {copiedEmail}

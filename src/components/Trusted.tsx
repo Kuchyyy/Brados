@@ -71,7 +71,7 @@ export default function Trusted() {
 
   return (
     <section className="mt-2">
-      <div className="w-[95%] max-w-[1440px] mx-auto flex flex-col items-center  pb-8 sm:p-2">
+      <div className="w-[95%] max-w-[1200px] mx-auto flex flex-col items-center  pb-8 sm:p-2">
         <div className="hidden sm:grid grid-cols-2 sm:grid-cols-6 gap-2 w-full">
           {logos.map((logo, index) => (
             <div

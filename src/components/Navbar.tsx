@@ -112,12 +112,12 @@ const Navbar = () => {
       maxHeight: open ? "90svh" : 0,
       opacity: open ? 1 : 0,
       duration: 0.5,
-      ease: open ? "power3.out" : "power2.inOut",
+      ease: open ? "power2.inOut" : "power2.inOut",
     });
 
     gsap.to(navRef.current, {
       width: open ? (isMobile ? "96%" : 600) : isMobile ? "90%" : 400,
-      duration: 0.35,
+      duration: 0.45,
       ease: open ? "back.out(1.3)" : "power2.inOut",
     });
   }, [open, isMobile]);

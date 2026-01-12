@@ -161,7 +161,7 @@ const Offer = () => {
         grid grid-flow-col auto-cols-max gap-3 w-full px-3
   overflow-x-auto scroll-smooth scrollbar-hide
   snap-x snap-mandatory sm:snap-none
-  touch-pan-x
+  touch-auto
         [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:hover:bg-accent-orange"
       >
         {items.map((item) => {
@@ -217,7 +217,7 @@ const Offer = () => {
       )}
 
       {!isMobile && (
-        <div className="flex justify-end items-center gap-3 mt-6 hidden sm:flex">
+        <div className="justify-end items-center gap-3 mt-6 hidden sm:flex">
           <button
             onClick={() => handleScroll("left", carouselIndex)}
             className="p-2 border border-black/30 rounded-md hover:bg-black/5 transition"

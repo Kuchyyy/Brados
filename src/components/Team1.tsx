@@ -100,17 +100,14 @@ const Team1 = () => {
     <div
       ref={sectionRef}
       id="zespół"
-      className="min-h-svh mx-auto backdrop-blur-6xl w-[95%] self-center border max-w-[1200px] border-black/30 shadow-[0_0_60px_rgba(255,255,255,0.1)] flex justify-center items-center relative rounded-4xl overflow-hidden bg-white mb-20"
+      className="min-h-svh mx-auto backdrop-blur-6xl w-[95%] self-center border max-w-[1200px] border-black/30 shadow-[0_0_60px_rgba(255,255,255,0.1)] flex justify-center items-center relative rounded-xl overflow-hidden bg-white mb-20"
     >
       <DotPattern className="[mask:radial-gradient(2000px_circle_at_middle,transparent)] absolute inset-0 z-10 text-zinc-700/25 h-full w-full" />
 
       <div className="relative py-20 flex flex-col items-center gap-2 w-[95%] max-w-[1200px] mx-auto">
-        <p className="font-medium text-sm uppercase md:text-[16px] font-poppins tracking-tight">
-          Poznaj nasz zespół
-        </p>
-
-        <h2 className="uppercase text-2xl font-extrabold leading-tight md:text-5xl text-center font-poppins tracking-tight">
-          Ludzi tworzących <b>Brados</b>
+        <h2 className="text-sm  leading-tight  text-center font-poppins tracking-tight">
+          Poznaj nasz zespół <br />{" "}
+          <p className="inline-flex text-black/60"> Ludzi tworzących Brados</p>
         </h2>
 
         <div className="flex gap-3 mt-8 flex-wrap justify-center font-poppins tracking-tight z-20">

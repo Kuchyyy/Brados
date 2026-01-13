@@ -88,10 +88,8 @@ const Team1 = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           document.body.style.backgroundColor = "#e5e5e5";
-        } else {
-          if (entry.boundingClientRect.top > 0) {
-            document.body.style.backgroundColor = "#ffffff";
-          }
+        } else if (entry.boundingClientRect.top > 0) {
+          document.body.style.backgroundColor = "#ffffff";
         }
       },
       { threshold: 0.3 }
@@ -154,46 +152,49 @@ const Team1 = () => {
           {teams[activeTab].map((person, index) => (
             <div
               key={index}
-              className="relative bg-white rounded-md shadow-md/20 p-2 pt-6 border border-black/30 flex flex-col justify-between"
+              className="relative min-h-[550px] rounded-md border border-black/30 overflow-hidden"
             >
-              <div className="flex flex-col items-center text-center mb-4">
-                <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
-                  <img
-                    src={person.image}
-                    alt={person.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <img
+                src={person.image}
+                alt={person.name}
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
 
-                <h3 className="font-semibold text-lg">{person.name}</h3>
+              <div className="absolute inset-x-2 bottom-2 bg-white backdrop-blur-sm rounded-md p-3 flex flex-col justify-end gap-2">
+                <h3 className="font-semibold text-lg text-center">
+                  {person.name}
+                </h3>
+
                 {person.role && (
-                  <p className="text-gray-500 text-sm mt-1">{person.role}</p>
+                  <p className="text-gray-500 text-sm text-center">
+                    {person.role}
+                  </p>
                 )}
+
+                <a
+                  href={`tel:${person.phone}`}
+                  className="flex justify-between items-center gap-4 border border-black/30 rounded-md pl-4 pr-2"
+                >
+                  <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
+                    {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
+                  </div>
+                  <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                </a>
+
+                <button
+                  onClick={() => handleCopyEmail(person.email)}
+                  className="flex justify-between items-center gap-4 border border-black/30 rounded-md pl-4 pr-2"
+                >
+                  <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
+                    {person.email}
+                  </div>
+                  <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                </button>
               </div>
-
-              <a
-                href={`tel:${person.phone}`}
-                className="flex justify-between items-center gap-4 border border-black/30 rounded-md pl-4 pr-2"
-              >
-                <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
-                  {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
-                </div>
-                <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
-                  <Phone className="w-4 h-4" />
-                </div>
-              </a>
-
-              <button
-                onClick={() => handleCopyEmail(person.email)}
-                className="flex justify-between items-center gap-4 border border-black/30 rounded-md pl-4 pr-2 mt-2"
-              >
-                <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
-                  {person.email}
-                </div>
-                <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
-                  <Mail className="w-4 h-4" />
-                </div>
-              </button>
             </div>
           ))}
         </div>

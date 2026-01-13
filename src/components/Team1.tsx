@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { User, Phone, Mail } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { DotPattern } from "./ui/dot-pattern";
 
 type Person = {
@@ -8,6 +8,7 @@ type Person = {
   phone: string;
   email: string;
   role?: string;
+  image: string;
 };
 
 type Teams = {
@@ -23,22 +24,35 @@ const Team1 = () => {
 
   const teams: Teams = {
     handlowcy: [
-      { name: "Paweł Pawlak", phone: "691489111", email: "p.pawlak@brados.pl" },
+      {
+        name: "Paweł Pawlak",
+        phone: "691489111",
+        email: "p.pawlak@brados.pl",
+        image: "photos/osoba.png",
+      },
       {
         name: "Krzysztof Kuchciński",
         phone: "691032975",
         email: "k.kuchcinski@brados.pl",
+        image: "photos/osoba.png",
       },
-      { name: "Łukasz Zboch", phone: "697466111", email: "l.zboch@brados.pl" },
+      {
+        name: "Łukasz Zboch",
+        phone: "697466111",
+        email: "l.zboch@brados.pl",
+        image: "photos/osoba.png",
+      },
       {
         name: "Michał Wlaszczyk",
         phone: "691745111",
         email: "m.wlaszczyk@brados.pl",
+        image: "photos/osoba.png",
       },
       {
         name: "Michał Kleczkowski",
         phone: "697277588",
         email: "m.kleczkowski@brados.pl",
+        image: "photos/osoba.png",
       },
     ],
     magazyn: [
@@ -46,12 +60,14 @@ const Team1 = () => {
         name: "Paweł Zawartko",
         phone: "691725111",
         email: "magazyn@brados.pl",
+        image: "photos/osoba.png",
       },
       {
         name: "Artur Kozłowski",
         role: "Kierowca",
         phone: "669456111",
         email: "magazyn@brados.pl",
+        image: "photos/osoba.png",
       },
     ],
     finanse: [
@@ -59,13 +75,13 @@ const Team1 = () => {
         name: "Tomasz Grzesiak",
         phone: "691479111",
         email: "t.grzesiak@brados.pl",
+        image: "photos/osoba.png",
       },
     ],
   };
 
   useEffect(() => {
     if (!sectionRef.current) return;
-
     document.body.style.transition = "background-color 0.5s ease";
 
     const observer = new IntersectionObserver(
@@ -105,12 +121,12 @@ const Team1 = () => {
       <DotPattern className="[mask:radial-gradient(2000px_circle_at_middle,transparent)] absolute inset-0 z-10 text-zinc-700/25 h-full w-full" />
 
       <div className="relative py-20 flex flex-col items-center gap-2 w-[95%] max-w-[1200px] mx-auto">
-        <h2 className="text-sm  leading-tight  text-center font-poppins tracking-tight">
-          Poznaj nasz zespół <br />{" "}
+        <h2 className="text-sm leading-tight text-center font-poppins tracking-tight">
+          Poznaj nasz zespół <br />
           <p className="inline-flex text-black/60"> Ludzi tworzących Brados</p>
         </h2>
 
-        <div className="flex gap-3 mt-8 flex-wrap justify-center font-poppins tracking-tight z-20">
+        <div className="flex gap-3 mt-8 flex-wrap justify-center font-poppins tracking-tight z-20 text-sm">
           {(Object.keys(teams) as (keyof Teams)[]).map((tab) => (
             <button
               key={tab}
@@ -141,8 +157,12 @@ const Team1 = () => {
               className="relative bg-white rounded-md shadow-md/20 p-2 pt-6 border border-black/30 flex flex-col justify-between"
             >
               <div className="flex flex-col items-center text-center mb-4">
-                <div className="w-20 h-20 bg-stone-200 rounded-full flex items-center justify-center mb-4">
-                  <User className="w-10 h-10 text-gray-600" />
+                <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
+                  <img
+                    src={person.image}
+                    alt={person.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 <h3 className="font-semibold text-lg">{person.name}</h3>

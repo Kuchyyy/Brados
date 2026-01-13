@@ -162,7 +162,7 @@ const Offer = () => {
   overflow-x-auto scroll-smooth scrollbar-hide
   snap-x snap-mandatory sm:snap-none
   touch-auto
-        [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:hover:bg-accent-orange"
+        [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-transparent "
       >
         {items.map((item) => {
           const page = pages.find((p) => p.id === item.id);

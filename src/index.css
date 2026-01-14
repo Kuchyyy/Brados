@@ -68,7 +68,7 @@ html {
 }
 
 body {
-  @apply bg-[#f5f5f4];
+  @apply bg-white;
 }
 
 @theme {

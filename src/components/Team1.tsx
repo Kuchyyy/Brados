@@ -1,7 +1,6 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Phone, Mail } from "lucide-react";
-import { DotPattern } from "./ui/dot-pattern";
 
 type Person = {
   name: string;
@@ -80,29 +79,6 @@ const Team1 = () => {
     ],
   };
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    document.body.style.transition = "background-color 0.5s ease";
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          document.body.style.backgroundColor = "#e5e5e5";
-        } else if (entry.boundingClientRect.top > 0) {
-          document.body.style.backgroundColor = "#ffffff";
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(sectionRef.current);
-
-    return () => {
-      observer.disconnect();
-      document.body.style.backgroundColor = "#ffffff";
-    };
-  }, []);
-
   const handleCopyEmail = (email: string) => {
     navigator.clipboard.writeText(email).then(() => {
       setCopiedEmail(email);
@@ -116,8 +92,6 @@ const Team1 = () => {
       id="zespół"
       className="min-h-svh mx-auto backdrop-blur-6xl w-[95%] self-center border max-w-[1200px] border-black/30 shadow-[0_0_60px_rgba(255,255,255,0.1)] flex justify-center items-center relative rounded-xl overflow-hidden bg-white mb-20"
     >
-      <DotPattern className="[mask:radial-gradient(2000px_circle_at_middle,transparent)] absolute inset-0 z-10 text-zinc-700/25 h-full w-full" />
-
       <div className="relative py-20 flex flex-col items-center gap-2 w-[95%] max-w-[1200px] mx-auto">
         <h2 className="text-sm leading-tight text-center font-poppins tracking-tight">
           Poznaj nasz zespół <br />
@@ -141,35 +115,22 @@ const Team1 = () => {
             </button>
           ))}
         </div>
-
-        <div
-          className={`grid gap-3 mt-10 w-full font-poppins tracking-tight z-20 ${
-            activeTab === "handlowcy"
-              ? "md:grid-cols-3 max-w-8xl"
-              : "md:grid-cols-1 max-w-4xl justify-center"
-          } grid-cols-1`}
-        >
+        <div className="mt-10 font-poppins tracking-tight z-20 flex flex-wrap justify-center xl:justify-start gap-3 w-full">
           {teams[activeTab].map((person, index) => (
             <div
               key={index}
-              className="relative min-h-[550px] rounded-md border border-black/30 overflow-hidden"
+              className="relative min-h-[550px] w-full max-w-[370px] rounded-md border border-black/30 overflow-hidden"
             >
               <img
                 src={person.image}
                 alt={person.name}
-                className="absolute inset-0 w-full h-full object-cover object-top"
+                className="absolute inset-0 w-full h-full object-cover object-top "
               />
 
-              <div className="absolute inset-x-2 bottom-2 bg-white backdrop-blur-sm rounded-md p-3 flex flex-col justify-end gap-2">
+              <div className="absolute inset-x-2 bottom-2 bg-white backdrop-blur-sm rounded-md p-2 flex flex-col justify-end gap-2 border border-black/30">
                 <h3 className="font-semibold text-lg text-center">
                   {person.name}
                 </h3>
-
-                {person.role && (
-                  <p className="text-gray-500 text-sm text-center">
-                    {person.role}
-                  </p>
-                )}
 
                 <a
                   href={`tel:${person.phone}`}
@@ -195,16 +156,21 @@ const Team1 = () => {
                   </div>
                 </button>
               </div>
+              {person.role && (
+                <p className="text-black text-sm text-center absolute right-1.5 top-2 bg-white rounded-md p-2">
+                  {person.role}
+                </p>
+              )}
             </div>
           ))}
         </div>
 
         <div className="about-subtext max-w-2xl text-center mt-10 px-4 font-poppins tracking-tight">
-          <p className="text-base md:text-lg">
-            Nasza siła tkwi w ludziach — to oni nadają kierunek i charakter
+          <p className="text-sm">
+            Nasza siła tkwi w ludziach - to oni nadają kierunek i charakter
             Brados.
           </p>
-          <p className="text-gray-500 mt-2 text-sm md:text-base">
+          <p className="text-gray-500 mt-2 text-sm">
             Każdy członek zespołu wnosi doświadczenie, pasję i zaangażowanie,
             dzięki którym możemy wspólnie tworzyć nowoczesne rozwiązania dla
             naszych klientów.

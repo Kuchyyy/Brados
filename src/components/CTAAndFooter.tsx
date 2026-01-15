@@ -1,73 +1,151 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Heart } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { pages } from "../data/page";
-import { ShineBorder } from "./ui/shine-border";
-import { BorderBeam } from "./ui/border-beam";
-import { DotPattern } from "./ui/dot-pattern";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CTAAndFooter = () => {
-  const [siteAlert, setSiteAlert] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const ctaBlockRef = useRef(null);
+  const fillRef = useRef(null);
+  const textRefs = useRef<(HTMLElement | null)[]>([]);
 
   const handleClick = () => {
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        const el = document.querySelector("#zespół");
-        el?.scrollIntoView({ behavior: "smooth" });
+        document.querySelector("#zespół")?.scrollIntoView({
+          behavior: "smooth",
+        });
       }, 250);
     } else {
-      const el = document.querySelector("#zespół");
-      el?.scrollIntoView({ behavior: "smooth" });
+      document.querySelector("#zespół")?.scrollIntoView({
+        behavior: "smooth",
+      });
     }
   };
 
+  const buttonRef = useRef(null);
+  const rippleRef = useRef(null);
+
   useEffect(() => {
-    if (!siteAlert) return;
-    const timer = setTimeout(() => setSiteAlert(null), 2000);
-    return () => clearTimeout(timer);
-  }, [siteAlert]);
+    gsap
+      .timeline({
+        repeat: -1,
+        defaults: { ease: "power2.out" },
+      })
+      .fromTo(
+        rippleRef.current,
+
+        {
+          scaleX: 1,
+          scaleY: 1,
+          opacity: 1,
+        },
+        {
+          scaleX: 1.45,
+          scaleY: 1.8,
+          opacity: 0,
+          duration: 3,
+          ease: "power2.out",
+        }
+      );
+  }, []);
+
+  useEffect(() => {
+    gsap.set(fillRef.current, {
+      width: "0%",
+      height: "0%",
+    });
+
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 80%",
+          end: "bottom 30%",
+          scrub: true,
+          markers: true,
+        },
+      })
+
+      .to(fillRef.current, {
+        width: "320%",
+        height: "320%",
+        ease: "none",
+      })
+      .to(textRefs.current, { color: "#ffffff" }, 0);
+  }, []);
 
   const oferta1 = pages.slice(0, 5);
   const oferta2 = pages.slice(5);
 
   return (
-    <div className="w-full flex justify-center items-center bg-white border-t-2 border-zinc-700 relative">
-      <DotPattern className="[mask:radial-gradient(1000px_circle_at_middle,transparent)] absolute inset-0 z-20 text-zinc-700/25 h-full w-full" />
-      <div className=" mt-20 pb-2 sm:pb-10 max-w-[1200px] w-[95%] z-40">
-        <section className="relative w-full py-6 rounded-md">
-          <div className="relative z-10 max-w-3xl mx-auto text-start sm:text-center space-y-10 w-[95%] ">
-            <div className="flex flex-col gap-2 mb-2 ml-1">
-              <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
-                Gotowy na współpracę z nami?
+    <div className="w-full flex justify-center items-center border border-black/30 rounded-t-4xl relative overflow-hidden">
+      <div className="mt-20 pb-2 sm:pb-10 max-w-[1200px] w-[95%] z-40">
+        <section className="relative w-full py-2 rounded-md">
+          <div
+            ref={ctaBlockRef}
+            className="relative sm:overflow-hidden flex flex-col justify-center items-center z-10 text-start sm:text-center w-full py-5 min-h-100 rounded-xl gap-3"
+          >
+            <div
+              ref={fillRef}
+              className="absolute -bottom-50 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black  pointer-events-none"
+            />
+
+            <div className=" z-10 flex flex-col justify-center items-center gap-2 text-center">
+              <p
+                ref={(el) => {
+                  textRefs.current[0] = el;
+                }}
+                className="font-poppins text-sm  tracking-tight text-black"
+              >
+                Gotowy na współpracę?
               </p>
-              <h2 className="uppercase font-extrabold font-robert-medium text-2xl leading-tight md:text-5xl text-black">
-                Dołącz do grona <br />
-                naszych klientów
+
+              <h2
+                ref={(el) => {
+                  textRefs.current[1] = el;
+                }}
+                className="font-poppins text-2xl tracking-tight text-black"
+              >
+                Dołącz do grona <br /> naszych{" "}
+                <p className="inline-flex text-accent-orange">klientów</p>
               </h2>
             </div>
-
             <button
+              ref={buttonRef}
               onClick={handleClick}
               className="
-    relative overflow-hidden w-full sm:w-auto
-    px-6 py-3 rounded-md cursor-pointer
+    relative w-auto
+    px-6 py-2 rounded-md cursor-pointer
     text-black text-xl font-robert-medium
-    bg-white border border-white/30
-    hover:scale-[1.02] transition-transform  
+    bg-white
+    border border-orange-500/60
+    overflow-visible 
   "
             >
-              ZADZWOŃ DO NAS
-              <ShineBorder shineColor={["#F97316", "#F97316"]} />
-              <BorderBeam duration={8} size={30} />
+              <span className="relative z-10 text-sm">Zadzwoń do nas</span>
+
+              <span
+                ref={rippleRef}
+                className="
+      absolute inset-0 rounded-md
+      border border-orange-500
+      pointer-events-none
+    "
+              />
             </button>
           </div>
 
-          <div className="relative z-20 mx-auto mt-12 bg-stone-50 border border-stone-200 rounded-md overflow-hidden">
+          <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-stone-200 rounded-md overflow-hidden">
             <footer className="px-6 py-12 grid grid-cols-1 lg:grid-cols-4 gap-10 min-h-[400px]">
               <div className="col-span-1 space-y-4 flex justify-center flex-col items-center">
                 <img

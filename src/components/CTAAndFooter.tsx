@@ -65,23 +65,46 @@ const CTAAndFooter = () => {
       height: "0%",
     });
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ctaBlockRef.current,
-          start: "top 80%",
-          end: "bottom 30%",
-          scrub: true,
-          markers: true,
-        },
-      })
+    const fillTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ctaBlockRef.current,
+        start: "top 80%",
+        end: "bottom 30%",
+        scrub: true,
+      },
+    });
 
-      .to(fillRef.current, {
-        width: "320%",
-        height: "320%",
-        ease: "none",
-      })
-      .to(textRefs.current, { color: "#ffffff" }, 0);
+    fillTl.to(fillRef.current, {
+      width: "320%",
+      height: "320%",
+      ease: "none",
+    });
+
+    return () => {
+      fillTl.scrollTrigger?.kill();
+      fillTl.kill();
+    };
+  }, []);
+
+  useEffect(() => {
+    const textTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ctaBlockRef.current,
+        start: "top 80%",
+        end: "top 40%",
+        scrub: true,
+      },
+    });
+
+    textTl.to(textRefs.current, {
+      color: "#ffffff",
+      ease: "none",
+    });
+
+    return () => {
+      textTl.scrollTrigger?.kill();
+      textTl.kill();
+    };
   }, []);
 
   const oferta1 = pages.slice(0, 5);
@@ -97,7 +120,7 @@ const CTAAndFooter = () => {
           >
             <div
               ref={fillRef}
-              className="absolute -bottom-50 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black  pointer-events-none"
+              className="absolute -bottom-50 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black border-20 border-accent-orange blur-sm pointer-events-none"
             />
 
             <div className=" z-10 flex flex-col justify-center items-center gap-2 text-center">
@@ -145,98 +168,116 @@ const CTAAndFooter = () => {
             </button>
           </div>
 
-          <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-stone-200 rounded-md overflow-hidden">
-            <footer className="px-6 py-12 grid grid-cols-1 lg:grid-cols-4 gap-10 min-h-[400px]">
-              <div className="col-span-1 space-y-4 flex justify-center flex-col items-center">
-                <img
-                  src="/photos/brados.webp"
-                  alt="BRADOS logo"
-                  className="w-28 md:w-32 object-contain"
-                />
-              </div>
+          <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-black/30 rounded-xl">
+            <footer className="px-8 py-16">
+              <div className="grid grid-cols-1 md:grid-cols-6 gap-x-14 gap-y-8 text-sm font-poppins tracking-tight">
+                <div className="md:col-span-2 flex flex-col gap-4">
+                  <div className="flex items-center gap-6  text-sm tracking-tight ">
+                    <img
+                      src="/photos/brados.webp"
+                      alt="BRADOS logo"
+                      className="w-10 h-10 object-contain"
+                    />
 
-              <div className="flex items-start flex-col justify-center">
-                <h3 className="font-robert-medium text-black mb-4 font-bold uppercase">
-                  Oferta
-                </h3>
-                <ul className="space-y-2 text-sm text-gray-600 font-robert-medium">
-                  {oferta1.map((page) => (
-                    <li key={page.id}>
-                      <Link
-                        to={`/${page.slug}`}
-                        className="hover:text-accent-orange transition text-left w-full block"
-                      >
-                        {page.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    <div className="flex items-center gap-3 ">
+                      <div className="relative flex items-center justify-center">
+                        <span
+                          className="
+          absolute inline-flex h-4 w-4 rounded-full
+          bg-accent-orange opacity-75
+          animate-[ripple_2s_ease-out_infinite]
+        "
+                        />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-orange" />
+                      </div>
 
-              <div className="flex items-start flex-col justify-center">
-                <h3 className="font-bold text-black mb-4 font-robert-medium uppercase">
-                  Oferta
-                </h3>
-                <ul className="space-y-2 text-sm text-gray-600 font-robert-medium">
-                  {oferta2.map((page) => (
-                    <li key={page.id}>
-                      <Link
-                        to={`/${page.slug}`}
-                        className="hover:text-accent-orange transition text-left w-full block cursor-pointer"
-                      >
-                        {page.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      <span className="text-sm font-poppins text-soft-black/60 whitespace-nowrap">
+                        zawsze dostępni dla{" "}
+                        <span className="text-accent-orange">Ciebie</span>
+                      </span>
+                    </div>
+                  </div>
 
-              <div className="flex items-start flex-col justify-center">
-                <h3 className="font-bold text-black mb-4 font-robert-medium uppercase">
-                  Firma
-                </h3>
-                <ul className="space-y-2 text-sm text-gray-600 font-robert-medium">
-                  <li>
-                    <span className="font-medium">NIP:</span> 8992556301
-                  </li>
-                  <li>
-                    <span className="font-medium">KRS:</span> 0000295667
-                  </li>
-                  <li>
-                    <span className="font-medium">
-                      ZABRODZIE 27, 52-327 ZABRODZIE
-                    </span>
-                  </li>
-                  <li>
-                    <span className="font-medium">Godziny otwarcia:</span>
-                    <br />
-                    Poniedziałek – Piątek <br />
-                    7:00 – 16:00
-                  </li>
-                </ul>
+                  <p className="text-sm text-black/80 max-w-xs leading-relaxed">
+                    Kompleksowe zaopatrzenie w materiały elektryczne i
+                    telekomunikacyjne dla firm wykonawczych oraz klientów
+                    biznesowych.
+                  </p>
+
+                  <div className="flex flex-col gap-2 text-xs text-zinc-500">
+                    <span>© {new Date().getFullYear()} Brados</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="mb-4 text-zinc-900 font-medium">Oferta</h3>
+                  <ul className="space-y-2 text-zinc-600">
+                    {oferta1.map((page) => (
+                      <li key={page.id}>
+                        <Link
+                          to={`/${page.slug}`}
+                          className="hover:text-accent-orange transition"
+                        >
+                          {page.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="mb-4 text-zinc-900 font-medium">Oferta</h3>
+                  <ul className="space-y-2 text-zinc-600">
+                    {oferta2.map((page) => (
+                      <li key={page.id}>
+                        <Link
+                          to={`/${page.slug}`}
+                          className="hover:text-accent-orange transition"
+                        >
+                          {page.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="mb-4 text-zinc-900 font-medium">Siedziba</h3>
+                  <ul className="space-y-2 text-zinc-600 leading-relaxed">
+                    <li>Zabrodzie 27</li>
+                    <li>52-327 Zabrodzie</li>
+                    <li>biuro@brados.pl</li>
+                    <li>+48 000 000 000</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="mb-4 text-zinc-900 font-medium">Dane</h3>
+                  <ul className="space-y-2 text-zinc-600">
+                    <li>NIP: 8992556301</li>
+                    <li>KRS: 0000295667</li>
+                  </ul>
+                </div>
               </div>
             </footer>
 
-            <div className="border-t border-stone-200 py-6 flex justify-center">
-              <div className="px-3 flex flex-col items-center text-center gap-1 font-medium text-sm uppercase md:flex-row md:justify-between md:text-left w-full max-w-7xl">
-                <p className="tracking-tight">
-                  © {new Date().getFullYear()} BRADOS Wszystkie prawa
-                  zastrzeżone.
-                </p>
-                <div className="flex items-center gap-1 text-sm font-medium">
-                  <span>MADE WITH</span>
-                  <Heart size={14} className="text-red-500 fill-red-500" />
-                  <span>BY</span>
-                  <a
-                    href="https://github.com/Kuchyyy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-accent-orange transition"
-                  >
-                    @KHY
-                  </a>
-                </div>
-              </div>
+            <div className="border-t border-stone-200 px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-poppins">
+              <span>BRADOS sp. z o.o.</span>
+
+              <span>
+                Made with{" "}
+                <Heart
+                  size={12}
+                  className="inline-block mb-0.5 fill-red-500 text-red-500"
+                />{" "}
+                by{" "}
+                <a
+                  href="tel:+48724788884"
+                  className="hover:text-accent-orange transition"
+                >
+                  Kuchy
+                </a>
+              </span>
             </div>
           </div>
         </section>

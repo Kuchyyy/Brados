@@ -159,3 +159,21 @@ body {
     opacity: 0;
   }
 }
+
+@layer utilities {
+  .blur-smooth {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    will-change: filter, transform, box-shadow;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .blur-smooth {
+      filter: blur(10px);
+      -webkit-filter: blur(10px);
+    }
+  }
+}

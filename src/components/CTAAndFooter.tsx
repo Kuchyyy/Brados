@@ -213,12 +213,13 @@ const CTAAndFooter = () => {
                   <h3 className="mb-4 text-zinc-900 font-medium">Oferta</h3>
                   <ul className="space-y-2 text-zinc-600">
                     {oferta1.map((page) => (
-                      <li key={page.id}>
+                      <li key={page.id} className="group">
                         <Link
                           to={`/${page.slug}`}
-                          className="hover:text-accent-orange transition"
+                          className="relative hover:text-accent-orange transition"
                         >
                           {page.title}
+                          <div className="absolute bottom-0 -left-2 w-0.5 h-0 bg-accent-orange transition-all duration-300 group-hover:h-full" />
                         </Link>
                       </li>
                     ))}
@@ -229,12 +230,13 @@ const CTAAndFooter = () => {
                   <h3 className="mb-4 text-zinc-900 font-medium">Oferta</h3>
                   <ul className="space-y-2 text-zinc-600">
                     {oferta2.map((page) => (
-                      <li key={page.id}>
+                      <li key={page.id} className="group">
                         <Link
                           to={`/${page.slug}`}
-                          className="hover:text-accent-orange transition"
+                          className="relative hover:text-accent-orange transition"
                         >
                           {page.title}
+                          <div className="absolute bottom-0 -left-2 w-0.5 h-0 bg-accent-orange transition-all duration-300 group-hover:h-full" />
                         </Link>
                       </li>
                     ))}

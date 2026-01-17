@@ -68,9 +68,10 @@ const CTAAndFooter = () => {
     const fillTl = gsap.timeline({
       scrollTrigger: {
         trigger: ctaBlockRef.current,
-        start: "top 80%",
-        end: "bottom 30%",
+        start: "top 70%",
+        end: "bottom 20%",
         scrub: true,
+        markers: true,
       },
     });
 

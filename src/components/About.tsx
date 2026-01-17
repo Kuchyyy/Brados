@@ -73,114 +73,117 @@ const About = () => {
   const endRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <div className="w-full flex justify-center items-center bg-stone-100">
-      <section
-        id="about"
-        className="py-20 w-[95%] max-w-[1200px] mx-auto min-h-svh"
-      >
-        <div className="mb-2 ml-1 text-left flex flex-col gap-2">
-          <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
-            Poznaj naszą firmę
-          </p>
-          <h2 className="uppercase text-2xl font-bold font-robert-medium md:text-3xl text-black">
-            Dlaczego warto wybrać <br />
-            właśnie nas
-          </h2>
-        </div>
+    <div className="w-full bg-linear-to-b from-stone-100 to-white">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 auto-rows-auto font-robert-medium">
-          <div className="col-span-1 md:col-span-2 xl:col-span-2 relative overflow-hidden border border-zinc-200 rounded-md bg-white p-6 shadow-md/20 flex flex-col justify-between min-h-[250px]">
-            <div className="flex justify-end mt-4 sm:mt-0">
-              <img
-                src="/photos/elsigma.webp"
-                alt="Logo El-Sigma"
-                className="object-contain pointer-events-none w-full md:w-[80%] select-none pt-2"
-              />
-            </div>
-            <div className="mt-3 md:mt-0">
-              <h3 className="text-xl md:text-2xl font-bold mb-3 text-black">
-                El-Sigma
-              </h3>
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
-                Od lat wspieramy klientów w tworzeniu niezawodnych instalacji
-                elektrycznych. Stawiamy na innowacje, jakość i rozwój.
-              </p>
-            </div>
+      <div className="w-full flex justify-center items-center bg-linear-to-t from-stone-100 to-white border border-black/30 rounded-4xl">
+        <section
+          id="about"
+          className="py-20 w-[95%] max-w-[1200px] mx-auto min-h-svh"
+        >
+          <div className="mb-2 ml-1 text-left flex flex-col gap-2">
+            <p className="font-medium text-sm uppercase md:text-[16px] tracking-wider text-black">
+              Poznaj naszą firmę
+            </p>
+            <h2 className="uppercase text-2xl font-bold font-robert-medium md:text-3xl text-black">
+              Dlaczego warto wybrać <br />
+              właśnie nas
+            </h2>
           </div>
 
-          <div className="col-span-1 md:col-span-2 xl:col-span-1 rounded-md bg-white border border-zinc-200 p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform">
-            <StatCard icon={Users} value={25} label="Lat doświadczenia" />
-            <StatCard icon={Package} value={5000} label="Produktów" />
-            <StatCard
-              icon={ArrowUpRight}
-              value={1000}
-              label="Zadowolonych klientów"
-            />
-            <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
-          </div>
-
-          <div className="col-span-1 relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-md bg-white p-6 shadow-md/20 flex items-end border border-zinc-200">
-            <Ripple className="z-0" />
-            <div className="relative z-10">
-              <h4 className="text-xl md:text-2xl font-bold mb-2 text-black">
-                Nasza Misja
-              </h4>
-              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-                Łączymy technologię i doświadczenie, aby dostarczać klientom
-                rozwiązania, które inspirują i wspierają codzienną pracę.
-              </p>
-            </div>
-          </div>
-
-          <div
-            ref={containerRef}
-            className="col-span-1 md:col-span-1 xl:col-span-2 relative overflow-hidden pt-14 md:pt-20 border border-zinc-200 rounded-md bg-white p-6 min-h-[300px] shadow-md/20 flex flex-col justify-between hover:scale-[1.01] transition-transform"
-          >
-            <div className="relative flex items-start justify-between">
-              <div
-                ref={startRef}
-                className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-md border"
-              >
-                <Users className="w-6 h-6 md:w-7 md:h-7 text-black" />
-              </div>
-
-              <div
-                ref={endRef}
-                className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-md border"
-              >
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 auto-rows-auto font-robert-medium">
+            <div className="col-span-1 md:col-span-2 xl:col-span-2 relative overflow-hidden border border-zinc-200 rounded-md bg-white p-6 shadow-md/20 flex flex-col justify-between min-h-[250px]">
+              <div className="flex justify-end mt-4 sm:mt-0">
                 <img
-                  src="/photos/brados.webp"
-                  alt="Logo Brados"
-                  className="w-8 h-8 md:w-10 md:h-10"
+                  src="/photos/elsigma.webp"
+                  alt="Logo El-Sigma"
+                  className="object-contain pointer-events-none w-full md:w-[80%] select-none pt-2"
                 />
               </div>
+              <div className="mt-3 md:mt-0">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 text-black">
+                  El-Sigma
+                </h3>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-md">
+                  Od lat wspieramy klientów w tworzeniu niezawodnych instalacji
+                  elektrycznych. Stawiamy na innowacje, jakość i rozwój.
+                </p>
+              </div>
             </div>
 
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={startRef}
-              toRef={endRef}
-              curvature={0}
-              gradientStartColor="#ff7e5f"
-              gradientStopColor="#ffb347"
-              pathWidth={3}
-              pathOpacity={0.9}
-              className="z-10"
-            />
+            <div className="col-span-1 md:col-span-2 xl:col-span-1 rounded-md bg-white border border-zinc-200 p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-md/20 hover:scale-[1.01] transition-transform">
+              <StatCard icon={Users} value={25} label="Lat doświadczenia" />
+              <StatCard icon={Package} value={5000} label="Produktów" />
+              <StatCard
+                icon={ArrowUpRight}
+                value={1000}
+                label="Zadowolonych klientów"
+              />
+              <StatCard icon={Star} value={100} label="Satysfakcji" suffix="%" />
+            </div>
 
-            <div className="relative z-20 max-w-md mt-6">
-              <h4 className="text-xl md:text-2xl font-bold mb-3 text-black">
-                Komunikacja i Rozwój
-              </h4>
-              <p className="text-sm md:text-base leading-relaxed text-gray-600">
-                Wierzymy, że skuteczna komunikacja z klientem to fundament
-                każdej udanej współpracy. Dlatego rozwój i innowacje stawiamy w
-                centrum naszej działalności.
-              </p>
+            <div className="col-span-1 relative overflow-hidden min-h-[300px] md:min-h-[386px] rounded-md bg-white p-6 shadow-md/20 flex items-end border border-zinc-200">
+              <Ripple className="z-0" />
+              <div className="relative z-10">
+                <h4 className="text-xl md:text-2xl font-bold mb-2 text-black">
+                  Nasza Misja
+                </h4>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                  Łączymy technologię i doświadczenie, aby dostarczać klientom
+                  rozwiązania, które inspirują i wspierają codzienną pracę.
+                </p>
+              </div>
+            </div>
+
+            <div
+              ref={containerRef}
+              className="col-span-1 md:col-span-1 xl:col-span-2 relative overflow-hidden pt-14 md:pt-20 border border-zinc-200 rounded-md bg-white p-6 min-h-[300px] shadow-md/20 flex flex-col justify-between hover:scale-[1.01] transition-transform"
+            >
+              <div className="relative flex items-start justify-between">
+                <div
+                  ref={startRef}
+                  className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-md border"
+                >
+                  <Users className="w-6 h-6 md:w-7 md:h-7 text-black" />
+                </div>
+
+                <div
+                  ref={endRef}
+                  className="z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-md border"
+                >
+                  <img
+                    src="/photos/brados.webp"
+                    alt="Logo Brados"
+                    className="w-8 h-8 md:w-10 md:h-10"
+                  />
+                </div>
+              </div>
+
+              <AnimatedBeam
+                containerRef={containerRef}
+                fromRef={startRef}
+                toRef={endRef}
+                curvature={0}
+                gradientStartColor="#ff7e5f"
+                gradientStopColor="#ffb347"
+                pathWidth={3}
+                pathOpacity={0.9}
+                className="z-10"
+              />
+
+              <div className="relative z-20 max-w-md mt-6">
+                <h4 className="text-xl md:text-2xl font-bold mb-3 text-black">
+                  Komunikacja i Rozwój
+                </h4>
+                <p className="text-sm md:text-base leading-relaxed text-gray-600">
+                  Wierzymy, że skuteczna komunikacja z klientem to fundament
+                  każdej udanej współpracy. Dlatego rozwój i innowacje stawiamy w
+                  centrum naszej działalności.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };

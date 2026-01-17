@@ -158,7 +158,7 @@ const Offer = () => {
         }}
         onScroll={() => updateScrollProgress(carouselIndex)}
         className="
-        grid grid-flow-col auto-cols-max gap-3 w-full px-3
+        grid grid-flow-col auto-cols-max gap-3 w-full px-3 sm:px-0
   overflow-x-auto scroll-smooth scrollbar-hide
   snap-x snap-mandatory sm:snap-none
   touch-auto
@@ -170,8 +170,8 @@ const Offer = () => {
             <div
               key={item.id}
               className="
-  aspect-square bg-stone-50 rounded-xl p-6
-  border border-black/10 flex-shrink-0
+  aspect-square bg-white rounded-xl p-6
+  border border-black/30 flex-shrink-0
   w-[85vw] sm:w-75
   flex flex-col justify-between
   snap-center snap-always sm:snap-none
@@ -206,11 +206,10 @@ const Offer = () => {
           {Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
-              className={`transition-all duration-300 h-1.5 rounded-full ${
-                i / 5 <= scrollProgress[carouselIndex]
-                  ? "bg-accent-orange w-6"
-                  : "bg-black/20 w-2"
-              }`}
+              className={`transition-all duration-300 h-1.5 rounded-full ${i / 5 <= scrollProgress[carouselIndex]
+                ? "bg-accent-orange w-6"
+                : "bg-black/20 w-2"
+                }`}
             />
           ))}
         </div>

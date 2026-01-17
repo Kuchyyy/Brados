@@ -27,8 +27,8 @@ function App() {
                   <Navbar />
                   <Hero />
                   <Trusted />
-                  <Offer />
                   <Team1 />
+                  <Offer />
                   <About />
                   <Faq />
                   <CTAAndFooter />

@@ -60,6 +60,8 @@ const CTAAndFooter = () => {
   }, []);
 
   useEffect(() => {
+    if (!ctaBlockRef.current || !fillRef.current) return;
+
     gsap.set(fillRef.current, {
       width: "0%",
       height: "0%",
@@ -71,7 +73,8 @@ const CTAAndFooter = () => {
         start: "top 70%",
         end: "bottom 20%",
         scrub: true,
-        markers: true,
+        invalidateOnRefresh: true,
+        refreshPriority: -1,
       },
     });
 
@@ -88,12 +91,16 @@ const CTAAndFooter = () => {
   }, []);
 
   useEffect(() => {
+    if (!ctaBlockRef.current) return;
+
     const textTl = gsap.timeline({
       scrollTrigger: {
         trigger: ctaBlockRef.current,
         start: "top 80%",
         end: "top 40%",
         scrub: true,
+        invalidateOnRefresh: true,
+        refreshPriority: -1,
       },
     });
 
@@ -105,6 +112,39 @@ const CTAAndFooter = () => {
     return () => {
       textTl.scrollTrigger?.kill();
       textTl.kill();
+    };
+  }, []);
+
+
+  useEffect(() => {
+    const refreshScrollTrigger = () => {
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
+
+    if (document.readyState === "complete") {
+      refreshScrollTrigger();
+    } else {
+      window.addEventListener("load", refreshScrollTrigger);
+    }
+
+    const timeoutId = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("load", refreshScrollTrigger);
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
     };
   }, []);
 

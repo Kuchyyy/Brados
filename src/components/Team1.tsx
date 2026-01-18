@@ -92,9 +92,9 @@ const Team1 = () => {
       <div
         ref={sectionRef}
         id="zespół"
-        className="min-h-svh mx-auto  w-[95%] self-center border max-w-[1200px] border-black/30 shadow-[0_0_60px_rgba(255,255,255,0.1)] flex justify-center items-center relative rounded-xl overflow-hidden bg-white "
+        className="min-h-svh mx-auto  w-[95%] self-center max-w-[1200px] flex justify-center items-center relative rounded-xl overflow-hidden"
       >
-        <div className="relative py-20 flex flex-col items-center gap-2 w-[95%] max-w-[1200px] mx-auto">
+        <div className="relative py-20 flex flex-col items-center gap-2 w-full max-w-[1200px] mx-auto">
           <h2 className="text-sm leading-tight text-center font-poppins tracking-tight">
             Poznaj nasz zespół <br />
             <p className="inline-flex text-black/60"> Ludzi tworzących Brados</p>
@@ -120,7 +120,7 @@ const Team1 = () => {
             {teams[activeTab].map((person, index) => (
               <div
                 key={index}
-                className="relative min-h-[550px] w-full max-w-[370px] rounded-md border border-black/30 overflow-hidden"
+                className="relative min-h-[550px] w-full sm:max-w-[390px] rounded-md border border-black/30 overflow-hidden"
               >
                 <img
                   src={person.image}
@@ -128,7 +128,7 @@ const Team1 = () => {
                   className="absolute inset-0 w-full h-full object-cover object-top "
                 />
 
-                <div className="absolute inset-x-2 bottom-2 bg-stone-50 backdrop-blur-sm rounded-md p-2 flex flex-col justify-end gap-2 border border-black/30">
+                <div className="absolute inset-x-2 bottom-2 bg-white backdrop-blur-sm rounded-md p-2 flex flex-col justify-end gap-2 border border-black/30">
                   <h3 className=" text-lg text-center">
                     {person.name}
                   </h3>

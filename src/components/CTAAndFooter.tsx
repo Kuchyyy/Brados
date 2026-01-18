@@ -332,7 +332,7 @@ const CTAAndFooter = () => {
                 </div>
               </footer>
 
-              <div className="border-t border-stone-200 px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-poppins">
+              <div className="border-t border-dashed border-stone-200 px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-poppins">
                 <span>BRADOS sp. z o.o.</span>
 
                 <span>

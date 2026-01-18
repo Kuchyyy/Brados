@@ -141,7 +141,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
     >
       <div
         className={cn(
-          "flex gap-6 px-6", //
+          "flex gap-6", //
           orientation === "vertical" && "flex-col py-6",
           className
         )}

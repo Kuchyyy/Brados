@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState, type Key } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Settings,
   Wifi,
@@ -13,6 +13,12 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { pages } from "../data/page";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const firstCarouselItems = [
   {
@@ -82,12 +88,8 @@ const secondCarouselItems = [
 
 const Offer = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const scrollContainerRefs = useRef<(HTMLDivElement | null)[]>([null, null]);
   const [visible, setVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState<[number, number]>([
-    0, 0,
-  ]);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   useEffect(() => {
@@ -104,135 +106,129 @@ const Offer = () => {
     return () => observer.disconnect();
   }, [hasAnimated]);
 
-  const updateScrollProgress = (index: number) => {
-    const container = scrollContainerRefs.current[index];
-    if (!container) return;
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    const maxScroll = scrollWidth - clientWidth;
-    const progress = maxScroll > 0 ? scrollLeft / maxScroll : 1;
-    setScrollProgress((prev) => {
-      const next = [...prev] as [number, number];
-      next[index] = progress;
-      return next;
-    });
-  };
 
-  const handleScroll = (direction: "left" | "right", index: number) => {
-    if (isMobile) return;
-    const container = scrollContainerRefs.current[index];
-    if (!container) return;
-
-    const scrollAmount = 400;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-
-    container.scrollTo({
-      left:
-        direction === "right"
-          ? Math.min(container.scrollLeft + scrollAmount, maxScroll)
-          : Math.max(container.scrollLeft - scrollAmount, 0),
-      behavior: "smooth",
-    });
-  };
-
-  const renderCarousel = (
+  const CarouselSection = ({
+    items,
+    isLast,
+  }: {
     items: {
       id: Key;
       icon: React.ReactNode;
       label: string;
       description?: string;
-    }[],
-    carouselIndex: number,
-    isLast: boolean
-  ) => (
-    <div
-      className={`
-        relative w-full mt-2 py-4
-        transition-all duration-700 ease-out
-        ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
-        ${isLast ? "rounded-b-4xl" : "rounded-t-4xl"}
-      `}
-    >
+    }[];
+    isLast: boolean;
+  }) => {
+    const [api, setApi] = useState<CarouselApi>();
+    const [current, setCurrent] = useState(0);
+
+    useEffect(() => {
+      if (!api) return;
+
+      setCurrent(api.selectedScrollSnap());
+
+      api.on("select", () => {
+        setCurrent(api.selectedScrollSnap());
+      });
+    }, [api]);
+
+    const scrollPrev = () => {
+      api?.scrollPrev();
+    };
+
+    const scrollNext = () => {
+      api?.scrollNext();
+    };
+
+    return (
       <div
-        ref={(el) => {
-          scrollContainerRefs.current[carouselIndex] = el;
-        }}
-        onScroll={() => updateScrollProgress(carouselIndex)}
-        className="
-        grid grid-flow-col auto-cols-max gap-3 w-full px-3 sm:px-0
-  overflow-x-auto scroll-smooth scrollbar-hide
-  snap-x snap-mandatory sm:snap-none
-  touch-auto
-        [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-thumb]:bg-transparent "
+        className={`
+          relative w-full mt-2 py-4
+          transition-all duration-700 ease-out
+          ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
+          ${isLast ? "rounded-b-4xl" : "rounded-t-4xl"}
+        `}
       >
-        {items.map((item) => {
-          const page = pages.find((p) => p.id === item.id);
-          return (
-            <div
-              key={item.id}
-              className="
-  aspect-square bg-white rounded-xl p-6
-  border border-black/30 flex-shrink-0
-  w-[85vw] sm:w-75
-  flex flex-col justify-between
-  snap-center snap-always sm:snap-none
-              "
-            >
-              <div>
-                <div className="text-accent-orange mb-3 text-2xl">
-                  {item.icon}
-                </div>
-                <h3 className="text-base font-medium mb-2">{item.label}</h3>
-                {item.description && (
-                  <p className="text-xs text-black/60">{item.description}</p>
-                )}
-              </div>
-
-              {page && (
-                <Link
-                  to={`/${page.slug}`}
-                  className="text-sm font-medium text-accent-orange hover:underline"
+        <Carousel
+          setApi={setApi}
+          className="w-full"
+          opts={{
+            align: isMobile ? "center" : "start",
+            containScroll: "trimSnaps"
+          }}
+        >
+          <CarouselContent className="gap-0">
+            {items.map((item) => {
+              const page = pages.find((p) => p.id === item.id);
+              return (
+                <CarouselItem
+                  key={item.id}
+                  className="basis-full sm:basis-1/2 md:basis-1/3 gap-3 "
                 >
-                  Dowiedz się więcej
-                  <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
-                </Link>
-              )}
-            </div>
-          );
-        })}
+                  <div className="aspect-square bg-white rounded-xl p-6 border border-black/20 flex flex-col justify-between h-full mx-3 sm:mx-1">
+                    <div>
+                      <div className="text-accent-orange mb-3 text-2xl">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-base font-medium mb-2">{item.label}</h3>
+                      {item.description && (
+                        <p className="text-xs text-black/60">{item.description}</p>
+                      )}
+                    </div>
+
+                    {page && (
+                      <Link
+                        to={`/${page.slug}`}
+                        className="text-sm font-medium text-accent-orange hover:underline"
+                      >
+                        Dowiedz się więcej
+                        <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
+                      </Link>
+                    )}
+                  </div>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+
+          <div className="flex justify-between items-center mt-4">
+            {isMobile && (
+              <div className="flex justify-center items-center gap-2 w-full">
+                {items.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`transition-all duration-300 rounded-full ${index === current
+                      ? "bg-accent-orange w-8 h-1.5"
+                      : "bg-black/20 w-1.5 h-1.5"
+                      }`}
+                  />
+                ))}
+              </div>
+            )}
+
+            {!isMobile && (
+              <div className="flex justify-end items-center gap-2 w-full mr-1">
+                <button
+                  onClick={scrollPrev}
+                  className="p-2 rounded-md border border-zinc-200 bg-white hover:bg-zinc-50 transition"
+                  aria-label="Poprzednie"
+                >
+                  <ChevronLeft className="w-5 h-5 text-black" />
+                </button>
+                <button
+                  onClick={scrollNext}
+                  className="p-2 rounded-md border border-zinc-200 bg-white hover:bg-zinc-50 transition"
+                  aria-label="Następne"
+                >
+                  <ChevronRight className="w-5 h-5 text-black" />
+                </button>
+              </div>
+            )}
+          </div>
+        </Carousel>
       </div>
-
-      {isMobile && (
-        <div className="flex justify-center items-center gap-2 mt-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className={`transition-all duration-300 h-1.5 rounded-full ${i / 5 <= scrollProgress[carouselIndex]
-                ? "bg-accent-orange w-6"
-                : "bg-black/20 w-2"
-                }`}
-            />
-          ))}
-        </div>
-      )}
-
-      {!isMobile && (
-        <div className="justify-end items-center gap-3 mt-6 hidden sm:flex">
-          <button
-            onClick={() => handleScroll("left", carouselIndex)}
-            className="p-2 border border-black/30 rounded-md hover:bg-black/5 transition"
-          >
-            <ArrowLeft size={18} />
-          </button>
-          <button
-            onClick={() => handleScroll("right", carouselIndex)}
-            className="p-2 border border-black/30 rounded-md hover:bg-black/5 transition"
-          >
-            <ArrowRight size={18} />
-          </button>
-        </div>
-      )}
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="w-full flex items-center justify-center pb-20">
@@ -246,8 +242,8 @@ const Offer = () => {
           <div className="text-black/60">naciśnij i dowiedz się więcej</div>
         </h2>
 
-        {renderCarousel(firstCarouselItems, 0, false)}
-        {renderCarousel(secondCarouselItems, 1, true)}
+        <CarouselSection items={firstCarouselItems} isLast={false} />
+        <CarouselSection items={secondCarouselItems} isLast={true} />
       </section>
     </div>
   );

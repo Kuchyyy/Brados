@@ -25,31 +25,36 @@ const firstCarouselItems = [
     id: "1",
     icon: <Settings />,
     label: "Aparatura modułowa i sterowanie",
-    description: "Sterowniki, moduły i automatyka",
+    description:
+      "Nowoczesne sterowniki, moduły i systemy automatyki. Idealne do precyzyjnego zarządzania instalacjami i procesami.",
   },
   {
     id: "2",
     icon: <Wifi />,
     label: "Narzędzia i mierniki",
-    description: "Multimetry, testery i akcesoria",
+    description:
+      "Profesjonalne multimetry, testery i akcesoria pomiarowe. Niezawodne wsparcie w codziennej pracy instalatora.",
   },
   {
     id: "3",
     icon: <Zap />,
     label: "Sieci niskoprądowe i okablowanie strukturalne",
-    description: "Instalacje i przewody",
+    description:
+      "Kompleksowe rozwiązania do transmisji danych i sygnałów. Stabilne instalacje dla biur, przemysłu i domu.",
   },
   {
     id: "4",
     icon: <Box />,
     label: "Rozdzielnice i obudowy",
-    description: "Bezpieczne obudowy dla instalacji",
+    description:
+      "Bezpieczne rozdzielnice i obudowy do każdej instalacji. Ochrona sprzętu i estetyczne wykończenie systemów.",
   },
   {
     id: "5",
     icon: <Plug />,
     label: "Osprzęt elektroinstalacyjny i siłowy",
-    description: "Gniazda, wyłączniki i złącza",
+    description:
+      "Gniazda, wyłączniki i złącza najwyższej jakości. Trwałość, bezpieczeństwo i nowoczesny design.",
   },
 ];
 
@@ -58,37 +63,41 @@ const secondCarouselItems = [
     id: "6",
     icon: <Lightbulb />,
     label: "Technika świetlna",
-    description: "Lampy, oprawy i oświetlenie LED",
+    description:
+      "Lampy, oprawy i oświetlenie LED do każdego wnętrza. Energooszczędne rozwiązania i nowoczesny styl.",
   },
   {
     id: "7",
     icon: <Antenna />,
     label: "System tras i mocowania",
-    description: "Kanały, koryta i uchwyty",
+    description:
+      "Kanały, koryta i uchwyty montażowe do kabli. Porządek, bezpieczeństwo i szybki montaż.",
   },
   {
     id: "8",
     icon: <Plug />,
     label: "Kable i przewody",
-    description: "Przewody energetyczne i sygnałowe",
+    description:
+      "Przewody energetyczne i sygnałowe o wysokiej jakości. Niezawodne w każdej instalacji.",
   },
   {
     id: "9",
     icon: <Zap />,
     label: "Ochrona odgromowa",
-    description: "Systemy ochrony przed wyładowaniami",
+    description:
+      "Systemy ochrony przed wyładowaniami atmosferycznymi. Bezpieczeństwo budynków i instalacji.",
   },
   {
     id: "10",
     icon: <Circle />,
     label: "Pozostałe",
-    description: "Dodatkowe akcesoria i komponenty",
+    description:
+      "Dodatkowe akcesoria i komponenty do instalacji. Wszystko, czego potrzebujesz w jednym miejscu.",
   },
 ];
 
 const Offer = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
@@ -96,7 +105,6 @@ const Offer = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
-          setVisible(true);
           setHasAnimated(true);
         }
       },
@@ -106,10 +114,9 @@ const Offer = () => {
     return () => observer.disconnect();
   }, [hasAnimated]);
 
-
   const CarouselSection = ({
     items,
-    isLast,
+    startIndex,
   }: {
     items: {
       id: Key;
@@ -117,7 +124,7 @@ const Offer = () => {
       label: string;
       description?: string;
     }[];
-    isLast: boolean;
+    startIndex: number;
   }) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
@@ -141,48 +148,63 @@ const Offer = () => {
     };
 
     return (
-      <div
-        className={`
-          relative w-full mt-2 py-4
-          transition-all duration-700 ease-out
-          ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}
-          ${isLast ? "rounded-b-4xl" : "rounded-t-4xl"}
-        `}
-      >
+      <div className="relative w-full mt-2 py-4 transition-all duration-700 ease-out">
         <Carousel
           setApi={setApi}
           className="w-full"
           opts={{
             align: isMobile ? "center" : "start",
-            containScroll: "trimSnaps"
+            containScroll: "trimSnaps",
           }}
         >
           <CarouselContent className="gap-0">
-            {items.map((item) => {
+            {items.map((item, index) => {
               const page = pages.find((p) => p.id === item.id);
+              const number = String(startIndex + index + 1).padStart(2, "0");
+
               return (
                 <CarouselItem
                   key={item.id}
-                  className="basis-full sm:basis-1/2 md:basis-1/3 gap-3 "
+                  className="basis-full sm:basis-1/2 md:basis-1/3 gap-3"
                 >
-                  <div className="aspect-square bg-white rounded-xl p-6 border border-black/20 flex flex-col justify-between h-full mx-3 sm:mx-1">
-                    <div>
+                  <div className="relative aspect-square bg-white rounded-xl p-6 border border-black/20 flex flex-col justify-between h-full mx-3 sm:mx-1">
+                    <div className="
+  absolute top-4 left-4 px-2 py-1 rounded-md
+  text-[10px] font-medium tracking-widest
+  text-black/70
+  bg-white/60 backdrop-blur-sm
+  border border-black/20
+">
+                      {number}
+                    </div>
+
+
+
+
+                    <div className="relative top-10">
                       <div className="text-accent-orange mb-3 text-2xl">
                         {item.icon}
                       </div>
-                      <h3 className="text-base font-medium mb-2">{item.label}</h3>
+                      <h3 className="text-base font-medium mb-2">
+                        {item.label}
+                      </h3>
                       {item.description && (
-                        <p className="text-xs text-black/60">{item.description}</p>
+                        <p className="text-xs text-black/60">
+                          {item.description}
+                        </p>
                       )}
                     </div>
 
                     {page && (
                       <Link
                         to={`/${page.slug}`}
-                        className="text-sm font-medium text-accent-orange hover:underline"
+                        className="group text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 hover:border-accent-orange transition-colors duration-300"
                       >
                         Dowiedz się więcej
-                        <ArrowUpRight className="inline-block w-4 h-4 ml-1" />
+
+                        <span className="flex items-center justify-center w-8 h-8 rounded-md bg-accent-orange">
+                          <ArrowUpRight className="w-4 h-4 text-white group-hover:rotate-45 duration-300 transition-all" />
+                        </span>
                       </Link>
                     )}
                   </div>
@@ -242,8 +264,8 @@ const Offer = () => {
           <div className="text-black/60">naciśnij i dowiedz się więcej</div>
         </h2>
 
-        <CarouselSection items={firstCarouselItems} isLast={false} />
-        <CarouselSection items={secondCarouselItems} isLast={true} />
+        <CarouselSection items={firstCarouselItems} startIndex={0} />
+        <CarouselSection items={secondCarouselItems} startIndex={5} />
       </section>
     </div>
   );

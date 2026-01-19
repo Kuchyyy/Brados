@@ -135,24 +135,24 @@ const Team1 = () => {
 
                   <a
                     href={`tel:${person.phone}`}
-                    className="flex justify-between items-center gap-4 border bg-white border-black/30 rounded-md pl-4 pr-2"
+                    className="flex justify-between items-center gap-4 border bg-white border-black/20 rounded-md pl-4 pr-2"
                   >
-                    <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
+                    <div className="flex w-full items-center justify-center text-black py-3.5 rounded-md text-sm font-poppins tracking-tight">
                       {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
                     </div>
-                    <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
+                    <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
                       <Phone className="w-4 h-4" />
                     </div>
                   </a>
 
                   <button
                     onClick={() => handleCopyEmail(person.email)}
-                    className="flex justify-between items-center gap-4 border border-black/30 bg-white rounded-md pl-4 pr-2"
+                    className="flex justify-between items-center gap-4 border border-black/20 bg-white rounded-md pl-4 pr-2"
                   >
-                    <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
+                    <div className="flex w-full items-center justify-center text-black py-3.5 rounded-md text-sm font-poppins tracking-tight">
                       {person.email}
                     </div>
-                    <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
+                    <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
                       <Mail className="w-4 h-4" />
                     </div>
                   </button>

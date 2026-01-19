@@ -13,8 +13,8 @@ interface RippleProps extends ComponentPropsWithoutRef<"div"> {
 
 export const Ripple = memo(function Ripple({
   mainCircleSize = 210,
-  mainCircleOpacity = 0.24,
-  numCircles = 8,
+  mainCircleOpacity = 0.14,
+  numCircles = 7,
   className,
   children, // 🔹 dodane
   ...props
@@ -30,13 +30,13 @@ export const Ripple = memo(function Ripple({
       {/* Kręgi */}
       {Array.from({ length: numCircles }, (_, i) => {
         const size = mainCircleSize + i * 70;
-        const opacity = mainCircleOpacity - i * 0.03;
+        const opacity = mainCircleOpacity - i * 0.5;
         const animationDelay = `${i * 0.06}s`;
 
         return (
           <div
             key={i}
-            className="absolute rounded-full border shadow-xl animate-pulse-ripple"
+            className="absolute rounded-full border shadow-sm animate-pulse-ripple"
             style={
               {
                 "--i": i,
@@ -46,8 +46,8 @@ export const Ripple = memo(function Ripple({
                 borderStyle: "solid",
                 borderWidth: "1px",
                 borderColor: "var(--foreground)",
-                top: "80%",
-                left: "15%",
+                top: "50%",
+                left: "50%",
                 transform: "translate(-50%, -50%) scale(1)",
                 animationDelay,
               } as CSSProperties
@@ -59,7 +59,7 @@ export const Ripple = memo(function Ripple({
       {/* 🔹 Napis w środku ripple */}
       {children && (
         <div className="absolute top-1/2 left-1/2 translate-x-[20%] -translate-y-1/2 z-20">
-          <span className="font-bold text-lg text-black">{children}</span>
+          <span className=" text-lg text-black">{children}</span>
         </div>
       )}
     </div>

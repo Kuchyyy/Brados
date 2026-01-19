@@ -237,7 +237,7 @@ const CTAAndFooter = () => {
               </button>
             </div>
 
-            <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-black/30 rounded-xl">
+            <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-black/20 rounded-xl">
               <footer className="px-8 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-6 gap-x-14 gap-y-8 text-sm font-poppins tracking-tight">
                   <div className="md:col-span-2 flex flex-col gap-4">

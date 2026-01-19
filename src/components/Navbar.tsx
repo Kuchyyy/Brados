@@ -129,8 +129,8 @@ const Navbar = () => {
       prevView.current === "menu" && activeView === "oferta"
         ? -100
         : prevView.current === "oferta" && activeView === "menu"
-        ? 100
-        : 0;
+          ? 100
+          : 0;
 
     gsap.killTweensOf(viewRef.current);
     gsap.fromTo(
@@ -156,7 +156,7 @@ const Navbar = () => {
           ref={navRef}
           className="rounded-xl bg-white border border-black/30"
         >
-          <div className="h-16 flex items-center justify-between px-4">
+          <div className="h-16 flex items-center justify-between px-4 pr-2">
             <img
               src="/photos/brados.webp"
               className="w-10 cursor-pointer"
@@ -168,7 +168,7 @@ const Navbar = () => {
                 setOpen(!open);
                 if (!open) setActiveView("menu");
               }}
-              className="p-2 hover:bg-black/5 rounded-md cursor-pointer"
+              className="p-2  hover:bg-black/5 rounded-md cursor-pointer"
             >
               {open ? <X /> : <Menu />}
             </button>
@@ -176,9 +176,8 @@ const Navbar = () => {
 
           <div
             ref={contentRef}
-            className={`flex flex-col ${
-              open ? "pointer-events-auto" : "pointer-events-none"
-            }`}
+            className={`flex flex-col ${open ? "pointer-events-auto" : "pointer-events-none"
+              }`}
           >
             <div className="grid py-5 px-2 gap-2">
               <div ref={viewRef} className="flex flex-col">
@@ -188,10 +187,10 @@ const Navbar = () => {
                       <button
                         key={item}
                         onClick={() => setActiveView("oferta")}
-                        className="p-2 flex justify-between text-xl hover:bg-black/5 rounded-md cursor-pointer"
+                        className="p-2 flex justify-between text-xl hover:bg-black/5 rounded-md cursor-pointer items-center group"
                       >
                         {item}
-                        <ArrowUpRight />
+                        <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 duration-300 transform-all" />
                       </button>
                     ) : (
                       <button
@@ -199,7 +198,7 @@ const Navbar = () => {
                         onClick={() =>
                           goHomeAndScroll(`#${item.toLowerCase()}`)
                         }
-                        className="p-2 text-left text-xl hover:bg-black/5 rounded-md cursor-pointer"
+                        className="p-2 text-left text-xl hover:bg-black/5 rounded-md cursor-pointer "
                       >
                         {item}
                       </button>
@@ -214,7 +213,7 @@ const Navbar = () => {
                         key={id}
                         to={`/${page?.slug}`}
                         onClick={closeNavbar}
-                        className="flex items-center gap-2 px-2 py-2 hover:bg-black/5 rounded-md cursor-pointer"
+                        className="flex items-center gap-2 px-2 py-2 hover:bg-black/5 rounded-md cursor-pointer "
                       >
                         {icon}
                         <span>{label}</span>
@@ -224,9 +223,8 @@ const Navbar = () => {
               </div>
 
               <div
-                className={`flex justify-center rounded-md ${
-                  isOferta ? "border-0" : "border border-black/30"
-                }`}
+                className={`flex justify-center rounded-md ${isOferta ? "border-0" : "border border-black/30"
+                  }`}
               >
                 {isOferta ? (
                   <button

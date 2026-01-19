@@ -133,7 +133,7 @@ const LocationMap = () => {
               <div className="absolute bottom-2 left-2 z-10 flex flex-col gap-2">
                 <button
                   onClick={handleShowLocation}
-                  className="bg-white rounded-md px-4 py-2 shadow-lg border border-zinc-200 hover:bg-zinc-50 transition flex items-center gap-2 text-sm font-poppins tracking-tight text-black cursor-pointer"
+                  className="bg-white rounded-md px-4 py-3.5 shadow-lg border border-zinc-200 hover:bg-zinc-50 transition flex items-center gap-2 text-sm font-poppins tracking-tight text-black cursor-pointer"
                 >
                   <Locate className="w-4 h-4" />
                   Pokaż lokalizację
@@ -145,11 +145,11 @@ const LocationMap = () => {
                   rel="noopener noreferrer"
                   className="group flex items-center gap-4 border border-zinc-200 hover:bg-zinc-50 bg-white rounded-md pl-4 pr-1.5 shadow-lg transition font-poppins tracking-tight"
                 >
-                  <div className="flex w-full items-center justify-center text-black py-2 text-sm">
+                  <div className="flex w-full items-center justify-center text-black py-3.5 text-sm">
                     Prowadź do firmy
                   </div>
 
-                  <div className="bg-accent-orange text-white p-1.5 rounded-md flex justify-center items-center transition">
+                  <div className="bg-accent-orange text-white p-2 mr-0.5 rounded-md flex justify-center items-center transition">
                     <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:rotate-45" />
                   </div>
                 </a>

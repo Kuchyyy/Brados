@@ -77,10 +77,9 @@ const CTAAndFooter = () => {
           trigger: ctaBlockRef.current,
           start: "top 90%",
           end: "bottom 10%",
-          scrub: true,
+          scrub: 1,
           invalidateOnRefresh: true,
           refreshPriority: -1,
-
         },
       });
 
@@ -92,15 +91,15 @@ const CTAAndFooter = () => {
     });
 
     mm.add("(max-width: 639px)", () => {
-
       const fillTl = gsap.timeline({
         scrollTrigger: {
           trigger: ctaBlockRef.current,
           start: "top 80%",
           end: "bottom 20%",
-          scrub: true,
+          scrub: 0.5,
           invalidateOnRefresh: true,
           refreshPriority: -1,
+          fastScrollEnd: true,
         },
       });
 
@@ -109,6 +108,8 @@ const CTAAndFooter = () => {
         height: "320%",
         ease: "none",
       });
+
+      return () => fillTl.kill();
     });
 
     return () => {
@@ -119,14 +120,17 @@ const CTAAndFooter = () => {
   useEffect(() => {
     if (!ctaBlockRef.current) return;
 
+    const isMobile = window.innerWidth < 640;
+
     const textTl = gsap.timeline({
       scrollTrigger: {
         trigger: ctaBlockRef.current,
         start: "top 80%",
         end: "top 40%",
-        scrub: true,
+        scrub: isMobile ? 0.5 : 1,
         invalidateOnRefresh: true,
         refreshPriority: -1,
+        fastScrollEnd: isMobile ? true : false,
       },
     });
 
@@ -143,35 +147,44 @@ const CTAAndFooter = () => {
 
 
   useEffect(() => {
-    const refreshScrollTrigger = () => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-    };
-
-
-    if (document.readyState === "complete") {
-      refreshScrollTrigger();
-    } else {
-      window.addEventListener("load", refreshScrollTrigger);
+    if (isMobile) {
+      ScrollTrigger.config({
+        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
+      });
     }
 
-    const timeoutId = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
-
-
-    const handleResize = () => {
-      ScrollTrigger.refresh();
+    const refreshScrollTrigger = () => {
+      if (!isMobile) {
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 100);
+      }
     };
-    window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("load", refreshScrollTrigger);
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timeoutId);
-    };
+    if (!isMobile) {
+      if (document.readyState === "complete") {
+        refreshScrollTrigger();
+      } else {
+        window.addEventListener("load", refreshScrollTrigger);
+      }
+
+      const timeoutId = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
+
+      const handleResize = () => {
+        ScrollTrigger.refresh();
+      };
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("load", refreshScrollTrigger);
+        window.removeEventListener("resize", handleResize);
+        clearTimeout(timeoutId);
+      };
+    }
   }, []);
 
   const oferta1 = pages.slice(0, 5);

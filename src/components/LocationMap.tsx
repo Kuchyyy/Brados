@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import { ArrowUpRight, Locate } from "lucide-react";
+import { useRef, useCallback, useState } from "react";
+import { ArrowUpRight, Locate, Map as MapIcon } from "lucide-react";
 import {
   Map,
   MapMarker,
@@ -25,6 +25,7 @@ const LocationMap = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const textRef = useRef<HTMLHeadingElement | null>(null);
   const mapRef = useRef<MapRef | null>(null);
+  const [isDetailedMap, setIsDetailedMap] = useState(false);
 
   const handleShowLocation = useCallback(() => {
     if (!mapRef.current) return;
@@ -33,6 +34,19 @@ const LocationMap = () => {
       center: [COORDS.lng, COORDS.lat],
       zoom: 15,
       duration: 1500,
+    });
+  }, []);
+
+  const handleToggleMapStyle = useCallback(() => {
+    if (!mapRef.current) return;
+
+    setIsDetailedMap((prev) => {
+      const newStyle = prev
+        ? "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        : "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json";
+
+      mapRef.current?.setStyle(newStyle, { diff: true });
+      return !prev;
     });
   }, []);
 
@@ -75,17 +89,34 @@ const LocationMap = () => {
 
     gsap.set(wordSpans, { color: "rgba(0,0,0,0.15)" });
 
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+
     const ctx = gsap.context(() => {
-      gsap.to(wordSpans, {
-        color: "rgba(0,0,0,1)",
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 70%",
-          end: "bottom 30%",
-          scrub: true,
-        },
-      });
+      if (isMobile) {
+        gsap.to(wordSpans, {
+          color: "rgba(0,0,0,1)",
+          stagger: 0.05,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: textRef.current,
+            start: "top 80%",
+            once: true,
+            invalidateOnRefresh: true,
+          },
+        });
+      } else {
+        gsap.to(wordSpans, {
+          color: "rgba(0,0,0,1)",
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: textRef.current,
+            start: "top 70%",
+            end: "bottom 30%",
+            scrub: 1,
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -101,6 +132,17 @@ const LocationMap = () => {
         <div className="mx-auto max-w-[1200px] w-[95%] py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[70vh] gap-4">
             <div className="relative h-[50vh] lg:h-full rounded-xl overflow-hidden border border-zinc-200 order-2 md:order-1">
+              <button
+                onClick={handleToggleMapStyle}
+                className="absolute top-2 right-2 z-20 bg-white rounded-md px-3 py-2 shadow-lg border border-zinc-200 hover:bg-zinc-50 transition flex items-center gap-2 text-sm font-poppins tracking-tight text-black cursor-pointer"
+                aria-label={isDetailedMap ? "Pokaż mapę uproszczoną" : "Pokaż mapę szczegółową"}
+              >
+                <MapIcon className="w-4 h-4" />
+                <span className="hidden sm:inline">
+                  {isDetailedMap ? "Uproszczona" : "Szczegółowa"}
+                </span>
+              </button>
+
               <Map
                 ref={mapRef}
                 center={[COORDS.lng, COORDS.lat]}

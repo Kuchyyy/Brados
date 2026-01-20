@@ -39,7 +39,7 @@ const About = () => {
                 </div>
                 <div className="relative h-full top-7 md:top-10 -right-7">
 
-                  <div className="flex justify-center items-center mt-4 sm:mt-0 h-full border border-black/20 bg-stone-50 rounded-tl-xl p-4">
+                  <div className="flex justify-center items-center mt-4 sm:mt-0 h-full border border-black/20 bg-stone-50 rounded-tl-xl p-4 ">
                     <img
                       src="/photos/elsigma.webp"
                       alt="Logo El-Sigma"

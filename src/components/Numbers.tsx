@@ -29,7 +29,7 @@ const Numbers = () => {
     const curve = "M 0 420 C 696 384 1106 301 1400 0";
 
     return (
-        <section className="w-full bg-white">
+        <section className="w-full bg-white h-full">
             <div className="absolute inset-0 z-0 h-full">
                 <svg
                     viewBox="0 0 1350 500"
@@ -84,7 +84,7 @@ const Numbers = () => {
                     />
                 </svg>
             </div>
-            <div className="relative maxw mx-auto h-full overflow-hidden">
+            <div className="relative maxw mx-auto h-full overflow-hidden flex flex-col justify-between">
 
 
                 <div className="relative z-10 flex flex-col gap-1 p-6">
@@ -124,6 +124,16 @@ const Numbers = () => {
                                 </span>
                             </div>
                         ))}
+                    </div>
+
+
+                </div>
+                <div className="mt-6 pt-6  w-[90%] mx-auto mb-6">
+                    <div className="flex items-center justify-end gap-2">
+
+                        <p className="text-sm font-poppins text-black/80 tracking-tight">
+                            Twoja satysfakcja to nasz priorytet
+                        </p>
                     </div>
                 </div>
             </div>

@@ -169,7 +169,7 @@ const Offer = () => {
                 >
                   <div className="relative aspect-square bg-white rounded-xl p-6 border border-black/20 flex flex-col justify-between h-full mx-3 sm:mx-1">
                     <div className="
-  absolute top-4 left-4 px-2 py-1 rounded-md
+  absolute top-4 left-5 px-2 py-1 rounded-md
   text-[10px] font-medium tracking-widest
   text-black/70
   bg-white/60 backdrop-blur-sm

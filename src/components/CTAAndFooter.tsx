@@ -165,7 +165,8 @@ const CTAAndFooter = () => {
             >
               <div
                 ref={fillRef}
-                className="absolute -bottom-50 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black border-20 border-accent-orange blur-smooth pointer-events-none"
+                className="absolute -bottom-50 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black sm:border-20 sm:border-accent-orange blur-none sm:blur-[10px] sm:brightness-110 pointer-events-none transform-gpu will-change-transform"
+
               />
 
               <div className=" z-10 flex flex-col justify-center items-center gap-2 text-center">

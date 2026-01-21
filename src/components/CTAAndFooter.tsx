@@ -157,11 +157,11 @@ const CTAAndFooter = () => {
     <div className="w-full bg-stone-100">
 
       <div className="w-full flex justify-center items-center border border-black/30 rounded-t-4xl relative overflow-hidden bg-white">
-        <div className="mt-20 pb-2 sm:pb-10 max-w-[1200px] w-[95%] z-40">
+        <div className="mt-10 sm:mt-20 pb-2 sm:pb-10 max-w-[1200px] w-[95%] z-40">
           <section className="relative w-full py-2 rounded-md">
             <div
               ref={ctaBlockRef}
-              className="relative sm:overflow-hidden flex flex-col justify-center items-center z-10 text-start sm:text-center w-full py-5 min-h-100 rounded-xl gap-3"
+              className="relative overflow-hidden flex flex-col justify-center items-center z-10 text-start sm:text-center w-full py-5 min-h-100 rounded-xl gap-3"
             >
               <div
                 ref={fillRef}
@@ -308,7 +308,7 @@ const CTAAndFooter = () => {
                 </div>
               </footer>
 
-              <div className="border-t border-dashed border-stone-200 px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-poppins">
+              <div className="border-t border-dashed border-stone-200 px-8 py-6 flex flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-poppins">
                 <span>BRADOS sp. z o.o.</span>
 
                 <span>

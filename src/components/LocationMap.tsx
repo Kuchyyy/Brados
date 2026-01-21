@@ -129,34 +129,18 @@ const LocationMap = () => {
 
     gsap.set(wordSpans, { color: "rgba(0,0,0,0.15)" });
 
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-
     const ctx = gsap.context(() => {
-      if (isMobile) {
-        gsap.to(wordSpans, {
-          color: "rgba(0,0,0,1)",
-          stagger: 0.05,
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 80%",
-            once: true,
-            invalidateOnRefresh: true,
-          },
-        });
-      } else {
-        gsap.to(wordSpans, {
-          color: "rgba(0,0,0,1)",
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 70%",
-            end: "bottom 30%",
-            scrub: 1,
-          },
-        });
-      }
+      gsap.to(wordSpans, {
+        color: "rgba(0,0,0,1)",
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 70%",
+          end: "bottom 30%",
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();

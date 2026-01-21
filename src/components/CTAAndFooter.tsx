@@ -68,69 +68,40 @@ const CTAAndFooter = () => {
     });
 
 
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 640px)", () => {
-
-      const fillTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ctaBlockRef.current,
-          start: "top 90%",
-          end: "bottom 10%",
-          scrub: 1,
-          invalidateOnRefresh: true,
-          refreshPriority: -1,
-        },
-      });
-
-      fillTl.to(fillRef.current, {
-        width: "320%",
-        height: "320%",
-        ease: "none",
-      });
+    const fillTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ctaBlockRef.current,
+        start: "top 90%",
+        end: "bottom 10%",
+        scrub: 1,
+        invalidateOnRefresh: true,
+        refreshPriority: -1,
+      },
     });
 
-    mm.add("(max-width: 639px)", () => {
-      const fillTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ctaBlockRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          scrub: 0.5,
-          invalidateOnRefresh: true,
-          refreshPriority: -1,
-          fastScrollEnd: true,
-        },
-      });
-
-      fillTl.to(fillRef.current, {
-        width: "320%",
-        height: "320%",
-        ease: "none",
-      });
-
-      return () => fillTl.kill();
+    fillTl.to(fillRef.current, {
+      width: "320%",
+      height: "320%",
+      ease: "none",
     });
 
     return () => {
-      mm.revert();
+      fillTl.scrollTrigger?.kill();
+      fillTl.kill();
     };
   }, []);
 
   useEffect(() => {
     if (!ctaBlockRef.current) return;
 
-    const isMobile = window.innerWidth < 640;
-
     const textTl = gsap.timeline({
       scrollTrigger: {
         trigger: ctaBlockRef.current,
         start: "top 80%",
         end: "top 40%",
-        scrub: isMobile ? 0.5 : 1,
+        scrub: 1,
         invalidateOnRefresh: true,
         refreshPriority: -1,
-        fastScrollEnd: isMobile ? true : false,
       },
     });
 
@@ -147,44 +118,36 @@ const CTAAndFooter = () => {
 
 
   useEffect(() => {
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-
-    if (isMobile) {
-      ScrollTrigger.config({
-        autoRefreshEvents: "visibilitychange,DOMContentLoaded,load"
-      });
-    }
+    ScrollTrigger.config({
+      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
+    });
 
     const refreshScrollTrigger = () => {
-      if (!isMobile) {
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 100);
-      }
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
     };
 
-    if (!isMobile) {
-      if (document.readyState === "complete") {
-        refreshScrollTrigger();
-      } else {
-        window.addEventListener("load", refreshScrollTrigger);
-      }
-
-      const timeoutId = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 500);
-
-      const handleResize = () => {
-        ScrollTrigger.refresh();
-      };
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("load", refreshScrollTrigger);
-        window.removeEventListener("resize", handleResize);
-        clearTimeout(timeoutId);
-      };
+    if (document.readyState === "complete") {
+      refreshScrollTrigger();
+    } else {
+      window.addEventListener("load", refreshScrollTrigger);
     }
+
+    const timeoutId = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("load", refreshScrollTrigger);
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const oferta1 = pages.slice(0, 5);

@@ -151,7 +151,7 @@ const Navbar = () => {
         />
       )}
 
-      <div className="fixed top-4 inset-x-0 z-50 flex justify-center">
+      <div className="fixed top-4 inset-x-0 z-60 flex justify-center">
         <div
           ref={navRef}
           className="rounded-xl bg-white border border-black/30"

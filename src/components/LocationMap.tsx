@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { ArrowUpRight, Locate, Map as MapIcon } from "lucide-react";
 import {
   Map,
@@ -26,6 +26,7 @@ const LocationMap = () => {
   const textRef = useRef<HTMLHeadingElement | null>(null);
   const mapRef = useRef<MapRef | null>(null);
   const [isDetailedMap, setIsDetailedMap] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleShowLocation = useCallback(() => {
     if (!mapRef.current) return;
@@ -49,6 +50,45 @@ const LocationMap = () => {
       return !prev;
     });
   }, []);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const styleId = "hide-map-attribution-mobile";
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+
+    if (!styleElement) {
+      styleElement = document.createElement("style");
+      styleElement.id = styleId;
+      styleElement.textContent = `
+        @media (max-width: 639px) {
+          .maplibregl-ctrl-attrib {
+            display: none !important;
+          }
+          .maplibregl-ctrl-logo {
+            display: none !important;
+          }
+        }
+      `;
+      document.head.appendChild(styleElement);
+    }
+
+    return () => {
+      const existingStyle = document.getElementById(styleId);
+      if (existingStyle) {
+        existingStyle.remove();
+      }
+    };
+  }, [isMobile]);
 
   useLayoutEffect(() => {
     if (!textRef.current) return;
@@ -131,7 +171,7 @@ const LocationMap = () => {
       >
         <div className="mx-auto max-w-[1200px] w-[95%] py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[70vh] gap-4">
-            <div className="relative h-[50vh] lg:h-full rounded-xl overflow-hidden border border-zinc-200 order-2 md:order-1">
+            <div className="relative h-[50vh] lg:h-full rounded-xl overflow-hidden border border-zinc-200 order-2 md:order-1 z-30">
               <button
                 onClick={handleToggleMapStyle}
                 className="absolute top-2 right-2 z-20 bg-white rounded-md px-3 py-2 shadow-lg border border-zinc-200 hover:bg-zinc-50 transition flex items-center gap-2 text-sm font-poppins tracking-tight text-black cursor-pointer"
@@ -156,7 +196,7 @@ const LocationMap = () => {
                     "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
                 }}
               >
-                <MapControls showZoom />
+                {!isMobile && <MapControls showZoom />}
 
                 <MapMarker longitude={COORDS.lng} latitude={COORDS.lat}>
                   <MarkerContent>

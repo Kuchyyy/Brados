@@ -60,35 +60,7 @@ const LocationMap = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) return;
 
-    const styleId = "hide-map-attribution-mobile";
-    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
-
-    if (!styleElement) {
-      styleElement = document.createElement("style");
-      styleElement.id = styleId;
-      styleElement.textContent = `
-        @media (max-width: 639px) {
-          .maplibregl-ctrl-attrib {
-            display: none !important;
-          }
-          .maplibregl-ctrl-logo {
-            display: none !important;
-          }
-        }
-      `;
-      document.head.appendChild(styleElement);
-    }
-
-    return () => {
-      const existingStyle = document.getElementById(styleId);
-      if (existingStyle) {
-        existingStyle.remove();
-      }
-    };
-  }, [isMobile]);
 
   useLayoutEffect(() => {
     if (!textRef.current) return;
@@ -135,13 +107,15 @@ const LocationMap = () => {
       if (isMobile) {
         gsap.to(wordSpans, {
           color: "rgba(0,0,0,1)",
-          stagger: 0.05,
-          duration: 1.5,
-          ease: "power2.out",
+          stagger: {
+            amount: 0.8,
+            from: "start",
+          },
           scrollTrigger: {
             trigger: textRef.current,
-            start: "top 80%",
-            once: true,
+            start: "top 75%",
+            end: "bottom 25%",
+            scrub: 0.6,
             invalidateOnRefresh: true,
           },
         });

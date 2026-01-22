@@ -13,8 +13,9 @@ import ImageCarousel from "./ImageCarousel";
 import { useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitText from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const COORDS = {
   lat: 51.0679167,
@@ -65,73 +66,29 @@ const LocationMap = () => {
   useLayoutEffect(() => {
     if (!textRef.current) return;
 
-    const leaderSpan = textRef.current.querySelector(
-      ".text-accent-orange"
-    );
-
-    const textNodes: Text[] = [];
-    const walker = document.createTreeWalker(
-      textRef.current,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: (node) =>
-          node.textContent?.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT,
-      }
-    );
-
-    while (walker.nextNode()) {
-      textNodes.push(walker.currentNode as Text);
-    }
-
-    const wordSpans: HTMLSpanElement[] = [];
-
-    textNodes.forEach((node) => {
-      if (leaderSpan && leaderSpan.contains(node)) return;
-
-      const words = node.textContent!.split(" ");
-      words.forEach((word) => {
-        const span = document.createElement("span");
-        span.className = "word";
-        span.textContent = word + " ";
-        wordSpans.push(span);
-        node.parentNode?.insertBefore(span, node);
-      });
-      node.parentNode?.removeChild(node);
-    });
-
-    gsap.set(wordSpans, { color: "rgba(0,0,0,0.15)" });
-
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-
     const ctx = gsap.context(() => {
-      if (isMobile) {
-        gsap.to(wordSpans, {
-          color: "rgba(0,0,0,1)",
-          stagger: {
-            amount: 0.8,
-            from: "start",
-          },
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 75%",
-            end: "bottom 25%",
-            scrub: 0.6,
-            invalidateOnRefresh: true,
-          },
-        });
-      } else {
-        gsap.to(wordSpans, {
-          color: "rgba(0,0,0,1)",
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 70%",
-            end: "bottom 30%",
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
+      const split = new SplitText(textRef.current!, {
+        type: "words",
+        wordsClass: "word",
+        ignore: ".no-split",
+      });
+
+      gsap.set(split.words, {
+        color: "rgba(0,0,0,0.1)",
+      });
+
+      gsap.to(split.words, {
+        color: "rgba(0,0,0,1)",
+        stagger: 0.06,
+        ease: "none",
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 90%",
+          end: "bottom 50%",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();

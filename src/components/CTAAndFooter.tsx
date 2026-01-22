@@ -130,7 +130,13 @@ const CTAAndFooter = () => {
   }, []);
 
   useEffect(() => {
-    if (!ctaBlockRef.current) return;
+    if (!ctaBlockRef.current || textRefs.current.length === 0) return;
+
+
+    gsap.set(textRefs.current, {
+      opacity: 0,
+      y: 30,
+    });
 
     const mm = gsap.matchMedia();
 
@@ -145,6 +151,7 @@ const CTAAndFooter = () => {
           scrub: 1,
           invalidateOnRefresh: true,
           refreshPriority: -1,
+
         },
       });
 
@@ -181,6 +188,71 @@ const CTAAndFooter = () => {
       return () => {
         textTl.scrollTrigger?.kill();
         textTl.kill();
+      };
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, []);
+
+
+  useEffect(() => {
+    if (!ctaBlockRef.current || textRefs.current.length === 0) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 640px)", () => {
+      if (!ctaBlockRef.current) return;
+
+      const fadeTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 85%",
+          once: true,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+        },
+      });
+
+      fadeTl.to(textRefs.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.15,
+      });
+
+      return () => {
+        fadeTl.scrollTrigger?.kill();
+        fadeTl.kill();
+      };
+    });
+
+    mm.add("(max-width: 639px)", () => {
+      if (!ctaBlockRef.current) return;
+
+      const fadeTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 75%",
+          once: true,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+        },
+      });
+
+      fadeTl.to(textRefs.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.15,
+      });
+
+      return () => {
+        fadeTl.scrollTrigger?.kill();
+        fadeTl.kill();
       };
     });
 

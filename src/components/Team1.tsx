@@ -116,7 +116,7 @@ const Team1 = () => {
               </button>
             ))}
           </div>
-          <div className="mt-10 font-poppins tracking-tight z-20 flex flex-wrap justify-center xl:justify-start gap-3 w-full">
+          <div className="mt-10 font-poppins tracking-tight z-20 flex flex-wrap justify-center  gap-3 w-full">
             {teams[activeTab].map((person, index) => (
               <div
                 key={index}

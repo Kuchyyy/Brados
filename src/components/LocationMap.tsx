@@ -66,28 +66,57 @@ const LocationMap = () => {
   useLayoutEffect(() => {
     if (!textRef.current) return;
 
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+
     const ctx = gsap.context(() => {
-      const split = new SplitText(textRef.current!, {
-        type: "words",
-        wordsClass: "word",
-        ignore: ".no-split",
-      });
+      requestAnimationFrame(() => {
+        if (!textRef.current) return;
 
-      gsap.set(split.words, {
-        color: "rgba(0,0,0,0.1)",
-      });
+        const split = new SplitText(textRef.current!, {
+          type: "words",
+          wordsClass: "word",
+          ignore: ".no-split",
+        });
 
-      gsap.to(split.words, {
-        color: "rgba(0,0,0,1)",
-        stagger: 0.06,
-        ease: "none",
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 90%",
-          end: "bottom 50%",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
+        if (!split.words || split.words.length === 0) return;
+
+        gsap.set(split.words, {
+          color: "rgba(0,0,0,0.1)",
+        });
+
+        if (isMobile) {
+          gsap.to(split.words, {
+            color: "rgba(0,0,0,1)",
+            stagger: 0.06,
+            ease: "none",
+            scrollTrigger: {
+              trigger: textRef.current,
+              start: "top 85%",
+              end: "bottom 40%",
+              scrub: 0.6,
+              fastScrollEnd: true,
+              invalidateOnRefresh: true,
+              markers: false,
+            },
+          });
+
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 100);
+        } else {
+          gsap.to(split.words, {
+            color: "rgba(0,0,0,1)",
+            stagger: 0.06,
+            ease: "none",
+            scrollTrigger: {
+              trigger: textRef.current,
+              start: "top 90%",
+              end: "bottom 50%",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
       });
     }, sectionRef);
 

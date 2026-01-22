@@ -62,32 +62,68 @@ const CTAAndFooter = () => {
   useEffect(() => {
     if (!ctaBlockRef.current || !fillRef.current) return;
 
+    const mm = gsap.matchMedia();
+
     gsap.set(fillRef.current, {
       width: "0%",
       height: "0%",
     });
 
 
-    const fillTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ctaBlockRef.current,
-        start: "top 90%",
-        end: "bottom 10%",
-        scrub: 1,
-        invalidateOnRefresh: true,
-        refreshPriority: -1,
-      },
-    });
+    mm.add("(min-width: 640px)", () => {
+      if (!ctaBlockRef.current || !fillRef.current) return;
 
-    fillTl.to(fillRef.current, {
-      width: "320%",
-      height: "320%",
-      ease: "none",
+      const fillTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 90%",
+          end: "bottom 10%",
+          scrub: 1,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+        },
+      });
+
+      fillTl.to(fillRef.current, {
+        width: "320%",
+        height: "320%",
+        ease: "none",
+      });
+
+      return () => {
+        fillTl.scrollTrigger?.kill();
+        fillTl.kill();
+      };
+    });
+    mm.add("(max-width: 639px)", () => {
+      if (!ctaBlockRef.current || !fillRef.current) return;
+
+      const fillTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 85%",
+          end: "bottom 20%",
+          scrub: 0.4,
+          fastScrollEnd: true,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+        },
+      });
+
+      fillTl.to(fillRef.current, {
+        width: "320%",
+        height: "320%",
+        ease: "none",
+      });
+
+      return () => {
+        fillTl.scrollTrigger?.kill();
+        fillTl.kill();
+      };
     });
 
     return () => {
-      fillTl.scrollTrigger?.kill();
-      fillTl.kill();
+      mm.revert();
     };
   }, []);
 

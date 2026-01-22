@@ -73,22 +73,6 @@ const CTAAndFooter = () => {
     mm.add("(min-width: 640px)", () => {
       if (!ctaBlockRef.current || !fillRef.current) return;
 
-      // #region agent log
-      fetch("http://127.0.0.1:7242/ingest/c883c0e4-869e-4a31-b2c0-eca5b3549db2", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sessionId: "debug-session",
-          runId: "fill-desktop",
-          hypothesisId: "H1",
-          location: "CTAAndFooter.tsx:desktopFillSetup",
-          message: "Desktop fill ScrollTrigger setup",
-          data: { start: "top 90%", end: "bottom 10%", scrub: 1 },
-          timestamp: Date.now(),
-        }),
-      }).catch(() => { });
-      // #endregion
-
       const fillTl = gsap.timeline({
         scrollTrigger: {
           trigger: ctaBlockRef.current,
@@ -148,60 +132,99 @@ const CTAAndFooter = () => {
   useEffect(() => {
     if (!ctaBlockRef.current) return;
 
-    const textTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ctaBlockRef.current,
-        start: "top 80%",
-        end: "top 40%",
-        scrub: 1,
-        invalidateOnRefresh: true,
-        refreshPriority: -1,
-      },
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 640px)", () => {
+      if (!ctaBlockRef.current) return;
+
+      const textTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 80%",
+          end: "top 40%",
+          scrub: 1,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+        },
+      });
+
+      textTl.to(textRefs.current, {
+        color: "#ffffff",
+        ease: "none",
+      });
+
+      return () => {
+        textTl.scrollTrigger?.kill();
+        textTl.kill();
+      };
     });
 
-    textTl.to(textRefs.current, {
-      color: "#ffffff",
-      ease: "none",
+    mm.add("(max-width: 639px)", () => {
+      if (!ctaBlockRef.current) return;
+
+      const textTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctaBlockRef.current,
+          start: "top 70%",
+          once: true,
+          invalidateOnRefresh: true,
+          refreshPriority: -1,
+        },
+      });
+
+      textTl.to(textRefs.current, {
+        color: "#ffffff",
+        duration: 0.8,
+        ease: "power2.out",
+      });
+
+      return () => {
+        textTl.scrollTrigger?.kill();
+        textTl.kill();
+      };
     });
 
     return () => {
-      textTl.scrollTrigger?.kill();
-      textTl.kill();
+      mm.revert();
     };
   }, []);
 
 
   useEffect(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+
     ScrollTrigger.config({
       autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
     });
 
-    const refreshScrollTrigger = () => {
-      setTimeout(() => {
+    if (!isMobile) {
+      const refreshScrollTrigger = () => {
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 100);
+      };
+
+      if (document.readyState === "complete") {
+        refreshScrollTrigger();
+      } else {
+        window.addEventListener("load", refreshScrollTrigger);
+      }
+
+      const timeoutId = setTimeout(() => {
         ScrollTrigger.refresh();
-      }, 100);
-    };
+      }, 500);
 
-    if (document.readyState === "complete") {
-      refreshScrollTrigger();
-    } else {
-      window.addEventListener("load", refreshScrollTrigger);
+      const handleResize = () => {
+        ScrollTrigger.refresh();
+      };
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("load", refreshScrollTrigger);
+        window.removeEventListener("resize", handleResize);
+        clearTimeout(timeoutId);
+      };
     }
-
-    const timeoutId = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
-
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("load", refreshScrollTrigger);
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timeoutId);
-    };
   }, []);
 
   const oferta1 = pages.slice(0, 5);

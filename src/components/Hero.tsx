@@ -93,7 +93,7 @@ const Hero = () => {
 
       return () => ctx.revert();
     }
-  }, []);
+  }, [isMobile]);
 
   const topInset = Math.max(textH - maskHeight, 0);
 
@@ -106,9 +106,8 @@ const Hero = () => {
         </div>
       </div>
       <div
-        className={`${
-          isMobile ? "" : "sticky top-50 z-30"
-        } flex flex-col justify-center w-full`}
+        className={`${isMobile ? "" : "sticky top-50 z-30"
+          } flex flex-col justify-center w-full`}
       >
         <div
           ref={titleWrapperRef}
@@ -134,7 +133,7 @@ const Hero = () => {
           <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
             Zadzwoń do nas
           </div>
-          <div className="bg-accent-orange text-white p-3 rounded-md flex justify-center items-center">
+          <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
             <ArrowUpRight className="w-4 h-4" />
           </div>
         </a>

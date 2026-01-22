@@ -102,7 +102,7 @@ const CTAAndFooter = () => {
         scrollTrigger: {
           trigger: ctaBlockRef.current,
           start: "top 85%",
-          end: "bottom 20%",
+          end: "bottom 30%",
           scrub: 0.4,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
@@ -111,8 +111,8 @@ const CTAAndFooter = () => {
       });
 
       fillTl.to(fillRef.current, {
-        width: "320%",
-        height: "320%",
+        width: "220%",
+        height: "220%",
         ease: "none",
       });
 

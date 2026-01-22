@@ -73,6 +73,22 @@ const CTAAndFooter = () => {
     mm.add("(min-width: 640px)", () => {
       if (!ctaBlockRef.current || !fillRef.current) return;
 
+      // #region agent log
+      fetch("http://127.0.0.1:7242/ingest/c883c0e4-869e-4a31-b2c0-eca5b3549db2", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId: "debug-session",
+          runId: "fill-desktop",
+          hypothesisId: "H1",
+          location: "CTAAndFooter.tsx:desktopFillSetup",
+          message: "Desktop fill ScrollTrigger setup",
+          data: { start: "top 90%", end: "bottom 10%", scrub: 1 },
+          timestamp: Date.now(),
+        }),
+      }).catch(() => { });
+      // #endregion
+
       const fillTl = gsap.timeline({
         scrollTrigger: {
           trigger: ctaBlockRef.current,
@@ -98,22 +114,24 @@ const CTAAndFooter = () => {
     mm.add("(max-width: 639px)", () => {
       if (!ctaBlockRef.current || !fillRef.current) return;
 
+
+
       const fillTl = gsap.timeline({
         scrollTrigger: {
           trigger: ctaBlockRef.current,
-          start: "top 85%",
-          end: "bottom 30%",
-          scrub: 0.4,
-          fastScrollEnd: true,
+          start: "top 70%",
+          once: true,
           invalidateOnRefresh: true,
           refreshPriority: -1,
+
         },
       });
 
       fillTl.to(fillRef.current, {
         width: "220%",
         height: "220%",
-        ease: "none",
+        duration: 1.2,
+        ease: "power2.out",
       });
 
       return () => {

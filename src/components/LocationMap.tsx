@@ -91,12 +91,12 @@ const LocationMap = () => {
             ease: "none",
             scrollTrigger: {
               trigger: textRef.current,
-              start: "top 85%",
+              start: "top 65%",
               end: "bottom 40%",
               scrub: 0.6,
               fastScrollEnd: true,
               invalidateOnRefresh: true,
-              markers: false,
+
             },
           });
 

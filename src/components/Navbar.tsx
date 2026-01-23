@@ -229,9 +229,9 @@ const Navbar = () => {
                 {isOferta ? (
                   <button
                     onClick={() => setActiveView("menu")}
-                    className="inline-flex w-full justify-center items-center gap-2 px-4 py-2 rounded-md border border-accent-orange bg-white hover:bg-accent-orange hover:text-white cursor-pointer"
+                    className="group inline-flex w-full justify-center items-center gap-2 px-4 py-2 rounded-md border border-accent-orange bg-accent-orange text-white cursor-pointer"
                   >
-                    <ArrowLeft size={18} />
+                    <ArrowLeft size={18} className="group-hover:-translate-x-1 duration-300 transform-all" />
                     <span>Wróć</span>
                   </button>
                 ) : (

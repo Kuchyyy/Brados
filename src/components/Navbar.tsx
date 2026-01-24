@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Menu,
   X,
@@ -73,6 +73,7 @@ const Navbar = () => {
   }, [open]);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
 
   const closeNavbar = () => {
@@ -80,14 +81,31 @@ const Navbar = () => {
   };
 
   const goHomeAndScroll = (hash?: string) => {
-    navigate("/");
-    setTimeout(() => {
-      if (hash) {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      } else {
+    const scrollToHash = (attempt = 0) => {
+      if (!hash) {
         window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
       }
-    }, 100);
+      const element = document.querySelector(hash);
+      if (!element) {
+        if (attempt < 30) {
+          setTimeout(() => scrollToHash(attempt + 1), 50);
+        }
+        return;
+      }
+      const top = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: attempt === 0 ? "smooth" : "auto" });
+      if (attempt < 5) {
+        setTimeout(() => scrollToHash(attempt + 1), 300);
+      }
+    };
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => scrollToHash(0), 200);
+    } else {
+      scrollToHash(0);
+    }
     closeNavbar();
   };
 
@@ -103,7 +121,7 @@ const Navbar = () => {
       opacity: 0,
       overflow: "hidden",
     });
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     if (!navRef.current || !contentRef.current) return;

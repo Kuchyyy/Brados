@@ -6,6 +6,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { pages } from "../data/page";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CTAButton from "./CTAButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,46 +19,31 @@ const CTAAndFooter = () => {
   const textRefs = useRef<(HTMLElement | null)[]>([]);
 
   const handleClick = () => {
+    const scrollToTeam = (attempt = 0) => {
+      const element = document.querySelector("#zespół");
+      if (!element) {
+        if (attempt < 20) {
+          setTimeout(() => scrollToTeam(attempt + 1), 50);
+        }
+        return;
+      }
+      const top = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: attempt === 0 ? "smooth" : "auto" });
+      if (attempt < 5) {
+        setTimeout(() => scrollToTeam(attempt + 1), 300);
+      }
+    };
+
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        document.querySelector("#zespół")?.scrollIntoView({
-          behavior: "smooth",
-        });
-      }, 250);
+        scrollToTeam(0);
+      }, 200);
     } else {
-      document.querySelector("#zespół")?.scrollIntoView({
-        behavior: "smooth",
-      });
+      scrollToTeam(0);
     }
   };
 
-  const buttonRef = useRef(null);
-  const rippleRef = useRef(null);
-
-  useEffect(() => {
-    gsap
-      .timeline({
-        repeat: -1,
-        defaults: { ease: "power2.out" },
-      })
-      .fromTo(
-        rippleRef.current,
-
-        {
-          scaleX: 1,
-          scaleY: 1,
-          opacity: 1,
-        },
-        {
-          scaleX: 1.45,
-          scaleY: 1.8,
-          opacity: 0,
-          duration: 3,
-          ease: "power2.out",
-        }
-      );
-  }, []);
 
   useEffect(() => {
     if (!ctaBlockRef.current || !fillRef.current) return;
@@ -65,8 +51,9 @@ const CTAAndFooter = () => {
     const mm = gsap.matchMedia();
 
     gsap.set(fillRef.current, {
-      width: "0%",
-      height: "0%",
+      width: "120vmax",
+      height: "120vmax",
+      scale: 0,
     });
 
 
@@ -85,8 +72,7 @@ const CTAAndFooter = () => {
       });
 
       fillTl.to(fillRef.current, {
-        width: "320%",
-        height: "320%",
+        scale: 2,
         ease: "none",
       });
 
@@ -112,9 +98,8 @@ const CTAAndFooter = () => {
       });
 
       fillTl.to(fillRef.current, {
-        width: "220%",
-        height: "220%",
-        duration: 1.2,
+        scale: 2,
+        duration: 3.2,
         ease: "power2.out",
       });
 
@@ -314,7 +299,7 @@ const CTAAndFooter = () => {
             >
               <div
                 ref={fillRef}
-                className="absolute -bottom-50 left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black sm:border-20 sm:border-accent-orange blur-none sm:blur-[10px] sm:brightness-110 pointer-events-none transform-gpu will-change-transform"
+                className="absolute -bottom-50 sm:left-1/2 -translate-x-1/2 w-0 h-0 rounded-full bg-black sm:border-20 sm:border-accent-orange blur-none sm:blur-[10px] sm:brightness-110 pointer-events-none transform-gpu will-change-transform"
 
               />
 
@@ -338,29 +323,7 @@ const CTAAndFooter = () => {
                   <p className="inline-flex text-accent-orange">klientów</p>
                 </h2>
               </div>
-              <button
-                ref={buttonRef}
-                onClick={handleClick}
-                className="
-              relative w-auto
-    px-6 py-2 rounded-md cursor-pointer
-    text-black text-xl font-robert-medium
-    bg-white
-    border border-orange-500/60
-    overflow-visible 
-  "
-              >
-                <span className="relative z-10 text-sm">Zadzwoń do nas</span>
-
-                <span
-                  ref={rippleRef}
-                  className="
-      absolute inset-0 rounded-md
-      border border-orange-500
-      pointer-events-none
-    "
-                />
-              </button>
+              <CTAButton onClick={handleClick} />
             </div>
 
             <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-black/20 rounded-xl">

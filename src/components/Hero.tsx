@@ -11,6 +11,8 @@ const Hero = () => {
   const textRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLDivElement | null>(null);
   const titleWrapperRef = useRef<HTMLDivElement | null>(null);
+  const desktopImgRef = useRef<HTMLImageElement | null>(null);
+  const mobileImgRef = useRef<HTMLImageElement | null>(null);
 
   const [maskHeight, setMaskHeight] = useState(0);
   const [textH, setTextH] = useState(0);
@@ -95,6 +97,30 @@ const Hero = () => {
     }
   }, [isMobile]);
 
+  useEffect(() => {
+    const imgRef = isMobile ? mobileImgRef.current : desktopImgRef.current;
+    if (!imgRef || !imageRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        imgRef,
+        { yPercent: -30 },
+        {
+          yPercent: 30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: imageRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, [isMobile]);
+
   const topInset = Math.max(textH - maskHeight, 0);
 
   return (
@@ -144,14 +170,16 @@ const Hero = () => {
         className="relative w-[95%] max-w-[1200px] mx-auto rounded-xl overflow-hidden mt-2"
       >
         <img
+          ref={desktopImgRef}
           src="/photos/firma.webp"
           alt="firma"
-          className="hidden sm:block w-full h-[90dvh] object-cover"
+          className="hidden sm:block w-full h-[90dvh] object-cover scale-[1.2]"
         />
         <img
+          ref={mobileImgRef}
           src="/photos/firmatel.webp"
           alt="firma mobile"
-          className="sm:hidden w-full h-full object-cover"
+          className="sm:hidden w-full h-full object-cover scale-[1.2]"
         />
       </div>
     </section>

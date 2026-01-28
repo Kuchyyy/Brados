@@ -27,31 +27,31 @@ const Team1 = () => {
         name: "Paweł Pawlak",
         phone: "691489111",
         email: "p.pawlak@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
       {
         name: "Krzysztof Kuchciński",
         phone: "691032975",
         email: "k.kuchcinski@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
       {
         name: "Łukasz Zboch",
         phone: "697466111",
         email: "l.zboch@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
       {
         name: "Michał Wlaszczyk",
         phone: "691745111",
         email: "m.wlaszczyk@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
       {
         name: "Michał Kleczkowski",
         phone: "697277588",
         email: "m.kleczkowski@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
     ],
     magazyn: [
@@ -59,14 +59,14 @@ const Team1 = () => {
         name: "Paweł Zawartko",
         phone: "691725111",
         email: "magazyn@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
       {
         name: "Artur Kozłowski",
         role: "Kierowca",
         phone: "669456111",
         email: "magazyn@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
     ],
     finanse: [
@@ -74,7 +74,7 @@ const Team1 = () => {
         name: "Tomasz Grzesiak",
         phone: "691479111",
         email: "t.grzesiak@brados.pl",
-        image: "photos/osoba.png",
+        image: "photos/tato.jpeg",
       },
     ],
   };
@@ -120,12 +120,12 @@ const Team1 = () => {
             {teams[activeTab].map((person, index) => (
               <div
                 key={index}
-                className="relative min-h-[550px] w-full sm:max-w-[390px] rounded-md border border-black/30 overflow-hidden"
+                className="relative min-h-[550px] w-[90%] sm:w-full sm:max-w-[390px] rounded-md border border-black/30 overflow-hidden"
               >
                 <img
                   src={person.image}
                   alt={person.name}
-                  className="absolute inset-0 w-full h-full object-cover object-top "
+                  className="absolute inset-0 w-full h-full object-cover object-bottom "
                 />
 
                 <div className="absolute inset-x-2 bottom-2 bg-white backdrop-blur-sm rounded-md p-2 flex flex-col justify-end gap-2 border border-black/30">

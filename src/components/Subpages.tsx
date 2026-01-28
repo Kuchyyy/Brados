@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { pages } from "../data/page";
 import Navbar from "./Navbar";
 import Hero from "../components/Hero";
-import CTAAndFooter from "./CTAAndFooter";
+import CTAAndFooter2 from "./CTAAndFooter2";
 import Description from "./Description";
 
 const Subpages = () => {
@@ -21,7 +21,7 @@ const Subpages = () => {
         products={page.products}
         producers={page.producers}
       />
-      <CTAAndFooter />
+      <CTAAndFooter2 />
     </div>
   );
 };

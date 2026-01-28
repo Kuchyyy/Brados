@@ -43,9 +43,21 @@ const Numbers = () => {
                             <rect x="0" y="0" width="1400" height="820" />
                         </clipPath>
 
+                        <clipPath id="clipReveal">
+                            <rect
+                                x="0"
+                                y="0"
+                                height="820"
+                                style={{
+                                    width: visible ? 1400 : 0,
+                                    transition: "width 1.87s ease-out",
+                                }}
+                            />
+                        </clipPath>
+
                         <radialGradient id="areaGradient" cx="50%" cy="45%" r="60%">
-                            <stop offset="0%" stopColor="#f5f5f4" stopOpacity="0.9" />
-                            <stop offset="100%" stopColor="#f5f5f4" stopOpacity="0" />
+                            <stop offset="0%" stopColor="#ee721b" stopOpacity="0.15" />
+                            <stop offset="100%" stopColor="#ee721b" stopOpacity="0" />
                         </radialGradient>
 
                         <linearGradient
@@ -65,7 +77,7 @@ const Numbers = () => {
                     <path
                         d={`${curve} L 1400 500 L 0 500 Z`}
                         fill="url(#areaGradient)"
-                        clipPath="url(#clipArea)"
+                        clipPath="url(#clipReveal)"
                     />
 
                     <path

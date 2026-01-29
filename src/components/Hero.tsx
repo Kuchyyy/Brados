@@ -1,18 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
+type HeroProps = {
+  enableParallax?: boolean;
+};
+
+const Hero = ({ enableParallax = true }: HeroProps) => {
   const textRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLDivElement | null>(null);
   const titleWrapperRef = useRef<HTMLDivElement | null>(null);
   const desktopImgRef = useRef<HTMLImageElement | null>(null);
   const mobileImgRef = useRef<HTMLImageElement | null>(null);
+  const location = useLocation();
 
   const [maskHeight, setMaskHeight] = useState(0);
   const [textH, setTextH] = useState(0);
@@ -98,28 +104,36 @@ const Hero = () => {
   }, [isMobile]);
 
   useEffect(() => {
+    if (!enableParallax) return;
+
     const imgRef = isMobile ? mobileImgRef.current : desktopImgRef.current;
     if (!imgRef || !imageRef.current) return;
 
+    gsap.set(imgRef, { yPercent: 0 });
+
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imgRef,
-        { yPercent: -30 },
-        {
-          yPercent: 30,
-          ease: "none",
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
+      const st = ScrollTrigger.create({
+        trigger: imageRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const yPercent = -30 + progress * 60;
+          gsap.set(imgRef, { yPercent });
+        },
+      });
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+
+      return () => st.kill();
     });
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, enableParallax, location.pathname]);
 
   const topInset = Math.max(textH - maskHeight, 0);
 
@@ -173,13 +187,13 @@ const Hero = () => {
           ref={desktopImgRef}
           src="/photos/firma.webp"
           alt="firma"
-          className="hidden sm:block w-full h-[90dvh] object-cover scale-[1.2]"
+          className={`hidden sm:block w-full h-[90dvh] object-cover ${enableParallax ? "scale-[1.2]" : ""}`}
         />
         <img
           ref={mobileImgRef}
           src="/photos/firmatel.webp"
           alt="firma mobile"
-          className="sm:hidden w-full h-full object-cover scale-[1.2]"
+          className={`sm:hidden w-full h-full object-cover ${enableParallax ? "scale-[1.2]" : ""}`}
         />
       </div>
     </section>

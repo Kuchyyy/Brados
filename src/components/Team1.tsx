@@ -1,13 +1,12 @@
 "use client";
 import { useState, useRef } from "react";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, Check } from "lucide-react";
 
 type Person = {
   name: string;
   phone: string;
   email: string;
   role?: string;
-  image: string;
 };
 
 type Teams = {
@@ -26,32 +25,32 @@ const Team1 = () => {
       {
         name: "Paweł Pawlak",
         phone: "691489111",
+        role: "Prezes",
         email: "p.pawlak@brados.pl",
-        image: "photos/tato.jpeg",
       },
       {
         name: "Krzysztof Kuchciński",
         phone: "691032975",
+        role: "Prezes",
         email: "k.kuchcinski@brados.pl",
-        image: "photos/tato.jpeg",
       },
       {
         name: "Łukasz Zboch",
         phone: "697466111",
+        role: "Specjalista ds. Sprzedaży",
         email: "l.zboch@brados.pl",
-        image: "photos/tato.jpeg",
       },
       {
         name: "Michał Wlaszczyk",
         phone: "691745111",
+        role: "Specjalista ds. Sprzedaży",
         email: "m.wlaszczyk@brados.pl",
-        image: "photos/tato.jpeg",
       },
       {
         name: "Michał Kleczkowski",
         phone: "697277588",
+        role: "Specjalista ds. Sprzedaży",
         email: "m.kleczkowski@brados.pl",
-        image: "photos/tato.jpeg",
       },
     ],
     magazyn: [
@@ -59,22 +58,20 @@ const Team1 = () => {
         name: "Paweł Zawartko",
         phone: "691725111",
         email: "magazyn@brados.pl",
-        image: "photos/tato.jpeg",
       },
       {
         name: "Artur Kozłowski",
         role: "Kierowca",
         phone: "669456111",
         email: "magazyn@brados.pl",
-        image: "photos/tato.jpeg",
       },
     ],
     finanse: [
       {
         name: "Tomasz Grzesiak",
         phone: "691479111",
+        role: "Prezes",
         email: "t.grzesiak@brados.pl",
-        image: "photos/tato.jpeg",
       },
     ],
   };
@@ -116,52 +113,50 @@ const Team1 = () => {
               </button>
             ))}
           </div>
-          <div className="mt-10 font-poppins tracking-tight z-20 flex flex-wrap justify-center  gap-3 w-full">
+          <div className="mt-10 font-poppins tracking-tight z-20 flex flex-col gap-3 w-full max-w-[800px]">
             {teams[activeTab].map((person, index) => (
               <div
                 key={index}
-                className="relative min-h-[550px] w-[90%] sm:w-full sm:max-w-[390px] rounded-md border border-black/30 overflow-hidden"
+                className="group bg-white border border-black/20 rounded-lg p-4"
               >
-                <img
-                  src={person.image}
-                  alt={person.name}
-                  className="absolute inset-0 w-full h-full object-cover object-bottom "
-                />
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex-1 ml-0.5">
+                    <h3 className="text-xl font-medium text-black">
+                      {person.name}
+                    </h3>
+                    {person.role && (
+                      <p className="text-sm text-black/50 mt-0.5">
+                        {person.role}
+                      </p>
+                    )}
+                  </div>
 
-                <div className="absolute inset-x-2 bottom-2 bg-white backdrop-blur-sm rounded-md p-2 flex flex-col justify-end gap-2 border border-black/30">
-                  <h3 className=" text-lg text-center">
-                    {person.name}
-                  </h3>
-
-                  <a
-                    href={`tel:${person.phone}`}
-                    className="flex justify-between items-center gap-4 border bg-white border-black/20 rounded-md pl-4 pr-2"
-                  >
-                    <div className="flex w-full items-center justify-center text-black py-3.5 rounded-md text-sm font-poppins tracking-tight">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                    <a
+                      href={`tel:${person.phone}`}
+                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 hover:border-accent-orange transition-colors duration-300"
+                    >
                       {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
-                    </div>
-                    <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
-                      <Phone className="w-4 h-4" />
-                    </div>
-                  </a>
+                      <span className="flex items-center justify-center w-8 h-8 rounded-md bg-accent-orange">
+                        <Phone className="w-4 h-4 text-white" />
+                      </span>
+                    </a>
 
-                  <button
-                    onClick={() => handleCopyEmail(person.email)}
-                    className="flex justify-between items-center gap-4 border border-black/20 bg-white rounded-md pl-4 pr-2"
-                  >
-                    <div className="flex w-full items-center justify-center text-black py-3.5 rounded-md text-sm font-poppins tracking-tight">
+                    <button
+                      onClick={() => handleCopyEmail(person.email)}
+                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 hover:border-accent-orange transition-colors duration-300 cursor-pointer"
+                    >
                       {person.email}
-                    </div>
-                    <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
-                      <Mail className="w-4 h-4" />
-                    </div>
-                  </button>
+                      <span className={`flex items-center justify-center w-8 h-8 rounded-md ${copiedEmail === person.email ? 'bg-green-500' : 'bg-accent-orange'} transition-colors`}>
+                        {copiedEmail === person.email ? (
+                          <Check className="w-4 h-4 text-white" />
+                        ) : (
+                          <Mail className="w-4 h-4 text-white" />
+                        )}
+                      </span>
+                    </button>
+                  </div>
                 </div>
-                {person.role && (
-                  <p className="text-black text-sm text-center absolute right-1.5 top-2 bg-white rounded-md p-2">
-                    {person.role}
-                  </p>
-                )}
               </div>
             ))}
           </div>

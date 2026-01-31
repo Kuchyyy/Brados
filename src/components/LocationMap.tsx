@@ -110,8 +110,8 @@ const LocationMap = () => {
             ease: "none",
             scrollTrigger: {
               trigger: textRef.current,
-              start: "top 90%",
-              end: "bottom 50%",
+              start: "top 70%",
+              end: "80% 30%",
               scrub: true,
               invalidateOnRefresh: true,
             },

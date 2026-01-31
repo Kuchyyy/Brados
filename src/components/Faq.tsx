@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
-const faqs = [
+
+type Faq = {
+  question: string;
+  answer: string;
+};
+
+const faqs: Faq[] = [
   {
     question: "Jak złożyć zamówienie?",
     answer:
@@ -48,16 +54,19 @@ const Faq = () => {
     <div className="w-full flex justify-center items-center">
       <section className="relative w-full bg-linear-to-t from-stone-100 to-white">
         <div className="mx-auto max-w-[800px] w-[95%] py-10">
-          <h2 className="text-sm leading-tight text-center font-poppins tracking-tight mb-10">
-            Najczęściej zadawane pytania <br />
-            <span className="text-black/60">
+          <div className="flex flex-col items-center gap-0.5 mb-10">
+            <h2 className="text-sm leading-tight text-center font-poppins tracking-tight ">
+              Najczęściej zadawane pytania <br />
+
+            </h2>
+            <span className="text-black/60 text-sm ">
               Może właśnie tutaj jest odpowiedź, której szukasz
             </span>
-          </h2>
+          </div>
 
-          <div className="rounded-xl overflow-hidden bg-white border border-black/30">
+          <div className="rounded-xl overflow-hidden bg-white border border-black/20">
             {faqs.map((faq, index) => (
-              <div key={index}>
+              <div key={faq.question}>
                 {index !== 0 && (
                   <hr className="border-t border-dashed border-zinc-300" />
                 )}

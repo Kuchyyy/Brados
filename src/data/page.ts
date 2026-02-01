@@ -84,7 +84,7 @@ export const pages = [
       "https://datwyler.com/assets/img/logo.svg",
       "https://gonep.com/media/kjcpmylv/molex-logo.png",
       "https://www.ogcs.com.ua/wp-content/uploads/2019/05/rittal.jpg",
-      "https://wsad.getreview.pl/https://app.getreview.pl/data/567/4rxb4/1_34872.png",
+
     ],
   },
 
@@ -222,7 +222,7 @@ export const pages = [
       "końcówki i złączki kablowe",
     ],
     producers: [
-      "https://el-bis.pl/wp-content/uploads/2015/03/baks-logo-e1427806015981.png",
+      "https://www.bricoman.pl/media/catalog/product/f/a/e/9/fae9d050d32188be5c7e6a0e0bf5b5bc8e81b948_BAKS_LOGO.png",
       "https://elsigma.pl/wp-content/uploads/2023/09/kopos.gif",
       "https://elsigma.pl/wp-content/uploads/2023/09/logo-orange.svg",
       "https://elsigma.pl/wp-content/uploads/2023/09/elektroplast-stroza-768x274-1.jpg",
@@ -289,7 +289,6 @@ export const pages = [
     ],
     producers: [
       "https://static.ah.com.pl/cms/f9847ab15a4f47a0b53d07c139ee2456/ahhardt_logo.png",
-      "https://el-sun.pl/wp-content/uploads/2023/03/xlogo_new.png.pagespeed.ic.iwV7-jK96C.png",
       "https://elsigma.pl/wp-content/uploads/2023/09/an-kom.jpg",
       "https://elsigma.pl/wp-content/uploads/2023/09/cynkmal.jpg",
       "https://elsigma.pl/wp-content/uploads/2023/09/elko-bis1-768x222-1.jpg",

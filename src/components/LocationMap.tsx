@@ -209,7 +209,7 @@ const LocationMap = () => {
                 rozwiązania, skalę dostępności i niezawodność, na której opiera się
                 biznes naszych partnerów.
               </h2>
-              <ImageCarousel images={["photos/firma.webp", "photos/firma.webp", "photos/firma.webp"]} />
+              <ImageCarousel images={["photos/firma.webp"]} />
             </div>
           </div>
         </div>

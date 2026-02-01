@@ -57,6 +57,7 @@ const Team1 = () => {
       {
         name: "Paweł Zawartko",
         phone: "691725111",
+        role: "Kierownik magazynu",
         email: "magazyn@brados.pl",
       },
       {
@@ -134,7 +135,7 @@ const Team1 = () => {
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
                     <a
                       href={`tel:${person.phone}`}
-                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 hover:border-accent-orange transition-colors duration-300"
+                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 ring-0 hover:ring hover:ring-accent-orange hover:ring-offset-2 ring-offset-0 transition-all duration-300 bg-white"
                     >
                       {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
                       <span className="flex items-center justify-center w-8 h-8 rounded-md bg-accent-orange">
@@ -144,7 +145,7 @@ const Team1 = () => {
 
                     <button
                       onClick={() => handleCopyEmail(person.email)}
-                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 hover:border-accent-orange transition-colors duration-300 cursor-pointer"
+                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 ring-0 hover:ring hover:ring-accent-orange hover:ring-offset-2 ring-offset-0 transition-all duration-300 bg-white cursor-pointer"
                     >
                       {person.email}
                       <span className={`flex items-center justify-center w-8 h-8 rounded-md ${copiedEmail === person.email ? 'bg-green-500' : 'bg-accent-orange'} transition-colors`}>

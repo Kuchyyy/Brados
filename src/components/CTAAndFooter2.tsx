@@ -125,9 +125,8 @@ const CTAAndFooter2 = () => {
                                         <h3 className="mb-4 text-zinc-900 font-medium">Siedziba</h3>
                                         <ul className="space-y-2 text-zinc-600 leading-relaxed">
                                             <li>Eugeniusza Kwiatkowskiego 17</li>
-                                            <li>52-326 Wrocław§</li>
-                                            <li>biuro@brados.pl</li>
-                                            <li>+48 000 000 000</li>
+                                            <li>52-326 Wrocław</li>
+                                            <li>Poniedziałek - Piątek 07:30-16:00</li>
                                         </ul>
                                     </div>
 

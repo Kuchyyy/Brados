@@ -15,8 +15,9 @@ import Subpages from "./components/Subpages";
 import ScrollLoader from "./components/ScrollLoader";
 
 function App() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex justify-center items-center" >
       <div className=" w-full">
         <Router>
           <ScrollLoader />

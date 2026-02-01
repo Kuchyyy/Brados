@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -76,12 +76,27 @@ const ImageCarousel = ({ images }: ImageCarouselProps) => {
         <CarouselContent className="gap-3">
           {images.map((image, index) => (
             <CarouselItem key={index} className="basis-full sm:basis-full md:basis-full">
-              <div className="rounded-xl overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden">
                 <img
                   src={image}
                   alt={`Zdjęcie ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover blur-sm scale-105"
                 />
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-6">
+                  <p className="text-white text-lg sm:text-xl font-medium font-poppins tracking-tight mb-4">
+                    Wkrótce pojawią się tutaj zdjęcia nowej siedziby
+                  </p>
+                  <div className="flex items-center gap-2 text-white/80 text-sm font-poppins">
+                    <MapPin className="w-4 h-4" />
+                    <span>Odwiedź nas</span>
+                  </div>
+                  <p className="text-white text-sm mt-2 font-poppins">
+                    ul. Eugeniusza Kwiatkowskiego 17, 52-326 Wrocław
+                  </p>
+                  <p className="text-white/70 text-xs mt-1 font-poppins">
+                    Poniedziałek - Piątek 07:30-16:00
+                  </p>
+                </div>
               </div>
             </CarouselItem>
           ))}

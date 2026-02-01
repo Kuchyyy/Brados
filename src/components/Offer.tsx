@@ -198,7 +198,7 @@ const Offer = () => {
                     {page && (
                       <Link
                         to={`/${page.slug}`}
-                        className="group text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 hover:border-accent-orange transition-colors duration-300"
+                        className="group text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 ring-0 hover:ring hover:ring-accent-orange hover:ring-offset-2 ring-offset-0 transition-all duration-300 bg-white"
                       >
                         Dowiedz się więcej
 

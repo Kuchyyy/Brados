@@ -22,45 +22,52 @@ export default function Trusted() {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [renderIndex, setRenderIndex] = useState(0);
-  const [phase, setPhase] = useState<"idle" | "out" | "pre-in" | "in">("idle");
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [isFadingIn, setIsFadingIn] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
 
   const visibleLogos = [
-    logos[renderIndex],
-    logos[(renderIndex + 1) % logos.length],
+    logos[currentIndex],
+    logos[(currentIndex + 1) % logos.length],
   ];
 
-  const changeIndex = (nextIndex: number) => {
-    if (phase !== "idle") return;
+  const isAnimating = isFadingOut || isFadingIn;
 
-    setPhase("out");
+  const goToNext = () => {
+    if (isAnimating) return;
 
+    setIsFadingOut(true);
     setTimeout(() => {
-      setRenderIndex(nextIndex);
-      setPhase("pre-in");
-    }, 350);
+      setCurrentIndex((prev) => (prev + 2) % logos.length);
+      setIsFadingOut(false);
+      setIsFadingIn(true);
+      setTimeout(() => {
+        setIsFadingIn(false);
+      }, 400);
+    }, 400);
+  };
 
-    setTimeout(() => {
-      setPhase("in");
-    }, 380);
+  const goToPrev = () => {
+    if (isAnimating) return;
 
+    setIsFadingOut(true);
     setTimeout(() => {
-      setCurrentIndex(nextIndex);
-      setPhase("idle");
-    }, 800);
+      setCurrentIndex((prev) => (prev - 2 + logos.length) % logos.length);
+      setIsFadingOut(false);
+      setIsFadingIn(true);
+      setTimeout(() => {
+        setIsFadingIn(false);
+      }, 400);
+    }, 400);
   };
 
   useEffect(() => {
-    autoplayRef.current = setInterval(() => {
-      changeIndex((currentIndex + 2) % logos.length);
-    }, 5000);
-
+    autoplayRef.current = setInterval(goToNext, 4000);
     return () => {
       if (autoplayRef.current) clearInterval(autoplayRef.current);
     };
-  }, [currentIndex]);
+  }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -69,14 +76,17 @@ export default function Trusted() {
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
 
-    if (touchStart - touchEnd > 50) {
-      changeIndex((currentIndex + 2) % logos.length);
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        goToNext();
+      } else {
+        goToPrev();
+      }
     }
 
-    if (touchEnd - touchStart > 50) {
-      changeIndex((currentIndex - 2 + logos.length) % logos.length);
-    }
+    autoplayRef.current = setInterval(goToNext, 4000);
   };
 
   return (
@@ -99,39 +109,22 @@ export default function Trusted() {
         </div>
 
         <div
-          className="sm:hidden w-full overflow-hidden"
+          className="sm:hidden w-full"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            {visibleLogos.map((logo) => (
+          <div className="grid grid-cols-2 gap-2">
+            {visibleLogos.map((logo, index) => (
               <div
-                key={logo.src}
-                className={`flex items-center justify-center h-32  transition-all duration-300 ease-out
-                  ${phase === "out"
-                    ? "opacity-0 -translate-y-8"
-                    : phase === "pre-in"
-                      ? "opacity-0 translate-y-8"
-                      : phase === "in"
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-100 translate-y-0"
-                  }
-                `}
+                key={`${currentIndex}-${index}`}
+                className="flex items-center justify-center h-32"
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
                   draggable="false"
-                  className={`max-w-[80%] max-h-[80%] object-contain transition-all duration-300 ease-out
-                    ${phase === "out"
-                      ? "opacity-0 -translate-y-4"
-                      : phase === "pre-in"
-                        ? "opacity-0 translate-y-4"
-                        : phase === "in"
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-100 translate-y-0"
-                    }
-                  `}
+                  className={`max-w-[80%] max-h-[80%] object-contain transition-opacity duration-400 linear ${isFadingOut ? "opacity-0" : "opacity-100"
+                    }`}
                 />
               </div>
             ))}

@@ -1,63 +1,7 @@
 @font-face {
-  font-family: "zentry";
-  src: url("/fonts/zentry-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "general";
-  src: url("/fonts/general.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "robert-medium";
   src: url("/fonts/robert-medium.woff2") format("woff2");
   font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "robert-regular";
-  src: url("/fonts/robert-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "circular-web";
-  src: url("/fonts/circularweb-book.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins/Poppins-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "DMSans";
-  src: url("/fonts/DM_Sans/static/DMSans_36pt-Regular.ttf") format("truetype");
-  font-weight: 400;
   font-style: normal;
 }
 
@@ -72,13 +16,8 @@ body {
 }
 
 @theme {
-  --font-zentry: "zentry", sans-serif;
-  --font-general: "general", sans-serif;
   --font-robert-medium: "robert-medium", sans-serif;
-  --font-robert-regular: "robert-regular", sans-serif;
-  --font-circular-web: "circular-web", sans-serif;
   --font-poppins: "Poppins", sans-serif;
-  --font-dmsans: "DMSans", sans-serif;
 }
 
 @theme {

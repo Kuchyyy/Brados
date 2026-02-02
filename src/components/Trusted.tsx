@@ -21,31 +21,32 @@ export default function Trusted() {
     },
   ];
 
+  const logosPerPage = 4;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isFadingIn, setIsFadingIn] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
 
-  const visibleLogos = [
-    logos[currentIndex],
-    logos[(currentIndex + 1) % logos.length],
-  ];
+  const visibleLogos = Array.from({ length: logosPerPage }, (_, index) => {
+    return logos[(currentIndex + index) % logos.length];
+  });
 
   const isAnimating = isFadingOut || isFadingIn;
+  const largerLogos = new Set(["Wago logo", "Awex logo", "Hager logo"]);
 
   const goToNext = () => {
     if (isAnimating) return;
 
     setIsFadingOut(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 2) % logos.length);
+      setCurrentIndex((prev) => (prev + logosPerPage) % logos.length);
       setIsFadingOut(false);
       setIsFadingIn(true);
       setTimeout(() => {
         setIsFadingIn(false);
-      }, 400);
-    }, 400);
+      }, 200);
+    }, 200);
   };
 
   const goToPrev = () => {
@@ -53,17 +54,19 @@ export default function Trusted() {
 
     setIsFadingOut(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => (prev - 2 + logos.length) % logos.length);
+      setCurrentIndex(
+        (prev) => (prev - logosPerPage + logos.length) % logos.length
+      );
       setIsFadingOut(false);
       setIsFadingIn(true);
       setTimeout(() => {
         setIsFadingIn(false);
-      }, 400);
-    }, 400);
+      }, 200);
+    }, 200);
   };
 
   useEffect(() => {
-    autoplayRef.current = setInterval(goToNext, 4000);
+    autoplayRef.current = setInterval(goToNext, 5000);
     return () => {
       if (autoplayRef.current) clearInterval(autoplayRef.current);
     };
@@ -86,7 +89,8 @@ export default function Trusted() {
       }
     }
 
-    autoplayRef.current = setInterval(goToNext, 4000);
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+    autoplayRef.current = setInterval(goToNext, 5000);
   };
 
   return (
@@ -117,13 +121,13 @@ export default function Trusted() {
             {visibleLogos.map((logo, index) => (
               <div
                 key={`${currentIndex}-${index}`}
-                className="flex items-center justify-center h-32"
+                className="flex items-center justify-center h-24 bg-white border border-black/10 rounded-md"
               >
                 <img
                   src={logo.src}
                   alt={logo.alt}
                   draggable="false"
-                  className={`max-w-[80%] max-h-[80%] object-contain transition-opacity duration-400 linear ${isFadingOut ? "opacity-0" : "opacity-100"
+                  className={`object-contain transition-opacity duration-200 ease-out ${isFadingOut ? "opacity-0" : "opacity-100"} ${largerLogos.has(logo.alt) ? "max-w-[100%] max-h-[90%]" : "max-w-[80%] max-h-[70%]"
                     }`}
                 />
               </div>

@@ -12,23 +12,25 @@ type LogoItem = {
   src: string;
   alt: string;
   mt?: string;
+  scale?: number;
 };
 
 const logos: LogoItem[] = [
-  { src: "/photos/awex.webp", alt: "Awex logo" },
-  { src: "/photos/dehn.webp", alt: "Dehn logo" },
-  { src: "/photos/elektro.webp", alt: "Elektroplast logo" },
-  { src: "/photos/hager.webp", alt: "Hager logo" },
-  { src: "/photos/kanlux.webp", alt: "Kanlux logo" },
-  { src: "/photos/koelner.webp", alt: "Koelner logo" },
-  { src: "/photos/Kopos.webp", alt: "Kopos logo" },
-  { src: "/photos/legrand.webp", alt: "Legrand logo" },
-  { src: "/photos/noark.webp", alt: "Noark logo" },
-  { src: "/photos/ospel.webp", alt: "Ospel logo" },
-  { src: "/photos/wago.webp", alt: "Wago logo" },
+  { src: "/photos/awex.webp", alt: "Awex logo", scale: 1.4 },
+  { src: "/photos/dehn.webp", alt: "Dehn logo", scale: 1.3 },
+  { src: "/photos/elektro.webp", alt: "Elektroplast logo", scale: 1 },
+  { src: "/photos/hager.webp", alt: "Hager logo", scale: 1.5 },
+  { src: "/photos/kanlux.webp", alt: "Kanlux logo", scale: 1 },
+  { src: "/photos/koelner.webp", alt: "Koelner logo", scale: 1 },
+  { src: "/photos/Kopos.webp", alt: "Kopos logo", scale: 1 },
+  { src: "/photos/legrand.webp", alt: "Legrand logo", scale: 1 },
+  { src: "/photos/noark.webp", alt: "Noark logo", scale: 1 },
+  { src: "/photos/ospel.webp", alt: "Ospel logo", scale: 1 },
+  { src: "/photos/wago.webp", alt: "Wago logo", scale: 1.5 },
   {
     src: "https://cdn.traconelectric.com/o/tracon-liferay-theme/images/tracon_logo.png",
     alt: "Tracon logo",
+    scale: 1,
   },
 ];
 
@@ -70,6 +72,7 @@ const Trusted = () => {
                       src={logo.src}
                       alt={logo.alt}
                       className="h-full w-[100px] object-contain sm:grayscale sm:opacity-60 sm:hover:grayscale-0 sm:hover:opacity-100 transition"
+                      style={{ transform: `scale(${logo.scale ?? 1})` }}
                       loading="lazy"
                     />
                   </div>

@@ -169,9 +169,9 @@ const Info = () => {
 
             <div
                 ref={panelRef}
-                className="fixed z-[1001] hidden flex-col overflow-hidden border-blackk/[0.06] bg-white inset-0 border-y-0 md:inset-auto md:bottom-8 md:right-8 md:max-h-[min(88vh,820px)] md:w-[min(100vw-2rem,440px)] md:rounded-[1.35rem] md:border md:shadow-[0_24px_80px_-20px_rgba(31,42,55,0.35),0_0_0_1px_rgba(255,255,255,0.6)_inset]"
+                className="fixed z-[1001] hidden max-h-dvh flex-col overflow-hidden border-blackk/[0.06] bg-white inset-0 border-y-0 md:inset-auto md:bottom-8 md:right-8 md:max-h-[min(88dvh,720px)] md:w-[min(100vw-2rem,440px)] md:rounded-[1.35rem] md:border md:shadow-[0_24px_80px_-20px_rgba(31,42,55,0.35),0_0_0_1px_rgba(255,255,255,0.6)_inset]"
             >
-                <header className="flex shrink-0 items-start justify-between gap-4 border-b border-blackk/[0.06] bg-linear-to-b from-cream/40 to-white px-6 pb-5 pt-6 md:rounded-t-[1.35rem]">
+                <header className="flex shrink-0 items-start justify-between gap-4 border-b border-blackk/[0.06] bg-linear-to-b from-cream/40 to-white px-6 pb-4 pt-5 md:rounded-t-[1.35rem] md:pb-5 md:pt-6">
                     <div className="min-w-0 pt-0.5">
                         <p className="mb-1 font-poppins text-[10px] font-normal uppercase tracking-[0.22em] text-blackk/40">
                             Wydarzenie
@@ -205,9 +205,9 @@ const Info = () => {
 
                 <div
                     ref={contentRef}
-                    className="flex flex-1 flex-col gap-3 overflow-y-auto px-6 py-6 [scrollbar-width:thin] [scrollbar-color:rgba(26,26,26,0.15)_transparent]"
+                    className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-y-contain px-6 py-6 [scrollbar-width:thin] [scrollbar-color:rgba(26,26,26,0.15)_transparent]"
                 >
-                    <div data-animate className="w-full overflow-hidden rounded-2xl ring-1 ring-blackk/[0.08]">
+                    <div data-animate className="w-full shrink-0 overflow-hidden rounded-2xl ring-1 ring-blackk/[0.08]">
                         <div className="relative aspect-[16/9] w-full bg-stone-100">
                             <img
                                 src="/photos/logo3d.webp"
@@ -246,7 +246,7 @@ const Info = () => {
                                 {partnerLogos.map((logo) => (
                                     <div
                                         key={logo.alt}
-                                        className="flex h-30 w-[200px] shrink-0 items-center justify-center rounded-md border border-stone-200/80 bg-white px-3 py-2 shadow-[0_1px_2px_rgba(28,25,23,0.06)]"
+                                        className="flex h-[100px] w-[156px] shrink-0 items-center justify-center rounded-md border border-stone-200/80 bg-white px-3 py-2 shadow-[0_1px_2px_rgba(28,25,23,0.06)]"
                                     >
                                         <img
                                             src={logo.src}

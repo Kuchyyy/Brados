@@ -13,11 +13,13 @@ import CTAAndFooter from "./components/CTAAndFooter";
 
 import Subpages from "./components/Subpages";
 import ScrollLoader from "./components/ScrollLoader";
+import Info from "./components/Info";
 
 function App() {
   window.scrollTo({ top: 0, behavior: "smooth" });
   return (
     <div className="w-full flex justify-center items-center" >
+      <Info />
       <div className=" w-full">
         <Router>
           <ScrollLoader />

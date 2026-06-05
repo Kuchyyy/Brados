@@ -42,7 +42,7 @@ const CTAAndFooter2 = () => {
         <div className="w-full bg-stone-100">
 
             <div className="w-full flex justify-center items-center border border-black/30 rounded-t-4xl relative overflow-hidden bg-white">
-                <div className="mt-10 sm:mt-20 pb-2 sm:pb-10 max-w-[1200px] w-[95%] z-40">
+                <div className="maxw z-40 mt-10 pb-2 sm:mt-20 sm:pb-10">
                     <section className="relative w-full py-2 rounded-md">
                         <CTAButton2 onClick={handleClick} />
 

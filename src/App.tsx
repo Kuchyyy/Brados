@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
+import { HeroIntro, HeroMedia } from "./components/Hero";
 import Trusted from "./components/Trusted";
 import Offer from "./components/Offer";
 import Team1 from "./components/Team1";
@@ -13,13 +13,13 @@ import CTAAndFooter from "./components/CTAAndFooter";
 
 import Subpages from "./components/Subpages";
 import ScrollLoader from "./components/ScrollLoader";
-import Info from "./components/Info";
+
 
 function App() {
   window.scrollTo({ top: 0, behavior: "smooth" });
   return (
     <div className="w-full flex justify-center items-center" >
-      <Info />
+
       <div className=" w-full">
         <Router>
           <ScrollLoader />
@@ -29,8 +29,9 @@ function App() {
               element={
                 <>
                   <Navbar />
-                  <Hero />
+                  <HeroIntro />
                   <Trusted />
+                  <HeroMedia />
                   <Offer />
                   <Team1 />
                   <About />

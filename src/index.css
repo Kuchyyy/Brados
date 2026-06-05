@@ -1,9 +1,4 @@
-@font-face {
-  font-family: "robert-medium";
-  src: url("/fonts/robert-medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @import "tailwindcss";
 
@@ -12,12 +7,15 @@ html {
 }
 
 body {
-  @apply bg-white;
+  @apply bg-white  text-blackk antialiased;
 }
 
 @theme {
   --font-robert-medium: "robert-medium", sans-serif;
   --font-poppins: "Poppins", sans-serif;
+
+  --font-geist: "Geist", sans-serif;
+  --font-inter: "Inter", sans-serif;
 }
 
 @theme {
@@ -27,9 +25,41 @@ body {
   --color-blackk: #1a1a1a;
   --color-checkout-bg: #14161b;
   --color-navy: #1f2a37;
+
+  --color-orange: #ff623b;
+}
+
+@utility maxw {
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+@layer components {
+  .heading-h2 {
+    @apply font-inter font-light tracking-tight text-blackk text-3xl leading-[1.12] md:text-4xl lg:text-5xl;
+  }
+
+  .heading-h3 {
+    @apply font-inter font-light tracking-tight text-blackk/60 text-lg leading-tight md:text-xl;
+  }
+}
+
+
+@keyframes trusted-logo-swap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.55;
+  }
 }
 
 @layer utilities {
+  .trusted-logo-swap {
+    animation: trusted-logo-swap 0.45s ease-out forwards;
+  }
+
   .nav-hover-btn {
     @apply mt-1 relative ms-5 font-poppins text-sm text-black 
            after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full 

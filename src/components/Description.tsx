@@ -87,7 +87,7 @@ const Description: React.FC<DescriptionProps> = ({
       </div>
 
       <div className="w-full flex justify-center items-center bg-linear-to-t from-stone-100 to-white">
-        <section className="w-[95%] max-w-[1200px] mx-auto py-16 pt-30">
+        <section className="maxw py-16 pt-30">
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 font-poppins tracking-tight">
             <div className="md:col-span-2 space-y-6 ml-1">

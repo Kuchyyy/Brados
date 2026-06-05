@@ -130,7 +130,7 @@ const LocationMap = () => {
         id="lokalizacja"
         className="relative w-full bg-white overflow-hidden"
       >
-        <div className="mx-auto max-w-[1200px] w-[95%] py-20">
+        <div className="maxw py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[70vh] gap-4">
             <div className="relative h-[50vh] lg:h-full rounded-xl overflow-hidden border border-zinc-200 order-2 md:order-1 z-30">
               <button

@@ -4,200 +4,122 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type HeroProps = {
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/RMxpxoWFV8upiwmM7";
+
+export function HeroIntro() {
+  return (
+    <section className="w-full bg-white font-geist">
+      <div className="maxw pt-28 pb-10 md:pt-32 md:pb-14">
+        <h1 className="max-w-3xl text-left text-xl sm:text-[1.75rem]  leading-[1.12] tracking-[-0.02em] text-blackk ">
+          Hurtownia materiałów elektrycznych we Wrocławiu, asortyment od
+          producentów, dostawa i wsparcie dla instalatorów.
+        </h1>
+
+        <div className="mt-8 flex flex-wrap gap-2 font-geist">
+          <a
+            href="#zespół"
+            className="inline-flex items-center justify-center font-medium rounded-none bg-orange px-6 py-1 text-sm text-white transition-opacity hover:opacity-90 "
+          >
+            Zespół
+          </a>
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center border font-medium border-neutral-300 rounded-none bg-neutral-50 px-6 py-1 text-sm  text-blackk transition-colors hover:bg-neutral-100"
+          >
+            Google Maps
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type HeroMediaProps = {
   enableParallax?: boolean;
 };
 
-const Hero = ({ enableParallax = true }: HeroProps) => {
-  const textRef = useRef<HTMLDivElement | null>(null);
-  const imageRef = useRef<HTMLDivElement | null>(null);
-  const titleWrapperRef = useRef<HTMLDivElement | null>(null);
+export function HeroMedia({ enableParallax = true }: HeroMediaProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const desktopImgRef = useRef<HTMLImageElement | null>(null);
   const mobileImgRef = useRef<HTMLImageElement | null>(null);
   const location = useLocation();
-
-  const [maskHeight, setMaskHeight] = useState(0);
-  const [textH, setTextH] = useState(0);
-
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (isMobile) {
-      setMaskHeight(0);
-    }
-  }, [isMobile]);
-
-  useEffect(() => {
-    const measure = () => {
-      if (!textRef.current) return;
-      setTextH(textRef.current.getBoundingClientRect().height);
-    };
-
-    const onScroll = () => {
-      if (!textRef.current || !imageRef.current) return;
-
-      const textRect = textRef.current.getBoundingClientRect();
-      const imageRect = imageRef.current.getBoundingClientRect();
-
-      if (imageRect.top >= window.innerHeight) {
-        setMaskHeight(0);
-        return;
-      }
-
-      const overlap = textRect.bottom - imageRect.top;
-      const h = Math.min(Math.max(overlap, 0), textRect.height);
-
-      setMaskHeight(h);
-    };
-
-    measure();
-    onScroll();
-
-    window.addEventListener("resize", measure);
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", onScroll);
-    };
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
-
-  useEffect(() => {
-    if (!isMobile) {
-      if (!titleWrapperRef.current || !imageRef.current) return;
-
-      gsap.set(titleWrapperRef.current, {
-        opacity: 1,
-        scale: 1,
-        transformOrigin: "center top",
-      });
-
-      const ctx = gsap.context(() => {
-        requestAnimationFrame(() => {
-          gsap.fromTo(
-            titleWrapperRef.current,
-            {
-              opacity: 1,
-              scale: 1,
-            },
-            {
-              opacity: 0,
-              scale: 0.9,
-              ease: "none",
-              scrollTrigger: {
-                trigger: imageRef.current,
-                start: "80% 60%",
-                end: "100% 40%",
-                scrub: true,
-              },
-            }
-          );
-        });
-      });
-
-      return () => ctx.revert();
-    }
-  }, [isMobile]);
 
   useEffect(() => {
     if (!enableParallax) return;
 
     const imgRef = isMobile ? mobileImgRef.current : desktopImgRef.current;
-    if (!imgRef || !imageRef.current) return;
+    const trigger = containerRef.current;
+    if (!imgRef || !trigger) return;
 
     gsap.set(imgRef, { yPercent: 0 });
 
     const ctx = gsap.context(() => {
-      const st = ScrollTrigger.create({
-        trigger: imageRef.current,
+      ScrollTrigger.create({
+        trigger,
         start: "top bottom",
         end: "bottom top",
         scrub: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          const progress = self.progress;
-          const yPercent = -30 + progress * 60;
+          const yPercent = -30 + self.progress * 60;
           gsap.set(imgRef, { yPercent });
         },
       });
 
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-
-      return () => st.kill();
-    });
+      window.setTimeout(() => ScrollTrigger.refresh(), 100);
+    }, trigger);
 
     return () => ctx.revert();
-  }, [isMobile, enableParallax, location.pathname]);
-
-  const topInset = Math.max(textH - maskHeight, 0);
+  }, [enableParallax, isMobile, location.pathname]);
 
   return (
-    <section className="w-full pt-40 relative">
-      <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight">
-        <div>Lider w branży</div>
-        <div className="text-black/60">
-          Tutaj znajdziesz wszysko czego potrzebujesz
-        </div>
-      </div>
-      <div
-        className={`${isMobile ? "" : "sticky top-50 z-30"
-          } flex flex-col justify-center w-full`}
-      >
+    <section className="w-full bg-white font-geist">
+      <div className="maxw">
         <div
-          ref={titleWrapperRef}
-          className="font-poppins tracking-tight text-[2.5rem] sm:text-[3.2rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] text-center"
+          ref={containerRef}
+          className="relative overflow-hidden rounded-none"
         >
-          <h1 ref={textRef} className="relative inline-block font-medium">
-            <span className="text-black">Hurtownia Brados</span>
-
-            {!isMobile && (
-              <span
-                className="absolute inset-0 text-white pointer-events-none overflow-hidden"
-                style={{ clipPath: `inset(${topInset}px 0 0 0)` }}
-              >
-                Hurtownia Brados
-              </span>
-            )}
-          </h1>
+          <img
+            ref={desktopImgRef}
+            src="/photos/firma.webp"
+            alt="Hurtownia Brados — siedziba i magazyn"
+            className="hidden h-[min(78vh,820px)] w-full scale-[1.2] rounded-none object-cover will-change-transform sm:block"
+          />
+          <img
+            ref={mobileImgRef}
+            src="/photos/firmatel.webp"
+            alt="Hurtownia Brados — siedziba i magazyn"
+            className="block h-[min(62vh,560px)] w-full scale-[1.2] rounded-none object-cover will-change-transform sm:hidden"
+          />
         </div>
-        <a
-          href="#zespół"
-          className="flex sm:hidden justify-between items-center  self-center mt-2 pl-4 pr-2 gap-4 border border-black/30 rounded-md "
-        >
-          <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
-            Zadzwoń do nas
-          </div>
-          <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
-            <ArrowUpRight className="w-4 h-4" />
-          </div>
-        </a>
-      </div>
-
-      <div
-        ref={imageRef}
-        className="relative w-[95%] max-w-[1200px] mx-auto rounded-xl overflow-hidden mt-2"
-      >
-        <img
-          ref={desktopImgRef}
-          src="/photos/firma.webp"
-          alt="firma"
-          className={`hidden sm:block w-full h-[90dvh] object-cover ${enableParallax ? "scale-[1.2]" : ""}`}
-        />
-        <img
-          ref={mobileImgRef}
-          src="/photos/firmatel.webp"
-          alt="firma mobile"
-          className={`sm:hidden w-full h-full object-cover ${enableParallax ? "scale-[1.2]" : ""}`}
-        />
       </div>
     </section>
   );
+}
+
+type HeroProps = {
+  enableParallax?: boolean;
 };
+
+const Hero = ({ enableParallax = true }: HeroProps) => (
+  <>
+    <HeroIntro />
+    <HeroMedia enableParallax={enableParallax} />
+  </>
+);
 
 export default Hero;

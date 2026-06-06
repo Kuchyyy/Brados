@@ -312,7 +312,7 @@ const CTAButton = ({
                     ref={(el) => {
                         textRefs.current[1] = el;
                     }}
-                    className="font-poppins text-2xl tracking-tight text-black"
+                    className="font-poppins text-2xl leading-tight tracking-tight text-black"
                 >
                     Dołącz do grona <br /> naszych{" "}
                     <p className="inline-flex text-accent-orange">klientów</p>

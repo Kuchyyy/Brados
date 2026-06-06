@@ -4,10 +4,11 @@
 
 html {
   scroll-behavior: smooth;
+  @apply bg-white;
 }
 
 body {
-  @apply bg-white  text-blackk antialiased;
+  @apply bg-white text-blackk antialiased;
 }
 
 @theme {
@@ -27,6 +28,13 @@ body {
   --color-navy: #1f2a37;
 
   --color-orange: #ff623b;
+
+  --color-hero-surface: #f7f7f4;
+  --color-hero-btn: #1c1c1a;
+  --color-hero-btn-muted: #e8e8e3;
+
+  --color-background: #f7f7f4;
+  --color-tile: #f0efeb;
 }
 
 @utility maxw {
@@ -36,12 +44,25 @@ body {
 }
 
 @layer components {
+  .tile-surface {
+    @apply rounded-sm border border-blackk/5 bg-neutral-100;
+  }
+
+  .trusted-transition {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background) 0%,
+      var(--color-background) 55%,
+      #ffffff 100%
+    );
+  }
+
   .heading-h2 {
-    @apply font-inter font-light tracking-tight text-blackk text-3xl leading-[1.12] md:text-4xl lg:text-5xl;
+    @apply font-inter font-normal tracking-tight text-blackk text-3xl leading-tight md:text-4xl lg:text-5xl;
   }
 
   .heading-h3 {
-    @apply font-inter font-light tracking-tight text-blackk/60 text-lg leading-tight md:text-xl;
+    @apply font-inter font-normal tracking-tight text-blackk/60 text-lg leading-tight md:text-xl;
   }
 }
 
@@ -51,7 +72,7 @@ body {
     opacity: 0;
   }
   to {
-    opacity: 0.55;
+    opacity: 1;
   }
 }
 

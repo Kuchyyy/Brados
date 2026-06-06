@@ -69,7 +69,7 @@ const avatars: {
         {
             icon: UserRound,
             label: "Klient",
-            className: "z-10 bg-white text-blackk/65",
+            className: "z-10 bg-neutral-100 text-blackk/65",
         },
         {
             icon: User,
@@ -79,7 +79,7 @@ const avatars: {
         {
             icon: UserRound,
             label: "Klient",
-            className: "z-30 bg-white text-blackk/65",
+            className: "z-30 bg-neutral-100 text-blackk/65",
         },
         {
             icon: User,
@@ -120,7 +120,7 @@ function IconNode({
     return (
         <div
             className={cn(
-                "absolute flex size-14 items-center justify-center rounded-full border border-orange/25 bg-white shadow-[0_14px_35px_rgba(26,26,26,0.06),0_0_0_6px_rgba(255,98,59,0.035)] transition-all duration-500 sm:size-16",
+                "absolute flex size-14 items-center justify-center rounded-full border border-orange/25 bg-neutral-100 shadow-[0_14px_35px_rgba(26,26,26,0.06),0_0_0_6px_rgba(255,98,59,0.035)] transition-all duration-500 sm:size-16",
                 className
             )}
             style={{

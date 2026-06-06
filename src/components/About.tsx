@@ -34,7 +34,7 @@ const tiles: AboutTileData[] = [
 ];
 
 const tileShell =
-  "group relative block min-h-[430px] w-[340px] shrink-0 overflow-hidden rounded-none bg-neutral-100 lg:w-auto lg:min-h-[520px]";
+  "tile-surface group relative block min-h-[430px] w-[340px] shrink-0 overflow-hidden lg:w-auto lg:min-h-[520px]";
 
 function ElSigmaTile({ title, desc }: { title: string; desc: string }) {
   return (
@@ -113,35 +113,35 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" className="w-full bg-white py-16 font-geist md:py-20">
-      <div className="maxw flex flex-col gap-10 lg:gap-12">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 lg:gap-x-3 lg:gap-y-3">
-          <div className="hidden lg:block lg:col-start-1 lg:row-start-1" aria-hidden />
+    <section id="about" className="w-full bg-white py-8 font-geist md:py-12">
+      <div className="maxw flex flex-col gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-x-5 md:gap-y-8">
+          <div className="hidden md:block md:col-start-1 md:row-start-1" aria-hidden />
 
-          <h2 className="heading-h2 flex flex-col justify-between lg:col-span-3 lg:col-start-2 lg:row-start-1 lg:mb-0 py-20">
+          <h2 className="heading-h2 flex flex-col justify-between py-8 md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
             <span className="text-blackk">Poznaj naszą firmę.</span>{" "}
             <span className="text-blackk/45">
               Dlaczego warto wybrać właśnie nas
             </span>
           </h2>
 
-          <aside className="flex flex-col gap-4 lg:col-start-1 lg:row-start-2 lg:self-start lg:pr-4">
+          <aside className="flex flex-col gap-4 md:col-start-1 md:row-start-2 md:self-start md:pr-4">
             <div>
               <h3 className="heading-h3 text-blackk">
                 Zaplecze dla Twoich projektów
               </h3>
-              <p className="mt-3 text-sm font-inter font-light leading-relaxed tracking-tight text-blackk/65">
+              <p className="mt-3 text-sm font-inter font-normal leading-relaxed tracking-tight text-blackk/65">
                 Łączymy sprawdzoną dystrybucję z doradztwem na każdym etapie
                 projektu.
               </p>
             </div>
           </aside>
 
-          <div className="mt-3 flex justify-start gap-1 lg:hidden">
+          <div className="mt-3 flex justify-start gap-1 md:hidden">
             <button
               type="button"
               onClick={() => scrollTiles("prev")}
-              className="flex size-10 items-center justify-center rounded-none border border-blackk/15 bg-white text-blackk transition"
+              className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
               aria-label="Poprzedni kafelek"
             >
               <ChevronLeft className="size-5" aria-hidden />
@@ -149,23 +149,23 @@ const About = () => {
             <button
               type="button"
               onClick={() => scrollTiles("next")}
-              className="flex size-10 items-center justify-center rounded-none border border-blackk/15 bg-white text-blackk transition"
+              className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
               aria-label="Następny kafelek"
             >
               <ChevronRight className="size-5" aria-hidden />
             </button>
           </div>
 
-          <div className="lg:col-span-3 lg:col-start-2 lg:row-start-2 lg:grid lg:grid-cols-2 lg:gap-x-1 lg:gap-y-3 xl:grid-cols-3">
+          <div className="md:col-span-3 md:col-start-2 md:row-start-2 md:grid md:grid-cols-2 md:gap-x-1 md:gap-y-3 xl:grid-cols-3">
             <div
               ref={scrollRef}
-              className="flex snap-x snap-mandatory gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:contents lg:overflow-visible"
+              className="flex snap-x snap-mandatory gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:contents md:overflow-visible"
             >
               {tiles.map((tile) => (
                 <div
                   key={tile.id}
                   data-about-tile
-                  className="shrink-0 snap-start lg:shrink"
+                  className="shrink-0 snap-start md:shrink"
                 >
                   {tile.variant === "elsigma" && (
                     <ElSigmaTile title={tile.title} desc={tile.desc} />

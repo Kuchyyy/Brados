@@ -39,14 +39,14 @@ const CTAAndFooter = () => {
   const oferta2 = pages.slice(5);
 
   return (
-    <div className="w-full bg-stone-100">
+    <div className="w-full bg-white">
 
-      <div className="w-full flex justify-center items-center border border-black/30 rounded-t-4xl relative overflow-hidden bg-white">
+      <div className="w-full flex justify-center items-center border border-black/30 rounded-t-4xl relative overflow-hidden bg-neutral-100">
         <div className="maxw z-40 mt-10 pb-2 sm:mt-20 sm:pb-10">
           <section className="relative w-full py-2 rounded-md">
             <CTAButton onClick={handleClick} />
 
-            <div className="relative z-20 mx-auto mt-2 bg-stone-50 border border-black/20 rounded-xl">
+            <div className="relative z-20 mx-auto mt-2 rounded-xl border border-blackk/15 bg-neutral-100">
               <footer className="px-8 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-6 gap-x-14 gap-y-8 text-sm font-poppins tracking-tight">
                   <div className="md:col-span-2 flex flex-col gap-4">

@@ -30,8 +30,8 @@ function App() {
                 <>
                   <Navbar />
                   <HeroIntro />
-                  <Trusted />
                   <HeroMedia />
+                  <Trusted />
                   <Offer />
                   <Team1 />
                   <About />

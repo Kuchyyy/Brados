@@ -52,10 +52,10 @@ const Faq = () => {
 
   return (
     <div className="w-full flex justify-center items-center">
-      <section className="relative w-full bg-linear-to-t from-stone-100 to-white">
+      <section className="relative w-full bg-white">
         <div className="mx-auto max-w-[800px] w-[95%] py-10">
           <div className="flex flex-col items-center gap-0.5 mb-10">
-            <h2 className="text-sm leading-tight text-center font-poppins tracking-tight ">
+            <h2 className="text-sm leading-tight text-center font-poppins tracking-tight">
               Najczęściej zadawane pytania <br />
 
             </h2>
@@ -64,7 +64,7 @@ const Faq = () => {
             </span>
           </div>
 
-          <div className="rounded-xl overflow-hidden bg-white border border-black/20">
+          <div className="overflow-hidden rounded-xl border border-blackk/15 bg-neutral-100">
             {faqs.map((faq, index) => (
               <div key={faq.question}>
                 {index !== 0 && (

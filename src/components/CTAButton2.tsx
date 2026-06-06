@@ -82,7 +82,7 @@ const CTAButton2 = ({
                         Gotowy na współpracę?
                     </p>
 
-                    <h2 className="font-poppins text-2xl tracking-tight text-black">
+                    <h2 className="font-poppins text-2xl leading-tight tracking-tight text-black">
                         Dołącz do grona{" "}
                         <span className="text-accent-orange">klientów</span>
                     </h2>

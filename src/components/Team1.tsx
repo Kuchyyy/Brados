@@ -448,7 +448,7 @@ const Team1 = () => {
                 className="scroll-mt-28"
               >
                 <h3 className="heading-h3 mb-4 text-blackk">{teamLabels[team]}</h3>
-                <div className="grid grid-cols-1 gap-1 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
                   {teams[team].map((person) => (
                     <TeamPersonCard
                       key={`${team}-${person.email}-${person.name}`}

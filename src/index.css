@@ -62,7 +62,7 @@ body {
   }
 
   .heading-h3 {
-    @apply font-inter font-normal tracking-tight text-blackk/60 text-lg leading-tight md:text-xl;
+    @apply font-inter font-normal tracking-tight text-blackk/60 text-xl leading-tight md:text-2xl;
   }
 }
 

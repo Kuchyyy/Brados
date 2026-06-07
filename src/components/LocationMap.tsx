@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useCallback, useState, useEffect } from "react";
-import { ArrowUpRight, Map as MapIcon } from "lucide-react";
+import { ArrowRight, Map as MapIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Map,
@@ -20,13 +20,17 @@ const COORDS = {
 const GOOGLE_MAPS_URL =
   "https://www.google.com/maps/dir//Brados,+Kwiatkowskiego+17,+52-326+Wroc%C5%82aw/@51.0680508,16.9550066,17z/data=!4m16!1m7!3m6!1s0x470fc2e855555555:0x51d44f2bef0f3100!2sBrados!8m2!3d51.0680475!4d16.9575815!16s%2Fg%2F11gf3p5wqp!4m7!1m0!1m5!1m1!1s0x470fc2e855555555:0x51d44f2bef0f3100!2m2!1d16.9575815!2d51.0680475?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D";
 
+const mapsButtonBase =
+  "group h-9 min-w-[9.5rem] rounded-full px-8 font-geist text-sm font-normal shadow-none transition-colors sm:min-w-[10.5rem] sm:px-12";
+
 function GoogleMapsButton({ className = "" }: { className?: string }) {
   return (
     <Button
       asChild
       variant="outline"
       className={cn(
-        "group h-11 w-full justify-between rounded-sm border-blackk/12 bg-neutral-100 px-4 font-geist text-sm font-normal tracking-tight text-blackk shadow-none hover:border-blackk/25 hover:bg-neutral-100",
+        mapsButtonBase,
+        "w-full border-0 bg-hero-btn-muted text-blackk hover:bg-[#deded9] md:w-auto",
         className
       )}
     >
@@ -34,11 +38,12 @@ function GoogleMapsButton({ className = "" }: { className?: string }) {
         href={GOOGLE_MAPS_URL}
         target="_blank"
         rel="noopener noreferrer"
+        className="inline-flex w-full items-center justify-center gap-1.5 md:w-auto"
       >
         Google Maps
-        <ArrowUpRight
-          className="size-3.5 text-blackk/35 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange"
-          strokeWidth={1.5}
+        <ArrowRight
+          className="size-3 text-blackk/80 transition-transform group-hover:translate-x-0.5"
+          strokeWidth={3}
         />
       </a>
     </Button>
@@ -48,7 +53,7 @@ function GoogleMapsButton({ className = "" }: { className?: string }) {
 function LocationDetails() {
   return (
     <div>
-      <h3 className="heading-h3 text-blackk">Lider w branży</h3>
+      <h3 className="heading-h3 text-xl md:text-2xl text-blackk">Lider w branży</h3>
       <p className="mt-3 text-sm font-inter font-normal leading-relaxed tracking-tight text-blackk/65">
         Dostarczamy sprawdzone rozwiązania, skalę dostępności i niezawodność,
         na której opiera się biznes naszych partnerów.
@@ -153,35 +158,34 @@ const LocationMap = () => {
   );
 
   return (
-    <section
-      id="lokalizacja"
-      className="w-full bg-white font-geist py-8 md:py-12"
-    >
-      <div className="maxw">
-        <div className="grid grid-cols-1 gap-y-8 md:grid-cols-4 md:items-stretch md:gap-x-5 md:gap-y-8">
-          <h2 className="heading-h2 py-8 md:col-span-3 md:col-start-2 md:row-start-1 md:py-20">
-            Znajdź nas we Wrocławiu.
-            <span className="text-blackk/45">
-              {" "}
-              Siedziba hurtowni i magazyn pod jednym adresem.
-            </span>
-          </h2>
+    <div className="bg-background">
+      <section
+        id="lokalizacja"
+        className="w-full bg-white font-geist py-8 md:py-12 rounded-t-4xl border-t border-blackk/10"
+      >
+        <div className="maxw">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-stretch md:gap-16">
+            <h2 className="heading-h2 py-4 md:col-start-2 md:row-start-1 md:pb-12 md:pt-0 block md:hidden">
+              Znajdź nas we Wrocławiu.
+              <span className="text-blackk/45">
+                {" "}
+                Siedziba hurtowni i magazyn pod jednym adresem.
+              </span>
+            </h2>
 
-          <aside className="flex flex-col gap-6 md:col-start-1 md:row-start-2 md:justify-between md:pr-4">
-            <LocationDetails />
-            <GoogleMapsButton className="hidden md:inline-flex" />
-          </aside>
+            <aside className="flex flex-col gap-6 md:col-start-1 md:row-start-2 md:justify-between md:pr-4">
+              <LocationDetails />
+              <GoogleMapsButton className="hidden md:inline-flex" />
+            </aside>
 
-          <div className="md:col-span-3 md:col-start-2 md:row-start-2">
-            {mapBlock}
-          </div>
-
-          <div className="-mt-3 md:hidden">
-            <GoogleMapsButton />
+            <div className="flex flex-col gap-4 md:col-start-2 md:row-start-2">
+              <GoogleMapsButton className="md:hidden" />
+              {mapBlock}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

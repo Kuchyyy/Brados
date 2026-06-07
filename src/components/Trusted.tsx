@@ -178,18 +178,18 @@ const Trusted = () => {
   return (
     <section className="relative w-full bg-background pt-6 pb-12 font-geist md:pt-8 md:pb-16">
       <div className="mx-auto flex maxw flex-col gap-4">
-        <p className="text-center text-sm font-inter tracking-tight text-black">
+        <p className="text-center text-xs font-inter tracking-tight text-black/50">
           {TRUSTED_CAPTION}
         </p>
 
-        <div className="overflow-hidden rounded-sm bg-neutral-100 p-2">
-          <div className="grid grid-cols-4 gap-2 sm:hidden">
+        <div className="overflow-hidden rounded-sm bg-neutral-100">
+          <div className="grid grid-cols-4 gap-1 sm:hidden">
             {mobileLogos.map((logo, index) => (
               <LogoCell key={`${logo.alt}-${index}`} logo={logo} animate />
             ))}
           </div>
 
-          <div className="hidden grid-cols-8 gap-2 sm:grid">
+          <div className="hidden grid-cols-8 gap-1 sm:grid">
             {desktopLogos.map((logo, index) => (
               <LogoCell
                 key={`${logo.alt}-${index}`}

@@ -177,7 +177,12 @@ function CenterHub({ visible }: { visible: boolean }) {
     );
 }
 
-const Numbers = () => {
+type NumbersProps = {
+    hideHeader?: boolean;
+    className?: string;
+};
+
+const Numbers = ({ hideHeader = false, className }: NumbersProps) => {
     const [visible, setVisible] = useState(false);
     const ref = useRef<HTMLDivElement | null>(null);
 
@@ -198,17 +203,23 @@ const Numbers = () => {
     return (
         <div
             ref={ref}
-            className="flex w-full flex-col items-start justify-start gap-5"
+            className={cn(
+                "flex w-full flex-col items-start justify-start",
+                hideHeader ? "h-full items-center justify-center" : "gap-5",
+                className
+            )}
         >
-            <div>
-                <h3 className="text-xl font-geist leading-[1.06] tracking-tight text-blackk">
-                    Twoja satysfakcja to nasz priorytet.
-                </h3>
-                <p className="mt-3 text-sm font-geist leading-tight text-blackk/60">
-                    Łączymy obsługę, dostępność i sprawne doradztwo w jeden
-                    niezawodny proces.
-                </p>
-            </div>
+            {!hideHeader && (
+                <div>
+                    <h3 className="text-xl font-geist leading-[1.06] tracking-tight text-blackk">
+                        Twoja satysfakcja to nasz priorytet.
+                    </h3>
+                    <p className="mt-3 text-sm font-geist leading-tight text-blackk/60">
+                        Łączymy obsługę, dostępność i sprawne doradztwo w jeden
+                        niezawodny proces.
+                    </p>
+                </div>
+            )}
 
             <div className="relative mx-auto aspect-square w-full max-w-[360px] overflow-hidden">
                 <svg

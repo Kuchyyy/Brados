@@ -3,13 +3,13 @@
 import { Heart } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { pages } from "../data/page";
-import CTAButton from "./CTAButton";
+import HeroCtaButtons from "./HeroCtaButtons";
 
 const CTAAndFooter = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
+  const handleTeamClick = () => {
     const scrollToTeam = (attempt = 0) => {
       const element = document.querySelector("#zespół");
       if (!element) {
@@ -39,129 +39,114 @@ const CTAAndFooter = () => {
   const oferta2 = pages.slice(5);
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full">
+      <section className="w-full bg-background py-20 font-geist md:py-28">
+        <div className="maxw flex flex-col items-center text-center">
+          <h2 className="max-w-2xl font-inter text-2xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[2.75rem]">
+            Dołącz do grona naszych klientów
+          </h2>
 
-      <div className="w-full flex justify-center items-center border border-black/30 rounded-t-4xl relative overflow-hidden bg-neutral-100">
-        <div className="maxw z-40 mt-10 pb-2 sm:mt-20 sm:pb-10">
-          <section className="relative w-full py-2 rounded-md">
-            <CTAButton onClick={handleClick} />
-
-            <div className="relative z-20 mx-auto mt-2 rounded-xl border border-blackk/15 bg-neutral-100">
-              <footer className="px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-6 gap-x-14 gap-y-8 text-sm font-poppins tracking-tight">
-                  <div className="md:col-span-2 flex flex-col gap-4">
-                    <div className="flex items-center gap-6  text-sm tracking-tight ">
-                      <img
-                        src="/photos/brados.webp"
-                        alt="BRADOS logo"
-                        className="w-10 h-10 object-contain"
-                      />
-
-                      <div className="flex items-center gap-3 ">
-                        <div className="relative flex items-center justify-center">
-                          <span
-                            className="
-          absolute inline-flex h-4 w-4 rounded-full
-          bg-accent-orange opacity-75
-          animate-[ripple1_2s_ease-out_infinite]
-        "
-                          />
-                          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-orange" />
-                        </div>
-
-                        <span className="text-sm font-poppins text-soft-black/60 whitespace-nowrap">
-                          zawsze dostępni dla{" "}
-                          <span className="text-accent-orange">Ciebie</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="text-sm text-black/80 max-w-xs leading-relaxed">
-                      Kompleksowe zaopatrzenie w materiały elektryczne i
-                      telekomunikacyjne dla firm wykonawczych oraz klientów
-                      biznesowych.
-                    </p>
-
-                    <div className="flex flex-col gap-2 text-xs text-zinc-500">
-                      <span>© {new Date().getFullYear()} Brados</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="mb-4 text-zinc-900 font-medium">Oferta</h3>
-                    <ul className="space-y-2 text-zinc-600">
-                      {oferta1.map((page) => (
-                        <li key={page.id} className="group">
-                          <Link
-                            to={`/${page.slug}`}
-                            className="relative hover:text-accent-orange transition"
-                          >
-                            {page.title}
-                            <div className="absolute bottom-0 -left-2 w-0.5 h-0 bg-accent-orange transition-all duration-300 group-hover:h-full" />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="mb-4 text-zinc-900 font-medium">Oferta</h3>
-                    <ul className="space-y-2 text-zinc-600">
-                      {oferta2.map((page) => (
-                        <li key={page.id} className="group">
-                          <Link
-                            to={`/${page.slug}`}
-                            className="relative hover:text-accent-orange transition"
-                          >
-                            {page.title}
-                            <div className="absolute bottom-0 -left-2 w-0.5 h-0 bg-accent-orange transition-all duration-300 group-hover:h-full" />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="mb-4 text-zinc-900 font-medium">Siedziba</h3>
-                    <ul className="space-y-2 text-zinc-600 leading-relaxed">
-                      <li>Eugeniusza Kwiatkowskiego 17</li>
-                      <li>52-326 Wrocław</li>
-                      <li>Poniedziałek - Piątek 07:30-16:00</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="mb-4 text-zinc-900 font-medium">Dane</h3>
-                    <ul className="space-y-2 text-zinc-600">
-                      <li>NIP: 8992556301</li>
-                      <li>KRS: 0000295667</li>
-                    </ul>
-                  </div>
-                </div>
-              </footer>
-
-              <div className="border-t border-dashed border-stone-200 px-8 py-6 flex flex-row items-center justify-between gap-4 text-xs text-zinc-500 font-poppins">
-                <span>BRADOS sp. z o.o.</span>
-
-                <span>
-                  Made with{" "}
-                  <Heart
-                    size={12}
-                    className="inline-block mb-0.5 fill-red-500 text-red-500"
-                  />{" "}
-                  by{" "}
-                  <a
-                    href="tel:+48724788884"
-                    className="hover:text-accent-orange transition"
-                  >
-                    Kuchy
-                  </a>
-                </span>
-              </div>
-            </div>
-          </section>
+          <HeroCtaButtons
+            onTeamClick={handleTeamClick}
+            centered
+            className="mt-6"
+          />
         </div>
-      </div>
+      </section>
+
+      <footer className="w-full bg-white">
+        <div className="maxw flex flex-col pt-16 md:pt-20">
+          <div className="grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-6">
+            <div className="flex flex-col gap-4 md:col-span-2">
+              <p className="max-w-xs font-geist text-sm leading-relaxed text-blackk/65">
+                Kompleksowe zaopatrzenie w materiały elektryczne i
+                telekomunikacyjne dla firm wykonawczych oraz klientów
+                biznesowych.
+              </p>
+
+              <span className="font-geist text-xs text-blackk/40">
+                © {new Date().getFullYear()} Brados
+              </span>
+            </div>
+
+            <div>
+              <h3 className="mb-4 font-geist text-xs uppercase tracking-wide text-blackk/45">
+                Oferta
+              </h3>
+              <ul className="space-y-2.5">
+                {oferta1.map((page) => (
+                  <li key={page.id}>
+                    <Link
+                      to={`/${page.slug}`}
+                      className="font-geist text-sm text-blackk/65 transition-colors hover:text-blackk"
+                    >
+                      {page.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-4 font-geist text-xs uppercase tracking-wide text-blackk/45">
+                Oferta
+              </h3>
+              <ul className="space-y-2.5">
+                {oferta2.map((page) => (
+                  <li key={page.id}>
+                    <Link
+                      to={`/${page.slug}`}
+                      className="font-geist text-sm text-blackk/65 transition-colors hover:text-blackk"
+                    >
+                      {page.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-4 font-geist text-xs uppercase tracking-wide text-blackk/45">
+                Siedziba
+              </h3>
+              <ul className="space-y-2.5 font-geist text-sm leading-relaxed text-blackk/65">
+                <li>Eugeniusza Kwiatkowskiego 17</li>
+                <li>52-326 Wrocław</li>
+                <li>Poniedziałek - Piątek 07:30-16:00</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-4 font-geist text-xs uppercase tracking-wide text-blackk/45">
+                Dane
+              </h3>
+              <ul className="space-y-2.5 font-geist text-sm text-blackk/65">
+                <li>NIP: 8992556301</li>
+                <li>KRS: 0000295667</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-20 flex flex-col items-start justify-between gap-3 pb-6 text-xs text-blackk/40 sm:flex-row sm:items-center md:mt-28 md:pb-8">
+            <span className="font-geist">BRADOS sp. z o.o.</span>
+
+            <span className="font-geist">
+              Made with{" "}
+              <Heart
+                size={12}
+                className="mb-0.5 inline-block fill-red-500 text-red-500"
+              />{" "}
+              by{" "}
+              <a
+                href="tel:+48724788884"
+                className="transition-colors hover:text-blackk"
+              >
+                Kuchy
+              </a>
+            </span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

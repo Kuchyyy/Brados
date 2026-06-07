@@ -339,7 +339,7 @@ const Offer = () => {
     <div className="bg-background">
       <section
         id="oferta"
-        className="w-full bg-white py-8 font-geist md:py-12 rounded-t-4xl border border-blackk/10"
+        className="w-full bg-white py-8 font-geist md:py-12 rounded-t-4xl border-t border-blackk/10"
       >
         <div className="maxw flex flex-col gap-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-x-5 md:gap-y-8">

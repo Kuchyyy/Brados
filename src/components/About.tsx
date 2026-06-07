@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useRef, type ReactNode } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { ReactNode } from "react";
 import { Ripple } from "./ui/shadcn-io/ripple";
 import Numbers from "./Numbers";
 
@@ -10,6 +9,7 @@ type AboutTileData = {
   title: string;
   desc: string;
   variant: "elsigma" | "mission" | "stats";
+  frameBg: string;
 };
 
 const tiles: AboutTileData[] = [
@@ -18,174 +18,134 @@ const tiles: AboutTileData[] = [
     title: "El-Sigma",
     desc: "Współpraca z największą siecią dystrybucji materiałów elektrotechnicznych w Polsce.",
     variant: "elsigma",
+    frameBg: "#e8e8e6",
   },
   {
     id: "2",
     title: "Nasza Misja",
     desc: "Dostarczamy rozwiązania, które wspierają codzienną pracę naszych klientów.",
     variant: "mission",
+    frameBg: "#e6e1d9",
   },
   {
     id: "3",
     title: "Liczby Brados",
     desc: "Twoja satysfakcja to nasz priorytet.",
     variant: "stats",
+    frameBg: "#d4d6da",
   },
 ];
 
-const tileShell =
-  "tile-surface group relative block min-h-[430px] w-[340px] shrink-0 overflow-hidden lg:w-auto lg:min-h-[520px]";
-
-function ElSigmaTile({ title, desc }: { title: string; desc: string }) {
+function AboutCardWindow({
+  children,
+  frameBg,
+}: {
+  children: ReactNode;
+  frameBg: string;
+}) {
   return (
-    <article className={tileShell}>
-      <div className="flex h-full min-h-[430px] flex-col justify-between p-4 sm:p-5 lg:min-h-[520px]">
-        <div>
-          <h3 className="text-xl font-geist leading-[1.06] tracking-tight text-blackk">
-            {title}
-          </h3>
-          <p className="mt-3 text-sm font-geist leading-tight text-blackk/70">
-            {desc}
-          </p>
+    <div
+      className="relative mt-8 min-h-[14rem] flex-1 overflow-hidden rounded-2xl sm:min-h-[16rem] md:min-h-[17rem]"
+      style={{ backgroundColor: frameBg }}
+    >
+      <div className="absolute right-0 bottom-0 left-6 top-8 flex flex-col overflow-hidden rounded-tl-xl bg-white shadow-[0_4px_24px_rgba(26,26,26,0.08)] sm:left-8 sm:top-10">
+        <div className="flex items-center gap-1.5 border-b border-blackk/5 bg-[#f3f3f1] px-4 py-3">
+          <span className="size-2 rounded-full bg-blackk/12" aria-hidden />
+          <span className="size-2 rounded-full bg-blackk/12" aria-hidden />
+          <span className="size-2 rounded-full bg-blackk/12" aria-hidden />
         </div>
-        <div className="mt-4 flex items-center justify-center">
-          <img
-            src="/photos/logo-elsigma.webp"
-            alt="Logo El-Sigma"
-            className="pointer-events-none w-full select-none object-contain "
-          />
+
+        <div className="relative flex min-h-[11rem] flex-1 items-center justify-center overflow-hidden p-5 sm:min-h-[12rem] sm:p-7">
+          {children}
         </div>
       </div>
+    </div>
+  );
+}
+
+function AboutCard({
+  title,
+  desc,
+  frameBg,
+  children,
+}: {
+  title: string;
+  desc: string;
+  frameBg: string;
+  children: ReactNode;
+}) {
+  return (
+    <article className="flex h-full min-w-0 flex-col rounded-2xl border border-blackk/[0.07] bg-[#f7f7f5] p-6 shadow-[0_1px_0_rgba(26,26,26,0.03)] sm:p-7">
+      <div className="text-left">
+        <h3 className="font-geist text-lg font-semibold leading-snug tracking-tight text-blackk sm:text-xl">
+          {title}
+        </h3>
+        <p className="mt-2 max-w-none text-left font-geist text-sm leading-relaxed text-blackk/55 sm:text-[0.95rem]">
+          {desc}
+        </p>
+      </div>
+
+      <AboutCardWindow frameBg={frameBg}>{children}</AboutCardWindow>
     </article>
   );
 }
 
-function MissionTile({ title, desc }: { title: string; desc: string }) {
-  return (
-    <article className={`${tileShell}`}>
-      <Ripple className="z-0 opacity-40" />
+function TileVisual({ variant }: { variant: AboutTileData["variant"] }) {
+  if (variant === "elsigma") {
+    return (
       <img
-        src="/photos/logo3d.webp"
-        alt="Logo Brados"
-        className="absolute top-1/2 left-1/2 z-[1] w-24 -translate-x-1/2 -translate-y-1/2 sm:w-38"
+        src="/photos/logo-elsigma.webp"
+        alt="Logo El-Sigma"
+        className="pointer-events-none w-full max-w-[220px] select-none object-contain"
       />
-      <div className="relative z-10 flex h-full min-h-[430px] flex-col justify-end p-4 sm:p-5 lg:min-h-[520px]">
-        <div className="max-w-sm">
-          <h3 className="text-xl font-geist leading-[1.06] tracking-tight text-blackk">
-            {title}
-          </h3>
-          <p className="mt-3 text-sm font-geist  leading-tight text-blackk/70">
-            {desc}
-          </p>
-        </div>
-      </div>
-    </article>
-  );
+    );
+  }
+
+  if (variant === "mission") {
+    return (
+      <>
+        <Ripple className="z-0 opacity-35" />
+        <img
+          src="/photos/logo3d.webp"
+          alt="Logo Brados"
+          className="relative z-[1] w-20 object-contain sm:w-24"
+        />
+      </>
+    );
+  }
+
+  return <Numbers hideHeader className="h-full w-full max-w-[280px]" />;
 }
 
-function StatsTile({ children }: { children: ReactNode }) {
-  return (
-    <article className={`${tileShell} `}>
-      <div className="relative z-10 flex h-full min-h-[430px] flex-col items-start justify-start p-4 sm:p-5 lg:min-h-[520px]">
-        {children}
+const About = () => (
+  <section
+    id="about"
+    className="w-full overflow-hidden rounded-t-4xl border border-b-0 border-blackk/10 bg-background py-8 font-geist md:py-12"
+  >
+    <div className="maxw flex flex-col gap-3 md:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 md:gap-x-5">
+        <div className="hidden md:block" aria-hidden />
+
+        <h2 className="heading-h2 flex flex-col justify-between py-8 md:col-span-3 md:col-start-2 md:mb-0 md:py-20">
+          <span className="text-blackk">Poznaj naszą firmę.</span>
+          <span className="text-blackk/45">Zaplecze dla Twoich projektów</span>
+        </h2>
       </div>
-    </article>
-  );
-}
 
-const About = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scrollTiles = useCallback((direction: "prev" | "next") => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const firstTile = container.querySelector<HTMLElement>("[data-about-tile]");
-    const gap = 4;
-    const step = firstTile
-      ? firstTile.offsetWidth + gap
-      : container.clientWidth * 0.9;
-
-    container.scrollBy({
-      left: direction === "next" ? step : -step,
-      behavior: "smooth",
-    });
-  }, []);
-
-  return (
-    <section id="about" className="w-full bg-white py-8 font-geist md:py-12">
-      <div className="maxw flex flex-col gap-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-x-5 md:gap-y-8">
-          <div className="hidden md:block md:col-start-1 md:row-start-1" aria-hidden />
-
-          <h2 className="heading-h2 flex flex-col justify-between py-8 md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
-            <span className="text-blackk">Poznaj naszą firmę.</span>{" "}
-            <span className="text-blackk/45">
-              Dlaczego warto wybrać właśnie nas
-            </span>
-          </h2>
-
-          <aside className="flex flex-col gap-4 md:col-start-1 md:row-start-2 md:self-start md:pr-4">
-            <div>
-              <h3 className="heading-h3 text-blackk">
-                Zaplecze dla Twoich projektów
-              </h3>
-              <p className="mt-3 text-sm font-inter font-normal leading-relaxed tracking-tight text-blackk/65">
-                Łączymy sprawdzoną dystrybucję z doradztwem na każdym etapie
-                projektu.
-              </p>
-            </div>
-          </aside>
-
-          <div className="mt-3 flex justify-start gap-1 md:hidden">
-            <button
-              type="button"
-              onClick={() => scrollTiles("prev")}
-              className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
-              aria-label="Poprzedni kafelek"
-            >
-              <ChevronLeft className="size-5" aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollTiles("next")}
-              className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
-              aria-label="Następny kafelek"
-            >
-              <ChevronRight className="size-5" aria-hidden />
-            </button>
-          </div>
-
-          <div className="md:col-span-3 md:col-start-2 md:row-start-2 md:grid md:grid-cols-2 md:gap-x-1 md:gap-y-3 xl:grid-cols-3">
-            <div
-              ref={scrollRef}
-              className="flex snap-x snap-mandatory gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:contents md:overflow-visible"
-            >
-              {tiles.map((tile) => (
-                <div
-                  key={tile.id}
-                  data-about-tile
-                  className="shrink-0 snap-start md:shrink"
-                >
-                  {tile.variant === "elsigma" && (
-                    <ElSigmaTile title={tile.title} desc={tile.desc} />
-                  )}
-                  {tile.variant === "mission" && (
-                    <MissionTile title={tile.title} desc={tile.desc} />
-                  )}
-                  {tile.variant === "stats" && (
-                    <StatsTile>
-                      <Numbers />
-                    </StatsTile>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 items-stretch gap-3 md:grid-cols-3 md:gap-4">
+        {tiles.map((tile) => (
+          <AboutCard
+            key={tile.id}
+            title={tile.title}
+            desc={tile.desc}
+            frameBg={tile.frameBg}
+          >
+            <TileVisual variant={tile.variant} />
+          </AboutCard>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;

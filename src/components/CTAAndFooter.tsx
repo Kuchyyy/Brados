@@ -40,7 +40,7 @@ const CTAAndFooter = () => {
 
   return (
     <div className="w-full">
-      <section className="w-full bg-background py-20 font-geist md:py-28">
+      <section className="w-full bg-gradient-to-b from-background to-white py-20 font-geist md:py-28">
         <div className="maxw flex flex-col items-center text-center">
           <h2 className="max-w-2xl font-inter text-2xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[2.75rem]">
             Dołącz do grona naszych klientów

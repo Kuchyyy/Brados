@@ -120,7 +120,7 @@ function IconNode({
     return (
         <div
             className={cn(
-                "absolute flex size-14 items-center justify-center rounded-full border border-orange/25 bg-neutral-100 shadow-[0_14px_35px_rgba(26,26,26,0.06),0_0_0_6px_rgba(255,98,59,0.035)] transition-all duration-500 sm:size-16",
+                "absolute flex size-14 items-center justify-center rounded-full border border-orange/25 bg-neutral-100 shadow-[0_14px_35px_rgba(26,26,26,0.06),0_0_0_6px_rgba(255,98,59,0.035)] transition-all duration-500 ",
                 className
             )}
             style={{
@@ -154,7 +154,7 @@ function CenterHub({ visible }: { visible: boolean }) {
                         <span
                             key={avatar.label}
                             className={cn(
-                                "relative flex size-14 items-center justify-center rounded-full border-2 border-white shadow-[0_14px_32px_rgba(26,26,26,0.10),0_0_0_1px_rgba(255,98,59,0.10)] transition-all duration-500 sm:size-16",
+                                "relative flex size-14 items-center justify-center rounded-full border-2 border-white shadow-[0_14px_32px_rgba(26,26,26,0.10),0_0_0_1px_rgba(255,98,59,0.10)] transition-all duration-500 ",
                                 index > 0 && "-ml-4 sm:-ml-5",
                                 avatar.className
                             )}
@@ -204,8 +204,10 @@ const Numbers = ({ hideHeader = false, className }: NumbersProps) => {
         <div
             ref={ref}
             className={cn(
-                "flex w-full flex-col items-start justify-start",
-                hideHeader ? "h-full items-center justify-center" : "gap-5",
+                "flex w-full flex-col",
+                hideHeader
+                    ? "h-full min-h-0 items-center justify-center"
+                    : "items-start justify-start gap-5",
                 className
             )}
         >
@@ -221,7 +223,14 @@ const Numbers = ({ hideHeader = false, className }: NumbersProps) => {
                 </div>
             )}
 
-            <div className="relative mx-auto aspect-square w-full max-w-[360px] overflow-hidden">
+            <div
+                className={cn(
+                    "relative mx-auto overflow-hidden",
+                    hideHeader
+                        ? "h-full w-full"
+                        : "aspect-square w-full max-w-[360px]"
+                )}
+            >
                 <svg
                     viewBox="0 0 360 360"
                     className="pointer-events-none absolute inset-0 h-full w-full"

@@ -49,49 +49,51 @@ const Faq = () => {
   };
 
   return (
-    <section className="w-full bg-white py-16 font-geist md:py-24">
-      <div className="maxw grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16">
-        <h2 className="font-inter text-xl font-normal tracking-tight text-blackk md:text-2xl">
-          Pytania i odpowiedzi
-        </h2>
+    <div className="bg-white">
+      <section className="w-full bg-background py-16 font-geist md:py-24 rounded-t-4xl border border-b-0 border-blackk/10">
+        <div className="maxw grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16">
+          <h2 className="font-inter text-xl font-normal tracking-tight text-blackk md:text-2xl">
+            Pytania i odpowiedzi
+          </h2>
 
-        <div>
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
+          <div>
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
 
-            return (
-              <div
-                key={faq.question}
-                className="border-b border-blackk/10"
-              >
-                <button
-                  type="button"
-                  className="flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-geist text-sm font-normal text-blackk md:text-base"
-                  onClick={() => toggle(index)}
-                  aria-expanded={isOpen}
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    className={`size-4 shrink-0 text-blackk/40 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
-                      }`}
-                    aria-hidden
-                  />
-                </button>
-
+              return (
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                    }`}
+                  key={faq.question}
+                  className="border-b border-blackk/10"
                 >
-                  <p className="pb-5 font-geist text-sm leading-relaxed text-blackk/55">
-                    {faq.answer}
-                  </p>
+                  <button
+                    type="button"
+                    className="flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-geist text-sm font-normal text-blackk md:text-base"
+                    onClick={() => toggle(index)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.question}</span>
+                    <ChevronDown
+                      className={`size-4 shrink-0 text-blackk/40 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                        }`}
+                      aria-hidden
+                    />
+                  </button>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      }`}
+                  >
+                    <p className="pb-5 font-geist text-sm leading-relaxed text-blackk/55">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

@@ -35,8 +35,8 @@ function App() {
                   <Trusted />
                   <Offer />
                   <Team1 />
-                  <About />
                   <Photo />
+                  <About />
                   <LocationMap />
                   <Faq />
                   <CTAAndFooter />

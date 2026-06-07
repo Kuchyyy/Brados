@@ -158,10 +158,10 @@ const LocationMap = () => {
   );
 
   return (
-    <div className="bg-background">
+    <div className="">
       <section
         id="lokalizacja"
-        className="w-full bg-white font-geist py-8 md:py-12 rounded-t-4xl border-t border-blackk/10"
+        className="w-full bg-white font-geist py-8 md:py-12 "
       >
         <div className="maxw">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-stretch md:gap-16">
@@ -179,7 +179,7 @@ const LocationMap = () => {
             </aside>
 
             <div className="flex flex-col gap-4 md:col-start-2 md:row-start-2">
-              <GoogleMapsButton className="md:hidden" />
+
               {mapBlock}
             </div>
           </div>

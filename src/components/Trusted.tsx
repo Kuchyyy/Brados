@@ -1,150 +1,92 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoScroll from "embla-carousel-auto-scroll";
+import { useEffect } from "react";
 
 type LogoItem = {
   src: string;
   alt: string;
   scale?: number;
+  offsetY?: number;
 };
 
 const logos: LogoItem[] = [
-  { src: "/photos/hager.webp", alt: "Hager", scale: 1.9 },
-  { src: "/photos/legrand.webp", alt: "Legrand", scale: 0.8 },
-  { src: "/photos/noark.webp", alt: "Noark", scale: 0.6 },
-  { src: "/photos/wago.webp", alt: "Wago", scale: 1.6 },
+  { src: "/photos/legrand.webp", alt: "Legrand", scale: 1 },
+  { src: "/photos/noark.webp", alt: "Noark", scale: 1 },
+  { src: "/photos/wago.webp", alt: "Wago", scale: 1.7 },
   {
-    src: "https://elsigma.pl/wp-content/uploads/2023/09/ETI-Logo-CMYK-1.png",
+    src: "https://www.etigroup.eu/images/eti-logo-safe-future-fb.png",
     alt: "ETI",
-    scale: 0.9,
+    scale: 0.6,
   },
   {
-    src: "https://elsigma.pl/wp-content/uploads/2024/04/tracon.jpg",
+    src: "https://pl.traconelectric.com/static/images_original/CMS/LOG_23/Tracon_logo_4C.png",
     alt: "Tracon",
-    scale: 0.85,
-  },
-  {
-    src: "https://elsigma.pl/wp-content/uploads/2023/09/Scame-1.jpg",
-    alt: "Scame",
-    scale: 0.8,
+    scale: 1,
+    offsetY: 7,
   },
   {
     src: "https://ckziu.kalisz.pl/wp-content/uploads/2021/10/Logo-Kontakt-Simon.png",
     alt: "Kontakt-Simon",
-    scale: 0.85,
+    scale: 1.4,
   },
   { src: "/photos/awex.webp", alt: "Awex", scale: 1.4 },
-  { src: "/photos/kanlux.webp", alt: "Kanlux", scale: 0.7 },
-  { src: "/photos/Kopos.webp", alt: "Kopos", scale: 1.1 },
+  { src: "/photos/kanlux.webp", alt: "Kanlux", scale: 1 },
+  { src: "/photos/Kopos.webp", alt: "Kopos", scale: 1 },
   { src: "/photos/elektro.webp", alt: "Elektroplast", scale: 1 },
-  {
-    src: "https://elsigma.pl/wp-content/uploads/2023/09/Breve-500x239-1.jpg",
-    alt: "Breve",
-    scale: 0.75,
-  },
   {
     src: "https://elsigma.pl/wp-content/uploads/2023/11/ORNO_GROUP_wersja2_500px.png",
     alt: "ORNO",
-    scale: 0.8,
+    scale: 1,
   },
   {
-    src: "https://elsigma.pl/wp-content/uploads/2023/09/GTV-blue-1.png",
+    src: "https://elgra.com.pl/wp-content/uploads/2025/11/GTV-blue_PNG.png",
     alt: "GTV",
-    scale: 0.65,
+    scale: 1,
   },
   {
     src: "https://www.elt.si/wp-content/uploads/2015/06/FAMATEL-Logo-e1433236477181.png",
     alt: "Famatel",
-    scale: 0.8,
+    scale: 1,
   },
-  { src: "/photos/dehn.webp", alt: "Dehn", scale: 1.3 },
+  { src: "/photos/dehn.webp", alt: "Dehn", scale: 1 },
   { src: "/photos/ospel.webp", alt: "Ospel", scale: 1 },
-  { src: "/photos/koelner.webp", alt: "Koelner", scale: 0.7 },
+  { src: "/photos/koelner.webp", alt: "Koelner", scale: 1 },
   {
     src: "https://elsigma.pl/wp-content/uploads/2023/09/rawlplug-1.jpg",
     alt: "Rawlplug",
-    scale: 0.85,
-  },
-  {
-    src: "https://ce8dc832c.cloudimg.io/cdn/n/n@048143ddd2a844b41fb21ce70e039b725c3edb90/_cs_/2022/01/61e960cb5a965/sonel_logo.png",
-    alt: "Sonel",
-    scale: 0.9,
-  },
-  {
-    src: "https://elsigma.pl/wp-content/uploads/2023/11/haupa-1-1024x398.jpg",
-    alt: "Haupa",
-    scale: 0.7,
+    scale: 1,
   },
   {
     src: "https://elsigma.pl/wp-content/uploads/2023/09/gromtor_logo_cmyk.png",
     alt: "Gromtor",
-    scale: 0.85,
+    scale: 1,
+  },
+  {
+    src: "https://assets.sc.hager.com/uk/-/media/project/hagerdeep/united-kingdom/hager/b2b-uk/support/marketing-support/hager-logo-png.png",
+    alt: "Hager",
+    scale: 1,
   },
 ];
 
 const TRUSTED_CAPTION =
   "Dostarczamy produkty czołowych producentów";
 
-const LOGOS_PER_ROW = 8;
-const DESKTOP_VISIBLE = LOGOS_PER_ROW * 2;
-const MOBILE_VISIBLE = 8;
-const ROTATE_MS = 5000;
-const SWAP_COUNT = 2;
+const carouselLogos = [...logos, ...logos];
 
-function pickRandomIndices(total: number, count: number): number[] {
-  const indices = Array.from({ length: total }, (_, i) => i);
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
-  return indices.slice(0, count);
-}
+function LogoCell({ logo }: { logo: LogoItem }) {
+  const offsetY = logo.offsetY ?? 0;
 
-function pickRandomItems<T>(items: T[], count: number): T[] {
-  const pool = [...items];
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  return pool.slice(0, count);
-}
-
-function rotateSlots(current: LogoItem[]): LogoItem[] {
-  const hidden = logos.filter(
-    (logo) => !current.some((visible) => visible.alt === logo.alt)
-  );
-  if (hidden.length === 0) return current;
-
-  const swapCount = Math.min(SWAP_COUNT, hidden.length);
-  const slotIndices = pickRandomIndices(current.length, swapCount);
-  const replacements = pickRandomItems(hidden, swapCount);
-  const next = [...current];
-
-  slotIndices.forEach((slot, i) => {
-    next[slot] = replacements[i];
-  });
-
-  return next;
-}
-
-function LogoCell({
-  logo,
-  animate = false,
-}: {
-  logo: LogoItem;
-  animate?: boolean;
-}) {
   return (
-    <div className="tile-surface isolate flex aspect-[5/3] min-h-[3.5rem] items-center justify-center bg-neutral-200/80 p-3 sm:min-h-[4rem] sm:p-4">
+    <div className="flex h-6 w-14 items-center justify-center sm:h-7 sm:w-16">
       <img
-        key={animate ? `${logo.alt}-${logo.src}` : undefined}
         src={logo.src}
         alt={logo.alt}
-        className={[
-          "max-h-7 w-auto max-w-full object-contain mix-blend-multiply grayscale contrast-[1.35] sm:max-h-8",
-          animate ? "trusted-logo-swap" : "",
-        ].join(" ")}
-        style={{ transform: `scale(${logo.scale ?? 1})` }}
+        className="h-full w-full origin-center object-contain object-center mix-blend-multiply grayscale contrast-[1.35]"
+        style={{
+          transform: `translateY(${offsetY}px) scale(${logo.scale ?? 1})`,
+        }}
         loading="lazy"
       />
     </div>
@@ -152,56 +94,53 @@ function LogoCell({
 }
 
 const Trusted = () => {
-  const [mobileLogos, setMobileLogos] = useState(() =>
-    logos.slice(0, MOBILE_VISIBLE)
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "start", dragFree: true },
+    [
+      AutoScroll({
+        speed: 0.8,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+        playOnInit: true,
+        breakpoints: {
+          "(min-width: 640px)": { speed: 1 },
+        },
+      }),
+    ]
   );
-  const [desktopLogos, setDesktopLogos] = useState(() =>
-    logos.slice(0, DESKTOP_VISIBLE)
-  );
-
-  const tickRotation = useCallback(() => {
-    setMobileLogos((current) => rotateSlots(current));
-    setDesktopLogos((current) => rotateSlots(current));
-  }, []);
 
   useEffect(() => {
+    if (!emblaApi) return;
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReducedMotion) return;
 
-    const intervalId = window.setInterval(tickRotation, ROTATE_MS);
-
-    return () => window.clearInterval(intervalId);
-  }, [tickRotation]);
+    if (prefersReducedMotion) {
+      emblaApi.plugins()?.autoScroll?.stop();
+    }
+  }, [emblaApi]);
 
   return (
-    <section className="relative w-full bg-background pt-6 pb-12 font-geist md:pt-8 md:pb-16">
-      <div className="mx-auto flex maxw flex-col gap-4">
-        <p className="text-center text-xs font-inter tracking-tight text-black/50">
+    <section className="relative bg-background w-full font-geist  py-10 pb-20">
+      <div className="mx-auto flex maxw flex-col gap-8">
+        <p className="text-center text-xs font-gesit tracking-tight text-black/50">
           {TRUSTED_CAPTION}
         </p>
 
-        <div className="overflow-hidden rounded-sm bg-neutral-100">
-          <div className="grid grid-cols-4 gap-1 sm:hidden">
-            {mobileLogos.map((logo, index) => (
-              <LogoCell key={`${logo.alt}-${index}`} logo={logo} animate />
-            ))}
-          </div>
-
-          <div className="hidden grid-cols-8 gap-1 sm:grid">
-            {desktopLogos.map((logo, index) => (
-              <LogoCell
+        <div className="overflow-hidden mask-x-from-95% mask-x-to-100%" ref={emblaRef}>
+          <div className="flex gap-4 sm:gap-10">
+            {carouselLogos.map((logo, index) => (
+              <div
                 key={`${logo.alt}-${index}`}
-                logo={logo}
-                animate
-              />
+                className="min-w-0 shrink-0 grow-0 basis-1/3 sm:basis-1/7"
+              >
+                <LogoCell logo={logo} />
+              </div>
             ))}
           </div>
         </div>
       </div>
-
-
     </section>
   );
 };

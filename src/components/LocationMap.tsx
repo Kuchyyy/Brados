@@ -54,7 +54,7 @@ function LocationDetails() {
   return (
     <div>
       <h3 className="heading-h3 text-xl md:text-2xl text-blackk">Lider w branży</h3>
-      <p className="mt-3 text-sm font-inter font-normal leading-relaxed tracking-tight text-blackk/65">
+      <p className="mt-3 text-sm font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
         Dostarczamy sprawdzone rozwiązania, skalę dostępności i niezawodność,
         na której opiera się biznes naszych partnerów.
       </p>
@@ -161,7 +161,7 @@ const LocationMap = () => {
     <div className="">
       <section
         id="lokalizacja"
-        className="w-full bg-white font-geist py-8 md:py-12 "
+        className="w-full bg-white font-geist py-20 "
       >
         <div className="maxw">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-stretch md:gap-16">

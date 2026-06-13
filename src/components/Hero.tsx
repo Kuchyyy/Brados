@@ -1,19 +1,39 @@
 "use client";
 
-import ParallaxImage from "./ParallaxImage";
+import ParallaxImage, { type ParallaxSlide } from "./ParallaxImage";
 import HeroCtaButtons from "./HeroCtaButtons";
+import { TextAnimate } from "@/components/ui/text-animate";
+
+const HERO_SLIDES: ParallaxSlide[] = [
+  {
+    desktopSrc: "/photos/baza.png",
+    mobileSrc: "/photos/baza.png",
+    alt: "Hurtownia Brados — siedziba i magazyn",
+  },
+];
 
 export function HeroIntro() {
   return (
     <section className="w-full bg-background font-geist">
-      <div className="maxw pt-28 pb-6 md:pt-32 md:pb-8">
-        <p className="text-[11px] tracking-[0.02em] text-blackk/50 sm:text-xs">
-          Hurtownia materiałów elektrycznych i teletechnicznych · Wrocław
-        </p>
+      <div className="maxw pt-38 pb-6 md:pt-62">
+        <TextAnimate
+          as="h1"
+          animation="slideLeft"
+          by="character"
+          once
+          className="text-[11px] tracking-[0.02em] text-blackk/50 sm:text-xs"
+        >
+          Wszystko dla Twoich inwestycji
+        </TextAnimate>
 
-        <h1 className="mt-3 max-w-2xl text-left font-inter text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
-          Zaopatrzenie instalacji elektrycznych dla firm i instalatorów.
-        </h1>
+        <div className="mt-1 max-w-xl space-y-1">
+          <p className="text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
+            Hurtownia materiałów elektrycznych
+          </p>
+          <p className="text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
+            i teletechnicznych we Wrocławiu.
+          </p>
+        </div>
 
         <HeroCtaButtons className="mt-5" />
       </div>
@@ -21,28 +41,20 @@ export function HeroIntro() {
   );
 }
 
-type HeroMediaProps = {
-  enableParallax?: boolean;
-};
-
-export function HeroMedia({ enableParallax = true }: HeroMediaProps) {
+export function HeroMedia() {
   return (
     <section className="w-full bg-background pb-8 font-geist md:pb-8">
       <div className="maxw">
-        <ParallaxImage enableParallax={enableParallax} />
+        <ParallaxImage slides={HERO_SLIDES} />
       </div>
     </section>
   );
 }
 
-type HeroProps = {
-  enableParallax?: boolean;
-};
-
-const Hero = ({ enableParallax = true }: HeroProps) => (
+const Hero = () => (
   <>
     <HeroIntro />
-    <HeroMedia enableParallax={enableParallax} />
+    <HeroMedia />
   </>
 );
 

@@ -10,6 +10,7 @@ import {
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { TextAnimate } from "@/components/ui/text-animate";
 import {
   Settings,
   Wifi,
@@ -339,7 +340,7 @@ const Offer = () => {
     <div className="bg-background">
       <section
         id="oferta"
-        className="w-full bg-white py-8 font-geist md:py-12 rounded-t-4xl border-t border-blackk/10"
+        className="w-full bg-background py-8 font-geist md:py-12"
       >
         <div className="maxw flex flex-col gap-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-x-5 md:gap-y-8">
@@ -349,19 +350,71 @@ const Offer = () => {
             />
 
             <h2 className="heading-h2 flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
-              <span>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                className="hidden md:block"
+              >
                 Kompleksowa oferta materiałów elektrycznych i teletechnicznych.
-              </span>
-              <span className="text-blackk/45">
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                className="block md:hidden"
+              >
+                Kompleksowa oferta materiałów
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.15}
+                className="block md:hidden"
+              >
+                elektrycznych i teletechnicznych.
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.2}
+                className="hidden text-blackk/45 md:block"
+              >
                 Wybierz kategorię i sprawdź asortyment.
-              </span>
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.2}
+                className="block text-blackk/45 md:hidden"
+              >
+                Wybierz kategorię i sprawdź
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.3}
+                className="block text-blackk/45 md:hidden"
+              >
+                asortyment.
+              </TextAnimate>
             </h2>
 
             <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:justify-between md:pr-4">
               <div className="flex flex-col gap-4">
                 <div>
                   <h3 className="heading-h3 text-blackk">Kategorie asortymentu</h3>
-                  <p className="mt-3 mb-6 text-sm font-inter font-normal leading-relaxed tracking-tight text-blackk/65">
+                  <p className="mt-3 mb-6 text-sm font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
                     Wybierz dział i przejdź do szczegółów wybranej kategorii.
                   </p>
                 </div>

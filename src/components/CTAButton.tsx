@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { useInView } from "motion/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextAnimate } from "@/components/ui/text-animate";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +22,7 @@ const CTAButton = ({
     const rippleRef = useRef<HTMLSpanElement | null>(null);
     const timelineRef = useRef<gsap.core.Timeline | null>(null);
     const location = useLocation();
+    const isCtaInView = useInView(ctaBlockRef, { once: true, amount: 0.8 });
 
     useEffect(() => {
         if (!rippleRef.current) return;
@@ -125,7 +128,7 @@ const CTAButton = ({
     useEffect(() => {
         if (!ctaBlockRef.current || textRefs.current.length === 0) return;
 
-        gsap.set(textRefs.current, {
+        gsap.set(textRefs.current[0], {
             opacity: 0,
             y: 30,
         });
@@ -205,12 +208,11 @@ const CTAButton = ({
                 },
             });
 
-            fadeTl.to(textRefs.current, {
+            fadeTl.to(textRefs.current[0], {
                 opacity: 1,
                 y: 0,
                 duration: 0.8,
                 ease: "power2.out",
-                stagger: 0.15,
             });
 
             return () => {
@@ -232,12 +234,11 @@ const CTAButton = ({
                 },
             });
 
-            fadeTl.to(textRefs.current, {
+            fadeTl.to(textRefs.current[0], {
                 opacity: 1,
                 y: 0,
                 duration: 0.8,
                 ease: "power2.out",
-                stagger: 0.15,
             });
 
             return () => {
@@ -314,8 +315,42 @@ const CTAButton = ({
                     }}
                     className="font-poppins text-2xl leading-tight tracking-tight text-black"
                 >
-                    Dołącz do grona <br /> naszych{" "}
-                    <p className="inline-flex text-accent-orange">klientów</p>
+                    <TextAnimate
+                        as="span"
+                        animation="fadeIn"
+                        by="word"
+                        startOnView={false}
+                        animate={isCtaInView ? "show" : "hidden"}
+                        initial="hidden"
+                        className="inline"
+                    >
+                        Dołącz do grona
+                    </TextAnimate>
+                    <br />
+                    <TextAnimate
+                        as="span"
+                        animation="fadeIn"
+                        by="word"
+                        startOnView={false}
+                        animate={isCtaInView ? "show" : "hidden"}
+                        initial="hidden"
+                        delay={0.2}
+                        className="inline"
+                    >
+                        naszych
+                    </TextAnimate>{" "}
+                    <TextAnimate
+                        as="span"
+                        animation="fadeIn"
+                        by="word"
+                        startOnView={false}
+                        animate={isCtaInView ? "show" : "hidden"}
+                        initial="hidden"
+                        delay={0.28}
+                        className="inline text-accent-orange"
+                    >
+                        klientów
+                    </TextAnimate>
                 </h2>
             </div>
 

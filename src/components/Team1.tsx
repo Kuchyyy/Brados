@@ -9,6 +9,7 @@ import {
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Mail, Phone } from "lucide-react";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { useCenteredHorizontalScroll } from "@/hooks/useCenteredHorizontalScroll";
 
 type Person = {
@@ -369,16 +370,51 @@ const Team1 = () => {
           />
 
           <h2 className="heading-h2 flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
-            <span>Poznaj nasz zespół.</span>
-            <span className="text-blackk/45">
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              className="block"
+            >
+              Poznaj nasz zespół.
+            </TextAnimate>
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              delay={0.2}
+              className="hidden text-blackk/45 md:block"
+            >
               Ludzie, którzy tworzą Brados na co dzień.
-            </span>
+            </TextAnimate>
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              delay={0.2}
+              className="block text-blackk/45 md:hidden"
+            >
+              Ludzie, którzy tworzą Brados
+            </TextAnimate>
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              delay={0.3}
+              className="block text-blackk/45 md:hidden"
+            >
+              na co dzień.
+            </TextAnimate>
           </h2>
 
           <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:min-h-full md:pr-4">
             <div className="shrink-0">
               <h3 className="heading-h3 text-blackk">Struktura naszego zespołu</h3>
-              <p className="mt-3 mb-6 text-sm font-inter font-normal leading-relaxed tracking-tight text-blackk/65">
+              <p className="mt-3 mb-6 text-sm font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
                 Wybierz dział i skontaktuj się bezpośrednio z właściwą osobą.
               </p>
             </div>
@@ -464,7 +500,7 @@ const Team1 = () => {
         </div>
 
         {copiedEmail && (
-          <div className="fixed bottom-6 right-6 z-50 rounded-sm bg-orange px-4 py-2 text-sm text-white shadow-lg">
+          <div className="fixed bottom-6 right-6 z-50 rounded-sm bg-orange border border-blackk/10 px-4 py-2 text-sm text-white shadow-lg">
             Skopiowano e-mail: {copiedEmail}
           </div>
         )}

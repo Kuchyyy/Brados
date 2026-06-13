@@ -10,7 +10,7 @@ const Photo = () => (
           Nowa siedziba · Wrocław
         </p>
 
-        <h2 className="mt-3 max-w-2xl text-left font-inter text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
+        <h2 className="mt-3 max-w-2xl text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
           Rozwijamy się, aby utrzymać standardy i dostarczać klientom najlepsze
           rozwiązania.
         </h2>

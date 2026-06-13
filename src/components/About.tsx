@@ -17,21 +17,21 @@ const tiles: AboutTileData[] = [
     title: "El-Sigma",
     desc: "Partnerstwo z liderem dystrybucji elektrotechnicznej w Polsce to gwarancja stabilności i najwyższej jakości.",
     variant: "elsigma",
-    frameBg: "#e8e8e3",
+    frameBg: "oklch(97% 0 0)",
   },
   {
     id: "2",
     title: "Rozwiązania dla Twoich potrzeb",
     desc: "Dostarczamy niezawodne rozwiązania, które zwiększają efektywność i ułatwiają codzienną pracę naszych klientów.",
     variant: "mission",
-    frameBg: "#e8e8e3",
+    frameBg: "oklch(97% 0 0)",
   },
   {
     id: "3",
     title: "Satysfakcja naszych klientów",
     desc: "Setki pozytywnych opinii i zaufanie klientów to najlepszy dowód na jakość naszych usług.",
     variant: "stats",
-    frameBg: "#e8e8e3",
+    frameBg: "oklch(97% 0 0)",
   },
 ];
 
@@ -71,9 +71,9 @@ function AboutCard({
   children: ReactNode;
 }) {
   return (
-    <article className="flex h-full min-w-0 flex-col rounded-sm border border-blackk/[0.07] bg-neutral-100 p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] min-h-140">
+    <article className="flex h-full min-w-0 flex-col rounded-sm border border-blackk/10 bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] min-h-140">
       <div className="text-left">
-        <h3 className="font-inter leading-snug tracking-tight text-blackk sm:text-xl">
+        <h3 className="font-gesit leading-snug tracking-tight text-blackk sm:text-xl">
           {title}
         </h3>
         <p className="mt-2 max-w-none text-left font-geist text-sm leading-relaxed text-blackk/55 sm:text-[0.95rem]">
@@ -117,12 +117,12 @@ const About = () => (
   <div className="bg-background">
     <section
       id="about"
-      className="w-full overflow-hidden rounded-t-4xl border border-b-0 border-blackk/10 bg-white py-8 font-geist md:py-12"
+      className="w-full overflow-hidden  bg-white py-8 font-geist"
     >
       <div className="maxw flex flex-col gap-3">
         <div className="hidden md:block" aria-hidden />
 
-        <h2 className="heading-h3 flex flex-col justify-between py-8 md:col-span-3 md:col-start-2 md:mb-0 md:pt-20">
+        <h2 className="heading-h3 flex flex-col justify-between py-8 md:col-span-3 md:col-start-2 md:mb-0 ">
           <span className="text-blackk">Poznaj naszą firmę.</span>
           <span className="text-blackk/45">Zaplecze dla Twoich projektów</span>
         </h2>

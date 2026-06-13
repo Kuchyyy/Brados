@@ -16,7 +16,7 @@ body {
   --font-poppins: "Poppins", sans-serif;
 
   --font-geist: "Geist", sans-serif;
-  --font-inter: "Inter", sans-serif;
+  --font-gesit: "Inter", sans-serif;
 }
 
 @theme {
@@ -35,6 +35,7 @@ body {
 
   --color-background: #f7f7f4;
   --color-tile: #f0efeb;
+  --color-card: #e8e8e3;
 }
 
 @utility maxw {
@@ -45,7 +46,7 @@ body {
 
 @layer components {
   .tile-surface {
-    @apply rounded-sm border border-blackk/5 bg-neutral-100;
+    @apply rounded-sm border border-blackk/5 bg-neutral-50;
   }
 
   .trusted-transition {
@@ -58,29 +59,16 @@ body {
   }
 
   .heading-h2 {
-    @apply font-inter font-normal tracking-tight text-blackk text-3xl leading-tight md:text-4xl lg:text-5xl;
+    @apply font-gesit font-normal tracking-tight text-blackk text-2xl leading-tight md:text-2xl lg:text-3xl;
   }
 
   .heading-h3 {
-    @apply font-inter font-normal tracking-tight text-blackk/60 text-xl leading-tight md:text-2xl;
+    @apply font-gesit font-normal tracking-tight text-blackk/60 text-xl leading-tight md:text-2xl;
   }
 }
 
-
-@keyframes trusted-logo-swap {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 @layer utilities {
-  .trusted-logo-swap {
-    animation: trusted-logo-swap 0.45s ease-out forwards;
-  }
-
   .nav-hover-btn {
     @apply mt-1 relative ms-5 font-poppins text-sm text-black 
            after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full 

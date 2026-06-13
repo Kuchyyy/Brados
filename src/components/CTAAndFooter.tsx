@@ -4,6 +4,7 @@ import { Heart } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { pages } from "../data/page";
 import HeroCtaButtons from "./HeroCtaButtons";
+import { TextAnimate } from "@/components/ui/text-animate";
 
 const CTAAndFooter = () => {
   const navigate = useNavigate();
@@ -42,9 +43,17 @@ const CTAAndFooter = () => {
     <div className="w-full">
       <section className="w-full bg-gradient-to-b from-background to-white py-20 font-geist md:py-28">
         <div className="maxw flex flex-col items-center text-center">
-          <h2 className="max-w-2xl font-inter text-2xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[2.75rem]">
+          <TextAnimate
+            as="h2"
+            animation="fadeIn"
+            by="word"
+            once
+            startOnView
+            viewport={{ once: true, amount: 0.4 }}
+            className="max-w-2xl text-center font-gesit text-2xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[2.75rem]"
+          >
             Dołącz do grona naszych klientów
-          </h2>
+          </TextAnimate>
 
           <HeroCtaButtons
             onTeamClick={handleTeamClick}

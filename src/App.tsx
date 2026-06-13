@@ -14,6 +14,7 @@ import CTAAndFooter from "./components/CTAAndFooter";
 
 import Subpages from "./components/Subpages";
 import ScrollLoader from "./components/ScrollLoader";
+import BottomScrollBlur from "./components/BottomScrollBlur";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <div className=" w-full">
         <Router>
           <ScrollLoader />
+          <BottomScrollBlur />
           <Routes>
             <Route
               path="/"
@@ -33,8 +35,8 @@ function App() {
                   <HeroIntro />
                   <HeroMedia />
                   <Trusted />
-                  <Offer />
                   <Team1 />
+                  <Offer />
                   <Photo />
                   <About />
                   <LocationMap />

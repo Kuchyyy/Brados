@@ -63,9 +63,9 @@ const ScrollLoader: React.FC = () => {
         alt="Logo"
         className="loader-logo w-20 mb-6"
       />
-      <h1 className="loader-title text-2xl md:text-4xl font-bold font-robert-medium text-gray-800 text-center">
+      <h2 className="loader-title heading-h2 text-blackk text-center max-w-xl px-4">
         Lider w branży elektrycznej i telekomunikacyjnej
-      </h1>
+      </h2>
     </div>
   );
 };

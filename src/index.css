@@ -1,23 +1,22 @@
-@font-face {
-  font-family: "robert-medium";
-  src: url("/fonts/robert-medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @import "tailwindcss";
 
 html {
   scroll-behavior: smooth;
+  @apply bg-white;
 }
 
 body {
-  @apply bg-white;
+  @apply bg-white text-blackk antialiased;
 }
 
 @theme {
   --font-robert-medium: "robert-medium", sans-serif;
   --font-poppins: "Poppins", sans-serif;
+
+  --font-geist: "Geist", sans-serif;
+  --font-gesit: "Inter", sans-serif;
 }
 
 @theme {
@@ -27,7 +26,47 @@ body {
   --color-blackk: #1a1a1a;
   --color-checkout-bg: #14161b;
   --color-navy: #1f2a37;
+
+  --color-orange: #ff623b;
+
+  --color-hero-surface: #f7f7f4;
+  --color-hero-btn: #1c1c1a;
+  --color-hero-btn-muted: #e8e8e3;
+
+  --color-background: #f7f7f4;
+  --color-tile: #f0efeb;
+  --color-card: #e8e8e3;
 }
+
+@utility maxw {
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+@layer components {
+  .tile-surface {
+    @apply rounded-sm border border-blackk/5 bg-neutral-50;
+  }
+
+  .trusted-transition {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background) 0%,
+      var(--color-background) 55%,
+      #ffffff 100%
+    );
+  }
+
+  .heading-h2 {
+    @apply font-gesit font-normal tracking-tight text-blackk text-2xl leading-tight md:text-2xl lg:text-3xl;
+  }
+
+  .heading-h3 {
+    @apply font-gesit font-normal tracking-tight text-blackk/60 text-xl leading-tight md:text-2xl;
+  }
+}
+
 
 @layer utilities {
   .nav-hover-btn {

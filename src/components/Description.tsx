@@ -78,58 +78,52 @@ const Description: React.FC<DescriptionProps> = ({
           alt="Logo"
           className="w-20 mb-6"
         />
-        <h1
+        <h2
           ref={titleRef}
-          className="text-2xl md:text-4xl font-medium font-poppins tracking-tight text-black text-center"
+          className="heading-h2 text-blackk text-center max-w-xl px-4"
         >
           {title}
-        </h1>
+        </h2>
       </div>
 
-      <div className="w-full flex justify-center items-center bg-linear-to-t from-stone-100 to-white">
-        <section className="w-[95%] max-w-[1200px] mx-auto py-16 pt-30">
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 font-poppins tracking-tight">
+      <div className="w-full flex justify-center items-center bg-background">
+        <section className="maxw py-16 font-geist">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="md:col-span-2 space-y-6 ml-1">
-              <h1 className="font-poppins tracking-tight text-3xl font-medium mb-3 text-start">
+              <h2 className="heading-h2 text-blackk mb-3 text-start">
                 {title}
-              </h1>
+              </h2>
 
-              <p className="text-md tracking-tight text-black/80">
+              <p className="text-sm leading-relaxed tracking-tight text-blackk/65">
                 {description}
               </p>
               <ul className="list-none space-y-2">
                 {products.map((product, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2 text-black/80 tracking-tight"
+                    className="flex items-start gap-2 text-sm tracking-tight text-blackk/65"
                   >
-                    <Check size={18} className="text-green-600 mt-1" />
+                    <Check size={18} className="mt-0.5 text-blackk/45" />
                     <span>{product}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <aside className="bg-white rounded-xl border border-black/20 p-6 space-y-4">
-              <h3 className="text-xl font-poppins tracking-tight mb-4 px-2">
-                Pozostałe kategorie
-              </h3>
-              <ul className="space-y-2 text-black/80 tracking-tight">
+            <aside className="rounded-xl border border-blackk/10 bg-white p-6 space-y-4">
+              <h3 className="heading-h3 mb-4 px-2">Pozostałe kategorie</h3>
+              <ul className="space-y-2 text-sm tracking-tight text-blackk/65">
                 {pages.map((sub) => {
                   const isActive = slug === sub.slug;
                   return (
                     <li key={sub.id}>
                       <Link
                         to={`/${sub.slug}`}
-                        className={`group relative flex items-center justify-between text-md tracking-tight py-2 px-2 rounded-r-md transition-colors transform-all ${isActive
-                          ? "bg-stone-100 border-l-2 border-accent-orange "
-                          : " hover:text-zinc-900 hover:bg-stone-50"
+                        className={`flex items-center justify-between rounded-md py-2 px-2 transition-colors ${isActive
+                            ? "bg-tile text-blackk"
+                            : "hover:bg-hero-btn-muted hover:text-blackk"
                           }`}
                       >
-                        {!isActive && (
-                          <div className="absolute left-0 bottom-0 w-0.5 h-0 bg-accent-orange transition-all duration-300 group-hover:h-full" />
-                        )}
                         <span>{sub.title}</span>
                         <ArrowUpRight size={18} className="shrink-0 w-4 h-4" />
                       </Link>
@@ -141,19 +135,19 @@ const Description: React.FC<DescriptionProps> = ({
           </div>
 
           <div className="mt-16">
-            <h1 className="font-poppins tracking-tight text-3xl font-medium mb-3 text-start ml-1">
+            <h2 className="heading-h2 text-blackk mb-6 text-start ml-1">
               Partnerzy
-            </h1>
+            </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 items-center justify-items-center w-full">
               {producers.map((logo, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-center w-full aspect-square bg-white rounded-xl border border-black/20 transition"
+                  className="flex items-center justify-center w-full aspect-square bg-tile rounded-lg border border-blackk/8"
                 >
                   <img
                     src={logo}
                     alt={`logo producenta ${idx}`}
-                    className="max-w-[70%] max-h-[70%] object-contain  transition duration-300"
+                    className="max-w-[60%] max-h-[60%] object-contain grayscale mix-blend-multiply"
                   />
                 </div>
               ))}

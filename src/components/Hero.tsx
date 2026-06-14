@@ -1,203 +1,62 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import ParallaxImage from "./ParallaxImage";
+import type { ParallaxSlide } from "@/data/parallax-slides";
+import HeroCtaButtons from "./HeroCtaButtons";
+import { TextAnimate } from "@/components/ui/text-animate";
 
-gsap.registerPlugin(ScrollTrigger);
+const HERO_SLIDES: ParallaxSlide[] = [
+  {
+    desktopSrc: "/photos/baza.png",
+    mobileSrc: "/photos/baza.png",
+    alt: "Hurtownia Brados — siedziba i magazyn",
+  },
+];
 
-type HeroProps = {
-  enableParallax?: boolean;
-};
-
-const Hero = ({ enableParallax = true }: HeroProps) => {
-  const textRef = useRef<HTMLDivElement | null>(null);
-  const imageRef = useRef<HTMLDivElement | null>(null);
-  const titleWrapperRef = useRef<HTMLDivElement | null>(null);
-  const desktopImgRef = useRef<HTMLImageElement | null>(null);
-  const mobileImgRef = useRef<HTMLImageElement | null>(null);
-  const location = useLocation();
-
-  const [maskHeight, setMaskHeight] = useState(0);
-  const [textH, setTextH] = useState(0);
-
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-
-  useEffect(() => {
-    if (isMobile) {
-      setMaskHeight(0);
-    }
-  }, [isMobile]);
-
-  useEffect(() => {
-    const measure = () => {
-      if (!textRef.current) return;
-      setTextH(textRef.current.getBoundingClientRect().height);
-    };
-
-    const onScroll = () => {
-      if (!textRef.current || !imageRef.current) return;
-
-      const textRect = textRef.current.getBoundingClientRect();
-      const imageRect = imageRef.current.getBoundingClientRect();
-
-      if (imageRect.top >= window.innerHeight) {
-        setMaskHeight(0);
-        return;
-      }
-
-      const overlap = textRect.bottom - imageRect.top;
-      const h = Math.min(Math.max(overlap, 0), textRect.height);
-
-      setMaskHeight(h);
-    };
-
-    measure();
-    onScroll();
-
-    window.addEventListener("resize", measure);
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile) {
-      if (!titleWrapperRef.current || !imageRef.current) return;
-
-      gsap.set(titleWrapperRef.current, {
-        opacity: 1,
-        scale: 1,
-        transformOrigin: "center top",
-      });
-
-      const ctx = gsap.context(() => {
-        requestAnimationFrame(() => {
-          gsap.fromTo(
-            titleWrapperRef.current,
-            {
-              opacity: 1,
-              scale: 1,
-            },
-            {
-              opacity: 0,
-              scale: 0.9,
-              ease: "none",
-              scrollTrigger: {
-                trigger: imageRef.current,
-                start: "80% 60%",
-                end: "100% 40%",
-                scrub: true,
-              },
-            }
-          );
-        });
-      });
-
-      return () => ctx.revert();
-    }
-  }, [isMobile]);
-
-  useEffect(() => {
-    if (!enableParallax) return;
-
-    const imgRef = isMobile ? mobileImgRef.current : desktopImgRef.current;
-    if (!imgRef || !imageRef.current) return;
-
-    gsap.set(imgRef, { yPercent: 0 });
-
-    const ctx = gsap.context(() => {
-      const st = ScrollTrigger.create({
-        trigger: imageRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const yPercent = -30 + progress * 60;
-          gsap.set(imgRef, { yPercent });
-        },
-      });
-
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-
-      return () => st.kill();
-    });
-
-    return () => ctx.revert();
-  }, [isMobile, enableParallax, location.pathname]);
-
-  const topInset = Math.max(textH - maskHeight, 0);
-
+export function HeroIntro() {
   return (
-    <section className="w-full pt-40 relative">
-      <div className="flex flex-col justify-center items-center font-poppins text-sm tracking-tight">
-        <div>Lider w branży</div>
-        <div className="text-black/60">
-          Tutaj znajdziesz wszysko czego potrzebujesz
-        </div>
-      </div>
-      <div
-        className={`${isMobile ? "" : "sticky top-50 z-30"
-          } flex flex-col justify-center w-full`}
-      >
-        <div
-          ref={titleWrapperRef}
-          className="font-poppins tracking-tight text-[2.5rem] sm:text-[3.2rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] text-center"
+    <section className="w-full bg-background font-geist">
+      <div className="maxw pt-38 pb-6 md:pt-42">
+        <TextAnimate
+          as="h1"
+          animation="slideLeft"
+          by="character"
+          once
+          className="text-[11px] tracking-[0.02em] text-blackk/50 sm:text-xs"
         >
-          <h1 ref={textRef} className="relative inline-block font-medium">
-            <span className="text-black">Hurtownia Brados</span>
+          Wszystko dla Twoich inwestycji
+        </TextAnimate>
 
-            {!isMobile && (
-              <span
-                className="absolute inset-0 text-white pointer-events-none overflow-hidden"
-                style={{ clipPath: `inset(${topInset}px 0 0 0)` }}
-              >
-                Hurtownia Brados
-              </span>
-            )}
-          </h1>
+        <div className="mt-1 max-w-xl space-y-1">
+          <p className="text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
+            Hurtownia materiałów elektrycznych
+          </p>
+          <p className="text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
+            i teletechnicznych we Wrocławiu.
+          </p>
         </div>
-        <a
-          href="#zespół"
-          className="flex sm:hidden justify-between items-center  self-center mt-2 pl-4 pr-2 gap-4 border border-black/30 rounded-md "
-        >
-          <div className="flex w-full items-center justify-center text-black py-4 rounded-md text-sm font-poppins tracking-tight">
-            Zadzwoń do nas
-          </div>
-          <div className="bg-accent-orange text-white p-2 rounded-md flex justify-center items-center">
-            <ArrowUpRight className="w-4 h-4" />
-          </div>
-        </a>
-      </div>
 
-      <div
-        ref={imageRef}
-        className="relative w-[95%] max-w-[1200px] mx-auto rounded-xl overflow-hidden mt-2"
-      >
-        <img
-          ref={desktopImgRef}
-          src="/photos/firma.webp"
-          alt="firma"
-          className={`hidden sm:block w-full h-[90dvh] object-cover ${enableParallax ? "scale-[1.2]" : ""}`}
-        />
-        <img
-          ref={mobileImgRef}
-          src="/photos/firmatel.webp"
-          alt="firma mobile"
-          className={`sm:hidden w-full h-full object-cover ${enableParallax ? "scale-[1.2]" : ""}`}
-        />
+        <HeroCtaButtons className="mt-5" />
       </div>
     </section>
   );
-};
+}
+
+export function HeroMedia() {
+  return (
+    <section className="-mt-1 w-full bg-background pb-8 font-geist md:-mt-3 md:pb-8">
+      <div className="maxw">
+        <ParallaxImage slides={HERO_SLIDES} objectFocus="top" />
+      </div>
+    </section>
+  );
+}
+
+const Hero = () => (
+  <>
+    <HeroIntro />
+    <HeroMedia />
+  </>
+);
 
 export default Hero;

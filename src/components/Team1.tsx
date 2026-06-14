@@ -1,6 +1,16 @@
 "use client";
-import { useState, useRef } from "react";
-import { Phone, Mail, Check } from "lucide-react";
+
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, Mail, Phone } from "lucide-react";
+import { TextAnimate } from "@/components/ui/text-animate";
+import { useCenteredHorizontalScroll } from "@/hooks/useCenteredHorizontalScroll";
 
 type Person = {
   name: string;
@@ -9,179 +19,493 @@ type Person = {
   role?: string;
 };
 
-type Teams = {
-  handlowcy: Person[];
-  magazyn: Person[];
-  finanse: Person[];
+type TeamKey = "handlowcy" | "magazyn" | "finanse";
+
+const teamOrder: TeamKey[] = ["handlowcy", "magazyn", "finanse"];
+
+const teamLabels: Record<TeamKey, string> = {
+  handlowcy: "Handlowcy",
+  magazyn: "Magazyn",
+  finanse: "Księgowość",
 };
 
-const Team1 = () => {
-  const [activeTab, setActiveTab] = useState<keyof Teams>("handlowcy");
-  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
+const teams: Record<TeamKey, Person[]> = {
+  handlowcy: [
+    {
+      name: "Paweł Pawlak",
+      phone: "691489111",
+      role: "Prezes",
+      email: "p.pawlak@brados.pl",
+    },
+    {
+      name: "Krzysztof Kuchciński",
+      phone: "691032975",
+      role: "Prezes",
+      email: "k.kuchcinski@brados.pl",
+    },
+    {
+      name: "Łukasz Zboch",
+      phone: "697466111",
+      role: "Specjalista ds. Sprzedaży",
+      email: "l.zboch@brados.pl",
+    },
+    {
+      name: "Michał Wlaszczyk",
+      phone: "691745111",
+      role: "Specjalista ds. Sprzedaży",
+      email: "m.wlaszczyk@brados.pl",
+    },
+    {
+      name: "Michał Kleczkowski",
+      phone: "697277588",
+      role: "Specjalista ds. Sprzedaży",
+      email: "m.kleczkowski@brados.pl",
+    },
+    {
+      name: "Jarosław Cegielski",
+      phone: "691585111",
+      role: "Specjalista ds. Sprzedaży",
+      email: "j.cegielski@brados.pl",
+    },
+  ],
+  magazyn: [
+    {
+      name: "Paweł Zawartko",
+      phone: "691725111",
+      role: "Kierownik magazynu",
+      email: "magazyn@brados.pl",
+    },
+    {
+      name: "Artur Kozłowski",
+      role: "Kierowca",
+      phone: "669456111",
+      email: "magazyn@brados.pl",
+    },
+  ],
+  finanse: [
+    {
+      name: "Tomasz Grzesiak",
+      phone: "691479111",
+      role: "Prezes",
+      email: "t.grzesiak@brados.pl",
+    },
+  ],
+};
 
-  const teams: Teams = {
-    handlowcy: [
-      {
-        name: "Paweł Pawlak",
-        phone: "691489111",
-        role: "Prezes",
-        email: "p.pawlak@brados.pl",
-      },
-      {
-        name: "Krzysztof Kuchciński",
-        phone: "691032975",
-        role: "Prezes",
-        email: "k.kuchcinski@brados.pl",
-      },
-      {
-        name: "Łukasz Zboch",
-        phone: "697466111",
-        role: "Specjalista ds. Sprzedaży",
-        email: "l.zboch@brados.pl",
-      },
-      {
-        name: "Michał Wlaszczyk",
-        phone: "691745111",
-        role: "Specjalista ds. Sprzedaży",
-        email: "m.wlaszczyk@brados.pl",
-      },
-      {
-        name: "Michał Kleczkowski",
-        phone: "697277588",
-        role: "Specjalista ds. Sprzedaży",
-        email: "m.kleczkowski@brados.pl",
-      },
-    ],
-    magazyn: [
-      {
-        name: "Paweł Zawartko",
-        phone: "691725111",
-        role: "Kierownik magazynu",
-        email: "magazyn@brados.pl",
-      },
-      {
-        name: "Artur Kozłowski",
-        role: "Kierowca",
-        phone: "669456111",
-        email: "magazyn@brados.pl",
-      },
-    ],
-    finanse: [
-      {
-        name: "Tomasz Grzesiak",
-        phone: "691479111",
-        role: "Prezes",
-        email: "t.grzesiak@brados.pl",
-      },
-    ],
-  };
+function formatPersonCount(count: number) {
+  if (count === 1) return "1 osoba";
+  if (count >= 2 && count <= 4) return `${count} osoby`;
+  return `${count} osób`;
+}
 
-  const handleCopyEmail = (email: string) => {
-    navigator.clipboard.writeText(email).then(() => {
-      setCopiedEmail(email);
-      setTimeout(() => setCopiedEmail(null), 2000);
-    });
-  };
+function TeamCategoryButton({
+  label,
+  isActive,
+  onClick,
+  layout = "nav",
+}: {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+  layout?: "nav" | "scroll";
+}) {
+  return (
+    <motion.button
+      type="button"
+      onClick={onClick}
+      aria-pressed={isActive}
+      animate={{ x: isActive && layout === "nav" ? 10 : 0 }}
+      transition={{ duration: 0.24, ease: "easeOut" }}
+      className={[
+        "inline-flex min-w-0 text-left font-medium transition-colors",
+        layout === "scroll"
+          ? "shrink-0 snap-center flex-col items-center whitespace-nowrap pb-3 text-sm leading-snug tracking-[0.02em]"
+          : "items-start gap-1.5 text-xs leading-snug tracking-[0.01em]",
+        layout === "scroll"
+          ? isActive
+            ? "border-b-2 border-orange text-blackk"
+            : "border-b-2 border-transparent text-blackk/35 hover:text-blackk/55"
+          : isActive
+            ? "text-blackk"
+            : "text-blackk/40 hover:text-blackk/65",
+      ].join(" ")}
+    >
+      {layout !== "scroll" && (
+        <span
+          className="inline-flex h-[1.15em] w-4 shrink-0 items-center justify-start overflow-hidden"
+          aria-hidden
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {isActive && (
+              <motion.span
+                key="dash"
+                initial={{ opacity: 0, x: -14 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 14 }}
+                transition={{ duration: 0.24, ease: "easeOut" }}
+                className="block leading-none text-orange"
+              >
+                —
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </span>
+      )}
+      <span>{label}</span>
+    </motion.button>
+  );
+}
+
+function formatPhone(phone: string) {
+  return phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
+}
+
+function TeamPersonMobile({
+  person,
+  copiedEmail,
+  onCopyEmail,
+  isLast = false,
+}: {
+  person: Person;
+  copiedEmail: string | null;
+  onCopyEmail: (email: string) => void;
+  isLast?: boolean;
+}) {
+  const isCopied = copiedEmail === person.email;
 
   return (
-    <div className="w-full h-full bg-linear-to-t from-stone-100 to-white pb-20">
+    <article
+      className={["py-6", !isLast && "border-b border-blackk/8"].join(" ")}
+    >
+      <div>
+        <p className="text-lg font-medium leading-snug tracking-[-0.01em] text-blackk">
+          {person.name}
+        </p>
+        {person.role && (
+          <p className="mt-0.5 text-xs leading-snug text-blackk/50">
+            {person.role}
+          </p>
+        )}
+      </div>
 
-      <div
-        ref={sectionRef}
-        id="zespół"
-        className="min-h-svh mx-auto  w-[95%] self-center max-w-[1200px] flex justify-center items-center relative rounded-xl overflow-hidden"
+      <a
+        href={`tel:${person.phone}`}
+        className="mt-4 flex min-h-12 items-center justify-between gap-3 py-3 text-xl font-medium tracking-[-0.02em] text-blackk transition-colors active:text-orange"
       >
-        <div className="relative py-20 flex flex-col items-center gap-2 w-full max-w-[1200px] mx-auto">
-          <h2 className="text-sm leading-tight text-center font-poppins tracking-tight">
-            Poznaj nasz zespół <br />
-            <p className="inline-flex text-black/60"> Ludzi tworzących Brados</p>
+        <span>{formatPhone(person.phone)}</span>
+        <Phone className="h-5 w-5 shrink-0 text-orange" strokeWidth={1.5} />
+      </a>
+
+      <button
+        type="button"
+        onClick={() => onCopyEmail(person.email)}
+        className="mt-1 flex w-full cursor-pointer items-center justify-between gap-2 py-2 text-left text-xs text-blackk/55 transition-colors active:text-blackk"
+      >
+        <span className="truncate">{person.email}</span>
+        {isCopied ? (
+          <Check className="h-3.5 w-3.5 shrink-0 text-green-600" />
+        ) : (
+          <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" />
+        )}
+      </button>
+    </article>
+  );
+}
+
+function TeamPersonCard({
+  person,
+  copiedEmail,
+  onCopyEmail,
+}: {
+  person: Person;
+  copiedEmail: string | null;
+  onCopyEmail: (email: string) => void;
+}) {
+  const isCopied = copiedEmail === person.email;
+
+  return (
+    <article className="tile-surface flex aspect-[3/4] h-full min-w-0 flex-col justify-between p-5">
+      <div>
+        <p className="text-lg font-medium leading-snug tracking-[-0.01em] text-blackk">
+          {person.name}
+        </p>
+        {person.role && (
+          <p className="mt-0.5 text-xs leading-snug text-blackk/50">
+            {person.role}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <a
+          href={`tel:${person.phone}`}
+          className="flex min-h-12 items-center justify-between gap-3 py-3 text-xl font-medium tracking-[-0.02em] text-blackk transition-colors hover:text-orange"
+        >
+          <span>{formatPhone(person.phone)}</span>
+          <Phone className="h-5 w-5 shrink-0 text-orange" strokeWidth={1.5} />
+        </a>
+
+        <button
+          type="button"
+          onClick={() => onCopyEmail(person.email)}
+          className="flex w-full cursor-pointer items-center justify-between gap-2 py-2 text-left text-xs text-blackk/55 transition-colors hover:text-blackk"
+        >
+          <span className="truncate">{person.email}</span>
+          {isCopied ? (
+            <Check className="h-3.5 w-3.5 shrink-0 text-green-600" />
+          ) : (
+            <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" />
+          )}
+        </button>
+      </div>
+    </article>
+  );
+}
+
+const Team1 = () => {
+  const [activeTeam, setActiveTeam] = useState<TeamKey>("handlowcy");
+  const [activeSection, setActiveSection] = useState<TeamKey>("handlowcy");
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+  const titlesScrollRef = useRef<HTMLDivElement | null>(null);
+  const skipTitleSyncRef = useRef(false);
+  const sectionRefs = useRef<Record<TeamKey, HTMLElement | null>>({
+    handlowcy: null,
+    magazyn: null,
+    finanse: null,
+  });
+
+  const scrollTitleIntoView = useCallback(
+    (team: TeamKey, behavior: ScrollBehavior = "smooth") => {
+      const container = titlesScrollRef.current;
+      const chip = container?.querySelector<HTMLElement>(
+        `[data-team-title="${team}"]`
+      );
+
+      if (!container || !chip || container.clientWidth === 0) return;
+
+      skipTitleSyncRef.current = true;
+      container.scrollTo({
+        left:
+          chip.offsetLeft + chip.offsetWidth / 2 - container.clientWidth / 2,
+        behavior,
+      });
+      window.setTimeout(() => {
+        skipTitleSyncRef.current = false;
+      }, behavior === "smooth" ? 400 : 0);
+    },
+    []
+  );
+
+  const activeTeamRef = useRef<TeamKey>(activeTeam);
+  activeTeamRef.current = activeTeam;
+
+  const handleMobileTeamChange = useCallback((team: TeamKey) => {
+    if (activeTeamRef.current === team) return;
+    activeTeamRef.current = team;
+    setActiveTeam(team);
+  }, []);
+
+  useCenteredHorizontalScroll<TeamKey>(
+    titlesScrollRef,
+    "[data-team-title]",
+    handleMobileTeamChange,
+    (element) => element.dataset.teamTitle as TeamKey,
+    { enabled: true, skipSyncRef: skipTitleSyncRef }
+  );
+
+  const scrollToSection = useCallback((team: TeamKey) => {
+    const section = sectionRefs.current[team];
+    if (!section) return;
+
+    const top = section.getBoundingClientRect().top + window.scrollY - 120;
+    window.scrollTo({ top, behavior: "smooth" });
+    setActiveSection(team);
+  }, []);
+
+  const handleCopyEmail = useCallback((email: string) => {
+    navigator.clipboard.writeText(email).then(() => {
+      setCopiedEmail(email);
+      window.setTimeout(() => setCopiedEmail(null), 2000);
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    scrollTitleIntoView("handlowcy", "auto");
+  }, [scrollTitleIntoView]);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    teamOrder.forEach((team) => {
+      const el = sectionRefs.current[team];
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(team);
+            scrollTitleIntoView(team);
+          }
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((observer) => observer.disconnect());
+  }, [scrollTitleIntoView]);
+
+  return (
+    <section
+      id="zespół"
+      className="w-full bg-white py-8 font-geist md:py-12"
+    >
+      <div className="maxw relative flex flex-col gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:items-stretch md:gap-x-5 md:gap-y-8">
+          <div
+            className="hidden md:block md:col-start-1 md:row-start-1"
+            aria-hidden
+          />
+
+          <h2 className="heading-h2 flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              className="block"
+            >
+              Poznaj nasz zespół.
+            </TextAnimate>
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              delay={0.2}
+              className="hidden text-blackk/45 md:block"
+            >
+              Ludzie, którzy tworzą Brados na co dzień.
+            </TextAnimate>
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              delay={0.2}
+              className="block text-blackk/45 md:hidden"
+            >
+              Ludzie, którzy tworzą Brados
+            </TextAnimate>
+            <TextAnimate
+              as="span"
+              animation="fadeIn"
+              by="text"
+              once
+              delay={0.3}
+              className="block text-blackk/45 md:hidden"
+            >
+              na co dzień.
+            </TextAnimate>
           </h2>
 
-          <div className="flex gap-3 mt-8 flex-wrap justify-center font-poppins tracking-tight z-20 text-sm">
-            {(Object.keys(teams) as (keyof Teams)[]).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-md transition cursor-pointer ${activeTab === tab ? "bg-black text-white" : "bg-white border"
-                  }`}
-              >
-                {tab === "handlowcy"
-                  ? "Handlowcy"
-                  : tab === "magazyn"
-                    ? "Magazyn"
-                    : "Rachunki i finanse"}
-              </button>
+          <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:min-h-full md:pr-4">
+            <div className="shrink-0">
+              <h3 className="heading-h3 text-blackk">Struktura naszego zespołu</h3>
+              <p className="mt-3 mb-6 text-sm font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
+                Wybierz dział i skontaktuj się bezpośrednio z właściwą osobą.
+              </p>
+            </div>
+
+            <nav
+              className="z-10 hidden w-full shrink-0 flex-col gap-2.5 self-start md:sticky md:top-28 md:flex"
+              aria-label="Działy zespołu"
+            >
+              {teamOrder.map((team) => (
+                <TeamCategoryButton
+                  key={team}
+                  label={teamLabels[team]}
+                  isActive={team === activeSection}
+                  onClick={() => scrollToSection(team)}
+                />
+              ))}
+            </nav>
+          </aside>
+
+          <div className="relative left-1/2 w-screen -translate-x-1/2 border-b border-blackk/10 md:hidden">
+            <div
+              ref={titlesScrollRef}
+              className="flex snap-x snap-mandatory gap-8 overflow-x-auto px-[50vw] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {teamOrder.map((team) => (
+                <span key={team} data-team-title={team} className="snap-center">
+                  <TeamCategoryButton
+                    label={teamLabels[team]}
+                    isActive={team === activeTeam}
+                    onClick={() => {
+                      activeTeamRef.current = team;
+                      setActiveTeam(team);
+                      scrollTitleIntoView(team);
+                    }}
+                    layout="scroll"
+                  />
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-[11px] tracking-[0.02em] text-blackk/45 md:hidden">
+            {teamLabels[activeTeam]} ·{" "}
+            {formatPersonCount(teams[activeTeam].length)}
+          </p>
+
+          <div className="border-t border-blackk/10 md:hidden">
+            {teams[activeTeam].map((person, index, list) => (
+              <TeamPersonMobile
+                key={`${activeTeam}-${person.email}-${person.name}`}
+                person={person}
+                copiedEmail={copiedEmail}
+                onCopyEmail={handleCopyEmail}
+                isLast={index === list.length - 1}
+              />
             ))}
           </div>
-          <div className="mt-10 font-poppins tracking-tight z-20 flex flex-col gap-3 w-full max-w-[800px]">
-            {teams[activeTab].map((person, index) => (
+
+          <div className="hidden flex-col gap-12 md:col-span-3 md:col-start-2 md:row-start-2 md:flex">
+            {teamOrder.map((team) => (
               <div
-                key={index}
-                className="group bg-white border border-black/20 rounded-lg p-4"
+                key={team}
+                ref={(el) => {
+                  sectionRefs.current[team] = el;
+                }}
+                id={`team-${team}`}
+                className="scroll-mt-28"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div className="flex-1 ml-0.5">
-                    <h3 className="text-xl font-medium text-black">
-                      {person.name}
-                    </h3>
-                    {person.role && (
-                      <p className="text-sm text-black/50 mt-0.5">
-                        {person.role}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
-                    <a
-                      href={`tel:${person.phone}`}
-                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 ring-0 hover:ring hover:ring-accent-orange hover:ring-offset-2 ring-offset-0 transition-all duration-300 bg-white"
-                    >
-                      {person.phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3")}
-                      <span className="flex items-center justify-center w-8 h-8 rounded-md bg-accent-orange">
-                        <Phone className="w-4 h-4 text-white" />
-                      </span>
-                    </a>
-
-                    <button
-                      onClick={() => handleCopyEmail(person.email)}
-                      className="text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 ring-0 hover:ring hover:ring-accent-orange hover:ring-offset-2 ring-offset-0 transition-all duration-300 bg-white cursor-pointer"
-                    >
-                      {person.email}
-                      <span className={`flex items-center justify-center w-8 h-8 rounded-md ${copiedEmail === person.email ? 'bg-green-500' : 'bg-accent-orange'} transition-colors`}>
-                        {copiedEmail === person.email ? (
-                          <Check className="w-4 h-4 text-white" />
-                        ) : (
-                          <Mail className="w-4 h-4 text-white" />
-                        )}
-                      </span>
-                    </button>
-                  </div>
+                <h3 className="heading-h3 mb-4 text-blackk">{teamLabels[team]}</h3>
+                <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
+                  {teams[team].map((person) => (
+                    <TeamPersonCard
+                      key={`${team}-${person.email}-${person.name}`}
+                      person={person}
+                      copiedEmail={copiedEmail}
+                      onCopyEmail={handleCopyEmail}
+                    />
+                  ))}
                 </div>
               </div>
             ))}
           </div>
-
-          <div className="about-subtext max-w-2xl text-center mt-10 px-4 font-poppins tracking-tight">
-            <p className="text-sm">
-              Nasza siła tkwi w ludziach - to oni nadają kierunek i charakter
-              Brados.
-            </p>
-            <p className="text-gray-500 mt-2 text-sm">
-              Każdy członek zespołu wnosi doświadczenie, pasję i zaangażowanie,
-              dzięki którym możemy wspólnie tworzyć nowoczesne rozwiązania dla
-              naszych klientów.
-            </p>
-          </div>
         </div>
 
         {copiedEmail && (
-          <div className="fixed z-50 bottom-6 right-6 bg-accent-orange text-white px-4 py-2 rounded-md shadow-lg text-sm font-poppins tracking-tight">
+          <div className="fixed bottom-6 right-6 z-50 rounded-sm bg-orange border border-blackk/10 px-4 py-2 text-sm text-white shadow-lg">
             Skopiowano e-mail: {copiedEmail}
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

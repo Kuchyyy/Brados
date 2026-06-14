@@ -1,84 +1,149 @@
 "use client";
 
-import { useRef } from "react";
+import type { ReactNode } from "react";
 import { Ripple } from "./ui/shadcn-io/ripple";
 import Numbers from "./Numbers";
 
+type AboutTileData = {
+  id: string;
+  title: string;
+  desc: string;
+  variant: "elsigma" | "mission" | "stats";
+  frameBg: string;
+};
+const tiles: AboutTileData[] = [
+  {
+    id: "1",
+    title: "El-Sigma",
+    desc: "Partnerstwo z liderem dystrybucji elektrotechnicznej w Polsce to gwarancja stabilności i najwyższej jakości.",
+    variant: "elsigma",
+    frameBg: "oklch(97% 0 0)",
+  },
+  {
+    id: "2",
+    title: "Rozwiązania dla Twoich potrzeb",
+    desc: "Dostarczamy niezawodne rozwiązania, które zwiększają efektywność i ułatwiają codzienną pracę naszych klientów.",
+    variant: "mission",
+    frameBg: "oklch(97% 0 0)",
+  },
+  {
+    id: "3",
+    title: "Satysfakcja naszych klientów",
+    desc: "Setki pozytywnych opinii i zaufanie klientów to najlepszy dowód na jakość naszych usług.",
+    variant: "stats",
+    frameBg: "oklch(97% 0 0)",
+  },
+];
 
-const About = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+const aboutWindowClassName =
+  "relative mt-8 w-full shrink-0 overflow-hidden rounded-sm border border-blackk/10 h-[15rem] md:mt-auto h-[26rem]";
 
+function AboutCardWindow({
+  children,
+  frameBg,
+}: {
+  children: ReactNode;
+  frameBg: string;
+}) {
   return (
-    <div className="w-full bg-linear-to-b from-stone-100 to-white">
-      <div className="w-full flex justify-center items-center bg-linear-to-t from-stone-100 to-white border border-black/20 rounded-4xl">
-        <section
-          id="about"
-          className="py-20 w-[95%] max-w-[1200px] mx-auto min-h-svh"
-        >
-          <div className="mb-10 ml-1 text-center flex flex-col font-poppins tracking-tight">
-            <p className="text-sm text-black">Poznaj naszą firmę</p>
-            <h2 className="text-sm text-black/60">
-              Dlaczego warto wybrać właśnie nas
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 auto-rows-fr font-robert-medium">
-
-            <div className="col-span-1 flex flex-col gap-3 h-full">
-
-              <div className="relative overflow-hidden border border-black/20 rounded-xl bg-white p-6 flex flex-col justify-between flex-1 ">
-                <div className="mt-3 md:mt-0 font-poppins tracking-tight">
-                  <h3 className="text-xl  mb-1 text-black">
-                    El-Sigma
-                  </h3>
-                  <p className="text-black/80 text-sm">
-                    Współpraca z największą w Polsce siecią dystrybucji materiałów
-                    elektrotechnicznych to gwarancja niezawodności i najwyższych standardów.
-                  </p>
-
-                </div>
-                <div className="relative h-full top-7 md:top-10 -right-7">
-
-                  <div className="flex justify-center items-center mt-4 sm:mt-0 h-full border border-black/20 bg-stone-50 rounded-tl-xl p-4 ">
-                    <img
-                      src="/photos/elsigma.webp"
-                      alt="Logo El-Sigma"
-                      className="object-contain pointer-events-none w-full h-full select-none pt-2"
-                    />
-                  </div>
-                </div>
-              </div>
-
-
-              <div className="relative overflow-hidden flex-1 rounded-xl bg-white p-6  flex items-end border border-black/20 aspect-square">
-                <Ripple className="z-0 opacity-40" />
-                <div className="relative z-10 font-poppins tracking-tight">
-                  <h4 className="text-xl mb-1 text-black">
-                    Nasza Misja
-                  </h4>
-                  <p className="text-black/80 text-sm">
-                    Łączymy technologię i doświadczenie, aby dostarczać klientom
-                    rozwiązania, które inspirują i wspierają codzienną pracę.
-                  </p>
-                </div>
-
-                <img src="photos/logo3d.webp" alt="" className="absolute top-1/2 left-1/2 w-40 -translate-x-1/2 -translate-y-1/2" />
-
-              </div>
-            </div>
-
-
-            <div
-              ref={containerRef}
-              className="col-span-1 relative overflow-hidden border border-black/20 rounded-xl bg-white flex items-start"
-            >
-              <Numbers />
-            </div>
-          </div>
-        </section>
+    <div
+      className={aboutWindowClassName}
+      style={{ backgroundColor: frameBg }}
+    >
+      <div className="absolute inset-y-6 right-0 left-6 overflow-hidden rounded-l-xl bg-white">
+        <div className="relative flex h-full items-center justify-center overflow-hidden border border-r-0 border-blackk/10 p-4 sm:p-5">
+          {children}
+        </div>
       </div>
     </div>
   );
-};
+}
+
+function AboutCard({
+  title,
+  desc,
+  frameBg,
+  children,
+}: {
+  title: string;
+  desc: string;
+  frameBg: string;
+  children: ReactNode;
+}) {
+  return (
+    <article className="flex h-full min-w-0 flex-col rounded-sm border border-blackk/10 bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] min-h-140">
+      <div className="text-left">
+        <h3 className="font-gesit leading-snug tracking-tight text-blackk sm:text-xl">
+          {title}
+        </h3>
+        <p className="mt-2 max-w-none text-left font-geist text-sm leading-relaxed text-blackk/55 sm:text-[0.95rem]">
+          {desc}
+        </p>
+      </div>
+
+      <AboutCardWindow frameBg={frameBg}>{children}</AboutCardWindow>
+    </article>
+  );
+}
+
+function TileVisual({ variant }: { variant: AboutTileData["variant"] }) {
+  if (variant === "elsigma") {
+    return (
+      <img
+        src="/photos/logo-elsigma.webp"
+        alt="Logo El-Sigma"
+        className="pointer-events-none max-h-full w-full max-w-[320px] select-none object-contain"
+      />
+    );
+  }
+
+  if (variant === "mission") {
+    return (
+      <div className="relative flex h-full w-full items-center justify-center">
+        <Ripple className="z-0 opacity-35" />
+        <img
+          src="/photos/logo3d.webp"
+          alt="Logo Brados"
+          className="relative z-[1] max-h-[75%] w-auto max-w-[9rem] object-contain sm:max-w-[10rem]"
+        />
+      </div>
+    );
+  }
+
+  return <Numbers hideHeader className="h-full w-full min-h-0" />;
+}
+
+const About = () => (
+  <div className="bg-background">
+    <section
+      id="about"
+      className="w-full overflow-hidden  bg-white py-8 font-geist"
+    >
+      <div className="maxw flex flex-col gap-3">
+        <div className="hidden md:block" aria-hidden />
+
+        <h2 className="heading-h3 flex flex-col justify-between py-8 md:col-span-3 md:col-start-2 md:mb-0 ">
+          <span className="text-blackk">Poznaj naszą firmę.</span>
+          <span className="text-blackk/45">Zaplecze dla Twoich projektów</span>
+        </h2>
+
+
+        <div className="grid grid-cols-1 items-stretch gap-2 md:grid-cols-3">
+          {tiles.map((tile) => (
+            <AboutCard
+              key={tile.id}
+              title={tile.title}
+              desc={tile.desc}
+              frameBg={tile.frameBg}
+            >
+              <TileVisual variant={tile.variant} />
+            </AboutCard>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </div>
+);
 
 export default About;

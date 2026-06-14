@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-
-type Faq = {
+type FaqItem = {
   question: string;
   answer: string;
 };
 
-const faqs: Faq[] = [
+const faqs: FaqItem[] = [
   {
     question: "Jak złożyć zamówienie?",
     answer:
@@ -42,62 +41,59 @@ const faqs: Faq[] = [
   },
 ];
 
-
 const Faq = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? -1 : index);
   };
 
   return (
-    <div className="w-full flex justify-center items-center">
-      <section className="relative w-full bg-linear-to-t from-stone-100 to-white">
-        <div className="mx-auto max-w-[800px] w-[95%] py-10">
-          <div className="flex flex-col items-center gap-0.5 mb-10">
-            <h2 className="text-sm leading-tight text-center font-poppins tracking-tight ">
-              Najczęściej zadawane pytania <br />
+    <div className="bg-white">
+      <section className="w-full bg-background py-16 font-geist md:py-24 ">
+        <div className="maxw grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16">
+          <h2 className="font-gesit text-xl font-normal tracking-tight text-blackk md:text-2xl">
+            Pytania i odpowiedzi
+          </h2>
 
-            </h2>
-            <span className="text-black/60 text-sm ">
-              Może właśnie tutaj jest odpowiedź, której szukasz
-            </span>
-          </div>
+          <div>
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
 
-          <div className="rounded-xl overflow-hidden bg-white border border-black/20">
-            {faqs.map((faq, index) => (
-              <div key={faq.question}>
-                {index !== 0 && (
-                  <hr className="border-t border-dashed border-zinc-300" />
-                )}
-
-                <button
-                  className="w-full flex justify-between items-center px-6 py-4 text-left text-md font-medium text-black cursor-pointer"
-                  onClick={() => toggle(index)}
-                >
-                  {faq.question}
-                  <Plus
-                    className={`transition-transform duration-300 shrink-0 ${openIndex === index ? "rotate-45" : ""
-                      }`}
-                  />
-                </button>
-
+              return (
                 <div
-                  className={`px-6 pb-4 text-black/60 transition-all text-sm duration-500 ${openIndex === index
-                    ? "max-h-[500px] opacity-100"
-                    : "max-h-0 opacity-0 overflow-hidden"
-                    }`}
+                  key={faq.question}
+                  className="border-b border-blackk/10"
                 >
-                  {faq.answer}
+                  <button
+                    type="button"
+                    className="flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-geist text-sm font-normal text-blackk md:text-base"
+                    onClick={() => toggle(index)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.question}</span>
+                    <ChevronDown
+                      className={`size-4 shrink-0 text-blackk/40 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                        }`}
+                      aria-hidden
+                    />
+                  </button>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      }`}
+                  >
+                    <p className="pb-5 font-geist text-sm leading-relaxed text-blackk/55">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
     </div>
-
-
   );
 };
 

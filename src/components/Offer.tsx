@@ -1,18 +1,20 @@
 "use client";
-import React, { useEffect, useRef, useState, type Key } from "react";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+
 import {
-  Settings,
-  Wifi,
-  Box,
-  Plug,
-  Lightbulb,
-  Antenna,
-  Zap,
-  Circle,
-} from "lucide-react";
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { Link } from "react-router-dom";
+import { ofertaNavItems } from "@/data/oferta-nav";
 import { pages } from "../data/page";
+import { useCenteredHorizontalScroll } from "@/hooks/useCenteredHorizontalScroll";
 import {
   Carousel,
   CarouselContent,
@@ -20,253 +22,459 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 
-const firstCarouselItems = [
-  {
-    id: "1",
-    icon: <Settings />,
-    label: "Aparatura modułowa i sterowanie",
-    description:
-      "Nowoczesne sterowniki, moduły i systemy automatyki. Idealne do precyzyjnego zarządzania instalacjami i procesami.",
-  },
-  {
-    id: "2",
-    icon: <Wifi />,
-    label: "Narzędzia i mierniki",
-    description:
-      "Profesjonalne multimetry, testery i akcesoria pomiarowe. Niezawodne wsparcie w codziennej pracy instalatora.",
-  },
-  {
-    id: "3",
-    icon: <Zap />,
-    label: "Sieci niskoprądowe i okablowanie strukturalne",
-    description:
-      "Kompleksowe rozwiązania do transmisji danych i sygnałów. Stabilne instalacje dla biur, przemysłu i domu.",
-  },
-  {
-    id: "4",
-    icon: <Box />,
-    label: "Rozdzielnice i obudowy",
-    description:
-      "Bezpieczne rozdzielnice i obudowy do każdej instalacji. Ochrona sprzętu i estetyczne wykończenie systemów.",
-  },
-  {
-    id: "5",
-    icon: <Plug />,
-    label: "Osprzęt elektroinstalacyjny i siłowy",
-    description:
-      "Gniazda, wyłączniki i złącza najwyższej jakości. Trwałość, bezpieczeństwo i nowoczesny design.",
-  },
-];
+type OfferItem = {
+  id: string;
+  icon: ReactNode;
+  label: string;
+  description: string;
+};
 
-const secondCarouselItems = [
-  {
-    id: "6",
-    icon: <Lightbulb />,
-    label: "Technika świetlna",
-    description:
-      "Lampy, oprawy i oświetlenie LED do każdego wnętrza. Energooszczędne rozwiązania i nowoczesny styl.",
-  },
-  {
-    id: "7",
-    icon: <Antenna />,
-    label: "System tras i mocowania",
-    description:
-      "Kanały, koryta i uchwyty montażowe do kabli. Porządek, bezpieczeństwo i szybki montaż.",
-  },
-  {
-    id: "8",
-    icon: <Plug />,
-    label: "Kable i przewody",
-    description:
-      "Przewody energetyczne i sygnałowe o wysokiej jakości. Niezawodne w każdej instalacji.",
-  },
-  {
-    id: "9",
-    icon: <Zap />,
-    label: "Ochrona odgromowa",
-    description:
-      "Systemy ochrony przed wyładowaniami atmosferycznymi. Bezpieczeństwo budynków i instalacji.",
-  },
-  {
-    id: "10",
-    icon: <Circle />,
-    label: "Pozostałe",
-    description:
-      "Dodatkowe akcesoria i komponenty do instalacji. Wszystko, czego potrzebujesz w jednym miejscu.",
-  },
-];
+const offerItems: OfferItem[] = ofertaNavItems.map(
+  ({ id, label, shortDescription, icon: Icon }) => ({
+    id,
+    label,
+    description: shortDescription,
+    icon: <Icon className="h-7 w-7" strokeWidth={1.25} />,
+  })
+);
 
-const Offer = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, [hasAnimated]);
-
-  const CarouselSection = ({
-    items,
-    startIndex,
-  }: {
-    items: {
-      id: Key;
-      icon: React.ReactNode;
-      label: string;
-      description?: string;
-    }[];
-    startIndex: number;
-  }) => {
-    const [api, setApi] = useState<CarouselApi>();
-    const [current, setCurrent] = useState(0);
-
-    useEffect(() => {
-      if (!api) return;
-
-      setCurrent(api.selectedScrollSnap());
-
-      api.on("select", () => {
-        setCurrent(api.selectedScrollSnap());
-      });
-    }, [api]);
-
-    const scrollPrev = () => {
-      api?.scrollPrev();
-    };
-
-    const scrollNext = () => {
-      api?.scrollNext();
-    };
-
-    return (
-      <div className="relative w-full mt-2 py-4 transition-all duration-700 ease-out">
-        <Carousel
-          setApi={setApi}
-          className="w-full"
-          opts={{
-            align: isMobile ? "center" : "start",
-            containScroll: "trimSnaps",
-          }}
+function OfferCategoryButton({
+  label,
+  isActive,
+  onClick,
+  layout = "nav",
+}: {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+  layout?: "nav" | "scroll";
+}) {
+  return (
+    <motion.button
+      type="button"
+      onClick={onClick}
+      aria-pressed={isActive}
+      animate={{ x: isActive && layout === "nav" ? 10 : 0 }}
+      transition={{ duration: 0.24, ease: "easeOut" }}
+      className={[
+        "inline-flex min-w-0 text-left font-medium transition-colors",
+        layout === "scroll"
+          ? "shrink-0 snap-center flex-col items-center whitespace-nowrap pb-3 text-sm leading-snug tracking-[0.02em]"
+          : "items-start gap-1.5 text-xs leading-snug tracking-[0.01em]",
+        layout === "scroll"
+          ? isActive
+            ? "border-b-2 border-orange text-blackk"
+            : "border-b-2 border-transparent text-blackk/35 hover:text-blackk/55"
+          : isActive
+            ? "text-blackk"
+            : "text-blackk/40 hover:text-blackk/65",
+      ].join(" ")}
+    >
+      {layout !== "scroll" && (
+        <span
+          className="inline-flex h-[1.15em] w-4 shrink-0 items-center justify-start overflow-hidden"
+          aria-hidden
         >
-          <CarouselContent className="gap-0">
-            {items.map((item, index) => {
-              const page = pages.find((p) => p.id === item.id);
-              const number = String(startIndex + index + 1).padStart(2, "0");
-
-              return (
-                <CarouselItem
-                  key={item.id}
-                  className="basis-full sm:basis-1/2 md:basis-1/3 gap-3"
-                >
-                  <div className="relative aspect-square bg-white rounded-xl p-6 border border-black/20 flex flex-col justify-between h-full mx-3 sm:mx-1">
-                    <div className="
-  absolute top-4 left-5 px-2 py-1 rounded-md
-  text-[10px] font-medium tracking-widest
-  text-black/70
-  bg-white/60 backdrop-blur-sm
-  border border-black/20
-">
-                      {number}
-                    </div>
-
-
-
-
-                    <div className="relative top-10">
-                      <div className="text-accent-orange mb-3 text-2xl">
-                        {item.icon}
-                      </div>
-                      <h3 className="text-base font-medium mb-2">
-                        {item.label}
-                      </h3>
-                      {item.description && (
-                        <p className="text-xs text-black/60">
-                          {item.description}
-                        </p>
-                      )}
-                    </div>
-
-                    {page && (
-                      <Link
-                        to={`/${page.slug}`}
-                        className="group text-sm text-black border border-black/20 rounded-md px-3 py-2 pr-2 flex justify-between items-center gap-2 ring-0 hover:ring hover:ring-accent-orange hover:ring-offset-2 ring-offset-0 transition-all duration-300 bg-white"
-                      >
-                        Dowiedz się więcej
-
-                        <span className="flex items-center justify-center w-8 h-8 rounded-md bg-accent-orange">
-                          <ArrowUpRight className="w-4 h-4 text-white group-hover:rotate-45 duration-300 transition-all" />
-                        </span>
-                      </Link>
-                    )}
-                  </div>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-
-          <div className="flex justify-between items-center mt-4">
-            {isMobile && (
-              <div className="flex justify-center items-center gap-2 w-full">
-                {items.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`transition-all duration-300 rounded-full ${index === current
-                      ? "bg-accent-orange w-8 h-1.5"
-                      : "bg-black/20 w-1.5 h-1.5"
-                      }`}
-                  />
-                ))}
-              </div>
+          <AnimatePresence mode="wait" initial={false}>
+            {isActive && (
+              <motion.span
+                key="dash"
+                initial={{ opacity: 0, x: -14 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 14 }}
+                transition={{ duration: 0.24, ease: "easeOut" }}
+                className="block leading-none text-orange"
+              >
+                —
+              </motion.span>
             )}
+          </AnimatePresence>
+        </span>
+      )}
+      <span>{label}</span>
+    </motion.button>
+  );
+}
 
-            {!isMobile && (
-              <div className="flex justify-end items-center gap-2 w-full mr-1">
-                <button
-                  onClick={scrollPrev}
-                  className="p-2 rounded-md border border-zinc-200 bg-white hover:bg-zinc-50 transition"
-                  aria-label="Poprzednie"
-                >
-                  <ChevronLeft className="w-5 h-5 text-black" />
-                </button>
-                <button
-                  onClick={scrollNext}
-                  className="p-2 rounded-md border border-zinc-200 bg-white hover:bg-zinc-50 transition"
-                  aria-label="Następne"
-                >
-                  <ChevronRight className="w-5 h-5 text-black" />
-                </button>
-              </div>
-            )}
-          </div>
-        </Carousel>
+function OfferCard({ item, index }: { item: OfferItem; index: number }) {
+  const page = pages.find((p) => p.id === item.id);
+  const number = String(index + 1).padStart(2, "0");
+
+  const content = (
+    <>
+      <span className="text-[10px] font-medium tracking-widest text-blackk/45">
+        {number}
+      </span>
+
+      {page && (
+        <ArrowUpRight
+          aria-hidden
+          className="absolute right-4 top-4 h-4 w-4 text-blackk/45 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:text-orange sm:right-5 sm:top-5"
+        />
+      )}
+
+      <div className="flex flex-1 flex-col items-center justify-center py-4">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full border border-blackk/15 bg-neutral-100/80 text-blackk/35 transition-colors duration-300 group-hover:border-blackk/25 group-hover:bg-neutral-100 sm:h-16 sm:w-16">
+          {item.icon}
+        </div>
       </div>
+
+      <p className="mb-0.5 text-sm font-medium leading-snug tracking-[-0.01em] text-blackk">
+        {item.label}
+      </p>
+
+      <p className="line-clamp-2 text-[11px] leading-snug text-blackk/55 sm:text-xs">
+        {item.description}
+      </p>
+    </>
+  );
+
+  const tileClassName =
+    "tile-surface group relative flex min-h-[26rem] w-full flex-1 flex-col p-4 transition-colors duration-300 hover:bg-neutral-200 sm:p-5 md:aspect-auto md:min-h-[30rem]";
+
+  if (!page) {
+    return (
+      <article className="flex h-full min-w-0 flex-col">
+        <div className={tileClassName}>{content}</div>
+      </article>
     );
-  };
+  }
 
   return (
-    <div className="w-full flex items-center justify-center pb-20">
-      <section
-        ref={sectionRef}
-        id="oferta"
-        className="w-full sm:w-[95%] max-w-[1200px] mx-auto overflow-hidden relative mb-2"
-      >
-        <h2 className="text-center text-sm font-poppins tracking-tight mt-2 p-8">
-          Nasza oferta
-          <div className="text-black/60">naciśnij i dowiedz się więcej</div>
-        </h2>
+    <article className="flex h-full min-w-0 flex-col">
+      <Link to={`/${page.slug}`} className={`${tileClassName} cursor-pointer`}>
+        {content}
+      </Link>
+    </article>
+  );
+}
 
-        <CarouselSection items={firstCarouselItems} startIndex={0} />
-        <CarouselSection items={secondCarouselItems} startIndex={5} />
+const Offer = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const titlesScrollRef = useRef<HTMLDivElement | null>(null);
+  const skipTitleSyncRef = useRef(false);
+
+  const scrollTitleIntoView = useCallback(
+    (index: number, behavior: ScrollBehavior = "smooth") => {
+      const container = titlesScrollRef.current;
+      const chip = container?.querySelector<HTMLElement>(
+        `[data-offer-title="${index}"]`
+      );
+
+      if (!container || !chip || container.clientWidth === 0) return;
+
+      skipTitleSyncRef.current = true;
+      container.scrollTo({
+        left:
+          chip.offsetLeft + chip.offsetWidth / 2 - container.clientWidth / 2,
+        behavior,
+      });
+      window.setTimeout(() => {
+        skipTitleSyncRef.current = false;
+      }, behavior === "smooth" ? 400 : 0);
+    },
+    []
+  );
+
+  useLayoutEffect(() => {
+    scrollTitleIntoView(0, "auto");
+  }, [scrollTitleIntoView]);
+
+  const [isMobile, setIsMobile] = useState(false);
+  const activeIndexRef = useRef(activeIndex);
+  activeIndexRef.current = activeIndex;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  const handleMobileOfferChange = useCallback((index: number) => {
+    if (activeIndexRef.current === index) return;
+    activeIndexRef.current = index;
+    setActiveIndex(index);
+  }, []);
+
+  useCenteredHorizontalScroll<number>(
+    titlesScrollRef,
+    "[data-offer-title]",
+    handleMobileOfferChange,
+    (element) => Number(element.dataset.offerTitle),
+    { enabled: isMobile, skipSyncRef: skipTitleSyncRef }
+  );
+
+  const goToCategory = useCallback(
+    (index: number) => {
+      const normalized =
+        ((index % offerItems.length) + offerItems.length) % offerItems.length;
+
+      activeIndexRef.current = normalized;
+      setActiveIndex(normalized);
+      scrollTitleIntoView(normalized);
+      carouselApi?.scrollTo(normalized);
+    },
+    [carouselApi, scrollTitleIntoView]
+  );
+
+  const goToMobilePrev = useCallback(() => {
+    goToCategory(activeIndexRef.current - 1);
+  }, [goToCategory]);
+
+  const goToMobileNext = useCallback(() => {
+    goToCategory(activeIndexRef.current + 1);
+  }, [goToCategory]);
+
+  const scrollCarouselPrev = useCallback(() => {
+    carouselApi?.scrollPrev();
+  }, [carouselApi]);
+
+  const scrollCarouselNext = useCallback(() => {
+    carouselApi?.scrollNext();
+  }, [carouselApi]);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    const onSelect = () => {
+      const index = carouselApi.selectedScrollSnap();
+      const normalized =
+        ((index % offerItems.length) + offerItems.length) %
+        offerItems.length;
+
+      activeIndexRef.current = normalized;
+      setActiveIndex(normalized);
+      if (isMobile) scrollTitleIntoView(normalized);
+    };
+
+    onSelect();
+    carouselApi.on("select", onSelect);
+    carouselApi.on("reInit", onSelect);
+
+    return () => {
+      carouselApi.off("select", onSelect);
+      carouselApi.off("reInit", onSelect);
+    };
+  }, [carouselApi, isMobile, scrollTitleIntoView]);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    const onResize = () => carouselApi.reInit();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [carouselApi]);
+
+  return (
+    <div className="bg-background">
+      <section
+        id="oferta"
+        className="w-full bg-background py-8 font-geist md:py-12"
+      >
+        <div className="maxw flex flex-col gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-x-5 md:gap-y-8">
+            <div
+              className="hidden md:block md:col-start-1 md:row-start-1"
+              aria-hidden
+            />
+
+            <h2 className="heading-h2 flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                className="hidden md:block"
+              >
+                Kompleksowa oferta materiałów elektrycznych i teletechnicznych.
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                className="block md:hidden"
+              >
+                Kompleksowa oferta materiałów
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.15}
+                className="block md:hidden"
+              >
+                elektrycznych i teletechnicznych.
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.2}
+                className="hidden text-blackk/45 md:block"
+              >
+                Wybierz kategorię i sprawdź asortyment.
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.2}
+                className="block text-blackk/45 md:hidden"
+              >
+                Wybierz kategorię i sprawdź
+              </TextAnimate>
+              <TextAnimate
+                as="span"
+                animation="fadeIn"
+                by="text"
+                once
+                delay={0.3}
+                className="block text-blackk/45 md:hidden"
+              >
+                asortyment.
+              </TextAnimate>
+            </h2>
+
+            <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:justify-between md:pr-4">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h3 className="heading-h3 text-blackk">Kategorie asortymentu</h3>
+                  <p className="mt-3 mb-6 text-sm font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
+                    Wybierz dział i przejdź do szczegółów wybranej kategorii.
+                  </p>
+                </div>
+
+                <nav
+                  className="hidden flex-col gap-2.5 md:flex"
+                  aria-label="Kategorie oferty"
+                >
+                  {offerItems.map((item, index) => (
+                    <OfferCategoryButton
+                      key={item.id}
+                      label={item.label}
+                      isActive={index === activeIndex}
+                      onClick={() => goToCategory(index)}
+                    />
+                  ))}
+                </nav>
+              </div>
+
+              <div className=" hidden gap-1 md:flex">
+                <button
+                  type="button"
+                  onClick={scrollCarouselPrev}
+                  aria-label="Poprzednia kategoria"
+                  className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+                >
+                  <ChevronLeft className="size-5" aria-hidden />
+                </button>
+                <button
+                  type="button"
+                  onClick={scrollCarouselNext}
+                  aria-label="Następna kategoria"
+                  className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+                >
+                  <ChevronRight className="size-5" aria-hidden />
+                </button>
+              </div>
+            </aside>
+
+            <div className="relative left-1/2 w-screen -translate-x-1/2 border-b border-blackk/10 md:hidden">
+              <div
+                ref={titlesScrollRef}
+                className="flex snap-x snap-mandatory gap-8 overflow-x-auto px-[50vw] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {offerItems.map((item, index) => (
+                  <span
+                    key={item.id}
+                    data-offer-title={index}
+                    className="snap-center"
+                  >
+                    <OfferCategoryButton
+                      label={item.label}
+                      isActive={index === activeIndex}
+                      onClick={() => goToCategory(index)}
+                      layout="scroll"
+                    />
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[11px] tracking-[0.02em] text-blackk/45 md:hidden">
+              {offerItems[activeIndex].label} · {activeIndex + 1} z{" "}
+              {offerItems.length}
+            </p>
+
+            <div className="md:hidden">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.24, ease: "easeOut" }}
+                >
+                  <OfferCard
+                    item={offerItems[activeIndex]}
+                    index={activeIndex}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-3 flex justify-start gap-1 md:hidden">
+              <button
+                type="button"
+                onClick={goToMobilePrev}
+                aria-label="Poprzednia kategoria"
+                className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+              >
+                <ChevronLeft className="size-5" aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={goToMobileNext}
+                aria-label="Następna kategoria"
+                className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+              >
+                <ChevronRight className="size-5" aria-hidden />
+              </button>
+            </div>
+
+            <div className="hidden min-w-0 md:col-span-3 md:col-start-2 md:row-start-2 md:block">
+              <Carousel
+                setApi={setCarouselApi}
+                opts={{
+                  loop: true,
+                  align: "start",
+                  slidesToScroll: 1,
+                  containScroll: false,
+                }}
+                className="w-full touch-pan-y"
+              >
+                <CarouselContent className="ml-0 !gap-0 lg:!gap-0.5">
+                  {offerItems.map((item, index) => (
+                    <CarouselItem
+                      key={item.id}
+                      className="min-w-0 shrink-0 grow-0 basis-full px-1 first:pl-1.5 sm:pl-0 md:basis-1/2 md:max-w-1/2 lg:basis-[calc((100%_-_0.5rem)/3)] lg:max-w-[calc((100%_-_0.5rem)/3)]"
+                    >
+                      <OfferCard item={item} index={index} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+          </div>
+        </div>
       </section>
+
     </div>
   );
 };

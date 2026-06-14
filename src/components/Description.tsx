@@ -87,7 +87,7 @@ const Description: React.FC<DescriptionProps> = ({
       </div>
 
       <div className="w-full flex justify-center items-center bg-background">
-        <section className="maxw py-16 pt-30 font-geist">
+        <section className="maxw py-16 font-geist">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="md:col-span-2 space-y-6 ml-1">
               <h2 className="heading-h2 text-blackk mb-3 text-start">
@@ -119,11 +119,10 @@ const Description: React.FC<DescriptionProps> = ({
                     <li key={sub.id}>
                       <Link
                         to={`/${sub.slug}`}
-                        className={`flex items-center justify-between rounded-md py-2 px-2 transition-colors ${
-                          isActive
+                        className={`flex items-center justify-between rounded-md py-2 px-2 transition-colors ${isActive
                             ? "bg-tile text-blackk"
                             : "hover:bg-hero-btn-muted hover:text-blackk"
-                        }`}
+                          }`}
                       >
                         <span>{sub.title}</span>
                         <ArrowUpRight size={18} className="shrink-0 w-4 h-4" />

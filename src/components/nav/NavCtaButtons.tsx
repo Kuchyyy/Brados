@@ -1,31 +1,28 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { GOOGLE_MAPS_URL } from "@/components/HeroCtaButtons";
 
-export const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/place/Brados/@51.0680508,16.9550066,17z/data=!3m1!4b1!4m6!3m5!1s0x470fc2e855555555:0x51d44f2bef0f3100!8m2!3d51.0680475!4d16.9575815!16s%2Fg%2F11gf3p5wqp?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D";
+const navButtonBase =
+  "group h-8 rounded-full px-5 font-geist text-sm font-normal shadow-none transition-colors sm:h-9 sm:px-6";
 
-const heroButtonBase =
-  "group h-9 min-w-[9.5rem] rounded-full px-8 font-geist text-sm font-normal shadow-none transition-colors sm:min-w-[10.5rem] sm:px-12";
-
-type HeroCtaButtonsProps = {
+type NavCtaButtonsProps = {
   onTeamClick?: () => void;
   className?: string;
-  centered?: boolean;
+  compact?: boolean;
+  stacked?: boolean;
 };
 
-export default function HeroCtaButtons({
+export default function NavCtaButtons({
   onTeamClick,
   className,
-  centered = false,
-}: HeroCtaButtonsProps) {
+  compact = false,
+  stacked = false,
+}: NavCtaButtonsProps) {
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-2.5",
-        centered && "justify-center",
+        stacked ? "flex w-full flex-col gap-2.5" : "flex items-center gap-2",
         className
       )}
     >
@@ -34,8 +31,10 @@ export default function HeroCtaButtons({
         asChild={!onTeamClick}
         onClick={onTeamClick}
         className={cn(
-          heroButtonBase,
-          "bg-hero-btn text-white hover:bg-blackk/90"
+          navButtonBase,
+          "bg-hero-btn text-white hover:bg-blackk/90",
+          compact && "h-8 px-4 text-xs sm:h-8 sm:px-4 sm:text-xs",
+          stacked && "h-11 w-full rounded-full px-6 text-sm"
         )}
       >
         {onTeamClick ? (
@@ -60,8 +59,10 @@ export default function HeroCtaButtons({
         asChild
         variant="outline"
         className={cn(
-          heroButtonBase,
-          "border-0 bg-hero-btn-muted text-blackk hover:bg-[#deded9]"
+          navButtonBase,
+          "border-0 bg-hero-btn-muted text-blackk hover:bg-[#deded9]",
+          compact && "h-8 px-4 text-xs sm:h-8 sm:px-4 sm:text-xs",
+          stacked && "h-11 w-full rounded-full px-6 text-sm"
         )}
       >
         <a

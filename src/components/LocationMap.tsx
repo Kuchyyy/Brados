@@ -11,14 +11,12 @@ import {
   type MapRef,
 } from "@/components/ui/map";
 import { cn } from "@/lib/utils";
+import { GOOGLE_MAPS_URL } from "@/components/HeroCtaButtons";
 
 const COORDS = {
   lat: 51.0679167,
   lng: 16.9576667,
 };
-
-const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/dir//Brados,+Kwiatkowskiego+17,+52-326+Wroc%C5%82aw/@51.0680508,16.9550066,17z/data=!4m16!1m7!3m6!1s0x470fc2e855555555:0x51d44f2bef0f3100!2sBrados!8m2!3d51.0680475!4d16.9575815!16s%2Fg%2F11gf3p5wqp!4m7!1m0!1m5!1m1!1s0x470fc2e855555555:0x51d44f2bef0f3100!2m2!1d16.9575815!2d51.0680475?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D";
 
 const mapsButtonBase =
   "group h-9 min-w-[9.5rem] rounded-full px-8 font-geist text-sm font-normal shadow-none transition-colors sm:min-w-[10.5rem] sm:px-12";

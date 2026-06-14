@@ -1,6 +1,7 @@
 "use client";
 
-import ParallaxImage, { type ParallaxSlide } from "./ParallaxImage";
+import ParallaxImage from "./ParallaxImage";
+import type { ParallaxSlide } from "@/data/parallax-slides";
 import HeroCtaButtons from "./HeroCtaButtons";
 import { TextAnimate } from "@/components/ui/text-animate";
 
@@ -15,7 +16,7 @@ const HERO_SLIDES: ParallaxSlide[] = [
 export function HeroIntro() {
   return (
     <section className="w-full bg-background font-geist">
-      <div className="maxw pt-38 pb-6 md:pt-62">
+      <div className="maxw pt-38 pb-6 md:pt-42">
         <TextAnimate
           as="h1"
           animation="slideLeft"
@@ -43,9 +44,9 @@ export function HeroIntro() {
 
 export function HeroMedia() {
   return (
-    <section className="w-full bg-background pb-8 font-geist md:pb-8">
+    <section className="-mt-1 w-full bg-background pb-8 font-geist md:-mt-3 md:pb-8">
       <div className="maxw">
-        <ParallaxImage slides={HERO_SLIDES} />
+        <ParallaxImage slides={HERO_SLIDES} objectFocus="top" />
       </div>
     </section>
   );

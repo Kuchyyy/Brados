@@ -11,17 +11,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { TextAnimate } from "@/components/ui/text-animate";
-import {
-  Settings,
-  Wifi,
-  Box,
-  Plug,
-  Lightbulb,
-  Antenna,
-  Zap,
-  Circle,
-} from "lucide-react";
 import { Link } from "react-router-dom";
+import { ofertaNavItems } from "@/data/oferta-nav";
 import { pages } from "../data/page";
 import { useCenteredHorizontalScroll } from "@/hooks/useCenteredHorizontalScroll";
 import {
@@ -38,74 +29,14 @@ type OfferItem = {
   description: string;
 };
 
-const offerItems: OfferItem[] = [
-  {
-    id: "1",
-    icon: <Settings className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Aparatura modułowa i sterowanie",
-    description:
-      "Sterowniki, moduły i systemy automatyki do precyzyjnego zarządzania instalacjami.",
-  },
-  {
-    id: "2",
-    icon: <Wifi className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Narzędzia i mierniki",
-    description:
-      "Multimetry, testery i akcesoria pomiarowe do codziennej pracy instalatora.",
-  },
-  {
-    id: "3",
-    icon: <Zap className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Sieci niskoprądowe i okablowanie",
-    description:
-      "Rozwiązania do transmisji danych i sygnałów w biurach, przemyśle i domu.",
-  },
-  {
-    id: "4",
-    icon: <Box className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Rozdzielnice i obudowy",
-    description:
-      "Rozdzielnice i obudowy chroniące sprzęt i porządkujące instalację.",
-  },
-  {
-    id: "5",
-    icon: <Plug className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Osprzęt elektroinstalacyjny",
-    description:
-      "Gniazda, wyłączniki i złącza — trwałość, bezpieczeństwo i design.",
-  },
-  {
-    id: "6",
-    icon: <Lightbulb className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Technika świetlna",
-    description:
-      "Lampy, oprawy i LED — energooszczędne oświetlenie do każdego wnętrza.",
-  },
-  {
-    id: "7",
-    icon: <Antenna className="h-7 w-7" strokeWidth={1.25} />,
-    label: "System tras i mocowania",
-    description: "Kanały, koryta i uchwyty do szybkiego i bezpiecznego montażu.",
-  },
-  {
-    id: "8",
-    icon: <Plug className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Kable i przewody",
-    description: "Przewody energetyczne i sygnałowe do wymagających instalacji.",
-  },
-  {
-    id: "9",
-    icon: <Zap className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Ochrona odgromowa",
-    description: "Systemy ochrony przed wyładowaniami atmosferycznymi.",
-  },
-  {
-    id: "10",
-    icon: <Circle className="h-7 w-7" strokeWidth={1.25} />,
-    label: "Pozostałe",
-    description: "Akcesoria i komponenty uzupełniające asortyment hurtowni.",
-  },
-];
+const offerItems: OfferItem[] = ofertaNavItems.map(
+  ({ id, label, shortDescription, icon: Icon }) => ({
+    id,
+    label,
+    description: shortDescription,
+    icon: <Icon className="h-7 w-7" strokeWidth={1.25} />,
+  })
+);
 
 function OfferCategoryButton({
   label,
@@ -434,7 +365,7 @@ const Offer = () => {
                 </nav>
               </div>
 
-              <div className="ml-5.5 hidden gap-1 md:flex">
+              <div className=" hidden gap-1 md:flex">
                 <button
                   type="button"
                   onClick={scrollCarouselPrev}

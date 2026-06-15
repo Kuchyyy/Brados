@@ -86,7 +86,7 @@ const Description: React.FC<DescriptionProps> = ({
         </h2>
       </div>
 
-      <div className="w-full flex justify-center items-center bg-background">
+      <div className="w-full flex justify-center items-center bg-white pt-20">
         <section className="maxw py-16 font-geist">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="md:col-span-2 space-y-6 ml-1">
@@ -120,8 +120,8 @@ const Description: React.FC<DescriptionProps> = ({
                       <Link
                         to={`/${sub.slug}`}
                         className={`flex items-center justify-between rounded-md py-2 px-2 transition-colors ${isActive
-                            ? "bg-tile text-blackk"
-                            : "hover:bg-hero-btn-muted hover:text-blackk"
+                          ? "bg-tile text-blackk"
+                          : "hover:bg-hero-btn-muted hover:text-blackk"
                           }`}
                       >
                         <span>{sub.title}</span>
@@ -135,14 +135,11 @@ const Description: React.FC<DescriptionProps> = ({
           </div>
 
           <div className="mt-16">
-            <h2 className="heading-h2 text-blackk mb-6 text-start ml-1">
-              Partnerzy
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 items-center justify-items-center w-full">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1.5 items-center justify-items-center w-full">
               {producers.map((logo, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-center w-full aspect-square bg-tile rounded-lg border border-blackk/8"
+                  className="flex items-center justify-center w-full aspect-square bg-neutral-50 rounded-md border border-blackk/8"
                 >
                   <img
                     src={logo}

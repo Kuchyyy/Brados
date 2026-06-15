@@ -49,7 +49,7 @@ export const pages = [
     producers: [
       "https://elsigma.pl/wp-content/uploads/2023/09/cimco-q7bd6wf77r1r1pbzz7aqkb554l7v02esnsw8ljo0lc.jpg",
       "https://elsigma.pl/wp-content/uploads/2023/09/langelukaszczuk-q7bd7228cr9gzd3t29qhz9pwowg2a916okt5h7fnk0.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Rawlplug_logo.png/1200px-Rawlplug_logo.png",
+      "https://rawlplug.com/media/catalog/reference_object/a/9/2/a/a92a042343336f94e65ade5fc778edb1e5a96375_logo_rawlplug_color.png",
       "https://ce8dc832c.cloudimg.io/cdn/n/n@048143ddd2a844b41fb21ce70e039b725c3edb90/_cs_/2022/01/61e960cb5a965/sonel_logo.png",
       "https://elsigma.pl/wp-content/uploads/2023/09/Drabest-q7bd6wf77r1r1pbzz7aqkb554l7v02esnsw8ljo0lc.jpg",
       "https://elsigma.pl/wp-content/uploads/2023/11/haupa-1-1024x398.jpg",
@@ -81,7 +81,7 @@ export const pages = [
       "https://www.telegaertner.com/_assets/ee86e0084e53ce4c0168692d3b75689a/Img/logo.png",
       "https://upload.wikimedia.org/wikipedia/de/6/62/Draka_logo.svg",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSSKLGpOQnL1ClRN1Cx6BBNBULpU9q3Cclw&s",
-      "https://datwyler.com/assets/img/logo.svg",
+      "https://healthcare.datwyler.com/hubfs/Healthcare/01%20Brand%20Assets/Logos/Logo%20-%20Color.png",
       "https://gonep.com/media/kjcpmylv/molex-logo.png",
       "https://www.ogcs.com.ua/wp-content/uploads/2019/05/rittal.jpg",
 
@@ -151,13 +151,13 @@ export const pages = [
     producers: [
       "https://ckziu.kalisz.pl/wp-content/uploads/2021/10/Logo-Kontakt-Simon.png",
       "https://www.elt.si/wp-content/uploads/2015/06/FAMATEL-Logo-e1433236477181.png",
-      "https://assets.sc.hager.com/uk/-/media/project/hagerdeep/united-kingdom/hager/b2b/support/marketing-support/hager-logo-png.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkH9sFNJZHrKAjiWHiSOwphnwuNH3h9f9rig&s",
       "https://enexon.pl/wp-content/uploads/2019/01/enexon_www_breve_logo.png",
       "https://www.libra.com.pl/assets/res/lib/logotypy/Elgotech.png",
       "https://www.emos.pl/content/wysiwyg/B2C%20PL/emos_logo_a4.png",
       "https://www.archispace.pl/public/uploaded/141/image/logo_ok(1).png",
       "https://www.gowork.pl/media/cache/company_logo_profile_large_webp/uploads/alfa/employee/max/119662.png",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Logo_Legrand_SA.svg/1024px-Logo_Legrand_SA.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Logo_Legrand_SA.svg/1280px-Logo_Legrand_SA.svg.png",
       "https://www.javel.com.pl/files/images/logo.svg",
     ],
   },

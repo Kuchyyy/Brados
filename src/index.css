@@ -33,10 +33,12 @@ body {
   --color-hero-btn: #1c1c1a;
   --color-hero-btn-muted: #e8e8e3;
 
-  --color-background: #f7f7f4;
+  --color-background: oklch(98% 0 0);
   --color-tile: #f0efeb;
   --color-card: #e8e8e3;
 }
+
+
 
 @utility maxw {
   max-width: 1400px;

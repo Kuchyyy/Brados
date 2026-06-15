@@ -23,6 +23,7 @@ type ParallaxImageProps = {
   rotateMs?: number;
   className?: string;
   objectFocus?: "top" | "center";
+  objectFit?: "cover" | "contain";
   activeIndex?: number;
   autoPlay?: boolean;
   showDesktopDots?: boolean;
@@ -40,6 +41,7 @@ export default function ParallaxImage({
   rotateMs = PARALLAX_ROTATE_MS,
   className = "",
   objectFocus = "center",
+  objectFit = "cover",
   activeIndex: controlledIndex,
   autoPlay = true,
   showDesktopDots = false,
@@ -116,17 +118,22 @@ export default function ParallaxImage({
   }, [enableParallax, location.pathname, activeIndex]);
 
   const objectClass = objectFocusClass[objectFocus];
+  const isContain = objectFit === "contain";
   const parallaxImageClass = cn(
-    "absolute inset-x-0 -top-[17.5%] h-[135%] w-full max-w-none will-change-transform",
-    "object-cover",
-    objectClass
+    !isContain &&
+    "absolute inset-x-0 -top-[17.5%] h-[135%] w-full max-w-none will-change-transform object-cover",
+    isContain && "block h-auto w-full rounded-sm object-contain",
+    !isContain && objectClass
   );
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "relative h-[min(72vh,640px)] w-full overflow-hidden rounded-sm sm:h-[min(86vh,900px)]",
+        "relative w-full overflow-hidden rounded-sm",
+        isContain
+          ? "h-auto"
+          : "h-[min(56vh,640px)] sm:h-[min(86vh,900px)]",
         className
       )}
     >
@@ -138,20 +145,23 @@ export default function ParallaxImage({
           <div
             key={`${slide.desktopSrc}-${index}`}
             className={cn(
-              "absolute inset-0 overflow-hidden transition-opacity duration-700 ease-in-out",
-              isActive ? "opacity-100" : "opacity-0"
+              isContain ? "relative" : "absolute inset-0 overflow-hidden",
+              !isContain &&
+              "transition-opacity duration-700 ease-in-out",
+              !isContain && (isActive ? "opacity-100" : "opacity-0"),
+              isContain && !isActive && "hidden"
             )}
             aria-hidden={!isActive}
           >
             <img
-              data-parallax-image
+              {...(!isContain && { "data-parallax-image": true })}
               src={slide.desktopSrc}
               alt={isActive ? slide.alt : ""}
               className={cn("hidden sm:block", parallaxImageClass)}
               loading={index === 0 ? "eager" : "lazy"}
             />
             <img
-              data-parallax-image
+              {...(!isContain && { "data-parallax-image": true })}
               src={mobileSrc}
               alt={isActive ? slide.alt : ""}
               className={cn("block sm:hidden", parallaxImageClass)}

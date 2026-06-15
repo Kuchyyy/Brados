@@ -14,16 +14,14 @@ const CTAAndFooter = () => {
     const scrollToTeam = (attempt = 0) => {
       const element = document.querySelector("#zespół");
       if (!element) {
-        if (attempt < 20) {
+        if (attempt < 30) {
           setTimeout(() => scrollToTeam(attempt + 1), 50);
         }
         return;
       }
+
       const top = element.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top, behavior: attempt === 0 ? "smooth" : "auto" });
-      if (attempt < 5) {
-        setTimeout(() => scrollToTeam(attempt + 1), 300);
-      }
+      window.scrollTo({ top, behavior: "smooth" });
     };
 
     if (location.pathname !== "/") {
@@ -73,9 +71,17 @@ const CTAAndFooter = () => {
                 biznesowych.
               </p>
 
-              <span className="font-geist text-xs text-blackk/40">
-                © {new Date().getFullYear()} Brados
-              </span>
+              <div className="flex flex-col gap-1.5">
+                <span className="font-geist text-xs text-blackk/40">
+                  © {new Date().getFullYear()} Brados
+                </span>
+                <Link
+                  to="/faq"
+                  className="font-geist text-xs text-blackk/40 transition-colors hover:text-blackk"
+                >
+                  FAQ
+                </Link>
+              </div>
             </div>
 
             <div>

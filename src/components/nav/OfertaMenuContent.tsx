@@ -21,7 +21,7 @@ export default function OfertaMenuContent({
       className={cn(
         isDesktop
           ? "grid w-full grid-cols-2 gap-1"
-          : "flex flex-col",
+          : "flex flex-col mb-4",
         className
       )}
     >

@@ -15,7 +15,6 @@ import Faq from "./components/Faq";
 import Subpages from "./components/Subpages";
 import ScrollLoader from "./components/ScrollLoader";
 import ScrollToTop from "./components/ScrollToTop";
-import BottomScrollBlur from "./components/BottomScrollBlur";
 
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
         <Router>
           <ScrollToTop />
           <ScrollLoader />
-          <BottomScrollBlur />
           <Routes>
             <Route
               path="/"

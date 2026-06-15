@@ -9,7 +9,6 @@ type AboutTileData = {
   title: string;
   desc: string;
   variant: "elsigma" | "mission" | "stats";
-  frameBg: string;
 };
 const tiles: AboutTileData[] = [
   {
@@ -17,71 +16,44 @@ const tiles: AboutTileData[] = [
     title: "El-Sigma",
     desc: "Partnerstwo z liderem dystrybucji elektrotechnicznej w Polsce to gwarancja stabilności i najwyższej jakości.",
     variant: "elsigma",
-    frameBg: "oklch(97% 0 0)",
   },
   {
     id: "2",
     title: "Rozwiązania dla Twoich potrzeb",
     desc: "Dostarczamy niezawodne rozwiązania, które zwiększają efektywność i ułatwiają codzienną pracę naszych klientów.",
     variant: "mission",
-    frameBg: "oklch(97% 0 0)",
   },
   {
     id: "3",
     title: "Satysfakcja naszych klientów",
     desc: "Setki pozytywnych opinii i zaufanie klientów to najlepszy dowód na jakość naszych usług.",
     variant: "stats",
-    frameBg: "oklch(97% 0 0)",
   },
 ];
-
-const aboutWindowClassName =
-  "relative mt-8 w-full shrink-0 overflow-hidden rounded-sm border border-blackk/10 h-[15rem] md:mt-auto h-[26rem]";
-
-function AboutCardWindow({
-  children,
-  frameBg,
-}: {
-  children: ReactNode;
-  frameBg: string;
-}) {
-  return (
-    <div
-      className={aboutWindowClassName}
-      style={{ backgroundColor: frameBg }}
-    >
-      <div className="absolute inset-y-6 right-0 left-6 overflow-hidden rounded-l-xl bg-white">
-        <div className="relative flex h-full items-center justify-center overflow-hidden border border-r-0 border-blackk/10 p-4 sm:p-5">
-          {children}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function AboutCard({
   title,
   desc,
-  frameBg,
   children,
 }: {
   title: string;
   desc: string;
-  frameBg: string;
   children: ReactNode;
 }) {
   return (
-    <article className="flex h-full min-w-0 flex-col rounded-sm border border-blackk/10 bg-white p-4 shadow-[0_1px_0_rgba(26,26,26,0.03)] min-h-140">
-      <div className="text-left">
+    <article className="flex min-w-0 flex-col">
+      <div className="flex h-[13.5rem] w-full items-center justify-center overflow-hidden rounded-sm border  border-blackk/10 bg-neutral-50 p-3 sm:h-[18rem] sm:p-4">
+        {children}
+      </div>
+
+      <div className="mt-4">
         <h3 className="font-gesit leading-snug tracking-tight text-blackk sm:text-xl">
           {title}
         </h3>
-        <p className="mt-2 max-w-none text-left font-geist text-sm leading-relaxed text-blackk/55 sm:text-[0.95rem]">
+        <p className="my-2 font-geist text-sm leading-relaxed text-blackk/55 ">
           {desc}
         </p>
       </div>
-
-      <AboutCardWindow frameBg={frameBg}>{children}</AboutCardWindow>
     </article>
   );
 }
@@ -134,7 +106,6 @@ const About = () => (
               key={tile.id}
               title={tile.title}
               desc={tile.desc}
-              frameBg={tile.frameBg}
             >
               <TileVisual variant={tile.variant} />
             </AboutCard>

@@ -34,11 +34,11 @@ export default function BottomScrollBlur() {
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none fixed inset-x-0 bottom-0 z-40 h-28 transition-opacity duration-500 ease-out",
+        "pointer-events-none fixed inset-x-0 bottom-0 z-30 h-28 transition-opacity duration-500 ease-out md:h-32",
         visible ? "opacity-100" : "opacity-0"
       )}
     >
-      <div className="absolute inset-0 backdrop-blur-[10px] [mask-image:linear-gradient(to_top,black_30%,transparent)] [-webkit-mask-image:linear-gradient(to_top,black_30%,transparent)]" />
+      <div className="absolute inset-0 backdrop-blur-[10px] [mask-image:linear-gradient(to_top,black_35%,transparent)] [-webkit-mask-image:linear-gradient(to_top,black_35%,transparent)]" />
     </div>
   );
 }

@@ -64,21 +64,26 @@ export default function MobileNav() {
         <SheetContent
           side="top"
           showCloseButton={false}
-          className="top-16 flex h-[calc(100dvh-4rem)] flex-col gap-0 border-blackk/10 p-0"
+          className="top-16 z-[59] flex h-[calc(100dvh-4rem)] flex-col gap-0 border-blackk/10 p-0"
+          overlayClassName="z-[58]"
         >
           <SheetTitle className="sr-only">Menu nawigacji</SheetTitle>
 
-          <div className="flex-1 overflow-y-auto px-5 py-5">
-            <p className="mb-4 font-geist text-[11px] font-normal tracking-[0.12em] text-blackk/35 uppercase">
-              Oferta
-            </p>
+          <div className="flex-1 overflow-y-auto px-5 py-5 pb-36">
+            <div className="mb-6">
+
+              <p className="mt-2 max-w-sm font-geist text-sm leading-relaxed text-blackk/70">
+                Kompleksowa oferta materiałów elektrycznych i teletechnicznych
+                dla instalatorów, wykonawców i inwestorów.
+              </p>
+            </div>
             <OfertaMenuContent
               variant="mobile"
               onItemClick={() => setOpen(false)}
             />
           </div>
 
-          <div className="sticky bottom-0 border-t border-blackk/10 bg-white px-4 py-4">
+          <div className="absolute inset-x-0 bottom-0 z-10 border-t border-blackk/10 bg-white px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
             <NavCtaButtons
               stacked
               onTeamClick={() => goHomeAndScroll("#zespół")}

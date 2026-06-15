@@ -22,14 +22,7 @@ export function useHomeScroll(onComplete?: () => void) {
         }
 
         const top = element.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({
-          top,
-          behavior: attempt === 0 ? "smooth" : "auto",
-        });
-
-        if (attempt < 5) {
-          setTimeout(() => scrollToHash(attempt + 1), 300);
-        }
+        window.scrollTo({ top, behavior: "smooth" });
       };
 
       if (location.pathname !== "/") {

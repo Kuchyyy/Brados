@@ -50,7 +50,7 @@ const Faq = () => {
 
   return (
     <div className="bg-white">
-      <section className="w-full bg-background py-16 font-geist md:py-24 ">
+      <section className="w-full bg-background pt-28 pb-16 font-geist md:pt-32 md:pb-24">
         <div className="maxw grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16">
           <h2 className="font-gesit text-xl font-normal tracking-tight text-blackk md:text-2xl">
             Pytania i odpowiedzi

@@ -72,7 +72,7 @@ function CarouselSlideDots({
           aria-label={`Zdjęcie ${index + 1}`}
           onClick={() => onGoTo(index)}
           className={cn(
-            "h-1.5 rounded-full bg-blackk/20 transition-all duration-300",
+            "h-1.5 rounded-full bg-blackk/20 transition-all duration-300 z-30",
             index === activeIndex ? "w-5 bg-blackk/70" : "w-1.5 opacity-60"
           )}
         />

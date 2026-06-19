@@ -268,6 +268,8 @@ const Team1 = () => {
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const titlesScrollRef = useRef<HTMLDivElement | null>(null);
   const skipTitleSyncRef = useRef(false);
+  const desktopNavigationTargetRef = useRef<TeamKey | null>(null);
+  const desktopNavigationTimeoutRef = useRef<number | null>(null);
   const sectionRefs = useRef<Record<TeamKey, HTMLElement | null>>({
     handlowcy: null,
     magazyn: null,
@@ -317,9 +319,28 @@ const Team1 = () => {
     const section = sectionRefs.current[team];
     if (!section) return;
 
-    const top = section.getBoundingClientRect().top + window.scrollY - 120;
-    window.scrollTo({ top, behavior: "smooth" });
+    desktopNavigationTargetRef.current = team;
     setActiveSection(team);
+
+    const top = section.getBoundingClientRect().top + window.scrollY - 120;
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+
+    root.style.scrollBehavior = "auto";
+    window.scrollTo({ top, behavior: "auto" });
+
+    window.requestAnimationFrame(() => {
+      root.style.scrollBehavior = previousScrollBehavior;
+    });
+
+    if (desktopNavigationTimeoutRef.current !== null) {
+      window.clearTimeout(desktopNavigationTimeoutRef.current);
+    }
+
+    desktopNavigationTimeoutRef.current = window.setTimeout(() => {
+      desktopNavigationTargetRef.current = null;
+      desktopNavigationTimeoutRef.current = null;
+    }, 250);
   }, []);
 
   const handleCopyEmail = useCallback((email: string) => {
@@ -342,7 +363,10 @@ const Team1 = () => {
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
+          if (
+            entry.isIntersecting &&
+            desktopNavigationTargetRef.current === null
+          ) {
             setActiveSection(team);
             scrollTitleIntoView(team);
           }
@@ -354,7 +378,13 @@ const Team1 = () => {
       observers.push(observer);
     });
 
-    return () => observers.forEach((observer) => observer.disconnect());
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+
+      if (desktopNavigationTimeoutRef.current !== null) {
+        window.clearTimeout(desktopNavigationTimeoutRef.current);
+      }
+    };
   }, [scrollTitleIntoView]);
 
   return (

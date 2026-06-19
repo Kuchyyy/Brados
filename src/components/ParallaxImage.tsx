@@ -172,26 +172,34 @@ export default function ParallaxImage({
       })}
 
       {showDesktopDots && hasMultipleSlides && onGoToSlide && (
-        <div
-          className="absolute top-1/2 right-4 z-10 hidden -translate-y-1/2 flex-col items-center gap-2 md:flex"
-          role="tablist"
-          aria-label="Galeria zdjęć"
-        >
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              role="tab"
-              aria-selected={index === activeIndex}
-              aria-label={`Zdjęcie ${index + 1}`}
-              onClick={() => onGoToSlide(index)}
-              className={cn(
-                "w-1.5 rounded-full bg-white/90 shadow-sm transition-all duration-300",
-                index === activeIndex ? "h-5" : "h-1.5 opacity-70"
-              )}
-            />
-          ))}
-        </div>
+        <>
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-36 [mask-image:linear-gradient(to_left,black,transparent)] md:block"
+            aria-hidden
+          >
+            <div className="absolute inset-0 bg-gradient-to-l from-blackk/90 via-blackk/50 to-transparent backdrop-blur-md" />
+          </div>
+          <div
+            className="absolute top-1/2 right-4 z-10 hidden -translate-y-1/2 flex-col items-center gap-2 md:flex"
+            role="tablist"
+            aria-label="Galeria zdjęć"
+          >
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                role="tab"
+                aria-selected={index === activeIndex}
+                aria-label={`Zdjęcie ${index + 1}`}
+                onClick={() => onGoToSlide(index)}
+                className={cn(
+                  "w-1.5 rounded-full bg-white/90 shadow-sm transition-all duration-300",
+                  index === activeIndex ? "h-5" : "h-1.5 opacity-70"
+                )}
+              />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

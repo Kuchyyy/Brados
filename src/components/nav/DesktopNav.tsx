@@ -44,7 +44,7 @@ export default function DesktopNav() {
             className="shrink-0 cursor-pointer"
             aria-label="Strona główna"
           >
-            <img src="/photos/logo.png" alt="Brados" className="h-9 w-auto" />
+            <img src="/photos/logo.webp" alt="Brados" className="h-9 w-auto" />
           </button>
 
           <div className="flex items-center gap-4">

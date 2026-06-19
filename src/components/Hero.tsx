@@ -5,8 +5,8 @@ import HeroCtaButtons from "./HeroCtaButtons";
 import { TextAnimate } from "@/components/ui/text-animate";
 
 const HERO_SLIDE: ParallaxSlide = {
-  desktopSrc: "/photos/baza.png",
-  mobileSrc: "/photos/bazatelefon.png",
+  desktopSrc: "/photos/baza.webp",
+  mobileSrc: "/photos/bazatelefon.webp",
   alt: "Hurtownia Brados — siedziba i magazyn",
 };
 

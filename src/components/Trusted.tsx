@@ -122,7 +122,7 @@ const Trusted = () => {
   }, [emblaApi]);
 
   return (
-    <section className="relative bg-background w-full font-geist  py-10 pb-20">
+    <section className="relative bg-gradient-to-b from-background to-white w-full font-geist  py-10 pb-20">
       <div className="mx-auto flex maxw flex-col gap-8">
         <p className="text-center text-xs font-gesit tracking-tight text-black/50">
           {TRUSTED_CAPTION}

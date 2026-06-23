@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import { HeroIntro, HeroMedia } from "./components/Hero";
+import Hero from "./components/Hero";
 import Trusted from "./components/Trusted";
 
 import Team1 from "./components/Team1";
@@ -31,8 +31,7 @@ function App() {
               element={
                 <>
                   <Navbar />
-                  <HeroIntro />
-                  <HeroMedia />
+                  <Hero />
                   <Trusted />
                   <Team1 />
                   <Photo />

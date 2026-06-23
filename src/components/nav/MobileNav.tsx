@@ -4,12 +4,13 @@ import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import { useHomeScroll } from "@/hooks/useHomeScroll";
 import NavCtaButtons from "./NavCtaButtons";
 import NavToggle from "./NavToggle";
 import OfertaMenuContent from "./OfertaMenuContent";
 
-export default function MobileNav() {
+export default function MobileNav({ overlay = false }: { overlay?: boolean }) {
   const [open, setOpen] = useState(false);
   const { goHomeAndScroll } = useHomeScroll(() => setOpen(false));
 
@@ -28,9 +29,18 @@ export default function MobileNav() {
     };
   }, [open]);
 
+  const showOverlay = overlay && !open;
+
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-[60] border-b border-blackk/10 bg-white/95 backdrop-blur-sm">
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-[60] transition-[background-color,border-color,backdrop-filter] duration-0",
+          showOverlay
+            ? "border-b border-transparent bg-transparent"
+            : "border-b border-blackk/10 bg-white/95 backdrop-blur-sm"
+        )}
+      >
         <div className="maxw flex h-16 items-center justify-between gap-3">
           <button
             type="button"
@@ -55,7 +65,12 @@ export default function MobileNav() {
                 />
               </span>
             </Button>
-            <NavToggle open={open} onClick={() => setOpen((prev) => !prev)} />
+            <NavToggle
+              open={open}
+              onClick={() => setOpen((prev) => !prev)}
+              className={cn(showOverlay && "hover:bg-white/10")}
+              overlay={showOverlay}
+            />
           </div>
         </div>
       </header>

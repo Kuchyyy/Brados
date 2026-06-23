@@ -7,66 +7,58 @@ import { TextAnimate } from "@/components/ui/text-animate";
 const HERO_SLIDE: ParallaxSlide = {
   desktopSrc: "/photos/baza.webp",
   mobileSrc: "/photos/bazatelefon.webp",
-  alt: "Hurtownia Brados - siedziba i magazyn",
+  alt: "Hurtownia Brados — siedziba i magazyn",
 };
 
-export function HeroIntro() {
+export default function Hero() {
   return (
-    <section className="w-full bg-white font-geist">
-      <div className="maxw pt-38 pb-6 md:pt-42">
-        <TextAnimate
-          as="h1"
-          animation="slideLeft"
-          by="word"
-          once
-          className="text-[11px] tracking-[0.02em] text-blackk/50 sm:text-xs"
-        >
-          Wszystko dla Twoich inwestycji
-        </TextAnimate>
+    <section className="relative min-h-svh w-full overflow-hidden font-geist">
+      <img
+        src={HERO_SLIDE.desktopSrc}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 hidden h-full w-full object-cover object-center sm:block"
+        loading="eager"
+        decoding="async"
+      />
+      <img
+        src={HERO_SLIDE.mobileSrc ?? HERO_SLIDE.desktopSrc}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 block h-full w-full object-cover object-center sm:hidden"
+        loading="eager"
+        decoding="async"
+      />
 
-        <div className="mt-1 max-w-xl space-y-1">
-          <p className="text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
-            Hurtownia materiałów elektrycznych
-          </p>
-          <p className="text-left font-gesit text-xl font-normal leading-[1.15] tracking-tight text-blackk sm:text-2xl md:text-[1.75rem]">
-            i teletechnicznych we Wrocławiu.
-          </p>
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/25"
+        aria-hidden
+      />
+
+      <div className="relative z-10 w-full">
+        <div className="maxw flex min-h-svh flex-col justify-end pb-12 pt-28 md:pb-16 md:pt-32">
+          <TextAnimate
+            as="p"
+            animation="slideLeft"
+            by="word"
+            once
+            className="text-[11px] tracking-loose text-white sm:text-xs font-geist"
+          >
+            Wszystko dla Twoich inwestycji
+          </TextAnimate>
+
+          <div className="mt-3">
+            <p className="text-left font-gesit text-2xl font-normal leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+              Hurtownia materiałów elektrycznych
+            </p>
+            <p className="text-left font-gesit text-2xl font-normal leading-[1.1] tracking-tight text-white/90 sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+              i teletechnicznych we Wrocławiu.
+            </p>
+          </div>
+
+          <HeroCtaButtons className="mt-6" />
         </div>
-
-        <HeroCtaButtons className="mt-5" />
       </div>
     </section>
   );
 }
-
-export function HeroMedia() {
-  return (
-    <section className="-mt-1 w-full bg-gradient-to-t from-background to-white pb-8 font-geist md:-mt-3 md:pb-8">
-      <div className="maxw mt-2">
-        <img
-          src={HERO_SLIDE.desktopSrc}
-          alt={HERO_SLIDE.alt}
-          className="hidden h-auto w-full max-w-full rounded-sm sm:block"
-          loading="eager"
-          decoding="async"
-        />
-        <img
-          src={HERO_SLIDE.mobileSrc ?? HERO_SLIDE.desktopSrc}
-          alt={HERO_SLIDE.alt}
-          className="block aspect-square w-full object-cover object-center rounded-sm sm:hidden"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
-    </section>
-  );
-}
-
-const Hero = () => (
-  <>
-    <HeroIntro />
-    <HeroMedia />
-  </>
-);
-
-export default Hero;

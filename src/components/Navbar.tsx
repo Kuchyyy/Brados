@@ -1,14 +1,17 @@
 import DesktopNav from "./nav/DesktopNav";
 import MobileNav from "./nav/MobileNav";
+import { useNavbarOverlay } from "@/hooks/useNavbarOverlay";
 
 const Navbar = () => {
+  const { overlay } = useNavbarOverlay();
+
   return (
     <>
       <div className="hidden md:block">
-        <DesktopNav />
+        <DesktopNav overlay={overlay} />
       </div>
       <div className="md:hidden">
-        <MobileNav />
+        <MobileNav overlay={overlay} />
       </div>
     </>
   );

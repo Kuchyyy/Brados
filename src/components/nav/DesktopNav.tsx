@@ -7,7 +7,11 @@ import OfertaMenuContent from "./OfertaMenuContent";
 
 const CLOSE_DELAY_MS = 200;
 
-export default function DesktopNav() {
+type DesktopNavProps = {
+  overlay?: boolean;
+};
+
+export default function DesktopNav({ overlay = false }: DesktopNavProps) {
   const [ofertaOpen, setOfertaOpen] = useState(false);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { goHomeAndScroll } = useHomeScroll(() => setOfertaOpen(false));
@@ -35,7 +39,14 @@ export default function DesktopNav() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-blackk/10 bg-white/95 backdrop-blur-sm">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
+        overlay
+          ? "border-b border-transparent bg-transparent"
+          : "border-b border-blackk/10 bg-white/95 backdrop-blur-sm"
+      )}
+    >
       <div className="maxw relative">
         <div className="flex h-16 items-center justify-between gap-6">
           <button
@@ -57,8 +68,11 @@ export default function DesktopNav() {
                 aria-expanded={ofertaOpen}
                 aria-haspopup="true"
                 className={cn(
-                  "inline-flex h-9 cursor-default items-center gap-1 rounded-md px-3 font-geist text-sm font-normal text-blackk transition-colors",
-                  ofertaOpen ? "bg-blackk/5" : "hover:bg-blackk/5"
+                  "inline-flex h-9 cursor-default items-center gap-1 rounded-md px-3 font-geist text-sm font-normal transition-colors",
+                  overlay
+                    ? "text-white hover:bg-white/10"
+                    : "text-blackk hover:bg-blackk/5",
+                  !overlay && ofertaOpen && "bg-blackk/5"
                 )}
               >
                 Oferta

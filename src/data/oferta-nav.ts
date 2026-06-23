@@ -50,13 +50,13 @@ const navMeta: Record<
   "5": {
     label: "Osprzęt elektroinstalacyjny",
     shortDescription:
-      "Gniazda, wyłączniki i złącza — trwałość, bezpieczeństwo i design.",
+      "Gniazda, wyłączniki i złącza - trwałość, bezpieczeństwo i design.",
     icon: Plug,
   },
   "6": {
     label: "Technika świetlna",
     shortDescription:
-      "Lampy, oprawy i LED — energooszczędne oświetlenie do każdego wnętrza.",
+      "Lampy, oprawy i LED - energooszczędne oświetlenie do każdego wnętrza.",
     icon: Lightbulb,
   },
   "7": {

@@ -1,4 +1,4 @@
-# Brados — strona hurtowni elektrycznej
+# Brados - strona hurtowni elektrycznej
 
 > Kod źródłowy udostępniony w celach rekrutacyjnych.  
 > Prezentuje moje podejście do budowy nowoczesnych, responsywnych interfejsów w React.
@@ -11,7 +11,7 @@
 
 Strona internetowa hurtowni materiałów elektrycznych i teletechnicznych **Brados** we Wrocławiu. Projekt obejmuje landing page, 10 podstron ofertowych, sekcję FAQ oraz interaktywną mapę lokalizacji.
 
-Aplikacja jest w pełni **frontendowa** — bez backendu, bazy danych ani zewnętrznych API wymagających kluczy dostępu. Cała treść jest statyczna i trzymana w kodzie źródłowym.
+Aplikacja jest w pełni **frontendowa** - bez backendu, bazy danych ani zewnętrznych API wymagających kluczy dostępu. Cała treść jest statyczna i trzymana w kodzie źródłowym.
 
 ---
 
@@ -45,7 +45,7 @@ my-project/
 │   │   ├── ui/          # Komponenty UI (button, carousel, map, animacje)
 │   │   ├── Hero.tsx     # Sekcja powitalna
 │   │   ├── Photo.tsx    # Karuzela zdjęć z efektem parallax
-│   │   ├── Team1.tsx    # Zespół — handlowcy i magazyn
+│   │   ├── Team1.tsx    # Zespół - handlowcy i magazyn
 │   │   ├── About.tsx    # O firmie + statystyki
 │   │   ├── LocationMap.tsx
 │   │   ├── Trusted.tsx  # Loga partnerów (infinite scroll)
@@ -71,13 +71,13 @@ my-project/
 
 ### Strona główna (`/`)
 
-- **Hero** — nagłówek z animacją słów (`TextAnimate`), CTA (kontakt, mapa, zespół), responsywne zdjęcie (osobne wersje desktop / mobile)
-- **Trusted** — automatycznie przewijana taśma log partnerów (Embla Auto Scroll)
-- **Zespół** — karty handlowców i magazynu z filtrowaniem, kopiowaniem e-maila, linkami `tel:` i `mailto:`
-- **Karuzela zdjęć** — efekt parallax na scroll (GSAP ScrollTrigger), auto-play z obsługą `prefers-reduced-motion`, nawigacja strzałkami i kropkami
-- **O nas** — trzy kafelki (partner El-Sigma, misja, statystyki z animowanym diagramem)
-- **Mapa** — interaktywna mapa MapLibre z markerem, przełącznik stylu (jasny / ciemny), link do Google Maps
-- **CTA + Footer** — wezwanie do działania, nawigacja oferty, dane firmy
+- **Hero** - nagłówek z animacją słów (`TextAnimate`), CTA (kontakt, mapa, zespół), responsywne zdjęcie (osobne wersje desktop / mobile)
+- **Trusted** - automatycznie przewijana taśma log partnerów (Embla Auto Scroll)
+- **Zespół** - karty handlowców i magazynu z filtrowaniem, kopiowaniem e-maila, linkami `tel:` i `mailto:`
+- **Karuzela zdjęć** - efekt parallax na scroll (GSAP ScrollTrigger), auto-play z obsługą `prefers-reduced-motion`, nawigacja strzałkami i kropkami
+- **O nas** - trzy kafelki (partner El-Sigma, misja, statystyki z animowanym diagramem)
+- **Mapa** - interaktywna mapa MapLibre z markerem, przełącznik stylu (jasny / ciemny), link do Google Maps
+- **CTA + Footer** - wezwanie do działania, nawigacja oferty, dane firmy
 
 ### Podstrony ofertowe (`/:slug`)
 
@@ -90,7 +90,7 @@ Rozwijane pytania i odpowiedzi (accordion) dotyczące zamówień, płatności, d
 ### Nawigacja i UX
 
 - Responsywna nawigacja: desktop (mega menu oferty) + mobile (sheet)
-- **Scroll loader** — animacja powrotu na stronę główną (GSAP timeline)
+- **Scroll loader** - animacja powrotu na stronę główną (GSAP timeline)
 - **ScrollToTop** przy zmianie trasy
 - SEO: meta tagi, Open Graph, Twitter Cards, JSON-LD (`LocalBusiness`) w `index.html`
 - Dostępność: `aria-label`, obsługa klawiatury w karuzelach, `prefers-reduced-motion`
@@ -103,6 +103,6 @@ Rozwijane pytania i odpowiedzi (accordion) dotyczące zamówień, płatności, d
 
 ## Autor
 
-**Kuchy** — frontend / UI
+**Kuchy** - frontend / UI
 
 Strona zaprojektowana i zaimplementowana jako projekt komercyjny dla Brados sp. z o.o.

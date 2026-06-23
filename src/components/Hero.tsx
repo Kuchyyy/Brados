@@ -7,7 +7,7 @@ import { TextAnimate } from "@/components/ui/text-animate";
 const HERO_SLIDE: ParallaxSlide = {
   desktopSrc: "/photos/baza.webp",
   mobileSrc: "/photos/bazatelefon.webp",
-  alt: "Hurtownia Brados — siedziba i magazyn",
+  alt: "Hurtownia Brados - siedziba i magazyn",
 };
 
 export function HeroIntro() {

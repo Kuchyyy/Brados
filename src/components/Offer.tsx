@@ -85,7 +85,7 @@ function OfferCategoryButton({
                 transition={{ duration: 0.24, ease: "easeOut" }}
                 className="block leading-none text-orange"
               >
-                —
+                -
               </motion.span>
             )}
           </AnimatePresence>

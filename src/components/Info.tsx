@@ -211,7 +211,7 @@ const Info = () => {
                         <div className="relative aspect-[16/9] w-full bg-stone-100">
                             <img
                                 src="/photos/logo3d.webp"
-                                alt="Brados — Dni Otwarte"
+                                alt="Brados - Dni Otwarte"
                                 className="h-full w-full object-cover"
                             />
                         </div>
@@ -223,11 +223,11 @@ const Info = () => {
                                 23–24 kwietnia
                             </span>
                             <span className="inline-flex border rounded-md border-blackk/12 bg-white px-3 py-1.5 font-poppins text-[15px] font-normal tabular-nums tracking-[0.06em] text-blackk/70 w-1/2 text-center justify-center">
-                                9:00 — 16:00
+                                9:00 - 16:00
                             </span>
                         </div>
                         <p className="font-poppins text-sm font-normal  tracking-[-0.008em] text-blackk/58">
-                            Zapraszamy na Dni Otwarte Brados. Przestrzeń, w której poznasz naszą ofertę w spokojnym tempie, wymienisz się doświadczeniami z ekspertami branży i zobaczysz aktualne rozwiązania na żywo. Obecni będą przedstawiciele producentów, specjalne warunki oraz czas na rozmowę przy kawie — tak, by każdy mógł wyjść z konkretną wartością.
+                            Zapraszamy na Dni Otwarte Brados. Przestrzeń, w której poznasz naszą ofertę w spokojnym tempie, wymienisz się doświadczeniami z ekspertami branży i zobaczysz aktualne rozwiązania na żywo. Obecni będą przedstawiciele producentów, specjalne warunki oraz czas na rozmowę przy kawie - tak, by każdy mógł wyjść z konkretną wartością.
                         </p>
                     </div>
 

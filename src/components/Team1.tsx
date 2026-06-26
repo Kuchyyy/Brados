@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Mail, Phone } from "lucide-react";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { useCenteredHorizontalScroll } from "@/hooks/useCenteredHorizontalScroll";
+import { downloadVCard } from "@/lib/vcard";
 
 type Person = {
   name: string;
@@ -160,6 +161,18 @@ function formatPhone(phone: string) {
   return phone.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
 }
 
+function AddContactButton({ person }: { person: Person }) {
+  return (
+    <button
+      type="button"
+      onClick={() => downloadVCard(person)}
+      className="mt-3 w-full rounded-sm border border-blackk/10 bg-neutral-50 px-3 py-2.5 text-xs text-blackk/70 transition-colors hover:bg-neutral-100 active:bg-neutral-100 sm:hidden"
+    >
+      Dodaj kontakt do telefonu
+    </button>
+  );
+}
+
 function TeamPersonMobile({
   person,
   copiedEmail,
@@ -208,6 +221,8 @@ function TeamPersonMobile({
           <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" />
         )}
       </button>
+
+      <AddContactButton person={person} />
     </article>
   );
 }

@@ -95,12 +95,13 @@ function LogoCell({ logo }: { logo: LogoItem }) {
 
 const Trusted = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start", dragFree: true },
+    { loop: true, align: "start", dragFree: true, watchDrag: true },
     [
       AutoScroll({
         speed: 0.8,
         stopOnInteraction: false,
-        stopOnMouseEnter: true,
+        stopOnMouseEnter: false,
+        stopOnFocusIn: false,
         playOnInit: true,
         breakpoints: {
           "(min-width: 640px)": { speed: 1 },
@@ -112,13 +113,23 @@ const Trusted = () => {
   useEffect(() => {
     if (!emblaApi) return;
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const autoScroll = emblaApi.plugins()?.autoScroll;
+    if (!autoScroll) return;
 
-    if (prefersReducedMotion) {
-      emblaApi.plugins()?.autoScroll?.stop();
-    }
+    const resumeAutoScroll = () => {
+      if (!autoScroll.isPlaying()) {
+        autoScroll.play(0);
+      }
+    };
+
+    emblaApi.on("settle", resumeAutoScroll);
+    emblaApi.on("pointerUp", resumeAutoScroll);
+    resumeAutoScroll();
+
+    return () => {
+      emblaApi.off("settle", resumeAutoScroll);
+      emblaApi.off("pointerUp", resumeAutoScroll);
+    };
   }, [emblaApi]);
 
   return (

@@ -117,12 +117,12 @@ const Photo = () => {
         />
 
         <div className="flex items-center justify-between gap-4 md:hidden">
-          <CarouselNavButtons onPrev={goToPrev} onNext={goToNext} />
           <CarouselSlideDots
             slideCount={PARALLAX_SLIDES.length}
             activeIndex={activeIndex}
             onGoTo={goToSlide}
           />
+          <CarouselNavButtons onPrev={goToPrev} onNext={goToNext} />
         </div>
       </div>
     </section>

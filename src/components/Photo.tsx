@@ -7,7 +7,7 @@ import { useParallaxCarousel } from "@/hooks/useParallaxCarousel";
 import { cn } from "@/lib/utils";
 
 const carouselNavButtonClass =
-  "flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition";
+  "focus-ring press-scale touch-manipulation flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition";
 
 function CarouselNavButtons({
   onPrev,
@@ -72,7 +72,7 @@ function CarouselSlideDots({
           aria-label={`Zdjęcie ${index + 1}`}
           onClick={() => onGoTo(index)}
           className={cn(
-            "h-1.5 rounded-full bg-blackk/20 transition-all duration-300 z-30",
+            "h-1.5 rounded-full bg-blackk/20 transition-[width,opacity,background-color] duration-300 z-30",
             index === activeIndex ? "w-5 bg-blackk/70" : "w-1.5 opacity-60"
           )}
         />

@@ -7,8 +7,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Check, Mail, Phone } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Check, Mail, Phone } from "lucide-react";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { useCenteredHorizontalScroll } from "@/hooks/useCenteredHorizontalScroll";
 import { downloadVCard } from "@/lib/vcard";
@@ -99,6 +99,8 @@ function formatPersonCount(count: number) {
   return `${count} osób`;
 }
 
+const motionEase = [0.23, 1, 0.32, 1] as const;
+
 function TeamCategoryButton({
   label,
   isActive,
@@ -110,25 +112,30 @@ function TeamCategoryButton({
   onClick: () => void;
   layout?: "nav" | "scroll";
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.button
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      animate={{ x: isActive && layout === "nav" ? 10 : 0 }}
-      transition={{ duration: 0.24, ease: "easeOut" }}
+      animate={{
+        x:
+          !shouldReduceMotion && isActive && layout === "nav" ? 10 : 0,
+      }}
+      transition={{ duration: 0.24, ease: motionEase }}
       className={[
-        "inline-flex min-w-0 text-left font-medium transition-colors",
+        "touch-manipulation inline-flex min-w-0 text-left font-medium transition-colors outline-none focus-visible:outline-none",
         layout === "scroll"
           ? "shrink-0 snap-center flex-col items-center whitespace-nowrap pb-3 text-sm leading-snug tracking-[0.02em]"
           : "items-start gap-1.5 text-xs leading-snug tracking-[0.01em]",
         layout === "scroll"
           ? isActive
             ? "border-b-2 border-orange text-blackk"
-            : "border-b-2 border-transparent text-blackk/35 hover:text-blackk/55"
+            : "border-b-2 border-transparent text-blackk/35 hover-fine:hover:text-blackk/55"
           : isActive
             ? "text-blackk"
-            : "text-blackk/40 hover:text-blackk/65",
+            : "text-blackk/40 hover-fine:hover:text-blackk/65",
       ].join(" ")}
     >
       {layout !== "scroll" && (
@@ -136,20 +143,26 @@ function TeamCategoryButton({
           className="inline-flex h-[1.15em] w-4 shrink-0 items-center justify-start overflow-hidden"
           aria-hidden
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {isActive && (
-              <motion.span
-                key="dash"
-                initial={{ opacity: 0, x: -14 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 14 }}
-                transition={{ duration: 0.24, ease: "easeOut" }}
-                className="block leading-none text-orange"
-              >
-                -
-              </motion.span>
-            )}
-          </AnimatePresence>
+          {shouldReduceMotion ? (
+            isActive && (
+              <span className="block leading-none text-orange">-</span>
+            )
+          ) : (
+            <AnimatePresence mode="wait" initial={false}>
+              {isActive && (
+                <motion.span
+                  key="dash"
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 14 }}
+                  transition={{ duration: 0.24, ease: motionEase }}
+                  className="block leading-none text-orange"
+                >
+                  -
+                </motion.span>
+              )}
+            </AnimatePresence>
+          )}
         </span>
       )}
       <span>{label}</span>
@@ -166,9 +179,14 @@ function AddContactButton({ person }: { person: Person }) {
     <button
       type="button"
       onClick={() => downloadVCard(person)}
-      className="mt-3 w-full rounded-sm border border-blackk/10 bg-neutral-50 px-3 py-2.5 text-xs text-blackk/70 transition-colors hover:bg-neutral-100 active:bg-neutral-100 sm:hidden"
+      className="group mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-full border-0 bg-hero-btn-muted px-8 font-geist text-sm font-normal text-blackk shadow-none transition-colors outline-none hover-fine:hover:bg-[#deded9] focus-visible:outline-none sm:hidden"
     >
       Dodaj kontakt do telefonu
+      <ArrowRight
+        className="size-3 text-blackk/80 transition-transform hover-fine:group-hover:translate-x-0.5"
+        strokeWidth={3}
+        aria-hidden
+      />
     </button>
   );
 }
@@ -203,22 +221,26 @@ function TeamPersonMobile({
 
       <a
         href={`tel:${person.phone}`}
-        className="mt-4 flex min-h-12 items-center justify-between gap-3 py-3 text-xl font-medium tracking-[-0.02em] text-blackk transition-colors active:text-orange"
+        aria-label={`Zadzwoń do ${person.name}`}
+        className="touch-manipulation mt-4 flex min-h-12 items-center justify-between gap-3 py-3 text-xl font-medium tracking-[-0.02em] text-blackk transition-colors outline-none focus-visible:outline-none active:text-orange"
       >
-        <span>{formatPhone(person.phone)}</span>
-        <Phone className="h-5 w-5 shrink-0 text-orange" strokeWidth={1.5} />
+        <span className="tabular-nums">{formatPhone(person.phone)}</span>
+        <Phone className="h-5 w-5 shrink-0 text-orange" strokeWidth={1.5} aria-hidden />
       </a>
 
       <button
         type="button"
         onClick={() => onCopyEmail(person.email)}
-        className="mt-1 flex w-full cursor-pointer items-center justify-between gap-2 py-2 text-left text-xs text-blackk/55 transition-colors active:text-blackk"
+        aria-label={
+          isCopied ? "Skopiowano e-mail" : `Kopiuj e-mail: ${person.email}`
+        }
+        className="touch-manipulation mt-1 flex w-full cursor-pointer items-center justify-between gap-2 py-2 text-left text-xs text-blackk/55 transition-colors outline-none focus-visible:outline-none active:text-blackk"
       >
         <span className="truncate">{person.email}</span>
         {isCopied ? (
-          <Check className="h-3.5 w-3.5 shrink-0 text-green-600" />
+          <Check className="h-3.5 w-3.5 shrink-0 text-green-600" aria-hidden />
         ) : (
-          <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" />
+          <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" aria-hidden />
         )}
       </button>
 
@@ -254,22 +276,26 @@ function TeamPersonCard({
       <div>
         <a
           href={`tel:${person.phone}`}
-          className="flex min-h-12 items-center justify-between gap-3 py-3 text-xl font-medium tracking-[-0.02em] text-blackk transition-colors hover:text-orange"
+          aria-label={`Zadzwoń do ${person.name}`}
+          className="touch-manipulation flex min-h-12 items-center justify-between gap-3 py-3 text-xl font-medium tracking-[-0.02em] text-blackk transition-colors outline-none focus-visible:outline-none hover-fine:hover:text-orange"
         >
-          <span>{formatPhone(person.phone)}</span>
-          <Phone className="h-5 w-5 shrink-0 text-orange" strokeWidth={1.5} />
+          <span className="tabular-nums">{formatPhone(person.phone)}</span>
+          <Phone className="h-5 w-5 shrink-0 text-orange" strokeWidth={1.5} aria-hidden />
         </a>
 
         <button
           type="button"
           onClick={() => onCopyEmail(person.email)}
-          className="flex w-full cursor-pointer items-center justify-between gap-2 py-2 text-left text-xs text-blackk/55 transition-colors hover:text-blackk"
+          aria-label={
+            isCopied ? "Skopiowano e-mail" : `Kopiuj e-mail: ${person.email}`
+          }
+          className="touch-manipulation flex w-full cursor-pointer items-center justify-between gap-2 py-2 text-left text-xs text-blackk/55 transition-colors outline-none focus-visible:outline-none hover-fine:hover:text-blackk"
         >
           <span className="truncate">{person.email}</span>
           {isCopied ? (
-            <Check className="h-3.5 w-3.5 shrink-0 text-green-600" />
+            <Check className="h-3.5 w-3.5 shrink-0 text-green-600" aria-hidden />
           ) : (
-            <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" />
+            <Mail className="h-3.5 w-3.5 shrink-0 text-blackk/35" aria-hidden />
           )}
         </button>
       </div>
@@ -414,7 +440,7 @@ const Team1 = () => {
             aria-hidden
           />
 
-          <h2 className="heading-h2 flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
+          <h2 className="heading-h2 text-balance flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
             <TextAnimate
               as="span"
               animation="fadeIn"
@@ -545,7 +571,11 @@ const Team1 = () => {
         </div>
 
         {copiedEmail && (
-          <div className="fixed bottom-6 right-6 z-50 rounded-sm bg-orange border border-blackk/10 px-4 py-2 text-sm text-white shadow-lg">
+          <div
+            role="status"
+            aria-live="polite"
+            className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-6 z-50 rounded-sm border border-blackk/10 bg-orange px-4 py-2 text-sm text-white shadow-lg"
+          >
             Skopiowano e-mail: {copiedEmail}
           </div>
         )}

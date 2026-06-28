@@ -120,7 +120,7 @@ function IconNode({
     return (
         <div
             className={cn(
-                "absolute flex size-14 items-center justify-center rounded-full border border-orange/25 bg-neutral-100 shadow-[0_14px_35px_rgba(26,26,26,0.06),0_0_0_6px_rgba(255,98,59,0.035)] transition-all duration-500 ",
+                "absolute flex size-14 items-center justify-center rounded-full border border-orange/25 bg-neutral-100 shadow-[0_14px_35px_rgba(26,26,26,0.06),0_0_0_6px_rgba(255,98,59,0.035)] transition-[transform,opacity,box-shadow] duration-500 ",
                 className
             )}
             style={{
@@ -154,7 +154,7 @@ function CenterHub({ visible }: { visible: boolean }) {
                         <span
                             key={avatar.label}
                             className={cn(
-                                "relative flex size-14 items-center justify-center rounded-full border-2 border-white shadow-[0_14px_32px_rgba(26,26,26,0.10),0_0_0_1px_rgba(255,98,59,0.10)] transition-all duration-500 ",
+                                "relative flex size-14 items-center justify-center rounded-full border-2 border-white shadow-[0_14px_32px_rgba(26,26,26,0.10),0_0_0_1px_rgba(255,98,59,0.10)] transition-[transform,opacity,box-shadow] duration-500 ",
                                 index > 0 && "-ml-4 sm:-ml-5",
                                 avatar.className
                             )}

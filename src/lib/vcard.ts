@@ -32,9 +32,28 @@ function formatTel(phone: string) {
   return `+48${digits}`;
 }
 
+const SALES_SPECIALIST_TITLE = "Specjalista ds. Sprzedaży";
+
+const vCardSalesSpecialistEmails = new Set([
+  "p.pawlak@brados.pl",
+  "k.kuchcinski@brados.pl",
+]);
+
+function getVCardTitle(person: VCardPerson) {
+  if (vCardSalesSpecialistEmails.has(person.email)) {
+    return SALES_SPECIALIST_TITLE;
+  }
+
+  const { role } = person;
+  if (!role || role === "Prezes") return undefined;
+  if (role === SALES_SPECIALIST_TITLE) return role;
+  return undefined;
+}
+
 export function downloadVCard(person: VCardPerson) {
   const { firstName, lastName } = parseName(person.name);
   const org = person.organization ?? "Brados";
+  const title = getVCardTitle(person);
 
   const lines = [
     "BEGIN:VCARD",
@@ -46,8 +65,8 @@ export function downloadVCard(person: VCardPerson) {
     `ORG:${escapeVCard(org)}`,
   ];
 
-  if (person.role) {
-    lines.push(`TITLE:${escapeVCard(person.role)}`);
+  if (title) {
+    lines.push(`TITLE:${escapeVCard(title)}`);
   }
 
   lines.push("END:VCARD");

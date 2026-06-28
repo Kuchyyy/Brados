@@ -2,9 +2,21 @@
 
 @import "tailwindcss";
 
+@custom-variant hover-fine {
+  @media (hover: hover) and (pointer: fine) {
+    @slot;
+  }
+}
+
 html {
   scroll-behavior: smooth;
   @apply bg-white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -71,6 +83,14 @@ body {
 
 
 @layer utilities {
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-orange/35 focus-visible:ring-offset-2;
+  }
+
+  .press-scale {
+    @apply transition-[transform,colors] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98];
+  }
+
   .nav-hover-btn {
     @apply mt-1 relative ms-5 font-poppins text-sm text-black 
            after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full 

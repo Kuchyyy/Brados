@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type FaqItem = {
   question: string;
@@ -67,7 +68,7 @@ const Faq = () => {
                 >
                   <button
                     type="button"
-                    className="flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-geist text-sm font-normal text-blackk md:text-base"
+                    className="focus-ring press-scale touch-manipulation flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-geist text-sm font-normal text-blackk md:text-base"
                     onClick={() => toggle(index)}
                     aria-expanded={isOpen}
                   >
@@ -80,8 +81,12 @@ const Faq = () => {
                   </button>
 
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                      }`}
+                    className={cn(
+                      "overflow-hidden transition-[max-height,opacity] duration-300 motion-reduce:transition-none",
+                      isOpen
+                        ? "max-h-96 opacity-100 motion-reduce:max-h-none"
+                        : "max-h-0 opacity-0"
+                    )}
                   >
                     <p className="pb-5 font-geist text-sm leading-relaxed text-blackk/55">
                       {faq.answer}

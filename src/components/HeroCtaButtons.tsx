@@ -42,7 +42,7 @@ export default function HeroCtaButtons({
           <span className="inline-flex items-center gap-1.5">
             Zespół
             <ArrowRight
-              className="size-3 text-white/70 transition-transform group-hover:translate-x-0.5 group-hover:text-white"
+              className="size-3 text-white/70 transition-transform hover-fine:group-hover:translate-x-0.5 hover-fine:group-hover:text-white"
               strokeWidth={3}
             />
           </span>
@@ -50,7 +50,7 @@ export default function HeroCtaButtons({
           <a href="#zespół" className="inline-flex items-center gap-1.5">
             Zespół
             <ArrowRight
-              className="size-3 text-white/70 transition-transform group-hover:translate-x-0.5 group-hover:text-white"
+              className="size-3 text-white/70 transition-transform hover-fine:group-hover:translate-x-0.5 hover-fine:group-hover:text-white"
               strokeWidth={3}
             />
           </a>
@@ -72,7 +72,7 @@ export default function HeroCtaButtons({
         >
           Google Maps
           <ArrowRight
-            className="size-3 text-blackk/80 transition-transform group-hover:translate-x-0.5"
+            className="size-3 text-blackk/80 transition-transform hover-fine:group-hover:translate-x-0.5"
             strokeWidth={3}
           />
         </a>

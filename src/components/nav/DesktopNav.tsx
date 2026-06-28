@@ -52,7 +52,7 @@ export default function DesktopNav({ overlay = false }: DesktopNavProps) {
           <button
             type="button"
             onClick={() => goHomeAndScroll()}
-            className="shrink-0 cursor-pointer"
+            className="focus-ring press-scale shrink-0 cursor-pointer"
             aria-label="Strona główna"
           >
             <img src="/photos/logo.webp" alt="Brados" className="h-9 w-auto" />
@@ -87,7 +87,7 @@ export default function DesktopNav({ overlay = false }: DesktopNavProps) {
 
               <div
                 className={cn(
-                  "fixed left-1/2 z-50 w-[90%] max-w-[1400px] -translate-x-1/2 pt-7 transition-all duration-200 ease-out",
+                  "fixed left-1/2 z-50 w-[90%] max-w-[1400px] -translate-x-1/2 pt-7 transition-[transform,opacity] duration-200 ease-out",
                   ofertaOpen
                     ? "pointer-events-auto top-12 translate-y-0 opacity-100"
                     : "pointer-events-none top-12 -translate-y-1 opacity-0"

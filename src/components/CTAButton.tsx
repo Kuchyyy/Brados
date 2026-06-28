@@ -26,6 +26,12 @@ const CTAButton = ({
 
     useEffect(() => {
         if (!rippleRef.current) return;
+
+        const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+        if (prefersReducedMotion) return;
+
         timelineRef.current?.kill();
         gsap.set(rippleRef.current, {
             scaleX: 1,
@@ -355,15 +361,9 @@ const CTAButton = ({
             </div>
 
             <button
+                type="button"
                 onClick={onClick}
-                className="
-              relative w-auto
-    px-6 py-2 rounded-md cursor-pointer
-    text-black text-xl font-robert-medium
-    bg-white
-    border border-orange-500/60
-    overflow-visible 
-  "
+                className="focus-ring press-scale touch-manipulation relative w-auto cursor-pointer overflow-visible rounded-md border border-orange-500/60 bg-white px-6 py-2 font-robert-medium text-xl text-black"
             >
                 <span className="relative z-10 text-sm">{label}</span>
 

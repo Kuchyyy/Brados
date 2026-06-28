@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { Link } from "react-router-dom";
@@ -38,6 +38,8 @@ const offerItems: OfferItem[] = ofertaNavItems.map(
   })
 );
 
+const motionEase = [0.23, 1, 0.32, 1] as const;
+
 function OfferCategoryButton({
   label,
   isActive,
@@ -49,25 +51,30 @@ function OfferCategoryButton({
   onClick: () => void;
   layout?: "nav" | "scroll";
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.button
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      animate={{ x: isActive && layout === "nav" ? 10 : 0 }}
-      transition={{ duration: 0.24, ease: "easeOut" }}
+      animate={{
+        x:
+          !shouldReduceMotion && isActive && layout === "nav" ? 10 : 0,
+      }}
+      transition={{ duration: 0.24, ease: motionEase }}
       className={[
-        "inline-flex min-w-0 text-left font-medium transition-colors",
+        "focus-ring press-scale touch-manipulation inline-flex min-w-0 text-left font-medium transition-colors",
         layout === "scroll"
           ? "shrink-0 snap-center flex-col items-center whitespace-nowrap pb-3 text-sm leading-snug tracking-[0.02em]"
           : "items-start gap-1.5 text-xs leading-snug tracking-[0.01em]",
         layout === "scroll"
           ? isActive
             ? "border-b-2 border-orange text-blackk"
-            : "border-b-2 border-transparent text-blackk/35 hover:text-blackk/55"
+            : "border-b-2 border-transparent text-blackk/35 hover-fine:hover:text-blackk/55"
           : isActive
             ? "text-blackk"
-            : "text-blackk/40 hover:text-blackk/65",
+            : "text-blackk/40 hover-fine:hover:text-blackk/65",
       ].join(" ")}
     >
       {layout !== "scroll" && (
@@ -75,20 +82,26 @@ function OfferCategoryButton({
           className="inline-flex h-[1.15em] w-4 shrink-0 items-center justify-start overflow-hidden"
           aria-hidden
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {isActive && (
-              <motion.span
-                key="dash"
-                initial={{ opacity: 0, x: -14 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 14 }}
-                transition={{ duration: 0.24, ease: "easeOut" }}
-                className="block leading-none text-orange"
-              >
-                -
-              </motion.span>
-            )}
-          </AnimatePresence>
+          {shouldReduceMotion ? (
+            isActive && (
+              <span className="block leading-none text-orange">-</span>
+            )
+          ) : (
+            <AnimatePresence mode="wait" initial={false}>
+              {isActive && (
+                <motion.span
+                  key="dash"
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 14 }}
+                  transition={{ duration: 0.24, ease: motionEase }}
+                  className="block leading-none text-orange"
+                >
+                  -
+                </motion.span>
+              )}
+            </AnimatePresence>
+          )}
         </span>
       )}
       <span>{label}</span>
@@ -109,12 +122,12 @@ function OfferCard({ item, index }: { item: OfferItem; index: number }) {
       {page && (
         <ArrowUpRight
           aria-hidden
-          className="absolute right-4 top-4 h-4 w-4 text-blackk/45 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:text-orange sm:right-5 sm:top-5"
+          className="absolute right-4 top-4 h-4 w-4 text-blackk/45 transition-[transform,color] duration-300 ease-out hover-fine:group-hover:translate-x-1 hover-fine:group-hover:text-orange sm:right-5 sm:top-5"
         />
       )}
 
       <div className="flex flex-1 flex-col items-center justify-center py-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full border border-blackk/15 bg-neutral-100/80 text-blackk/35 transition-colors duration-300 group-hover:border-blackk/25 group-hover:bg-neutral-100 sm:h-16 sm:w-16">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full border border-blackk/15 bg-neutral-100/80 text-blackk/35 transition-colors duration-300 hover-fine:group-hover:border-blackk/25 hover-fine:group-hover:bg-neutral-100 sm:h-16 sm:w-16">
           {item.icon}
         </div>
       </div>
@@ -130,7 +143,7 @@ function OfferCard({ item, index }: { item: OfferItem; index: number }) {
   );
 
   const tileClassName =
-    "tile-surface group relative flex min-h-[26rem] w-full flex-1 flex-col p-4 transition-colors duration-300 hover:bg-neutral-200 sm:p-5 md:aspect-auto md:min-h-[30rem]";
+    "tile-surface group relative flex min-h-[26rem] w-full flex-1 flex-col p-4 transition-colors duration-300 hover-fine:hover:bg-neutral-200 sm:p-5 md:aspect-auto md:min-h-[30rem]";
 
   if (!page) {
     return (
@@ -142,7 +155,7 @@ function OfferCard({ item, index }: { item: OfferItem; index: number }) {
 
   return (
     <article className="flex h-full min-w-0 flex-col">
-      <Link to={`/${page.slug}`} className={`${tileClassName} cursor-pointer`}>
+      <Link to={`/${page.slug}`} className={`${tileClassName} focus-ring cursor-pointer`}>
         {content}
       </Link>
     </article>
@@ -154,6 +167,7 @@ const Offer = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const titlesScrollRef = useRef<HTMLDivElement | null>(null);
   const skipTitleSyncRef = useRef(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const scrollTitleIntoView = useCallback(
     (index: number, behavior: ScrollBehavior = "smooth") => {
@@ -370,7 +384,7 @@ const Offer = () => {
                   type="button"
                   onClick={scrollCarouselPrev}
                   aria-label="Poprzednia kategoria"
-                  className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+                  className="focus-ring press-scale touch-manipulation flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
                 >
                   <ChevronLeft className="size-5" aria-hidden />
                 </button>
@@ -378,7 +392,7 @@ const Offer = () => {
                   type="button"
                   onClick={scrollCarouselNext}
                   aria-label="Następna kategoria"
-                  className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+                  className="focus-ring press-scale touch-manipulation flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
                 >
                   <ChevronRight className="size-5" aria-hidden />
                 </button>
@@ -416,10 +430,10 @@ const Offer = () => {
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={activeIndex}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.24, ease: "easeOut" }}
+                  exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
+                  transition={{ duration: 0.24, ease: motionEase }}
                 >
                   <OfferCard
                     item={offerItems[activeIndex]}
@@ -434,7 +448,7 @@ const Offer = () => {
                 type="button"
                 onClick={goToMobilePrev}
                 aria-label="Poprzednia kategoria"
-                className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+                className="focus-ring press-scale touch-manipulation flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
               >
                 <ChevronLeft className="size-5" aria-hidden />
               </button>
@@ -442,7 +456,7 @@ const Offer = () => {
                 type="button"
                 onClick={goToMobileNext}
                 aria-label="Następna kategoria"
-                className="flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
+                className="focus-ring press-scale touch-manipulation flex size-10 items-center justify-center rounded-sm border border-blackk/15 bg-neutral-100 text-blackk transition"
               >
                 <ChevronRight className="size-5" aria-hidden />
               </button>

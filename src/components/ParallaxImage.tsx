@@ -193,7 +193,7 @@ export default function ParallaxImage({
                 aria-label={`Zdjęcie ${index + 1}`}
                 onClick={() => onGoToSlide(index)}
                 className={cn(
-                  "w-1.5 rounded-full bg-white/90 shadow-sm transition-all duration-300",
+                  "w-1.5 rounded-full bg-white/90 shadow-sm transition-[height,opacity] duration-300",
                   index === activeIndex ? "h-5" : "h-1.5 opacity-70"
                 )}
               />

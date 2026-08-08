@@ -55,7 +55,7 @@ export default function MobileNav({ overlay = false }: { overlay?: boolean }) {
             <Button
               type="button"
               onClick={() => goHomeAndScroll("#zespół")}
-              className="group h-9 rounded-full bg-hero-btn px-6 font-geist text-sm font-normal text-white shadow-none hover:bg-blackk/90"
+              className="group h-9 rounded-[18px] bg-hero-btn px-6 font-geist text-sm font-normal text-white shadow-none hover:bg-blackk/90"
             >
               <span className="inline-flex items-center gap-1.5">
                 Zespół

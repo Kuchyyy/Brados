@@ -55,6 +55,7 @@ export default function Hero() {
               i teletechnicznych we Wrocławiu.
             </p>
           </div>
+          
 
           <HeroCtaButtons className="mt-6" />
         </div>

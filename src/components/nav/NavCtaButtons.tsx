@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { GOOGLE_MAPS_URL } from "@/components/HeroCtaButtons";
 
 const navButtonBase =
-  "group h-8 rounded-full px-5 font-geist text-sm font-normal shadow-none transition-colors sm:h-9 sm:px-6";
+  "group h-8 px-5 font-geist text-sm font-normal shadow-none transition-all sm:h-9 sm:px-6";
 
 type NavCtaButtonsProps = {
   onTeamClick?: () => void;
@@ -32,9 +32,9 @@ export default function NavCtaButtons({
         onClick={onTeamClick}
         className={cn(
           navButtonBase,
-          "bg-hero-btn text-white hover:bg-blackk/90",
+          "rounded-[16px] bg-hero-btn text-white hover:bg-blackk/90 sm:rounded-[18px]",
           compact && "h-8 px-4 text-xs sm:h-8 sm:px-4 sm:text-xs",
-          stacked && "h-11 w-full rounded-full px-6 text-sm"
+          stacked && "h-11 w-full rounded-[22px] px-6 text-sm sm:rounded-[22px]"
         )}
       >
         {onTeamClick ? (
@@ -62,7 +62,7 @@ export default function NavCtaButtons({
           navButtonBase,
           "border-0 bg-hero-btn-muted text-blackk hover:bg-[#deded9]",
           compact && "h-8 px-4 text-xs sm:h-8 sm:px-4 sm:text-xs",
-          stacked && "h-11 w-full rounded-full px-6 text-sm"
+          stacked && "h-11 w-full px-6 text-sm hover:rounded-[22px]"
         )}
       >
         <a

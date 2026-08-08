@@ -8,7 +8,7 @@ export const GOOGLE_MAPS_URL =
   "https://www.google.com/maps/place/Brados/@51.0680508,16.9550066,17z/data=!3m1!4b1!4m6!3m5!1s0x470fc2e855555555:0x51d44f2bef0f3100!8m2!3d51.0680475!4d16.9575815!16s%2Fg%2F11gf3p5wqp?entry=ttu&g_ep=EgoyMDI2MDYxMC4wIKXMDSoASAFQAw%3D%3D";
 
 const heroButtonBase =
-  "group h-9 min-w-[9.5rem] rounded-full px-8 font-geist text-sm font-normal shadow-none transition-colors sm:min-w-[10.5rem] sm:px-12";
+  "group h-9 min-w-[9.5rem] px-8 font-geist text-sm font-normal shadow-none transition-all sm:min-w-[10.5rem] sm:px-12";
 
 type HeroCtaButtonsProps = {
   onTeamClick?: () => void;
@@ -35,7 +35,7 @@ export default function HeroCtaButtons({
         onClick={onTeamClick}
         className={cn(
           heroButtonBase,
-          "bg-hero-btn text-white hover:bg-blackk/90"
+          "rounded-[18px] bg-hero-btn text-white hover:bg-blackk/90"
         )}
       >
         {onTeamClick ? (

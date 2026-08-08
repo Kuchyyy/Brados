@@ -19,7 +19,7 @@ const COORDS = {
 };
 
 const mapsButtonBase =
-  "group h-9 min-w-[9.5rem] rounded-full px-8 font-geist text-sm font-normal shadow-none transition-colors sm:min-w-[10.5rem] sm:px-12";
+  "group h-9 min-w-[9.5rem] px-8 font-geist text-sm font-normal shadow-none transition-all sm:min-w-[10.5rem] sm:px-12";
 
 function GoogleMapsButton({ className = "" }: { className?: string }) {
   return (

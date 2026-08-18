@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Mail, Phone } from "lucide-react";
 import { TextAnimate } from "@/components/ui/text-animate";
@@ -305,17 +299,9 @@ function TeamPersonCard({
 
 const Team1 = () => {
   const [activeTeam, setActiveTeam] = useState<TeamKey>("handlowcy");
-  const [activeSection, setActiveSection] = useState<TeamKey>("handlowcy");
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const titlesScrollRef = useRef<HTMLDivElement | null>(null);
   const skipTitleSyncRef = useRef(false);
-  const desktopNavigationTargetRef = useRef<TeamKey | null>(null);
-  const desktopNavigationTimeoutRef = useRef<number | null>(null);
-  const sectionRefs = useRef<Record<TeamKey, HTMLElement | null>>({
-    handlowcy: null,
-    magazyn: null,
-    finanse: null,
-  });
 
   const scrollTitleIntoView = useCallback(
     (team: TeamKey, behavior: ScrollBehavior = "smooth") => {
@@ -356,34 +342,6 @@ const Team1 = () => {
     { enabled: true, skipSyncRef: skipTitleSyncRef }
   );
 
-  const scrollToSection = useCallback((team: TeamKey) => {
-    const section = sectionRefs.current[team];
-    if (!section) return;
-
-    desktopNavigationTargetRef.current = team;
-    setActiveSection(team);
-
-    const top = section.getBoundingClientRect().top + window.scrollY - 120;
-    const root = document.documentElement;
-    const previousScrollBehavior = root.style.scrollBehavior;
-
-    root.style.scrollBehavior = "auto";
-    window.scrollTo({ top, behavior: "auto" });
-
-    window.requestAnimationFrame(() => {
-      root.style.scrollBehavior = previousScrollBehavior;
-    });
-
-    if (desktopNavigationTimeoutRef.current !== null) {
-      window.clearTimeout(desktopNavigationTimeoutRef.current);
-    }
-
-    desktopNavigationTimeoutRef.current = window.setTimeout(() => {
-      desktopNavigationTargetRef.current = null;
-      desktopNavigationTimeoutRef.current = null;
-    }, 250);
-  }, []);
-
   const handleCopyEmail = useCallback((email: string) => {
     navigator.clipboard.writeText(email).then(() => {
       setCopiedEmail(email);
@@ -393,39 +351,6 @@ const Team1 = () => {
 
   useLayoutEffect(() => {
     scrollTitleIntoView("handlowcy", "auto");
-  }, [scrollTitleIntoView]);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    teamOrder.forEach((team) => {
-      const el = sectionRefs.current[team];
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (
-            entry.isIntersecting &&
-            desktopNavigationTargetRef.current === null
-          ) {
-            setActiveSection(team);
-            scrollTitleIntoView(team);
-          }
-        },
-        { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
-      );
-
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-
-      if (desktopNavigationTimeoutRef.current !== null) {
-        window.clearTimeout(desktopNavigationTimeoutRef.current);
-      }
-    };
   }, [scrollTitleIntoView]);
 
   return (
@@ -448,7 +373,7 @@ const Team1 = () => {
               once
               className="block"
             >
-              Poznaj nasz zespół.
+              Zmieniamy się na lepsze
             </TextAnimate>
             <TextAnimate
               as="span"
@@ -458,7 +383,7 @@ const Team1 = () => {
               delay={0.2}
               className="hidden text-blackk/45 md:block"
             >
-              Ludzie, którzy tworzą Brados na co dzień.
+              ale my pracujemy bez zmian.
             </TextAnimate>
             <TextAnimate
               as="span"
@@ -468,41 +393,18 @@ const Team1 = () => {
               delay={0.2}
               className="block text-blackk/45 md:hidden"
             >
-              Ludzie, którzy tworzą Brados
+              ale my pracujemy bez zmian.
             </TextAnimate>
-            <TextAnimate
-              as="span"
-              animation="fadeIn"
-              by="text"
-              once
-              delay={0.3}
-              className="block text-blackk/45 md:hidden"
-            >
-              na co dzień.
-            </TextAnimate>
+
           </h2>
 
-          <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:min-h-full md:pr-4">
+          <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:min-h-full md:pr-4 sm:pt-12">
             <div className="shrink-0">
-              <h3 className="heading-h3 text-blackk">Struktura naszego zespołu</h3>
-              <p className="mt-3 mb-6 text-sm font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
-                Wybierz dział i skontaktuj się bezpośrednio z właściwą osobą.
+              <h3 className="heading-h3 text-blackk">Zamawiaj bez żadnych przerw</h3>
+              <p className="mt-3 mb-6 text-[12px] font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
+                Te same numery, te same adresy e-mail i ci sami ludzie. Zamówienia, wyceny oraz wydania z magazynu realizujemy bez najmniejszych przerw.
               </p>
             </div>
-
-            <nav
-              className="z-10 hidden w-full shrink-0 flex-col gap-2.5 self-start md:sticky md:top-28 md:flex"
-              aria-label="Działy zespołu"
-            >
-              {teamOrder.map((team) => (
-                <TeamCategoryButton
-                  key={team}
-                  label={teamLabels[team]}
-                  isActive={team === activeSection}
-                  onClick={() => scrollToSection(team)}
-                />
-              ))}
-            </nav>
           </aside>
 
           <div className="relative left-1/2 w-screen -translate-x-1/2 border-b border-blackk/10 md:hidden">
@@ -546,14 +448,7 @@ const Team1 = () => {
 
           <div className="hidden flex-col gap-12 md:col-span-3 md:col-start-2 md:row-start-2 md:flex">
             {teamOrder.map((team) => (
-              <div
-                key={team}
-                ref={(el) => {
-                  sectionRefs.current[team] = el;
-                }}
-                id={`team-${team}`}
-                className="scroll-mt-28"
-              >
+              <div key={team} id={`team-${team}`} className="scroll-mt-28">
                 <h3 className="heading-h3 mb-4 text-blackk">{teamLabels[team]}</h3>
                 <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
                   {teams[team].map((person) => (

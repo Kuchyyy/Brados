@@ -297,7 +297,12 @@ function TeamPersonCard({
   );
 }
 
-const Team1 = () => {
+type Team1Props = {
+  /** Nagłówek sekcji — ukrywany w wersji "strona w przebudowie". */
+  showHeading?: boolean;
+};
+
+const Team1 = ({ showHeading = true }: Team1Props) => {
   const [activeTeam, setActiveTeam] = useState<TeamKey>("handlowcy");
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const titlesScrollRef = useRef<HTMLDivElement | null>(null);
@@ -356,51 +361,55 @@ const Team1 = () => {
   return (
     <section
       id="zespół"
-      className="w-full bg-white py-8 font-geist md:py-12"
+      className="w-full bg-white py-12 font-geist md:py-20"
     >
       <div className="maxw relative flex flex-col gap-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:items-stretch md:gap-x-5 md:gap-y-8">
-          <div
-            className="hidden md:block md:col-start-1 md:row-start-1"
-            aria-hidden
-          />
+          {showHeading && (
+            <>
+              <div
+                className="hidden md:block md:col-start-1 md:row-start-1"
+                aria-hidden
+              />
 
-          <h2 className="heading-h2 text-balance flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-20">
-            <TextAnimate
-              as="span"
-              animation="fadeIn"
-              by="text"
-              once
-              className="block"
-            >
-              Zmieniamy się na lepsze
-            </TextAnimate>
-            <TextAnimate
-              as="span"
-              animation="fadeIn"
-              by="text"
-              once
-              delay={0.2}
-              className="hidden text-blackk/45 md:block"
-            >
-              ale my pracujemy bez zmian.
-            </TextAnimate>
-            <TextAnimate
-              as="span"
-              animation="fadeIn"
-              by="text"
-              once
-              delay={0.2}
-              className="block text-blackk/45 md:hidden"
-            >
-              ale my pracujemy bez zmian.
-            </TextAnimate>
+              <h2 className="heading-h2 text-balance flex flex-col justify-between py-8 text-blackk md:col-span-3 md:col-start-2 md:row-start-1 md:mb-0 md:py-10">
+                <TextAnimate
+                  as="span"
+                  animation="fadeIn"
+                  by="text"
+                  once
+                  className="block"
+                >
+                  Zmieniamy się na lepsze
+                </TextAnimate>
+                <TextAnimate
+                  as="span"
+                  animation="fadeIn"
+                  by="text"
+                  once
+                  delay={0.2}
+                  className="hidden text-blackk/45 md:block"
+                >
+                  ale my pracujemy bez zmian.
+                </TextAnimate>
+                <TextAnimate
+                  as="span"
+                  animation="fadeIn"
+                  by="text"
+                  once
+                  delay={0.2}
+                  className="block text-blackk/45 md:hidden"
+                >
+                  ale my pracujemy bez zmian.
+                </TextAnimate>
 
-          </h2>
+              </h2>
+            </>
+          )}
 
           <aside className="flex min-h-0 flex-col gap-4 md:col-start-1 md:row-start-2 md:min-h-full md:pr-4 sm:pt-12">
             <div className="shrink-0">
-              <h3 className="heading-h3 text-blackk">Zamawiaj bez żadnych przerw</h3>
+              <h3 className="heading-h3 tracking-tighter text-xl text-blackk">Zamawiaj bez żadnych przerw</h3>
               <p className="mt-3 mb-6 text-[12px] font-gesit font-normal leading-relaxed tracking-tight text-blackk/65">
                 Te same numery, te same adresy e-mail i ci sami ludzie. Zamówienia, wyceny oraz wydania z magazynu realizujemy bez najmniejszych przerw.
               </p>

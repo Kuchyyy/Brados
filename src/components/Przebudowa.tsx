@@ -12,7 +12,7 @@ const PRZEBUDOWA_SLIDE: ParallaxSlide = {
 export default function Przebudowa() {
   return (
     <>
-      <section className="relative h-[60svh] min-h-[22rem] w-full overflow-hidden font-geist">
+      <section className="relative h-[80svh] min-h-[22rem] w-full overflow-hidden font-geist">
         <img
           src={PRZEBUDOWA_SLIDE.desktopSrc}
           alt=""
@@ -48,7 +48,7 @@ export default function Przebudowa() {
         </div>
       </section>
 
-      <Team1 />
+      <Team1 showHeading={false} />
     </>
   );
 }

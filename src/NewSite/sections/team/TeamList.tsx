@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TEAM } from "../../data/team";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { PersonRow } from "./PersonRow";
 
 export function TeamList({
@@ -14,9 +15,10 @@ export function TeamList({
   showSave?: boolean;
 }) {
   const groups = group ? TEAM.filter((g) => g.label === group) : TEAM;
-  const [open, setOpen] = useState<Record<string, boolean>>({
-    [TEAM[0].label]: true,
-  });
+  const desktop = useMediaQuery("(min-width: 768px)");
+  const [open, setOpen] = useState<Record<string, boolean>>(() =>
+    desktop ? { [TEAM[0].label]: true } : {},
+  );
 
   if (group) {
     return (

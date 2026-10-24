@@ -73,13 +73,13 @@ export function Gallery() {
               <span className="absolute inset-0 bg-black/30 [background-image:linear-gradient(to_top,rgb(0_0_0/0.55),transparent_60%)]" />
               <span className="absolute inset-x-0 bottom-0 p-4 text-left text-[5vw] font-normal leading-[1.05] tracking-[-0.035em] text-white sm:p-6 sm:text-[min(2vw,28px)] md:p-7">
                 {s.title.split("\n").map((line, l) => (
-                  <span key={l} className="block overflow-hidden pb-[0.08em]">
+                  <span key={l} className="block">
                     <span
                       className={cn(
                         "block transition-[transform,opacity] ease-[cubic-bezier(.23,1,.32,1)]",
                         off === 0
                           ? "translate-y-0 opacity-100 duration-[900ms]"
-                          : "translate-y-full opacity-0 duration-300",
+                          : "translate-y-3 opacity-0 duration-300",
                       )}
                       style={{ transitionDelay: off === 0 ? `${350 + l * 90}ms` : "0ms" }}
                     >

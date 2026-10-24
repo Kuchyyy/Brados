@@ -19,7 +19,7 @@ const SLIDES = [
     title: "Handlowcy, którzy znają branżę",
   },
   { src: "/photos/4.webp", title: "Odbiór osobisty bez czekania" },
-  { src: "/photos/5.webp", title: "25 lat we Wrocławiu" },
+  { src: "/photos/5.webp", title: "Nowa siedziba" },
 ];
 
 const ARROW =

@@ -3,6 +3,7 @@ import { FONTS_URL } from "./constants";
 import { TeamSheetContext } from "./hooks/useOpenTeam";
 import { CSS } from "./styles";
 import { Cta } from "./sections/cta/Cta";
+import { Gallery } from "./sections/gallery/Gallery";
 import { Footer } from "./sections/footer/Footer";
 import { Hero } from "./sections/hero/Hero";
 import { HowItWorks } from "./sections/how-it-works/HowItWorks";
@@ -30,6 +31,7 @@ export default function NewSite() {
           <Hero />
           <HowItWorks />
           <WhyScroll />
+          <Gallery />
           <Cta />
         </main>
         <Footer />

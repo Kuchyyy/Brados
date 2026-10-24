@@ -5,11 +5,11 @@ import { RevealLine } from "../../ui/RevealLine";
 import { LINE_GAP } from "../../ui/reveal";
 
 const SLIDES = [
-  { src: "/photos/baza.webp", title: "25 lat\nwe Wrocławiu" },
   { src: "/photos/3.webp", title: "Tysiące produktów\nod ręki" },
   { src: "/photos/magazyn.webp", title: "Własny magazyn\nna miejscu" },
   { src: "/photos/nowa/biuro-gora.webp", title: "Handlowcy, którzy\nznają branżę" },
-  { src: "/photos/firma.webp", title: "Odbiór osobisty\nbez czekania" },
+  { src: "/photos/4.webp", title: "Odbiór osobisty\nbez czekania" },
+  { src: "/photos/5.webp", title: "25 lat\nwe Wrocławiu" },
 ];
 
 const N = SLIDES.length;
@@ -45,7 +45,7 @@ export function Gallery() {
           </button>
         </div>
       </div>
-      <div className="relative mt-8 aspect-[4/5] w-[84vw] [--g:12px] [margin-inline:auto] sm:aspect-[16/9] md:mt-10 md:w-[min(1100px,78vw)] md:[--g:24px]">
+      <div className="relative mt-8 aspect-[16/10] w-[84vw] [--g:12px] [margin-inline:auto] sm:aspect-[16/9] md:mt-10 md:w-[min(1100px,78vw)] md:[--g:24px]">
         {SLIDES.map((s, i) => {
           const off = offsetOf(i, active);
           const jump = Math.abs(off - offsetOf(i, last)) > 1;
@@ -73,7 +73,7 @@ export function Gallery() {
               <span className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/30" />
               <span
                 className={cn(
-                  "absolute inset-0 grid place-items-center whitespace-pre-line px-6 text-center text-[9vw] font-medium leading-[1.02] tracking-[-0.04em] text-white transition-opacity duration-500 sm:text-[min(6vw,80px)]",
+                  "absolute inset-0 grid place-items-center whitespace-pre-line px-6 text-center text-[7.5vw] font-medium leading-[1.02] tracking-[-0.04em] text-white transition-opacity duration-500 sm:text-[min(6vw,80px)]",
                   off === 0 ? "opacity-100 delay-200" : "opacity-0",
                 )}
               >

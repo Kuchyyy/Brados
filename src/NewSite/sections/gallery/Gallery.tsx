@@ -21,12 +21,12 @@ export function Gallery() {
 
   return (
     <section className="overflow-hidden pt-16 md:pt-24">
-      <div className="maxw flex flex-col items-center gap-5 text-center md:gap-7">
+      <div className="maxw flex items-end justify-between gap-6">
         <h2 className="text-[5.2vw] leading-[1.1] tracking-[-0.025em] sm:text-[32px] sm:leading-[1.2]">
           <RevealLine text="Zobacz, jak wygląda nasza" />
           <RevealLine text="hurtownia od środka" delay={LINE_GAP} />
         </h2>
-        <div className="flex items-center gap-1">
+        <div className="-mr-2 flex shrink-0 items-center gap-1">
           <button
             type="button"
             aria-label="Poprzednie zdjęcie"
@@ -45,7 +45,7 @@ export function Gallery() {
           </button>
         </div>
       </div>
-      <div className="relative mt-8 aspect-[16/10] w-[84vw] [--g:12px] [margin-inline:auto] sm:aspect-[16/9] md:mt-10 md:w-[min(1100px,78vw)] md:[--g:24px]">
+      <div className="maxw relative mt-8 aspect-[16/10] [--g:8px] sm:aspect-[16/9] md:mt-10 md:[--g:20px]">
         {SLIDES.map((s, i) => {
           const off = offsetOf(i, active);
           const jump = Math.abs(off - offsetOf(i, last)) > 1;
@@ -71,13 +71,22 @@ export function Gallery() {
                 className="absolute inset-0 size-full object-cover"
               />
               <span className="absolute inset-0 bg-black/30 [background-image:linear-gradient(to_top,rgb(0_0_0/0.55),transparent_60%)]" />
-              <span
-                className={cn(
-                  "absolute inset-x-0 bottom-0 whitespace-pre-line p-4 text-left text-[6.5vw] font-medium leading-[1.02] tracking-[-0.04em] text-white transition-opacity duration-500 sm:p-8 sm:text-[min(4.5vw,64px)] md:p-12",
-                  off === 0 ? "opacity-100 delay-200" : "opacity-0",
-                )}
-              >
-                {s.title}
+              <span className="absolute inset-x-0 bottom-0 p-4 text-left text-[6.5vw] font-normal leading-[1.05] tracking-[-0.035em] text-white sm:p-8 sm:text-[min(4.5vw,64px)] md:p-12">
+                {s.title.split("\n").map((line, l) => (
+                  <span key={l} className="block overflow-hidden pb-[0.08em]">
+                    <span
+                      className={cn(
+                        "block transition-[transform,opacity] ease-[cubic-bezier(.23,1,.32,1)]",
+                        off === 0
+                          ? "translate-y-0 opacity-100 duration-[900ms]"
+                          : "translate-y-full opacity-0 duration-300",
+                      )}
+                      style={{ transitionDelay: off === 0 ? `${350 + l * 90}ms` : "0ms" }}
+                    >
+                      {line}
+                    </span>
+                  </span>
+                ))}
               </span>
             </button>
           );

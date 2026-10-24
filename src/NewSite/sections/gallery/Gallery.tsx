@@ -70,7 +70,14 @@ export function Gallery() {
                 i !== active && "cursor-pointer",
               )}
             >
-              <div className="relative aspect-[16/10] overflow-hidden rounded-xs sm:aspect-[16/9]">
+              <div
+                className={cn(
+                  "relative aspect-[16/10] overflow-hidden transition-[clip-path] duration-700 ease-[cubic-bezier(.65,0,.35,1)] sm:aspect-[16/9]",
+                  i === active
+                    ? "[clip-path:inset(0_round_2px)]"
+                    : "[clip-path:inset(9%_0_round_2px)]",
+                )}
+              >
                 <img
                   src={s.src}
                   alt=""

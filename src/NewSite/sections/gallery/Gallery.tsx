@@ -5,11 +5,11 @@ import { RevealLine } from "../../ui/RevealLine";
 import { LINE_GAP } from "../../ui/reveal";
 
 const SLIDES = [
-  { src: "/photos/3.webp", title: "Tysiące produktów\nod ręki" },
-  { src: "/photos/magazyn.webp", title: "Własny magazyn\nna miejscu" },
-  { src: "/photos/nowa/biuro-gora.webp", title: "Handlowcy, którzy\nznają branżę" },
-  { src: "/photos/4.webp", title: "Odbiór osobisty\nbez czekania" },
-  { src: "/photos/5.webp", title: "25 lat\nwe Wrocławiu" },
+  { src: "/photos/3.webp", tag: "Asortyment", title: "Tysiące produktów od ręki", desc: "Większość zamówień kompletujemy z półki, bez czekania na dostawę" },
+  { src: "/photos/magazyn.webp", tag: "Magazyn", title: "Własny magazyn na miejscu", desc: "Kable, osprzęt i aparatura gotowe do wydania jeszcze tego samego dnia" },
+  { src: "/photos/nowa/biuro-gora.webp", tag: "Zespół", title: "Handlowcy, którzy znają branżę", desc: "Doradzimy przy doborze i przygotujemy ofertę pod Twoją inwestycję" },
+  { src: "/photos/4.webp", tag: "Odbiór", title: "Odbiór osobisty bez czekania", desc: "Zamawiasz telefonicznie lub mailowo, odbierasz gotowe zamówienie" },
+  { src: "/photos/5.webp", tag: "Doświadczenie", title: "25 lat we Wrocławiu", desc: "Od ćwierć wieku zaopatrujemy instalatorów i firmy wykonawcze" },
 ];
 
 const N = SLIDES.length;
@@ -21,12 +21,12 @@ export function Gallery() {
 
   return (
     <section className="overflow-hidden pt-16 md:pt-24">
-      <div className="maxw flex items-end justify-between gap-6">
+      <div className="maxw flex flex-col items-center gap-5 text-center md:gap-6">
         <h2 className="text-[5.2vw] leading-[1.1] tracking-[-0.025em] sm:text-[32px] sm:leading-[1.2]">
           <RevealLine text="Zobacz, jak wygląda nasza" />
           <RevealLine text="hurtownia od środka" delay={LINE_GAP} />
         </h2>
-        <div className="-mr-2 flex shrink-0 items-center gap-1">
+        <div className="flex items-center gap-1">
           <button
             type="button"
             aria-label="Poprzednie zdjęcie"
@@ -55,7 +55,7 @@ export function Gallery() {
               type="button"
               tabIndex={off === 0 ? -1 : 0}
               aria-hidden={Math.abs(off) > 1}
-              aria-label={off === 0 ? s.title.replace("\n", " ") : `Pokaż: ${s.title.replace("\n", " ")}`}
+              aria-label={off === 0 ? s.title : `Pokaż: ${s.title}`}
               onClick={() => off !== 0 && go(off)}
               style={{ transform: `translateX(calc(${off} * (100% + var(--g))))` }}
               className={cn(
@@ -70,21 +70,31 @@ export function Gallery() {
                 loading={Math.abs(off) <= 1 ? "eager" : "lazy"}
                 className="absolute inset-0 size-full object-cover"
               />
-              <span className="absolute inset-0 bg-black/30 [background-image:linear-gradient(to_top,rgb(0_0_0/0.55),transparent_60%)]" />
-              <span className="absolute inset-x-0 bottom-0 p-4 text-left text-[5vw] font-normal leading-[1.05] tracking-[-0.035em] text-white sm:p-6 sm:text-[min(2vw,28px)] md:p-7">
-                {s.title.split("\n").map((line, l) => (
-                  <span key={l} className="block">
-                    <span
-                      className={cn(
-                        "block transition-[transform,opacity] ease-[cubic-bezier(.23,1,.32,1)]",
-                        off === 0
-                          ? "translate-y-0 opacity-100 duration-[900ms]"
-                          : "translate-y-3 opacity-0 duration-300",
-                      )}
-                      style={{ transitionDelay: off === 0 ? `${350 + l * 90}ms` : "0ms" }}
-                    >
-                      {line}
-                    </span>
+              <span className="absolute inset-0 [background-image:linear-gradient(to_top,rgb(0_0_0/0.72),rgb(0_0_0/0.25)_45%,rgb(0_0_0/0.08))]" />
+              <span className="absolute inset-x-0 bottom-0 flex flex-col items-start p-4 text-left text-white sm:p-6 md:p-8">
+                {[
+                  <span key="t" className="ns-mono flex items-center gap-2 text-[10px] uppercase tracking-[0.08em] text-neutral-300 sm:text-[11px]">
+                    <span className="size-1.5 bg-[#EA6100]" />
+                    {s.tag}
+                  </span>,
+                  <span key="h" className="mt-2 text-[17px] leading-[1.2] tracking-[-0.02em] sm:mt-3 sm:text-[22px] md:text-[26px]">
+                    {s.title}
+                  </span>,
+                  <span key="d" className="mt-1.5 hidden max-w-[40ch] text-balance text-sm leading-[1.45] text-neutral-300 sm:block">
+                    {s.desc}
+                  </span>,
+                ].map((el, l) => (
+                  <span
+                    key={l}
+                    className={cn(
+                      "block transition-[transform,opacity,filter] ease-[cubic-bezier(.23,1,.32,1)]",
+                      off === 0
+                        ? "translate-y-0 opacity-100 blur-0 duration-[800ms]"
+                        : "translate-y-2 opacity-0 blur-[2px] duration-200",
+                    )}
+                    style={{ transitionDelay: off === 0 ? `${300 + l * 80}ms` : "0ms" }}
+                  >
+                    {el}
                   </span>
                 ))}
               </span>

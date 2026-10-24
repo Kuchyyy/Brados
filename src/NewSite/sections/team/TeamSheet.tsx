@@ -44,7 +44,7 @@ export function TeamSheet({
           <OpenStatus />
         </div>
 
-        <TeamList className="min-h-0 flex-1 overflow-y-auto px-6 pb-10 pt-3 [mask-image:linear-gradient(to_bottom,transparent,black_12px)]" />
+        <TeamList key={String(open)} className="min-h-0 flex-1 overflow-y-auto px-6 pb-10 pt-3 [mask-image:linear-gradient(to_bottom,transparent,black_12px)]" />
       </SheetContent>
     </Sheet>
   );

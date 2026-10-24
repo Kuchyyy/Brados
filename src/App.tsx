@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -32,6 +32,12 @@ function App() {
               element={
                 <>
                   <Navbar />
+                  <Link
+                    to="/nowa"
+                    className="fixed bottom-5 right-5 z-[100] rounded-sm bg-[#EA6100] px-4 py-2.5 text-sm text-white shadow-lg"
+                  >
+                    Zobacz nową stronę →
+                  </Link>
                   <Hero />
                   <Trusted />
                   <Team1 />

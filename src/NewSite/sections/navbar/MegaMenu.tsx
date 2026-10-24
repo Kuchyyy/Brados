@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { MENU_CATEGORIES } from "../../data/categories";
 import { CategoryGlyph } from "../../ui/CategoryGlyph";
 import { IconBox } from "../../ui/IconBox";
-import { MenuPhoto } from "./MenuPhoto";
+import { MenuBanner } from "./MenuBanner";
 
 export function MegaMenu({
   open,
@@ -62,7 +62,7 @@ export function MegaMenu({
             Znajdziesz tu wszystko, czego potrzebujesz
           </p>
           <div className="relative mt-4 flex-1">
-            <MenuPhoto play={open} />
+            <MenuBanner play={open} />
           </div>
         </div>
       </div>

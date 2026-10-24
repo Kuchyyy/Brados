@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Carousel,
@@ -12,12 +12,12 @@ import { RevealLine } from "../../ui/RevealLine";
 import { LINE_GAP } from "../../ui/reveal";
 
 const SLIDES = [
-  { src: "/photos/3.webp", title: "Tysiące produktów od ręki" },
-  { src: "/photos/magazyn.webp", title: "Własny magazyn na miejscu" },
   {
     src: "/photos/nowa/biuro-gora.webp",
     title: "Handlowcy, którzy znają branżę",
   },
+  { src: "/photos/3.webp", title: "Tysiące produktów od ręki" },
+  { src: "/photos/magazyn.webp", title: "Własny magazyn na miejscu" },
   { src: "/photos/4.webp", title: "Odbiór osobisty bez czekania" },
   { src: "/photos/5.webp", title: "Nowa siedziba" },
 ];
@@ -25,17 +25,43 @@ const SLIDES = [
 const ARROW =
   "static size-9 translate-x-0 translate-y-0 rounded-xs border-0 bg-transparent text-neutral-600 shadow-none hover:bg-neutral-100 hover:text-black disabled:opacity-100 [&_svg]:size-[18px] [&_svg]:stroke-[1.5]";
 
+const INSET = 9;
+const BLUR = 2;
+
 export function Gallery() {
   const [api, setApi] = useState<CarouselApi>();
   const [active, setActive] = useState(0);
+  const frames = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!api) return;
     const on = () => setActive(api.selectedScrollSnap());
+    const tween = () => {
+      const engine = api.internalEngine();
+      const progress = api.scrollProgress();
+      const snaps = api.scrollSnapList();
+      snaps.forEach((snap, i) => {
+        let diff = snap - progress;
+        engine.slideLooper.loopPoints.forEach((point) => {
+          const target = point.target();
+          if (point.index !== i || target === 0) return;
+          diff =
+            Math.sign(target) === -1
+              ? snap - (1 + progress)
+              : snap + (1 - progress);
+        });
+        const t = Math.min(1, Math.abs(diff * snaps.length));
+        const el = frames.current[i];
+        if (!el) return;
+        el.style.clipPath = `inset(${(t * INSET).toFixed(2)}% 0 round 2px)`;
+        el.style.setProperty("--blur", `${(t * BLUR).toFixed(2)}px`);
+      });
+    };
     on();
-    api.on("select", on);
+    tween();
+    api.on("select", on).on("scroll", tween).on("reInit", tween);
     return () => {
-      api.off("select", on);
+      api.off("select", on).off("scroll", tween).off("reInit", tween);
     };
   }, [api]);
 
@@ -66,30 +92,28 @@ export function Gallery() {
               key={s.src}
               onClick={() => i !== active && api?.scrollTo(i)}
               className={cn(
-                "basis-[90%] pl-2 sm:basis-[90%] md:basis-[min(836px,calc(55vw+16px))] md:pl-4",
+                "basis-[90%] pl-2 sm:basis-[90%] md:basis-[min(1016px,calc(66vw+16px))] md:pl-4",
                 i !== active && "cursor-pointer",
               )}
             >
               <div
-                className={cn(
-                  "relative aspect-[16/10] overflow-hidden transition-[clip-path] duration-700 ease-[cubic-bezier(.65,0,.35,1)] sm:aspect-[16/9]",
-                  i === active
-                    ? "[clip-path:inset(0_round_2px)]"
-                    : "[clip-path:inset(9%_0_round_2px)]",
-                )}
+                ref={(el) => {
+                  frames.current[i] = el;
+                }}
+                className="relative aspect-[16/10] overflow-hidden sm:aspect-[16/9]"
               >
                 <img
                   src={s.src}
                   alt=""
-                  className="absolute inset-0 size-full object-cover"
+                  className="absolute -left-1 -top-1 h-[calc(100%+8px)] w-[calc(100%+8px)] max-w-none object-cover [filter:blur(var(--blur,0px))]"
                 />
                 <span className="absolute inset-0 [background-image:linear-gradient(to_top,rgb(0_0_0/0.6),rgb(0_0_0/0.15)_45%,rgb(0_0_0/0.05))]" />
                 <h3
                   className={cn(
-                    "absolute bottom-0 left-0 p-4 text-[17px] leading-[1.2] tracking-[-0.02em] text-white transition-[transform,opacity,filter] ease-[cubic-bezier(.23,1,.32,1)] sm:p-6 sm:text-[22px] md:p-8 md:text-[26px]",
+                    "absolute bottom-0 left-0 p-4 text-[17px] leading-[1.2] tracking-[-0.02em] text-white transition-opacity ease-[cubic-bezier(.23,1,.32,1)] sm:p-6 sm:text-[22px] md:p-8 md:text-[26px]",
                     i === active
-                      ? "translate-y-0 opacity-100 blur-0 delay-300 duration-[800ms]"
-                      : "translate-y-2 opacity-0 blur-[2px] duration-200",
+                      ? "opacity-100 delay-300 duration-[800ms]"
+                      : "opacity-0 duration-200",
                   )}
                 >
                   {s.title}

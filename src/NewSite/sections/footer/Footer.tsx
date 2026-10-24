@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { MAPS_URL, ORANGE } from "../../constants";
 import { FOOTER_OFFER } from "../../data/categories";
-import { LogoMark } from "../../ui/LogoMark";
 
 const footerLink = "transition-colors hover:text-[#0A0A0A]";
 
@@ -21,8 +20,7 @@ export function Footer() {
       <div className="maxw pb-8 pt-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 [@media(hover:hover)]:[&:has(a:hover)_li:not(:has(a:hover))]:opacity-35">
           <div>
-            <LogoMark className="h-[22px] w-auto" />
-            <p className="mt-4 max-w-[280px] text-xs leading-[1.6] text-neutral-500">
+            <p className="max-w-[280px] text-xs leading-[1.6] text-neutral-500">
               Kompleksowe zaopatrzenie w materiały elektryczne i telekomunikacyjne dla firm
               wykonawczych oraz klientów biznesowych
             </p>

@@ -70,10 +70,10 @@ export function Gallery() {
                 loading={Math.abs(off) <= 1 ? "eager" : "lazy"}
                 className="absolute inset-0 size-full object-cover"
               />
-              <span className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/30" />
+              <span className="absolute inset-0 bg-black/30 [background-image:linear-gradient(to_top,rgb(0_0_0/0.55),transparent_60%)]" />
               <span
                 className={cn(
-                  "absolute inset-0 grid place-items-center whitespace-pre-line px-6 text-center text-[7.5vw] font-medium leading-[1.02] tracking-[-0.04em] text-white transition-opacity duration-500 sm:text-[min(6vw,80px)]",
+                  "absolute inset-x-0 bottom-0 whitespace-pre-line p-4 text-left text-[6.5vw] font-medium leading-[1.02] tracking-[-0.04em] text-white transition-opacity duration-500 sm:p-8 sm:text-[min(4.5vw,64px)] md:p-12",
                   off === 0 ? "opacity-100 delay-200" : "opacity-0",
                 )}
               >

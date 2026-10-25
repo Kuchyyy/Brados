@@ -43,7 +43,7 @@ export function WhyScroll() {
       <div className="maxw grid gap-12 lg:grid-cols-[200px_1fr]">
         <nav
           ref={navRef}
-          className="sticky top-20 hidden flex-col gap-1 self-start lg:flex"
+          className="sticky top-20 hidden flex-col gap-0.5 self-start lg:flex"
           aria-label="Co nas wyróżnia"
         >
           {WHY_TABS.map((t, i) => {
@@ -55,7 +55,7 @@ export function WhyScroll() {
                 type="button"
                 onClick={() => scrollToBlock(i)}
                 className={cn(
-                  "flex h-10 items-center gap-2.5 rounded-xs px-3 text-left text-[15px] transition-colors",
+                  "flex h-8 items-center gap-2.5 rounded-xs px-3 text-left text-[15px] transition-colors",
                   on ? "text-[#0A0A0A]" : "text-neutral-500 hover:text-[#0A0A0A]",
                 )}
               >

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronDown, ChevronLeft, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MAPS_URL } from "../../constants";
@@ -9,7 +10,7 @@ import { SplitButton } from "../../ui/SplitButton";
 import { MegaMenu } from "./MegaMenu";
 import { MobileMenu } from "./MobileMenu";
 
-export function Navbar() {
+export function Navbar({ solid: forced = false }: { solid?: boolean }) {
   const openTeam = useOpenTeam();
   const [open, setOpen] = useState(false);
   const [mobileTop, setMobileTop] = useState<number | null>(null);
@@ -20,6 +21,15 @@ export function Navbar() {
   }, []);
   const headerRef = useRef<HTMLElement>(null);
   const mobileOpen = mobileTop !== null;
+  const [scrolled, setScrolled] = useState(false);
+  const solid = forced || scrolled || open || mobileOpen;
+
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 8);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
 
   const toggleMobile = () => {
     if (mobileOpen) {
@@ -74,10 +84,16 @@ export function Navbar() {
 
       <header
         ref={headerRef}
-        className="sticky top-0 z-50 bg-white"
+        className="fixed inset-x-0 top-0 z-50"
         onMouseLeave={closeSoon}
       >
-        <div className="relative z-10 border-b border-neutral-200 bg-white">
+        <div
+          className={cn(
+            "relative z-10 border-b",
+            !open && !mobileOpen && "transition-colors duration-300",
+            solid ? "border-neutral-200 bg-white" : "border-transparent bg-transparent",
+          )}
+        >
           <div className="maxw flex h-12 items-center justify-between">
             {mobileOpen && dept ? (
               <button
@@ -92,15 +108,20 @@ export function Navbar() {
                 {dept}
               </button>
             ) : (
-              <a
-                href="#top"
-                aria-label="Brados, początek strony"
+              <Link
+                to="/nowa"
+                aria-label="Brados, strona główna"
                 className="flex shrink-0 items-center gap-2.5"
                 onMouseEnter={closeSoon}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
-                <LogoMark className="h-6 w-auto" />
-                <img src="/photos/nowa/brados-napis.png" alt="" className="h-[11px] w-auto translate-y-px" />
-              </a>
+                <LogoMark white={!solid} className="h-6 w-auto" />
+                <img
+                  src="/photos/nowa/brados-napis.png"
+                  alt=""
+                  className={cn("h-[11px] w-auto translate-y-px", !solid && "brightness-0 invert")}
+                />
+              </Link>
             )}
 
             <div className="flex h-full items-center gap-2">
@@ -112,7 +133,8 @@ export function Navbar() {
                   onMouseEnter={openMenu}
                   onClick={() => setOpen((o) => !o)}
                   className={cn(
-                    "inline-flex h-8 items-center gap-1 rounded-xs pl-3.5 pr-2.5 text-sm outline-none transition-colors hover:bg-neutral-100",
+                    "inline-flex h-8 items-center gap-1 rounded-xs pl-3.5 pr-2.5 text-sm outline-none transition-colors",
+                    solid ? "hover:bg-neutral-100" : "text-white hover:bg-white/15",
                     open && "bg-neutral-100",
                   )}
                 >
@@ -127,7 +149,7 @@ export function Navbar() {
                 </button>
               </nav>
               <span className="hidden md:inline-flex" onMouseEnter={closeSoon}>
-                <SalesButton size="sm" tone="soft" label="Kontakt" />
+                <SalesButton size="sm" tone={solid ? "soft" : "white"} label="Kontakt" />
               </span>
               <span className="hidden md:inline-flex" onMouseEnter={closeSoon}>
                 <SplitButton label="Google Maps" href={MAPS_URL} external size="sm" />

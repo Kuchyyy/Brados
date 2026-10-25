@@ -151,7 +151,7 @@ export function MobileMenu({
               {MENU_CATEGORIES.map((c) => (
                 <li key={c.slug}>
                   <Link
-                    to={`/${c.slug}`}
+                    to={`/nowa/${c.slug}`}
                     onClick={onClose}
                     className={itemClass}
                   >

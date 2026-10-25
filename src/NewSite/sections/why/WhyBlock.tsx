@@ -5,7 +5,7 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { FeaturePoint } from "../../ui/FeaturePoint";
 import { Scaled } from "../../ui/Scaled";
 import { Funnel } from "./Funnel";
-import { InvoiceChat } from "./InvoiceChat";
+import { OrderPhone } from "./OrderPhone";
 import { SolutionsBox } from "./SolutionsBox";
 
 function BlockHeading({ tab }: { tab: WhyTab }) {
@@ -84,7 +84,7 @@ export function WhyBlock({
 
   const visual =
     tab.id === "liczby" ? (
-      <InvoiceChat play={inView} />
+      <OrderPhone play={inView} />
     ) : (
       <div className="grid aspect-[564/422] w-full place-items-center rounded-xs bg-neutral-100">
         <img

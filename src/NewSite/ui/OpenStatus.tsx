@@ -8,7 +8,7 @@ export function OpenStatus({ className, force }: { className?: string; force?: b
   return (
     <div
       className={cn(
-        "flex h-11 items-center justify-between gap-3 rounded-xs bg-[#F5F5F5] px-3.5 text-sm",
+        "flex h-11 items-center justify-between gap-3 rounded-xs bg-[#F5F5F5] pl-3.5 pr-1.5 text-sm",
         className,
       )}
     >
@@ -16,7 +16,7 @@ export function OpenStatus({ className, force }: { className?: string; force?: b
         <Clock className="size-4 shrink-0 text-neutral-500" strokeWidth={1.5} />
         <span className="truncate">Pon – Pt, 07:30–16:00</span>
       </span>
-      <span className="flex shrink-0 items-center gap-2 text-[13px] text-neutral-500">
+      <span className="flex h-8 shrink-0 items-center gap-2 rounded-xs bg-white px-2.5 text-[13px] text-neutral-600">
         {open ? "Otwarte" : "Zamknięte"}
         <span className="relative size-[7px]" aria-hidden="true">
           {open && (

@@ -5,7 +5,7 @@ import { BrandStrip } from "./BrandStrip";
 export function Hero() {
   return (
     <section id="top">
-      <div className="relative h-[calc(100svh-48px)] min-h-[480px] overflow-hidden">
+      <div className="relative h-svh min-h-[520px] overflow-hidden">
         <picture>
           <source media="(max-width: 639px)" srcSet="/photos/bazatelefon.webp" />
           <img
@@ -18,6 +18,10 @@ export function Hero() {
           className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent"
           aria-hidden="true"
         />
+        <div
+          className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/35 to-transparent"
+          aria-hidden="true"
+        />
         <div className="maxw relative flex h-full items-end pb-10 md:pb-14">
           <h1 className="text-[5.2vw] leading-[1.1] tracking-[-0.025em] text-white sm:text-[32px] md:text-[44px] md:leading-[1.08]">
             <RevealLine text="Hurtownia materiałów elektrycznych" margin="0px" />
@@ -25,7 +29,7 @@ export function Hero() {
           </h1>
         </div>
       </div>
-      <div className="maxw py-6">
+      <div className="maxw pb-6 pt-10 md:py-6">
         <BrandStrip />
       </div>
     </section>

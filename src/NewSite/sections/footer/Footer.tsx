@@ -29,7 +29,7 @@ export function Footer() {
           <FooterGroup title="Oferta">
             {FOOTER_OFFER.map((o) => (
               <li key={o.slug}>
-                <Link to={`/${o.slug}`} className={footerLink}>
+                <Link to={`/nowa/${o.slug}`} className={footerLink}>
                   {o.label}
                 </Link>
               </li>

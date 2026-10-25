@@ -16,6 +16,7 @@ import Subpages from "./components/Subpages";
 import ScrollLoader from "./components/ScrollLoader";
 import ScrollToTop from "./components/ScrollToTop";
 import NewSite from "./NewSite/index";
+import CategoryPage from "./NewSite/category/CategoryPage";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
             />
 
             <Route path="/nowa" element={<NewSite />} />
+            <Route path="/nowa/:slug" element={<CategoryPage />} />
 
             <Route path="/:slug" element={<Subpages />} />
           </Routes>

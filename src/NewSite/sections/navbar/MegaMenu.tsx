@@ -31,7 +31,7 @@ export function MegaMenu({
             {MENU_CATEGORIES.map((c, i) => (
               <Link
                 key={c.slug}
-                to={`/${c.slug}`}
+                to={`/nowa/${c.slug}`}
                 onClick={onClose}
                 className={cn(
                   "ns-cat ns-hover flex items-center gap-3.5 transition-opacity duration-200",

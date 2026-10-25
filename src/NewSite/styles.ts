@@ -35,6 +35,14 @@ export const CSS = `
 @keyframes ns-fade-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .ns-fade-up{animation:ns-fade-up .45s cubic-bezier(.23,1,.32,1) both}
 .ns-fade{animation:ns-fade .35s ease both}
+@keyframes ns-silk-a{from{transform:translate3d(-7%,-5%,0)}to{transform:translate3d(7%,6%,0)}}
+@keyframes ns-silk-b{from{transform:translate3d(-4%,4%,0)}to{transform:translate3d(6%,-5%,0)}}
+@keyframes ns-silk-c{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-9%,7%,0) scale(1.12)}}
+@keyframes ns-silk-d{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(10%,6%,0) scale(1.08)}}
+.ns-silk-a{animation:ns-silk-a 9s ease-in-out infinite alternate}
+.ns-silk-b{animation:ns-silk-b 11s ease-in-out infinite alternate}
+.ns-silk-c{animation:ns-silk-c 13s ease-in-out infinite alternate}
+.ns-silk-d{animation:ns-silk-d 10s ease-in-out infinite alternate}
 .ns-grain{position:relative;isolation:isolate}
 .ns-grain::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.12;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 @keyframes ns-sheet-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
@@ -44,5 +52,5 @@ export const CSS = `
 .ns-sheet[data-state=closed]{animation:ns-sheet-out .3s cubic-bezier(.4,0,1,1) forwards}
 .ns-overlay[data-state=open]{animation:ns-fade .3s ease}
 .ns-overlay[data-state=closed]{animation:ns-fade-out .3s ease forwards}
-@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay{animation:none!important}.ns-life{animation:none!important;opacity:1}}
+@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d{animation:none!important}.ns-life{animation:none!important;opacity:1}}
 `;

@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
+import { ORANGE_FILL } from "../constants";
 
 const EASE = "duration-300 ease-[cubic-bezier(.23,1,.32,1)]";
 
-function Arrow({ className }: { className?: string }) {
+export function Arrow({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 16 16"
@@ -45,7 +46,8 @@ export function SplitButton({
 }) {
   const sm = size === "sm";
   const cls = cn(
-    "group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xs bg-[#EA6100] text-white outline-none transition-colors hover:bg-[#D35700] focus-visible:ring-2 focus-visible:ring-[#EA6100] focus-visible:ring-offset-2",
+    "group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xs text-white outline-none hover:bg-right focus-visible:ring-2 focus-visible:ring-[#EA6100] focus-visible:ring-offset-2",
+    ORANGE_FILL,
     sm ? "h-8 pl-3.5 pr-3 text-sm" : "h-10 pl-[18px] pr-4 text-[15px]",
   );
   const body = (

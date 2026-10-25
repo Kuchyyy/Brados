@@ -10,9 +10,28 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Geist+Mono:wght@400&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Geist+Mono:wght@400&display=swap" /></noscript>
+  <script>
+    if (location.pathname === "/") {
+      [
+        ["(max-width: 639px)", "bazatelefon", [480, 720, 941]],
+        ["(min-width: 640px)", "baza", [960, 1440, 1672]],
+      ].forEach(function (h) {
+        var l = document.createElement("link");
+        l.rel = "preload";
+        l.as = "image";
+        l.media = h[0];
+        l.setAttribute("imagesrcset", h[2].map(function (w) { return "/photos/" + h[1] + "-" + w + ".webp " + w + "w"; }).join(", "));
+        l.setAttribute("imagesizes", "100vw");
+        l.setAttribute("fetchpriority", "high");
+        document.head.appendChild(l);
+      });
+    }
+  </script>
 
-  <title>Brados</title>
+  <title>Brados – hurtownia materiałów elektrycznych we Wrocławiu</title>
   <meta name="title" content="Brados" />
   <meta name="description"
     content="Kompleksowe zaopatrzenie w materiały elektryczne i telekomunikacyjne dla firm wykonawczych. Kable, aparatura modułowa, rozdzielnice, oświetlenie LED. Wrocław." />

@@ -1,76 +1,24 @@
-import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
+import ScrollToTop from "./site/ScrollToTop";
+import Home from "./site/Home";
+import CategoryPage from "./site/category/CategoryPage";
 
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Trusted from "./components/Trusted";
-
-import Team1 from "./components/Team1";
-import About from "./components/About";
-import Photo from "./components/Photo";
-import LocationMap from "./components/LocationMap";
-import CTAAndFooter from "./components/CTAAndFooter";
-import Faq from "./components/Faq";
-
-import Subpages from "./components/Subpages";
-import ScrollLoader from "./components/ScrollLoader";
-import ScrollToTop from "./components/ScrollToTop";
-import NewSite from "./NewSite/index";
-import CategoryPage from "./NewSite/category/CategoryPage";
-
-
-function App() {
-  return (
-    <div className="w-full flex justify-center items-center" >
-
-      <div className=" w-full">
-        <Router>
-          <ScrollToTop />
-          <ScrollLoader />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Navbar />
-                  <Link
-                    to="/nowa"
-                    className="fixed bottom-5 right-5 z-[100] rounded-sm bg-[#EA6100] px-4 py-2.5 text-sm text-white shadow-lg"
-                  >
-                    Zobacz nową stronę →
-                  </Link>
-                  <Hero />
-                  <Trusted />
-                  <Team1 />
-                  <Photo />
-                  <About />
-                  <LocationMap />
-
-                  <CTAAndFooter />
-                </>
-              }
-            />
-
-            <Route
-              path="/faq"
-              element={
-                <>
-                  <Navbar />
-                  <Faq />
-                  <CTAAndFooter />
-                </>
-              }
-            />
-
-            <Route path="/nowa" element={<NewSite />} />
-            <Route path="/nowa/:slug" element={<CategoryPage />} />
-
-            <Route path="/:slug" element={<Subpages />} />
-          </Routes>
-        </Router>
-      </div>
-    </div>
-  );
+function LegacyCategory() {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={`/${slug}`} replace />;
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/nowa" element={<Navigate to="/" replace />} />
+        <Route path="/nowa/:slug" element={<LegacyCategory />} />
+        <Route path="/:slug" element={<CategoryPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

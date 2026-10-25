@@ -45,7 +45,7 @@ export function SolutionsBox({
       </svg>
       <AsciiStream lineY={lineY} play={play} />
       <div
-        className="absolute left-1/2 flex h-[52px] -translate-x-1/2 items-center justify-center rounded-xs border border-white/35 bg-[#ef7927] px-5 text-[17px]"
+        className="absolute left-1/2 flex h-[52px] -translate-x-1/2 items-center justify-center rounded-xs border border-white/35 bg-[#C2410C] px-5 text-[17px]"
         style={{
           width: pillWidth,
           top: lineY - 26,

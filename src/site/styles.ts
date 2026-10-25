@@ -35,6 +35,14 @@ export const CSS = `
 @keyframes ns-fade-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .ns-fade-up{animation:ns-fade-up .45s cubic-bezier(.23,1,.32,1) both}
 .ns-fade{animation:ns-fade .35s ease both}
+@keyframes ns-nf-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.ns-nf-draw{stroke-dasharray:1 1;animation:ns-nf-draw 1.1s cubic-bezier(.65,0,.35,1) both}
+.ns-nf-logo{animation:ns-fade .9s ease 2.4s both}
+.ns-nf-guides{animation:ns-fade-out 1s ease 3.3s forwards}
+@keyframes ns-nf-lift{to{transform:translateY(-68px)}}
+@keyframes ns-nf-word{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ns-nf-lift{animation:ns-nf-lift .9s cubic-bezier(.65,0,.35,1) 4.2s forwards}
+.ns-nf-word{animation:ns-nf-word .9s cubic-bezier(.23,1,.32,1) 4.45s both}
 .ns-line{transform:translateY(120%);transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .ns-line-in{transform:none}
 @keyframes ns-pill-in{from{opacity:0;transform:translateY(14px);filter:blur(4px)}to{opacity:1;transform:none;filter:blur(0)}}
@@ -64,5 +72,5 @@ export const CSS = `
 .ns-sheet[data-state=closed]{animation:ns-sheet-out .3s cubic-bezier(.4,0,1,1) forwards}
 .ns-overlay[data-state=open]{animation:ns-fade .3s ease}
 .ns-overlay[data-state=closed]{animation:ns-fade-out .3s ease forwards}
-@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-pill-in,.ns-skel,.ns-skel-dark,.ns-img-in,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d{animation:none!important}.ns-life{animation:none!important;opacity:1}.ns-pill-out{display:none}.ns-line{transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-nf-draw,.ns-nf-logo,.ns-nf-lift,.ns-nf-word,.ns-pill-in,.ns-skel,.ns-skel-dark,.ns-img-in,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d{animation:none!important}.ns-life{animation:none!important;opacity:1}.ns-pill-out{display:none}.ns-line{transform:none;transition:none}.ns-nf-guides{display:none}}
 `;

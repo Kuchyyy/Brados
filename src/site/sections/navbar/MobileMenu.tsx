@@ -210,7 +210,7 @@ export function MobileMenu({
               </div>
             </div>
           )}
-          <p className="mt-auto pb-6 pt-10 text-center text-xs text-neutral-400">
+          <p className="mt-auto pb-6 pt-10 text-center text-xs text-neutral-500">
             © {new Date().getFullYear()} Brados sp. z o.o.
           </p>
         </div>

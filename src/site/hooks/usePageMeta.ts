@@ -22,10 +22,12 @@ export function usePageMeta({
   title,
   description,
   path,
+  noindex = false,
 }: {
   title: string;
   description: string;
   path: string;
+  noindex?: boolean;
 }) {
   useEffect(() => {
     const url = SITE_URL + path;
@@ -37,10 +39,12 @@ export function usePageMeta({
     meta("name", "twitter:title", title);
     meta("name", "twitter:description", description);
     meta("name", "twitter:url", url);
+    meta("name", "robots", noindex ? "noindex" : "index, follow");
+    meta("name", "googlebot", noindex ? "noindex" : "index, follow");
     setTag('link[rel="canonical"]', "href", url, () => {
       const l = document.createElement("link");
       l.rel = "canonical";
       return l;
     });
-  }, [title, description, path]);
+  }, [title, description, path, noindex]);
 }

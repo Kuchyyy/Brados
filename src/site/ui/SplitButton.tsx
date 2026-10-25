@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ORANGE_FILL } from "../constants";
 
@@ -34,12 +35,14 @@ export function Arrow({ className }: { className?: string }) {
 export function SplitButton({
   label,
   href,
+  to,
   onClick,
   external,
   size = "md",
 }: {
   label: string;
   href?: string;
+  to?: string;
   onClick?: () => void;
   external?: boolean;
   size?: "sm" | "md";
@@ -56,6 +59,13 @@ export function SplitButton({
       <Arrow className={sm ? "size-4" : "size-[18px]"} />
     </>
   );
+  if (to) {
+    return (
+      <Link to={to} className={cls}>
+        {body}
+      </Link>
+    );
+  }
   if (href) {
     return (
       <a href={href} className={cls} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>

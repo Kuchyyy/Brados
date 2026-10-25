@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-
 import ScrollToTop from "./site/ScrollToTop";
 import Home from "./site/Home";
 import CategoryPage from "./site/category/CategoryPage";
+import NotFound from "./site/NotFound";
 
 function LegacyCategory() {
   const { slug } = useParams<{ slug: string }>();
@@ -17,7 +18,8 @@ export default function App() {
         <Route path="/nowa" element={<Navigate to="/" replace />} />
         <Route path="/nowa/:slug" element={<LegacyCategory />} />
         <Route path="/:slug" element={<CategoryPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/faq" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

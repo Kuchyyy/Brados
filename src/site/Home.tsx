@@ -10,8 +10,8 @@ const Gallery = lazy(() => import("./sections/gallery/Gallery").then((m) => ({ d
 export default function Home() {
   return (
     <Layout
-      title="Brados – hurtownia materiałów elektrycznych we Wrocławiu"
-      description="Kompleksowe zaopatrzenie w materiały elektryczne i telekomunikacyjne dla firm wykonawczych. Kable, aparatura modułowa, rozdzielnice, oświetlenie LED. Wrocław."
+      title="Brados"
+      description="Hurtownia materiałów elektrycznych i teletechnicznych we Wrocławiu. Kable, aparatura modułowa, rozdzielnice, osprzęt i oświetlenie dla instalatorów i firm."
       path="/"
     >
       <Hero />

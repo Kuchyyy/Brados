@@ -1,22 +1,17 @@
 import { Check } from "lucide-react";
 import { useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { pages } from "../data/pages";
 import { MENU_CATEGORIES } from "../data/categories";
 import { Layout } from "../Layout";
+import NotFound from "../NotFound";
 import { Cta } from "../sections/cta/Cta";
 import { CategoryGlyph } from "../ui/CategoryGlyph";
 import { IconBox } from "../ui/IconBox";
 import { Img } from "../ui/Img";
 
 const LOGO_AREA = 1700;
-
-const summary = (text: string) => {
-  const clean = text.replace(/\s+/g, " ").replace(/,? w tym m\.in\.:?$/, "").trim();
-  if (clean.length <= 158) return clean;
-  return clean.slice(0, clean.lastIndexOf(" ", 155)).replace(/[,;:]$/, "") + "…";
-};
 
 function ProducerLogo({ src }: { src: string }) {
   const [ratio, setRatio] = useState<number | null>(null);
@@ -40,12 +35,12 @@ function ProducerLogo({ src }: { src: string }) {
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const page = pages.find((p) => p.slug === slug);
-  if (!page) return <Navigate to="/" replace />;
+  if (!page) return <NotFound />;
 
   return (
     <Layout
-      title={`${page.title} – hurtownia Brados Wrocław`}
-      description={summary(page.description)}
+      title={`${page.title} | Brados`}
+      description={page.seo}
       path={`/${page.slug}`}
       solidNav
     >

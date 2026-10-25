@@ -10,27 +10,31 @@ export function Layout({
   title,
   description,
   path,
+  noindex = false,
   solidNav = false,
+  bare = false,
   children,
 }: {
   title: string;
   description: string;
   path: string;
+  noindex?: boolean;
   solidNav?: boolean;
+  bare?: boolean;
   children: ReactNode;
 }) {
-  usePageMeta({ title, description, path });
+  usePageMeta({ title, description, path, noindex });
 
   const [teamOpen, setTeamOpen] = useState(false);
   return (
     <TeamSheetContext.Provider value={() => setTeamOpen(true)}>
       <div className="ns-root min-h-screen bg-white text-[#0A0A0A] antialiased">
         <style>{CSS}</style>
-        <Navbar solid={solidNav} />
+        {!bare && <Navbar solid={solidNav} />}
         <main>{children}</main>
-        <Footer />
+        {!bare && <Footer />}
       </div>
-      <TeamSheet open={teamOpen} onOpenChange={setTeamOpen} />
+      {!bare && <TeamSheet open={teamOpen} onOpenChange={setTeamOpen} />}
     </TeamSheetContext.Provider>
   );
 }

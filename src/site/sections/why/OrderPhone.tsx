@@ -112,7 +112,7 @@ function Phone() {
             </span>
             <span className="min-w-0 text-[10.5px] leading-[1.35]">
               <span className="block">Brados</span>
-              <span className="block text-neutral-400">
+              <span className="block text-neutral-500">
                 do: biuro@twojafirma.pl
               </span>
             </span>

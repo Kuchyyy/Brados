@@ -35,6 +35,9 @@ export const CSS = `
 @keyframes ns-fade-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .ns-fade-up{animation:ns-fade-up .45s cubic-bezier(.23,1,.32,1) both}
 .ns-fade{animation:ns-fade .35s ease both}
+.ns-haze{isolation:isolate}
+.ns-haze::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.3;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ns-noise{pointer-events:none;position:absolute;inset:0;opacity:.3;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 @keyframes ns-nf-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 .ns-nf-draw{stroke-dasharray:1 1;animation:ns-nf-draw 1.1s cubic-bezier(.65,0,.35,1) both}
 .ns-nf-logo{animation:ns-fade .9s ease 2.4s both}

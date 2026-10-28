@@ -17,6 +17,7 @@ import { IconBox } from "../../ui/IconBox";
 import { TeamList } from "../team/TeamList";
 import { AddressBar } from "../../ui/AddressBar";
 import { OpenStatus } from "../../ui/OpenStatus";
+import { ReviewTile } from "../../ui/ReviewTile";
 import { Toggle } from "../../ui/Toggle";
 
 const EASE = "duration-500 ease-[cubic-bezier(.23,1,.32,1)]";
@@ -210,7 +211,10 @@ export function MobileMenu({
               </div>
             </div>
           )}
-          <p className="mt-auto pb-6 pt-10 text-center text-xs text-neutral-500">
+          <div className="maxw mt-auto pt-10">
+            <ReviewTile />
+          </div>
+          <p className="pb-6 pt-5 text-center text-xs text-neutral-500">
             © {new Date().getFullYear()} Brados sp. z o.o.
           </p>
         </div>

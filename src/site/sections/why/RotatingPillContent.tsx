@@ -43,7 +43,7 @@ export function RotatingPillContent({ play }: { play: boolean }) {
             key={k}
             aria-hidden={state !== "in"}
             className={cn(
-              "col-start-1 row-start-1 inline-flex items-center gap-3 whitespace-nowrap",
+              "col-start-1 row-start-1 inline-flex items-center gap-2.5 whitespace-nowrap",
               state === "in" && prev !== null && "ns-pill-in",
               state === "out" && "ns-pill-out",
               state === "idle" && "invisible",

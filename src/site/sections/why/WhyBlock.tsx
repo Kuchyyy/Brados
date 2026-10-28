@@ -8,6 +8,7 @@ import { Scaled } from "../../ui/Scaled";
 import { Funnel } from "./Funnel";
 import { SolutionsBox } from "./SolutionsBox";
 import { Img } from "../../ui/Img";
+import { Haze } from "../../ui/Haze";
 
 const OrderPhone = lazy(() => import("./OrderPhone").then((m) => ({ default: m.OrderPhone })));
 
@@ -45,7 +46,8 @@ export function WhyBlock({
         {wide ? (
           <>
             <BlockHeading tab={tab} />
-            <div className="mt-10 grid place-items-center overflow-hidden rounded-xs bg-neutral-100 px-6 py-10 lg:px-16 lg:py-[72px]">
+            <div className="mt-10 grid place-items-center relative isolate overflow-hidden rounded-xs bg-neutral-100 px-6 py-10 lg:px-16 lg:py-[72px]">
+              <Haze tile="rozwiazania" />
               <Scaled w={1128} h={422}>
                 <Funnel play={inView} />
               </Scaled>
@@ -91,7 +93,8 @@ export function WhyBlock({
         <OrderPhone play={inView} />
       </Suspense>
     ) : (
-      <div className="grid aspect-[564/422] w-full place-items-center rounded-xs bg-neutral-100">
+      <div className="relative isolate flex aspect-[564/422] w-full items-center justify-center overflow-hidden rounded-xs bg-neutral-100">
+        <Haze tile="elsigma" />
         <Img
           skeletonClassName="aspect-[4/1] rounded-xs"
           src="/photos/elsigma-logo.webp"

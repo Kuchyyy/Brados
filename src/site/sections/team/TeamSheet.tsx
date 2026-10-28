@@ -7,6 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { ReviewTile } from "../../ui/ReviewTile";
 import { TeamList } from "./TeamList";
 import { AddressBar } from "../../ui/AddressBar";
 import { OpenStatus } from "../../ui/OpenStatus";
@@ -44,7 +45,14 @@ export function TeamSheet({
           <OpenStatus />
         </div>
 
-        <TeamList key={String(open)} className="min-h-0 flex-1 overflow-y-auto px-6 pb-10 pt-3 [mask-image:linear-gradient(to_bottom,transparent,black_12px)]" />
+        <TeamList key={String(open)} className="min-h-0 flex-1 overflow-y-auto px-6 pb-6 pt-3 [mask-image:linear-gradient(to_bottom,transparent,black_12px)]" />
+
+        <div className="shrink-0 px-6 pb-4 pt-4">
+          <ReviewTile />
+          <p className="pt-4 text-center text-xs text-neutral-500">
+            © {new Date().getFullYear()} Brados sp. z o.o.
+          </p>
+        </div>
       </SheetContent>
     </Sheet>
   );

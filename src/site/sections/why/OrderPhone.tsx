@@ -7,6 +7,7 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { LogoMark } from "../../ui/LogoMark";
 import { Scaled } from "../../ui/Scaled";
+import { Haze } from "../../ui/Haze";
 
 const W = 564;
 const H = 451;
@@ -218,8 +219,9 @@ export function OrderPhone({ play }: { play: boolean }) {
     <Scaled w={W} h={H} className="overflow-hidden rounded-xs">
       <div
         ref={root}
-        className="relative size-full overflow-hidden bg-neutral-100"
+        className="relative isolate size-full overflow-hidden bg-neutral-100"
       >
+        <Haze tile="rozwoj" />
         <Phone />
         {STEPS.map((s) => (
           <div

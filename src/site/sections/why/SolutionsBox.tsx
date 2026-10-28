@@ -22,6 +22,7 @@ export function SolutionsBox({
 }) {
   return (
     <div className="relative overflow-hidden rounded-xs bg-[#EA6100] text-white" style={{ width: w, height: h }}>
+      <div className="ns-noise" aria-hidden="true" />
       <p
         className="absolute inset-x-8 text-center tracking-[-0.01em]"
         style={{ top: headingTop, fontSize: headingSize, lineHeight: 1.08 }}
@@ -45,10 +46,10 @@ export function SolutionsBox({
       </svg>
       <AsciiStream lineY={lineY} play={play} />
       <div
-        className="absolute left-1/2 flex h-[52px] -translate-x-1/2 items-center justify-center rounded-xs border border-white/35 bg-[#C2410C] px-5 text-[17px]"
+        className="absolute left-1/2 flex h-11 -translate-x-1/2 items-center justify-center rounded-xs border border-neutral-200 bg-white px-4 text-sm text-[#0A0A0A]"
         style={{
           width: pillWidth,
-          top: lineY - 26,
+          top: lineY - 22,
           marginLeft: pillShift,
         }}
       >

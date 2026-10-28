@@ -11,6 +11,7 @@ export function Layout({
   description,
   path,
   noindex = false,
+  breadcrumb,
   solidNav = false,
   bare = false,
   children,
@@ -19,11 +20,12 @@ export function Layout({
   description: string;
   path: string;
   noindex?: boolean;
+  breadcrumb?: string;
   solidNav?: boolean;
   bare?: boolean;
   children: ReactNode;
 }) {
-  usePageMeta({ title, description, path, noindex });
+  usePageMeta({ title, description, path, noindex, breadcrumb });
 
   const [teamOpen, setTeamOpen] = useState(false);
   return (

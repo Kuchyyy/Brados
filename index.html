@@ -44,7 +44,10 @@
   <meta property="og:title" content="Brados" />
   <meta property="og:description"
     content="Hurtownia materiałów elektrycznych i teletechnicznych we Wrocławiu. Kable, aparatura modułowa, rozdzielnice, osprzęt i oświetlenie dla instalatorów i firm." />
-  <meta property="og:image" content="https://brados.pl/brados.webp" />
+  <meta property="og:image" content="https://brados.pl/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Logo Brados" />
   <meta property="og:locale" content="pl_PL" />
   <meta property="og:site_name" content="Brados" />
 
@@ -53,50 +56,191 @@
   <meta name="twitter:title" content="Brados" />
   <meta name="twitter:description"
     content="Hurtownia materiałów elektrycznych i teletechnicznych we Wrocławiu. Kable, aparatura modułowa, rozdzielnice, osprzęt i oświetlenie dla instalatorów i firm." />
-  <meta name="twitter:image" content="https://brados.pl/brados.webp" />
+  <meta name="twitter:image" content="https://brados.pl/og.png" />
 
   <meta name="geo.region" content="PL-DS" />
   <meta name="geo.placename" content="Wrocław" />
-  <meta name="geo.position" content="51.0663;16.8836" />
-  <meta name="ICBM" content="51.0663, 16.8836" />
+  <meta name="geo.position" content="51.0680;16.9576" />
+  <meta name="ICBM" content="51.0680, 16.9576" />
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WholesaleStore",
-    "name": "Brados",
-    "legalName": "Brados sp. z o.o.",
-    "image": "https://brados.pl/brados.webp",
-    "logo": "https://brados.pl/brados.webp",
-    "url": "https://brados.pl/",
-    "telephone": "+48 691 489 111",
-    "email": "biuro@brados.pl",
-    "description": "Hurtownia materiałów elektrycznych i teletechnicznych we Wrocławiu. Kable, aparatura modułowa, rozdzielnice, osprzęt i oświetlenie dla instalatorów i firm.",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "ul. Eugeniusza Kwiatkowskiego 17",
-      "addressLocality": "Wrocław",
-      "postalCode": "52-326",
-      "addressCountry": "PL"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://brados.pl/#website",
+      "name": "Brados",
+      "alternateName": [
+        "Brados Wrocław",
+        "Brados hurtownia elektryczna"
+      ],
+      "url": "https://brados.pl/",
+      "inLanguage": "pl-PL",
+      "publisher": {
+        "@id": "https://brados.pl/#org"
+      }
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 51.0663,
-      "longitude": 16.8836
+    {
+      "@type": [
+        "WholesaleStore",
+        "Organization"
+      ],
+      "@id": "https://brados.pl/#org",
+      "name": "Brados",
+      "legalName": "Brados sp. z o.o.",
+      "url": "https://brados.pl/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://brados.pl/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://brados.pl/logo.png",
+      "telephone": "+48 691 489 111",
+      "email": "biuro@brados.pl",
+      "description": "Hurtownia materiałów elektrycznych i teletechnicznych we Wrocławiu. Kable, aparatura modułowa, rozdzielnice, osprzęt i oświetlenie dla instalatorów i firm.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Eugeniusza Kwiatkowskiego 17",
+        "addressLocality": "Wrocław",
+        "postalCode": "52-326",
+        "addressCountry": "PL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.0680475,
+        "longitude": 16.9575815
+      },
+      "hasMap": "https://maps.google.com/?cid=5896424862247760128",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "07:30",
+        "closes": "16:00"
+      },
+      "priceRange": "$$",
+      "areaServed": {
+        "@type": "City",
+        "name": "Wrocław"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "name": "Handlowcy",
+          "telephone": "+48 691 489 111",
+          "email": "biuro@brados.pl",
+          "areaServed": "PL",
+          "availableLanguage": "Polish"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "name": "Magazyn",
+          "telephone": "+48 691 725 111",
+          "email": "magazyn@brados.pl",
+          "areaServed": "PL",
+          "availableLanguage": "Polish"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "billing support",
+          "name": "Księgowość",
+          "telephone": "+48 691 479 111",
+          "areaServed": "PL",
+          "availableLanguage": "Polish"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Oferta",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Aparatura modułowa",
+            "url": "https://brados.pl/aparatura-modulowa"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Narzędzia i mierniki",
+            "url": "https://brados.pl/narzedzia-i-mierniki"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Sieci niskoprądowe i okablowanie strukturalne",
+            "url": "https://brados.pl/sieci-niskoprzadowe-i-okablowanie-strukturalne"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Rozdzielnice i obudowy",
+            "url": "https://brados.pl/rozdzielnice-i-obudowy"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Osprzęt elektroinstalacyjny i siłowy",
+            "url": "https://brados.pl/osprzet-elektroinstalacyjny-i-silowy"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Technika świetlna",
+            "url": "https://brados.pl/technika-swietlna"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "System tras i mocowania",
+            "url": "https://brados.pl/systemy-tras-i-mocowania"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Kable i przewody",
+            "url": "https://brados.pl/kable-i-przewody"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Ochrona odgromowa",
+            "url": "https://brados.pl/ochrona-odgromowa"
+          }
+        ]
+      },
+      "sameAs": [
+        "https://g.page/r/CQAxD-8rT9RREAE"
+      ]
     },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "07:30",
-      "closes": "16:00"
-    },
-    "priceRange": "$$",
-    "areaServed": {
-      "@type": "Place",
-      "name": "Wrocław i okolice"
-    },
-    "sameAs": []
-  }
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://brados.pl/#nav",
+      "name": [
+        "Aparatura modułowa",
+        "Narzędzia i mierniki",
+        "Sieci niskoprądowe i okablowanie strukturalne",
+        "Rozdzielnice i obudowy",
+        "Osprzęt elektroinstalacyjny i siłowy",
+        "Technika świetlna",
+        "System tras i mocowania",
+        "Kable i przewody",
+        "Ochrona odgromowa"
+      ],
+      "url": [
+        "https://brados.pl/aparatura-modulowa",
+        "https://brados.pl/narzedzia-i-mierniki",
+        "https://brados.pl/sieci-niskoprzadowe-i-okablowanie-strukturalne",
+        "https://brados.pl/rozdzielnice-i-obudowy",
+        "https://brados.pl/osprzet-elektroinstalacyjny-i-silowy",
+        "https://brados.pl/technika-swietlna",
+        "https://brados.pl/systemy-tras-i-mocowania",
+        "https://brados.pl/kable-i-przewody",
+        "https://brados.pl/ochrona-odgromowa"
+      ]
+    }
+  ]
+}
   </script>
 </head>
 

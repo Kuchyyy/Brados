@@ -23,11 +23,13 @@ export function usePageMeta({
   description,
   path,
   noindex = false,
+  breadcrumb,
 }: {
   title: string;
   description: string;
   path: string;
   noindex?: boolean;
+  breadcrumb?: string;
 }) {
   useEffect(() => {
     const url = SITE_URL + path;
@@ -46,5 +48,20 @@ export function usePageMeta({
       l.rel = "canonical";
       return l;
     });
-  }, [title, description, path, noindex]);
+    document.getElementById("ns-breadcrumb")?.remove();
+    if (breadcrumb) {
+      const el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.id = "ns-breadcrumb";
+      el.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Brados", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: breadcrumb, item: url },
+        ],
+      });
+      document.head.appendChild(el);
+    }
+  }, [title, description, path, noindex, breadcrumb]);
 }

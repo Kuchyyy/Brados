@@ -42,6 +42,7 @@ export default function CategoryPage() {
       title={`${page.title} | Brados`}
       description={page.seo}
       path={`/${page.slug}`}
+      breadcrumb={page.title}
       solidNav
     >
       <div className="maxw grid gap-12 pt-24 md:pt-32 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-20">

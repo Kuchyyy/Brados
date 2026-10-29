@@ -15,7 +15,7 @@ import { TEAM } from "../../data/team";
 import { CategoryGlyph } from "../../ui/CategoryGlyph";
 import { IconBox } from "../../ui/IconBox";
 import { TeamList } from "../team/TeamList";
-import { AddressBar } from "../../ui/AddressBar";
+import { MapsTile } from "../../ui/MapsTile";
 import { OpenStatus } from "../../ui/OpenStatus";
 import { ReviewTile } from "../../ui/ReviewTile";
 import { Toggle } from "../../ui/Toggle";
@@ -165,7 +165,7 @@ export function MobileMenu({
           {teamOnly ? (
             <div className="maxw pt-4">
               <div className="flex flex-col gap-2">
-                <AddressBar />
+                <MapsTile />
                 <OpenStatus />
               </div>
               <ul className="mt-3">{deptItems}</ul>
@@ -173,7 +173,7 @@ export function MobileMenu({
           ) : (
             <div className="maxw pt-4">
               <div className="flex flex-col gap-2">
-                <AddressBar />
+                <MapsTile />
                 <OpenStatus />
               </div>
               <div className="h-3" />

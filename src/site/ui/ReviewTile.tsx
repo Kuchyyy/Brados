@@ -19,7 +19,7 @@ export function ReviewTile() {
       href={REVIEW_URL}
       target="_blank"
       rel="noreferrer"
-      className="group flex items-center gap-3.5 rounded-xs border border-neutral-200 p-3.5 transition-colors hover:border-neutral-300"
+      className="group flex items-center gap-3 rounded-xs border border-neutral-200 py-2 pl-2 pr-3.5 transition-colors hover:border-neutral-300"
     >
       <span className="grid size-10 shrink-0 place-items-center rounded-xs border border-neutral-200">
         <GoogleIcon />

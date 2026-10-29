@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sheet";
 import { ReviewTile } from "../../ui/ReviewTile";
 import { TeamList } from "./TeamList";
-import { AddressBar } from "../../ui/AddressBar";
+import { MapsTile } from "../../ui/MapsTile";
 import { OpenStatus } from "../../ui/OpenStatus";
 
 export function TeamSheet({
@@ -41,7 +41,7 @@ export function TeamSheet({
         </SheetHeader>
 
         <div className="flex flex-col gap-2 px-6 pb-2 pt-4">
-          <AddressBar />
+          <MapsTile />
           <OpenStatus />
         </div>
 

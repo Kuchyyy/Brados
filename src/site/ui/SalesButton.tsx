@@ -19,9 +19,9 @@ export function SalesButton({
         "inline-flex shrink-0 items-center rounded-xs transition-colors",
         size === "sm" ? "h-8 px-3.5 text-sm" : "h-10 px-[18px] text-[15px]",
         tone === "outline" && "border border-neutral-300 hover:bg-neutral-100",
-        tone === "white" && "bg-white hover:bg-neutral-100",
+        tone === "white" && "border border-white bg-white hover:border-neutral-100 hover:bg-neutral-100",
         tone === "ghost" && "hover:bg-neutral-100",
-        tone === "soft" && "bg-neutral-100 hover:bg-neutral-200",
+        tone === "soft" && "border border-neutral-200 bg-neutral-100 hover:bg-neutral-200",
       )}
     >
       {label}

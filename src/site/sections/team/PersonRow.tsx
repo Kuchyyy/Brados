@@ -7,7 +7,7 @@ import { copyText } from "../../ui/copyText";
 import { downloadVCard } from "../../ui/vcard";
 
 const action =
-  "flex h-10 w-full min-w-0 items-center justify-center gap-2 rounded-xs bg-[#F5F5F5] px-3 text-sm transition-colors hover:bg-neutral-200";
+  "flex h-10 w-full min-w-0 items-center justify-center gap-2 rounded-xs border border-neutral-200 bg-[#F5F5F5] px-3 text-sm transition-colors hover:bg-neutral-200";
 
 export function PersonRow({
   person,

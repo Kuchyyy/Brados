@@ -140,11 +140,11 @@ export function Navbar({ solid: forced = false }: { solid?: boolean }) {
                   onMouseEnter={openMenu}
                   onClick={() => setOpen((o) => !o)}
                   className={cn(
-                    "inline-flex h-8 items-center gap-1 rounded-xs pl-3.5 pr-2.5 text-sm outline-none transition-colors",
+                    "inline-flex h-8 items-center gap-1 rounded-xs border border-transparent pl-3.5 pr-2.5 text-sm outline-none transition-colors",
                     solid
-                      ? "hover:bg-neutral-100"
+                      ? "hover:border-neutral-200 hover:bg-neutral-100"
                       : "text-white hover:bg-white/15",
-                    open && "bg-neutral-100",
+                    open && "border-neutral-200 bg-neutral-100",
                   )}
                 >
                   Oferta
@@ -185,14 +185,14 @@ export function Navbar({ solid: forced = false }: { solid?: boolean }) {
                 aria-expanded={mobileOpen}
                 aria-controls="ns-mobile-menu"
                 onClick={toggleMobile}
-                className="relative grid size-8 place-items-center rounded-xs bg-neutral-100 transition-colors hover:bg-neutral-200 md:hidden"
+                className="relative grid size-8 place-items-center rounded-xs border border-neutral-200 bg-neutral-100 transition-colors hover:bg-neutral-200 md:hidden"
               >
                 {mobileOpen ? (
                   <X className="size-5" strokeWidth={1.5} />
                 ) : (
                   <>
-                    <span className="absolute left-2 top-[13px] h-[1.5px] w-4 rounded-full bg-[#0A0A0A]" />
-                    <span className="absolute left-2 top-[18px] h-[1.5px] w-4 rounded-full bg-[#0A0A0A]" />
+                    <span className="absolute left-[7px] top-[12px] h-[1.5px] w-4 rounded-full bg-[#0A0A0A]" />
+                    <span className="absolute left-[7px] top-[17px] h-[1.5px] w-4 rounded-full bg-[#0A0A0A]" />
                   </>
                 )}
               </button>

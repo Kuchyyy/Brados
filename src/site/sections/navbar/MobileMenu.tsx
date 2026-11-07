@@ -16,7 +16,6 @@ import { CategoryGlyph } from "../../ui/CategoryGlyph";
 import { IconBox } from "../../ui/IconBox";
 import { TeamList } from "../team/TeamList";
 import { MapsTile } from "../../ui/MapsTile";
-import { OpenStatus } from "../../ui/OpenStatus";
 import { ReviewTile } from "../../ui/ReviewTile";
 import { Toggle } from "../../ui/Toggle";
 
@@ -153,7 +152,7 @@ export function MobileMenu({
       className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white md:hidden"
       style={{ top }}
     >
-      <div className="relative min-h-0 flex-1 overflow-hidden">
+      <div className="relative min-h-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_bottom,black_calc(100%-32px),transparent)]">
         <div
           className={cn(
             "ns-noscroll absolute inset-0 flex flex-col overflow-y-auto transition-transform",
@@ -163,20 +162,11 @@ export function MobileMenu({
           inert={!!dept}
         >
           {teamOnly ? (
-            <div className="maxw pt-4">
-              <div className="flex flex-col gap-2">
-                <MapsTile />
-                <OpenStatus />
-              </div>
-              <ul className="mt-3">{deptItems}</ul>
+            <div className="maxw pb-6 pt-2">
+              <ul>{deptItems}</ul>
             </div>
           ) : (
-            <div className="maxw pt-4">
-              <div className="flex flex-col gap-2">
-                <MapsTile />
-                <OpenStatus />
-              </div>
-              <div className="h-3" />
+            <div className="maxw pb-6 pt-2">
               <Section
                 id="ns-mobile-offer"
                 label="Oferta"
@@ -211,12 +201,6 @@ export function MobileMenu({
               </div>
             </div>
           )}
-          <div className="maxw mt-auto pt-10">
-            <ReviewTile />
-          </div>
-          <p className="pb-6 pt-5 text-center text-xs text-neutral-500">
-            © {new Date().getFullYear()} Brados sp. z o.o.
-          </p>
         </div>
 
         <div
@@ -228,7 +212,7 @@ export function MobileMenu({
           inert={!dept}
         >
           <div className="maxw pt-4">
-            <div className="flex h-11 items-center justify-between gap-3 rounded-xs bg-[#F5F5F5] px-3.5 text-sm">
+            <div className="flex h-11 items-center justify-between gap-3 rounded-xs border border-neutral-200 bg-[#F5F5F5] px-3.5 text-sm">
               <span className="flex items-center gap-2.5">
                 <UserPlus
                   className="size-4 shrink-0 text-neutral-500"
@@ -249,6 +233,15 @@ export function MobileMenu({
             className="maxw pb-10 pt-3"
           />
         </div>
+      </div>
+      <div className="maxw shrink-0 pt-2">
+        <div className="flex flex-col gap-2">
+          <MapsTile />
+          <ReviewTile />
+        </div>
+        <p className="pb-5 pt-4 text-center text-xs text-neutral-500">
+          © {new Date().getFullYear()} Brados sp. z o.o.
+        </p>
       </div>
     </div>
   );

@@ -9,9 +9,10 @@ import { LogoMark } from "../../ui/LogoMark";
 import { Scaled } from "../../ui/Scaled";
 import { Haze } from "../../ui/Haze";
 
-const W = 564;
-const H = 451;
-const ANCHOR = 318;
+const SIZES = {
+  phone: { w: 564, h: 451, phoneTop: 124, anchor: 318 },
+  desktop: { w: 780, h: 520, phoneTop: 150, anchor: 344 },
+};
 const DEPTH = [
   { y: 0, scale: 1, autoAlpha: 1 },
   { y: -40, scale: 0.94, autoAlpha: 1 },
@@ -93,9 +94,12 @@ function Status() {
   );
 }
 
-function Phone() {
+function Phone({ top }: { top: number }) {
   return (
-    <div className="absolute left-1/2 top-[124px] h-[540px] w-[256px] -translate-x-1/2 rounded-[44px] bg-[#0A0A0A] p-[9px]">
+    <div
+      style={{ top }}
+      className="absolute left-1/2 h-[540px] w-[256px] -translate-x-1/2 rounded-[44px] bg-[#0A0A0A] p-[9px]"
+    >
       <div className="size-full rounded-[36px] bg-white px-4 pt-3">
         <div className="mx-auto h-[22px] w-[74px] rounded-full bg-[#0A0A0A]" />
         <div className="pt-6">
@@ -139,6 +143,8 @@ function Phone() {
 
 export function OrderPhone({ play }: { play: boolean }) {
   const reduced = useReducedMotion();
+  const size =
+    SIZES[useMediaQuery("(min-width: 1024px)") ? "desktop" : "phone"];
   const big = useMediaQuery("(max-width: 639px)") ? 1.32 : 1;
   const root = useRef<HTMLDivElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
@@ -213,36 +219,37 @@ export function OrderPhone({ play }: { play: boolean }) {
   useEffect(() => {
     const tl = timeline.current;
     if (play && tl && !tl.isActive()) tl.restart(true);
-  }, [play]);
+  }, [play, reduced, big]);
 
   return (
-    <Scaled w={W} h={H} className="overflow-hidden rounded-xs">
-      <div
-        ref={root}
-        className="relative isolate size-full overflow-hidden bg-neutral-100"
-      >
-        <Haze tile="rozwoj" />
-        <Phone />
-        {STEPS.map((s) => (
-          <div
-            key={s.title}
-            data-card
-            className="absolute left-1/2 flex w-[330px] items-center gap-3 rounded-xs border border-neutral-200 bg-white px-3.5 py-3"
-            style={{ top: ANCHOR }}
-          >
-            {s.icon}
-            <span className="min-w-0 flex-1">
-              <span className="block text-[13.5px] leading-[1.3] tracking-[-0.005em]">
-                {s.title}
-              </span>
-              <span className="block truncate text-[11.5px] leading-[1.35] text-neutral-500">
-                {s.sub}
-              </span>
-            </span>
-            <Status />
+    <div className="relative isolate overflow-hidden rounded-xs border border-neutral-200 bg-neutral-100">
+      <Haze tile="rozwoj" />
+      <Scaled w={size.w} h={size.h}>
+        <div ref={root} className="relative size-full overflow-hidden">
+          <div className="absolute inset-0">
+            <Phone top={size.phoneTop} />
+            {STEPS.map((s) => (
+              <div
+                key={s.title}
+                data-card
+                className="absolute left-1/2 flex w-[330px] items-center gap-3 rounded-xs border border-neutral-200 bg-white px-3.5 py-3"
+                style={{ top: size.anchor }}
+              >
+                {s.icon}
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13.5px] leading-[1.3] tracking-[-0.005em]">
+                    {s.title}
+                  </span>
+                  <span className="block truncate text-[11.5px] leading-[1.35] text-neutral-500">
+                    {s.sub}
+                  </span>
+                </span>
+                <Status />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </Scaled>
+        </div>
+      </Scaled>
+    </div>
   );
 }

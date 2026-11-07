@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { MAPS_URL, ORANGE } from "../../constants";
 import { FOOTER_OFFER } from "../../data/categories";
+import { OpenStatus } from "../../ui/OpenStatus";
 
 const footerLink = "transition-colors hover:text-[#0A0A0A]";
 
@@ -44,7 +45,9 @@ export function Footer() {
                   52-326 Wrocław
                 </a>
               </li>
-              <li>Poniedziałek – Piątek, 07:30–16:00</li>
+              <li>
+                <OpenStatus />
+              </li>
             </FooterGroup>
             <FooterGroup title="Dane">
               <li>Brados sp. z o.o.</li>

@@ -45,7 +45,7 @@ const LINES: [P, P][] = [
 
 function LogoGrid() {
   return (
-    <div className="w-[min(78vw,340px)] overflow-hidden rounded-xs bg-neutral-100">
+    <div className="w-[min(78vw,340px)] overflow-hidden rounded-xs border border-neutral-200 bg-neutral-100">
       <svg viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`} className="block w-full" aria-hidden="true">
         <defs>
           <mask

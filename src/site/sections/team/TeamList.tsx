@@ -42,7 +42,7 @@ export function TeamList({
               aria-expanded={isOpen}
               aria-controls={id}
               onClick={() => setOpen((o) => ({ ...o, [g.label]: !isOpen }))}
-              className="flex h-11 w-full items-center justify-between rounded-xs bg-[#F5F5F5] px-3.5 text-left text-sm transition-colors hover:bg-neutral-200"
+              className="flex h-11 w-full items-center justify-between rounded-xs border border-neutral-200 bg-[#F5F5F5] px-3.5 text-left text-sm transition-colors hover:bg-neutral-200"
             >
               {g.label}
               <ChevronDown

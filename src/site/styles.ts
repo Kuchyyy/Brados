@@ -48,10 +48,6 @@ export const CSS = `
 .ns-nf-word{animation:ns-nf-word .9s cubic-bezier(.23,1,.32,1) 4.45s both}
 .ns-line{transform:translateY(120%);transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .ns-line-in{transform:none}
-@keyframes ns-pill-in{from{opacity:0;transform:translateY(14px);filter:blur(4px)}to{opacity:1;transform:none;filter:blur(0)}}
-@keyframes ns-pill-out{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(-14px);filter:blur(4px)}}
-.ns-pill-in{animation:ns-pill-in .7s cubic-bezier(.23,1,.32,1) .12s both}
-.ns-pill-out{animation:ns-pill-out .4s cubic-bezier(.55,0,.75,.4) forwards}
 @keyframes ns-skel{from{background-position:100% 0}to{background-position:-100% 0}}
 .ns-skel,.ns-skel-dark{color:transparent;background-size:200% 100%;animation:ns-skel 1.4s ease-in-out infinite}
 .ns-skel{background-image:linear-gradient(90deg,#F2F2F2 25%,#E8E8E8 50%,#F2F2F2 75%)}
@@ -75,5 +71,5 @@ export const CSS = `
 .ns-sheet[data-state=closed]{animation:ns-sheet-out .3s cubic-bezier(.4,0,1,1) forwards}
 .ns-overlay[data-state=open]{animation:ns-fade .3s ease}
 .ns-overlay[data-state=closed]{animation:ns-fade-out .3s ease forwards}
-@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-nf-draw,.ns-nf-logo,.ns-nf-lift,.ns-nf-word,.ns-pill-in,.ns-skel,.ns-skel-dark,.ns-img-in,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d{animation:none!important}.ns-life{animation:none!important;opacity:1}.ns-pill-out{display:none}.ns-line{transform:none;transition:none}.ns-nf-guides{display:none}}
+@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-nf-draw,.ns-nf-logo,.ns-nf-lift,.ns-nf-word,.ns-skel,.ns-skel-dark,.ns-img-in,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d{animation:none!important}.ns-life{animation:none!important;opacity:1}.ns-line{transform:none;transition:none}.ns-nf-guides{display:none}}
 `;

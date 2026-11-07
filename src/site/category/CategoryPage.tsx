@@ -80,8 +80,8 @@ export default function CategoryPage() {
                     to={`/${c.slug}`}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "ns-hover flex h-10 items-center gap-3 rounded-xs px-1.5 text-sm transition-colors",
-                      active ? "bg-neutral-100 text-[#0A0A0A]" : "text-neutral-500 hover:text-[#0A0A0A]",
+                      "ns-hover flex h-10 items-center gap-3 rounded-xs border px-1.5 text-sm transition-colors",
+                      active ? "border-neutral-200 bg-neutral-100 text-[#0A0A0A]" : "border-transparent text-neutral-500 hover:text-[#0A0A0A]",
                     )}
                   >
                     <IconBox className="size-7 border-transparent! [&_svg]:size-[15px]">
@@ -99,7 +99,7 @@ export default function CategoryPage() {
         <p className="text-xs text-neutral-500">Producenci</p>
         <ul className="mt-3 grid grid-cols-2 gap-1.5 sm:grid-cols-4 md:grid-cols-5">
           {page.producers.map((logo) => (
-            <li key={logo} className="grid h-14 place-items-center rounded-xs bg-neutral-50 px-3">
+            <li key={logo} className="grid h-14 place-items-center rounded-xs border border-neutral-200 bg-neutral-100 px-3">
               <ProducerLogo src={logo} />
             </li>
           ))}

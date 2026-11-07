@@ -398,6 +398,7 @@ export function DotGlobe({
   const fx = useRef<HTMLCanvasElement>(null);
   const reduced = useReducedMotion();
   const [data, setData] = useState<GlobeData | null>(null);
+  const [gen, setGen] = useState(0);
   const glRef = useRef<GL | null>(null);
   const lonRef = useRef(f.lon + INTRO);
   const elapsed = useRef(0);
@@ -468,9 +469,24 @@ export function DotGlobe({
     });
     ro.observe(bc);
 
+    const lost = (e: Event) => {
+      e.preventDefault();
+      glRef.current = null;
+    };
+    const restored = () => setGen((n) => n + 1);
+    dc.addEventListener("webglcontextlost", lost);
+    dc.addEventListener("webglcontextrestored", restored);
+    const off = () => {
+      dc.removeEventListener("webglcontextlost", lost);
+      dc.removeEventListener("webglcontextrestored", restored);
+    };
+
     if (reduced || !play) {
       still();
-      return () => ro.disconnect();
+      return () => {
+        ro.disconnect();
+        off();
+      };
     }
 
     const startAt = performance.now() - elapsed.current;
@@ -490,8 +506,9 @@ export function DotGlobe({
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      off();
     };
-  }, [data, play, reduced, f]);
+  }, [data, play, reduced, f, gen]);
 
   return (
     <div

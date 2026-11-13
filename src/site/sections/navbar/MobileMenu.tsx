@@ -152,7 +152,7 @@ export function MobileMenu({
       className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white md:hidden"
       style={{ top }}
     >
-      <div className="relative min-h-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_bottom,black_calc(100%-32px),transparent)]">
+      <div className="relative min-h-0 flex-1 overflow-hidden">
         <div
           className={cn(
             "ns-noscroll absolute inset-0 flex flex-col overflow-y-auto transition-transform",
@@ -162,11 +162,11 @@ export function MobileMenu({
           inert={!!dept}
         >
           {teamOnly ? (
-            <div className="maxw pb-6 pt-2">
+            <div className="maxw pb-44 pt-2">
               <ul>{deptItems}</ul>
             </div>
           ) : (
-            <div className="maxw pb-6 pt-2">
+            <div className="maxw pb-44 pt-2">
               <Section
                 id="ns-mobile-offer"
                 label="Oferta"
@@ -205,7 +205,7 @@ export function MobileMenu({
 
         <div
           className={cn(
-            "ns-noscroll absolute inset-0 flex flex-col overflow-y-auto transition-transform",
+            "ns-noscroll absolute inset-0 flex flex-col overflow-y-auto transition-transform [mask-image:linear-gradient(to_bottom,black_calc(100%-32px),transparent)]",
             EASE,
             dept ? "translate-x-0" : "translate-x-full",
           )}
@@ -234,14 +234,18 @@ export function MobileMenu({
           />
         </div>
       </div>
-      <div className="maxw shrink-0 pt-2">
-        <div className="flex flex-col gap-2">
+      <div
+        className={cn(
+          "absolute inset-x-0 bottom-0 bg-white transition-transform before:pointer-events-none before:absolute before:inset-x-0 before:-top-8 before:h-8 before:bg-gradient-to-t before:from-white",
+          EASE,
+          dept ? "-translate-x-full" : "translate-x-0",
+        )}
+        inert={!!dept}
+      >
+        <div className="maxw flex flex-col gap-2 pb-5 pt-2">
           <MapsTile />
           <ReviewTile />
         </div>
-        <p className="pb-5 pt-4 text-center text-xs text-neutral-500">
-          © {new Date().getFullYear()} Brados sp. z o.o.
-        </p>
       </div>
     </div>
   );

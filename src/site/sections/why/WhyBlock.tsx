@@ -1,4 +1,5 @@
 import { RevealLine } from "../../ui/RevealLine";
+import { RevealText } from "../../ui/RevealText";
 import { LINE_GAP } from "../../ui/reveal";
 import { lazy, Suspense } from "react";
 import { cn } from "@/lib/utils";
@@ -67,7 +68,7 @@ export function WhyBlock({ tab }: { tab: WhyTab }) {
           left ? "lg:col-start-1" : "lg:col-start-2",
         )}
       >
-        <RevealLine text={tab.text} delay={LINE_GAP} />
+        <RevealText text={tab.text} delay={LINE_GAP} />
       </p>
     </div>
   );

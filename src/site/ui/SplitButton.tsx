@@ -49,7 +49,7 @@ export function SplitButton({
 }) {
   const sm = size === "sm";
   const cls = cn(
-    "group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xs text-white outline-none hover:bg-right focus-visible:ring-2 focus-visible:ring-[#EA6100] focus-visible:ring-offset-2",
+    "group inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xs text-white outline-none hover:bg-[#D45700] focus-visible:ring-2 focus-visible:ring-[#EA6100] focus-visible:ring-offset-2",
     ORANGE_FILL,
     sm ? "h-8 pl-3.5 pr-3 text-sm" : "h-10 pl-[18px] pr-4 text-[15px]",
   );

@@ -6,7 +6,7 @@ export function SalesButton({
   size = "md",
   label = "Handlowcy",
 }: {
-  tone?: "outline" | "white" | "ghost" | "soft";
+  tone?: "outline" | "white" | "ghost" | "soft" | "ink";
   size?: "sm" | "md";
   label?: string;
 }) {
@@ -22,6 +22,7 @@ export function SalesButton({
         tone === "white" && "border border-white bg-white hover:border-neutral-100 hover:bg-neutral-100",
         tone === "ghost" && "hover:bg-neutral-100",
         tone === "soft" && "border border-neutral-200 bg-neutral-100 hover:bg-neutral-200",
+        tone === "ink" && "border border-[#0A0A0A] bg-white hover:bg-neutral-100",
       )}
     >
       {label}

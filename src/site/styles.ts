@@ -62,9 +62,13 @@ export const CSS = `
 .ns-silk-b{animation:ns-silk-b 11s ease-in-out infinite alternate}
 .ns-silk-c{animation:ns-silk-c 13s ease-in-out infinite alternate}
 .ns-silk-d{animation:ns-silk-d 10s ease-in-out infinite alternate}
+@keyframes ns-bob{from{transform:translateY(2px)}to{transform:translateY(-5px)}}
+.ns-bob{animation:ns-bob 2.6s cubic-bezier(.45,0,.55,1) infinite alternate;will-change:transform}
+@keyframes ns-swell{0%,100%{transform:translateY(0)}38%{transform:translateY(-8px)}}
+.ns-swell{animation:ns-swell 1.1s cubic-bezier(.45,0,.55,1) both}
+@keyframes ns-swell-b{0%,100%{transform:translateY(0)}38%{transform:translateY(-8px)}}
+.ns-swell.ns-swell-b{animation-name:ns-swell-b}
 .ns-iso-draw{transition:stroke-dashoffset 1.6s cubic-bezier(.65,0,.35,1)}
-@keyframes ns-comet{0%{transform:translateX(-700px);opacity:0}10%{opacity:1}46%{opacity:1}52%{transform:translateX(0);opacity:0}100%{transform:translateX(0);opacity:0}}
-.ns-comet{animation:ns-comet var(--t) cubic-bezier(.5,0,.75,1) var(--d) infinite backwards;filter:drop-shadow(0 0 4px #EA6100)}
 .ns-grain{position:relative;isolation:isolate}
 .ns-grain::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.12;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 @keyframes ns-sheet-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
@@ -74,5 +78,5 @@ export const CSS = `
 .ns-sheet[data-state=closed]{animation:ns-sheet-out .3s cubic-bezier(.4,0,1,1) forwards}
 .ns-overlay[data-state=open]{animation:ns-fade .3s ease}
 .ns-overlay[data-state=closed]{animation:ns-fade-out .3s ease forwards}
-@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-nf-draw,.ns-nf-logo,.ns-nf-lift,.ns-nf-word,.ns-skel,.ns-skel-dark,.ns-img-in,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d,.ns-comet{animation:none!important}.ns-comet{display:none}.ns-iso-draw{transition:none}.ns-life{animation:none!important;opacity:1}.ns-line{transform:none;transition:none}.ns-nf-guides{display:none}}
+@media (prefers-reduced-motion:reduce){.ns-wave,.ns-typing,.ns-fade-up,.ns-ibox [pathLength],.ns-marquee,.ns-dash,.ns-glow,.ns-ping,.ns-drift,.ns-fade,.ns-sheet,.ns-overlay,.ns-nf-draw,.ns-nf-logo,.ns-nf-lift,.ns-nf-word,.ns-skel,.ns-skel-dark,.ns-img-in,.ns-silk-a,.ns-silk-b,.ns-silk-c,.ns-silk-d,.ns-bob,.ns-swell{animation:none!important}.ns-iso-draw{transition:none}.ns-life{animation:none!important;opacity:1}.ns-line{transform:none;transition:none}.ns-nf-guides{display:none}}
 `;
